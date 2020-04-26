@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#ffffff</color>
+    <color name="white">#ffffff</color>
     <color name="colorPrimaryDark">#ffffff</color>
     <color name="colorAccent">#cccccc</color>
     <color name="colorbg">#edf1f7</color>
@@ -11,4 +12,11 @@
     <color name="colorLine">#cccccc</color>
     <color name="colorTextBlack99">#999999</color>
     <color name="colorTextBlack33">#333333</color>
+
+    <!-- 底部TAB导航颜色 -->
+    <color name="tab_indicator">#d6d6d6</color>
+    <color name="tab_tv_normal">@color/colorTextBlack99</color>
+    <color name="tab_tv_selected">#0099FF</color>
+    <color name="tab_bg">@android:color/white</color>
+    <color name="tab_div">@color/colorLine</color>
 </resources>

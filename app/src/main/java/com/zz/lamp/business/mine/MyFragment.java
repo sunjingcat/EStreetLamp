@@ -49,7 +49,7 @@ public class MyFragment extends MyBaseFragment<Contract.IsetMineInfoPresenter> i
 
     @Override
     protected int getCreateView() {
-        return R.layout.fragment_my_new;
+        return R.layout.fragment_my;
     }
 
 
@@ -60,7 +60,7 @@ public class MyFragment extends MyBaseFragment<Contract.IsetMineInfoPresenter> i
 
         not_logged = (TextView) view.findViewById(R.id.not_logged);
         my_subTitle = (TextView) view.findViewById(R.id.my_subTitle);
-        mPresenter.getMineInfo();
+//        mPresenter.getMineInfo();
 
     }
 

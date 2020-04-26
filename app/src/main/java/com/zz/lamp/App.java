@@ -35,5 +35,12 @@ public class App extends BaseApplication {
     public static App getmApplication() {
         return mApplication;
     }
+    /**
+     * 全局的Handler
+     */
+    public static Handler getHandler() {
+        return mHandler;
+    }
+
 
 }

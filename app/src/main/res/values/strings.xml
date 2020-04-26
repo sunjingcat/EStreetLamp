@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">Friends</string>
+    <string name="app_name">中智</string>
+    <string name="tab_control">实时控制</string>
+    <string name="tab_alarm">告警报警</string>
+    <string name="tab_home">首页</string>
+    <string name="tab_entry">表单录入</string>
+    <string name="tab_mine">个人中心</string>
 </resources>

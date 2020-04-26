@@ -63,6 +63,13 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+    compileOptions {
+
+        sourceCompatibility JavaVersion.VERSION_1_8
+
+        targetCompatibility JavaVersion.VERSION_1_8
+
+    }
     applicationVariants.all { variant ->
         def outputName = ""
         def application = variant.getApplicationId()
@@ -130,8 +137,8 @@ dependencies {
     }
     implementation 'com.google.zxing:core:3.3.0'
 
-    implementation 'com.jakewharton:butterknife:9.0.0-rc2'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-rc2'
+    implementation 'com.jakewharton:butterknife:10.0.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
 }
 def releaseTime() {
     return new Date().format("yyyyMMddHHmm", TimeZone.getTimeZone("GMT+8"))
