@@ -12,8 +12,8 @@ import android.widget.TextView;
 import com.ebo.medialib.R;
 import com.ebo.medialib.qrcode.google.zxing.activity.CaptureActivity;
 import com.ebo.medialib.qrcode.util.Constant;
-import com.lmx.lib.commonlib.ui.CommonActivity;
-import com.lmx.lib.commonlib.utils.PermissionUtils;
+import com.zz.lib.commonlib.ui.CommonActivity;
+import com.zz.lib.commonlib.utils.PermissionUtils;
 
 public class QrcodeActivity extends CommonActivity implements View.OnClickListener {
     Button btnQrCode; // 扫码

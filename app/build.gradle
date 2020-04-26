@@ -6,7 +6,7 @@ android {
 
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.lmx.friends"
+        applicationId "com.zz.lamp"
         minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
@@ -31,15 +31,15 @@ android {
     signingConfigs {
         debug {
             keyAlias 'key0'
-            keyPassword 'longmingxin'
-            storeFile file('../longmingxin.jks')
-            storePassword 'longmingxin'
+            keyPassword 'zhongzhi123'
+            storeFile file('../zz.jks')
+            storePassword 'zhongzhi123'
         }
         release {
             keyAlias 'key0'
-            keyPassword 'longmingxin'
-            storeFile file('../longmingxin.jks')
-            storePassword 'longmingxin'
+            keyPassword 'zhongzhi123'
+            storeFile file('../zz.jks')
+            storePassword 'zhongzhi123'
         }
     }
     buildTypes {

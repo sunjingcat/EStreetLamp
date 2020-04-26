@@ -41,7 +41,7 @@ import com.google.zxing.NotFoundException;
 import com.google.zxing.Result;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.QRCodeReader;
-import com.lmx.lib.commonlib.ui.CommonActivity;
+import com.zz.lib.commonlib.ui.CommonActivity;
 
 import java.io.IOException;
 import java.util.Hashtable;
