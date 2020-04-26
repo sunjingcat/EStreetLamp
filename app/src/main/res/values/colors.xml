@@ -6,6 +6,7 @@
     <color name="colorbg">#edf1f7</color>
     <color name="colorbgLight">#deecf9</color>
     <color name="colorThemeRed">#4F7DF5</color>
+    <color name="colorThemeYellow">#FFC107</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorLine">#cccccc</color>
     <color name="colorTextBlack99">#999999</color>

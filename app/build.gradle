@@ -129,6 +129,9 @@ dependencies {
         exclude group: "com.android.support"
     }
     implementation 'com.google.zxing:core:3.3.0'
+
+    implementation 'com.jakewharton:butterknife:9.0.0-rc2'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-rc2'
 }
 def releaseTime() {
     return new Date().format("yyyyMMddHHmm", TimeZone.getTimeZone("GMT+8"))

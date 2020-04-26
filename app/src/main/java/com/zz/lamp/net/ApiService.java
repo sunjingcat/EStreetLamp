@@ -4,6 +4,7 @@ package com.zz.lamp.net;
 
 
 import com.zz.lamp.bean.ImageBean;
+import com.zz.lamp.bean.UserBasicBean;
 import com.zz.lamp.bean.Version;
 
 import java.util.List;
@@ -39,7 +40,7 @@ public interface ApiService {
 
 
     @GET(URLs.NOVERSION + "/sendVerificationSms")
-    Observable<JsonT> sendMessage(@Query("mobi") String mobi);
+    Observable<JsonT<UserBasicBean>> sendMessage();
 
     @GET(URLs.NOVERSION + "/sendVerificationPic")
     Observable<JsonT<String>> getPicture(@Query("account") String account);
