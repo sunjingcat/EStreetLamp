@@ -1,0 +1,67 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/sunjing/project/Friends/MediaLib/src/main/AndroidManifest.xml:1:1-17:12
+INJECTED from /Users/sunjing/project/Friends/MediaLib/src/main/AndroidManifest.xml:1:1-17:12
+INJECTED from /Users/sunjing/project/Friends/MediaLib/src/main/AndroidManifest.xml:1:1-17:12
+INJECTED from /Users/sunjing/project/Friends/MediaLib/src/main/AndroidManifest.xml:1:1-17:12
+INJECTED from /Users/sunjing/project/Friends/MediaLib/src/main/AndroidManifest.xml:1:1-17:12
+INJECTED from /Users/sunjing/project/Friends/MediaLib/src/main/AndroidManifest.xml:1:1-17:12
+INJECTED from /Users/sunjing/project/Friends/MediaLib/src/main/AndroidManifest.xml:1:1-17:12
+	package
+		ADDED from /Users/sunjing/project/Friends/MediaLib/src/main/AndroidManifest.xml:2:5-31
+		INJECTED from /Users/sunjing/project/Friends/MediaLib/src/main/AndroidManifest.xml
+		INJECTED from /Users/sunjing/project/Friends/MediaLib/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /Users/sunjing/project/Friends/MediaLib/src/main/AndroidManifest.xml
+		ADDED from /Users/sunjing/project/Friends/MediaLib/src/main/AndroidManifest.xml:1:1-17:12
+		INJECTED from /Users/sunjing/project/Friends/MediaLib/src/main/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /Users/sunjing/project/Friends/MediaLib/src/main/AndroidManifest.xml
+		ADDED from /Users/sunjing/project/Friends/MediaLib/src/main/AndroidManifest.xml:1:1-17:12
+		INJECTED from /Users/sunjing/project/Friends/MediaLib/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/sunjing/project/Friends/MediaLib/src/main/AndroidManifest.xml:1:11-69
+uses-permission#android.permission.VIBRATE
+ADDED from /Users/sunjing/project/Friends/MediaLib/src/main/AndroidManifest.xml:4:5-66
+	android:name
+		ADDED from /Users/sunjing/project/Friends/MediaLib/src/main/AndroidManifest.xml:4:22-63
+uses-permission#android.permission.CAMERA
+ADDED from /Users/sunjing/project/Friends/MediaLib/src/main/AndroidManifest.xml:6:5-65
+	android:name
+		ADDED from /Users/sunjing/project/Friends/MediaLib/src/main/AndroidManifest.xml:6:22-62
+uses-permission#android.permission.MOUNT_UNMOUNT_FILESYSTEMS
+ADDED from /Users/sunjing/project/Friends/MediaLib/src/main/AndroidManifest.xml:8:5-84
+	android:name
+		ADDED from /Users/sunjing/project/Friends/MediaLib/src/main/AndroidManifest.xml:8:22-81
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from /Users/sunjing/project/Friends/MediaLib/src/main/AndroidManifest.xml:10:5-81
+	android:name
+		ADDED from /Users/sunjing/project/Friends/MediaLib/src/main/AndroidManifest.xml:10:22-78
+uses-permission#android.permission.RECORD_AUDIO
+ADDED from /Users/sunjing/project/Friends/MediaLib/src/main/AndroidManifest.xml:12:5-71
+	android:name
+		ADDED from /Users/sunjing/project/Friends/MediaLib/src/main/AndroidManifest.xml:12:22-68
+application
+ADDED from /Users/sunjing/project/Friends/MediaLib/src/main/AndroidManifest.xml:13:5-16:19
+activity#com.ebo.medialib.qrcode.QrcodeActivity
+ADDED from /Users/sunjing/project/Friends/MediaLib/src/main/AndroidManifest.xml:14:9-59
+	android:name
+		ADDED from /Users/sunjing/project/Friends/MediaLib/src/main/AndroidManifest.xml:14:19-56
+activity#com.ebo.medialib.qrcode.google.zxing.activity.CaptureActivity
+ADDED from /Users/sunjing/project/Friends/MediaLib/src/main/AndroidManifest.xml:15:9-82
+	android:name
+		ADDED from /Users/sunjing/project/Friends/MediaLib/src/main/AndroidManifest.xml:15:19-79
+uses-sdk
+INJECTED from /Users/sunjing/project/Friends/MediaLib/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/sunjing/project/Friends/MediaLib/src/main/AndroidManifest.xml
+INJECTED from /Users/sunjing/project/Friends/MediaLib/src/main/AndroidManifest.xml
+INJECTED from /Users/sunjing/project/Friends/MediaLib/src/main/AndroidManifest.xml
+INJECTED from /Users/sunjing/project/Friends/MediaLib/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/sunjing/project/Friends/MediaLib/src/main/AndroidManifest.xml
+		ADDED from /Users/sunjing/project/Friends/MediaLib/src/main/AndroidManifest.xml
+		INJECTED from /Users/sunjing/project/Friends/MediaLib/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/sunjing/project/Friends/MediaLib/src/main/AndroidManifest.xml
+		ADDED from /Users/sunjing/project/Friends/MediaLib/src/main/AndroidManifest.xml
+		INJECTED from /Users/sunjing/project/Friends/MediaLib/src/main/AndroidManifest.xml

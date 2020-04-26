@@ -1,0 +1,135 @@
+apply plugin: 'com.android.application'
+
+android {
+    def API_RELEASE_HOST = "\"http://221.225.80.128:8888/\""
+    def API_DEV_HOST = "\"http://221.225.80.128:8888/\""
+
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.lmx.friends"
+        minSdkVersion 16
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        packagingOptions {
+            exclude 'META-INF/proguard/androidx-annotations.pro'
+        }
+        aaptOptions {
+            cruncherEnabled = false
+            useNewCruncher = false
+
+        }
+        multiDexEnabled true
+        javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    signingConfigs {
+        debug {
+            keyAlias 'key0'
+            keyPassword 'longmingxin'
+            storeFile file('../longmingxin.jks')
+            storePassword 'longmingxin'
+        }
+        release {
+            keyAlias 'key0'
+            keyPassword 'longmingxin'
+            storeFile file('../longmingxin.jks')
+            storePassword 'longmingxin'
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    buildTypes {
+        release {
+
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            buildConfigField "String", "API_HOST", "${API_RELEASE_HOST}"
+            signingConfig signingConfigs.release
+        }
+
+        debug {
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            buildConfigField "String", "API_HOST", "${API_DEV_HOST}"
+            signingConfig signingConfigs.debug
+        }
+    }
+    applicationVariants.all { variant ->
+        def outputName = ""
+        def application = variant.getApplicationId()
+//        def buildName = "${variant.productFlavors[0].name}"//渠道名字
+        def versionName = 'V' + variant.getVersionName() //版本名称
+        def versionCode = variant.getVersionCode()//版本号
+        def releaseTime = releaseTime()
+        variant.outputs.all {//+ '_' + buildName
+            outputName = application + '_' + versionName + "_" + variant.buildType.name + "_" + releaseTime + '.apk'
+            outputFileName = outputName
+        }
+        def destDir = "D:\\project\\apk" + releaseTime
+
+        def path = destDir
+        if (variant.getBuildType().isMinifyEnabled() && variant.buildType.name == "release") {
+            variant.assemble.doLast {
+
+                copy {
+                    from variant.outputs*.outputFile
+                    into destDir
+                }
+
+                copy {
+                    from variant.mappingFile
+                    into destDir
+                    rename { String fileName ->
+                        "mapping-${variant.name}.txt"
+                    }
+                }
+
+            }
+        }
+
+
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation project(':corelib')
+    implementation 'com.android.support:multidex:1.0.3'
+    //友盟推送
+    //PushSDK必须依赖基础组件库，所以需要加入对应依赖
+    implementation 'com.umeng.sdk:common:1.5.3'
+    //PushSDK必须依赖utdid库，所以需要加入对应依赖
+    implementation 'com.umeng.sdk:utdid:1.1.5.3'
+    //PushSDK
+    implementation 'com.umeng.sdk:push:4.2.0'
+    //小米Push通道
+    implementation 'com.umeng.sdk:push-xiaomi:1.0.0'
+    //华为Push通道
+    implementation 'com.umeng.sdk:push-huawei:1.0.0'
+
+    implementation 'com.github.troila-mobile:CustomAlert_Android:v1.3.7'
+
+    implementation 'com.android.support:design:28.0.0'
+
+    implementation('com.github.bumptech.glide:glide:4.7.1') {
+        exclude group: "com.android.support"
+    }
+    implementation 'com.google.zxing:core:3.3.0'
+}
+def releaseTime() {
+    return new Date().format("yyyyMMddHHmm", TimeZone.getTimeZone("GMT+8"))
+}

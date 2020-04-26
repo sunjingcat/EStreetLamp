@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--actionbar-->
+    <RelativeLayout
+        android:id="@+id/actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:background="@color/title">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="扫码"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            />
+
+        <include
+            android:id="@+id/actionbar_back"
+            layout="@layout/btn_close"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            />
+
+    </RelativeLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/actionbar"
+        >
+
+        <SurfaceView
+            android:id="@+id/scanner_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center" />
+        <com.ebo.medialib.qrcode.google.zxing.view.ViewfinderView
+            android:id="@+id/viewfinder_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:corner_color="@color/white"
+            app:frame_color="@color/title"
+            app:label_text="二维码/条形码扫描"
+            app:label_text_color="@color/white"
+            app:laser_color="@color/title"
+            app:mask_color="@color/title"
+            app:result_color="@color/title"
+            app:result_point_color="@color/title"/>
+
+    </FrameLayout>
+
+</RelativeLayout>

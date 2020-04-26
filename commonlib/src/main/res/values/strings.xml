@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">CommonLib</string>
+    <string name="permission_title">授权提示</string>
+    <string name="permission_1">获取相关权限失败:</string>
+    <string name="permission_2">将导致部分功能无法正常使用，需要到设置页面手动授权</string>
+    <string name="permission_3">您好，需要如下权限：</string>
+    <string name="permission_4">请允许，否则将影响部分功能的正常使用。</string>
+    <string name="permission_btn">去授权</string>
+    <!--2018-4-16-->
+    <string name="permission_camera">允许应用程序访问摄像头</string>
+    <string name="permission_read_external_storage">允许应用程序读取扩展存储器</string>
+    <string name="permission_read_phone_state">允许应用程序读取电话状态</string>
+    <string name="permission_write_external_storage">允许应用程序写入外部存储，如SD卡上写文件</string>
+    <string name="permission_vibrate">允许访问振动设备</string>
+    <string name="label_cancel">取消</string>
+    <string name="label_ok">确定</string>
+
+    <string name="no_sim">请确认sim卡是否可用</string>
+    <string name="no_sd_card">设备没有SD卡!</string>
+    <string name="permission_failed">部分权限获取失败，正常功能受到影响</string>
+
+    <string name="doubleclick2exit">再点击一次退出应用程序</string>
+</resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="photo">Photograph</string>
+    <string name="select_photo">Select from phone album</string>
+    <string name="cancel">Cancel</string>
+    <string name="scanning">Scaning...</string>
+
+</resources>

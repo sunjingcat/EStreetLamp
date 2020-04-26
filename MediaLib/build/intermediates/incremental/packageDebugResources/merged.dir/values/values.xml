@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorAccent">#ff37a7fb</color>
+    <color name="corner_color">#00FF00</color>
+    <color name="laser_color">#0F0</color>
+    <color name="result_point_color">#C0FFFF00</color>
+    <color name="result_view">#B0000000</color>
+    <color name="title">#181B2A</color>
+    <color name="viewfinder_frame">#90FFFFFF</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="white">#FFFFFF</color>
+    <item name="auto_focus" type="id"/>
+    <item name="decode" type="id"/>
+    <item name="decode_failed" type="id"/>
+    <item name="decode_succeeded" type="id"/>
+    <item name="encode_failed" type="id"/>
+    <item name="encode_succeeded" type="id"/>
+    <item name="launch_product_query" type="id"/>
+    <item name="quit" type="id"/>
+    <item name="restart_preview" type="id"/>
+    <item name="return_scan_result" type="id"/>
+    <item name="search_book_contents_failed" type="id"/>
+    <item name="search_book_contents_succeeded" type="id"/>
+    <string name="cancel">取消</string>
+    <string name="photo">拍照</string>
+    <string name="scanning">正在扫描...</string>
+    <string name="select_photo">从手机相册选择</string>
+    <declare-styleable name="ViewfinderView">
+        <attr format="color" name="corner_color"/>
+        <attr format="color" name="laser_color"/>
+        <attr format="color" name="frame_color"/>
+        <attr format="color" name="mask_color"/>
+        <attr format="color" name="result_point_color"/>
+        <attr format="color" name="result_color"/>
+        <attr format="color" name="label_text_color"/>
+        <attr format="string" name="label_text"/>
+        <attr format="float" name="label_text_size"/>
+    </declare-styleable>
+    <declare-styleable name="XRefreshView">
+        <attr format="boolean" name="isHeightMatchParent"/>
+        <attr format="boolean" name="isWidthMatchParent"/>
+        <attr format="boolean" name="autoRefresh"/>
+        <attr format="boolean" name="autoLoadMore"/>
+    </declare-styleable>
+    <declare-styleable name="progressbutton">
+        <attr format="color" name="progressColor"/>
+        <attr format="color" name="progressBgColor"/>
+        <attr format="color" name="buttonNormalColor"/>
+        <attr format="color" name="buttonPressedColor"/>
+        <attr format="dimension" name="buttonCornerRadius"/>
+        <attr format="boolean" name="showProgressNum"/>
+    </declare-styleable>
+</resources>
