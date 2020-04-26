@@ -3,7 +3,7 @@ package com.lmx.lib.core.ui.mvp;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.view.View;
 
 import com.lmx.lib.commonlib.utils.AppUtil;

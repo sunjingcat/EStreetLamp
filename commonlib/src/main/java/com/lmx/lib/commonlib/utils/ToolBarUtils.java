@@ -1,6 +1,6 @@
 package com.lmx.lib.commonlib.utils;
 
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 
 import com.lmx.lib.commonlib.CommonApplication;

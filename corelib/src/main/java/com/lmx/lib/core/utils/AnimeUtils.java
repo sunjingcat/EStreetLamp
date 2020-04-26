@@ -3,7 +3,7 @@ package com.lmx.lib.core.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.ActivityOptionsCompat;
+import androidx.core.app.ActivityOptionsCompat;
 import android.view.View;
 
 import com.lmx.lib.core.R;

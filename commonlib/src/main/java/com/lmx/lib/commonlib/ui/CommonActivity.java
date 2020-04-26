@@ -1,22 +1,12 @@
 package com.lmx.lib.commonlib.ui;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.lmx.lib.commonlib.CommonApplication;
-import com.lmx.lib.commonlib.R;
 import com.lmx.lib.commonlib.utils.PermissionUtils;
 import com.zhy.autolayout.AutoLayoutActivity;
 

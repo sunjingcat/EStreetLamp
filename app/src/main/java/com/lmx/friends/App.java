@@ -1,8 +1,8 @@
 package com.lmx.friends;
 import android.os.Handler;
 
-import android.support.multidex.MultiDex;
-import android.support.v7.app.AppCompatActivity;
+import androidx.multidex.MultiDex;
+import androidx.appcompat.app.AppCompatActivity;
 import com.lmx.friends.net.RxNetUtils;
 import com.lmx.friends.net.URLs;
 import com.lmx.lib.core.BaseApplication;

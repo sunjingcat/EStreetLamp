@@ -1,7 +1,7 @@
 package com.lmx.lib.commonlib.ui;
 
 
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 
 import com.lmx.lib.commonlib.utils.IToast;
 
