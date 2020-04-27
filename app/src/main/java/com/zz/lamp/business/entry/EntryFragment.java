@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,7 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.zz.lamp.R;
 import com.zz.lamp.base.ConcentratorBean;
@@ -28,7 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class EntryFragment extends MyBaseFragment implements OnRefreshListener, OnLoadmoreListener {
+public class EntryFragment extends MyBaseFragment implements OnRefreshListener, OnLoadMoreListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -65,7 +67,7 @@ public class EntryFragment extends MyBaseFragment implements OnRefreshListener, 
         adapter = new ConcentratorBeanAdapter(R.layout.item_entry_jzq, mlist);
         rv.setAdapter(adapter);
         refreshLayout.setOnRefreshListener(this);
-        refreshLayout.setOnLoadmoreListener(this);
+        refreshLayout.setOnLoadMoreListener(this);
     }
 
     @Override
@@ -83,8 +85,9 @@ public class EntryFragment extends MyBaseFragment implements OnRefreshListener, 
 
     }
 
+
     @Override
-    public void onLoadmore(RefreshLayout refreshlayout) {
+    public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
 
     }
 }

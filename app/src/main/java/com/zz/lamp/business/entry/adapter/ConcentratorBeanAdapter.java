@@ -6,7 +6,7 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
+import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.zz.lamp.base.ConcentratorBean;
 
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.List;
  * Created by ASUS on 2018/10/10.
  */
 
-public class ConcentratorBeanAdapter extends BaseQuickAdapter<ConcentratorBean,BaseViewHolder> {
+public class ConcentratorBeanAdapter extends BaseQuickAdapter<ConcentratorBean, BaseViewHolder> {
 
     public ConcentratorBeanAdapter(@LayoutRes int layoutResId, @Nullable List<ConcentratorBean> data) {
         super(layoutResId, data);
