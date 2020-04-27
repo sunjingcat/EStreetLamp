@@ -136,6 +136,9 @@ dependencies {
     implementation 'com.jakewharton:butterknife:10.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
     implementation files('libs/BaiduLBS_Android.jar')
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.+'
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.+'
+    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.+'
 }
 
 def releaseTime() {

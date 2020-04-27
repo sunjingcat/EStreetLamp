@@ -312,24 +312,24 @@ public class HomeActivity extends MyBaseActivity {
 
 
     private void setStatusBarColor(int position) {
-        switch (position) {
-            case 0:
-                immersionBar.statusBarDarkFont(true)
-                        .navigationBarColor(R.color.transparent)
-                        .init();
-                break;
-            case 1:
-                immersionBar.statusBarDarkFont(false)
-                        .navigationBarColor(R.color.colorThemeYellow)
-                        .init();
-                break;
-            case 2:
-                immersionBar.statusBarDarkFont(true)
-                        .navigationBarColor(R.color.transparent)
-                        .init();
-                break;
-
-        }
+//        switch (position) {
+//            case 0:
+//                immersionBar.statusBarDarkFont(true)
+//                        .navigationBarColor(R.color.transparent)
+//                        .init();
+//                break;
+//            case 1:
+//                immersionBar.statusBarDarkFont(false)
+//                        .navigationBarColor(R.color.colorThemeYellow)
+//                        .init();
+//                break;
+//            case 2:
+//                immersionBar.statusBarDarkFont(true)
+//                        .navigationBarColor(R.color.transparent)
+//                        .init();
+//                break;
+//
+//        }
     }
 
     @Override
