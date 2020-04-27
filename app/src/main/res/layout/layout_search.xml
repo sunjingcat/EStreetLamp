@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:background="@color/transparent"
         android:paddingTop="8dp"
-        android:drawableLeft="@drawable/tab_entry_hover"
+        android:drawableLeft="@drawable/image_search"
         android:paddingBottom="8dp"
         android:visibility="gone"
         android:gravity="center" />
@@ -27,7 +27,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/tab_entry_hover"/>
+            android:src="@drawable/image_search"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
