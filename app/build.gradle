@@ -127,19 +127,17 @@ dependencies {
     implementation 'com.umeng.sdk:push-xiaomi:1.0.0'
     //华为Push通道
     implementation 'com.umeng.sdk:push-huawei:1.0.0'
-
     implementation 'com.github.troila-mobile:CustomAlert_Android:v1.3.7'
-
     implementation 'com.google.android.material:material:1.0.0'
-
     implementation('com.github.bumptech.glide:glide:4.7.1') {
         exclude group: "com.android.support"
     }
     implementation 'com.google.zxing:core:3.3.0'
-
     implementation 'com.jakewharton:butterknife:10.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
+    implementation files('libs/BaiduLBS_Android.jar')
 }
+
 def releaseTime() {
     return new Date().format("yyyyMMddHHmm", TimeZone.getTimeZone("GMT+8"))
 }

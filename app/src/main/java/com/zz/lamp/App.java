@@ -3,6 +3,9 @@ import android.os.Handler;
 
 import androidx.multidex.MultiDex;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.baidu.mapapi.CoordType;
+import com.baidu.mapapi.SDKInitializer;
 import com.zz.lamp.net.RxNetUtils;
 import com.zz.lamp.net.URLs;
 import com.zz.lib.core.BaseApplication;
@@ -27,8 +30,9 @@ public class App extends BaseApplication {
         if(!BuildConfig.LOG_DEBUG){
             Logger.clearLogAdapters();
         }
+        SDKInitializer.initialize(this);
 
-
+        SDKInitializer.setCoordType(CoordType.BD09LL);
 
     }
 

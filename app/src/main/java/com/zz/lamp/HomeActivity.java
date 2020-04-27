@@ -3,10 +3,8 @@ package com.zz.lamp;
 
 import android.Manifest;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 
-import android.os.Environment;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -32,11 +30,7 @@ import com.zz.lamp.business.alarm.AlarmFragment;
 import com.zz.lamp.business.control.ControlFragment;
 import com.zz.lamp.business.entry.EntryFragment;
 import com.zz.lamp.business.main.MainFragment;
-import com.zz.lamp.business.mine.MyFragment;
-import com.zz.lamp.utils.LogUtils;
 import com.zz.lamp.utils.SystemUtils;
-import com.zz.lamp.utils.UpdateManager;
-import com.zz.lib.commonlib.utils.CacheUtility;
 import com.zz.lib.commonlib.utils.PermissionUtils;
 import com.zz.lib.core.http.utils.ToastUtils;
 
@@ -51,9 +45,9 @@ public class HomeActivity extends MyBaseActivity {
     TabLayout mainTablayout;
 
     //Tab 文字
-    private final int[] TAB_TITLES = new int[]{R.string.tab_control, R.string.tab_alarm,R.string.tab_home,R.string.tab_entry,R.string.tab_mine};
+    private final int[] TAB_TITLES = new int[]{R.string.tab_home, R.string.tab_control, R.string.tab_alarm, R.string.tab_entry};
     //Tab 图片
-    private final int[] TAB_IMGS = new int[]{R.drawable.tab_control, R.drawable.tab_alarm, R.drawable.tab_home, R.drawable.tab_entry, R.drawable.tab_mine};
+    private final int[] TAB_IMGS = new int[]{R.drawable.tab_home, R.drawable.tab_control, R.drawable.tab_alarm, R.drawable.tab_entry};
     //Fragment 数组
     private Fragment[] TAB_FRAGMENTS;
 
@@ -69,22 +63,21 @@ public class HomeActivity extends MyBaseActivity {
     private AlarmFragment alarmFragment;
     private MainFragment mainFragment;
     private EntryFragment entryFragment;
-    private MyFragment myFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        PermissionUtils.getInstance().checkPermission(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
-//                Manifest.permission.ACCESS_FINE_LOCATION}, new PermissionUtils.OnPermissionChangedListener() {
-//            @Override
-//            public void onGranted() {
-//            }
-//
-//            @Override
-//            public void onDenied() {
-//
-//            }
-//        });
+        PermissionUtils.getInstance().checkPermission(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION}, new PermissionUtils.OnPermissionChangedListener() {
+            @Override
+            public void onGranted() {
+            }
+
+            @Override
+            public void onDenied() {
+
+            }
+        });
 //        new UpdateManager(this).checkUpdate();
 
     }
@@ -98,10 +91,10 @@ public class HomeActivity extends MyBaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if (controlFragment !=null){
-            controlFragment.onRefresh();}
-            if (myFragment !=null){
-                myFragment.setUserInfo();}
+        if (controlFragment != null) {
+            controlFragment.onRefresh();
+        }
+
 
     }
 
@@ -139,8 +132,7 @@ public class HomeActivity extends MyBaseActivity {
         alarmFragment = new AlarmFragment();
         mainFragment = new MainFragment();
         entryFragment = new EntryFragment();
-        myFragment = new MyFragment();
-        TAB_FRAGMENTS = new Fragment[]{controlFragment, alarmFragment, mainFragment,entryFragment,myFragment};
+        TAB_FRAGMENTS = new Fragment[]{ mainFragment,controlFragment, alarmFragment, entryFragment};
     }
 
 
@@ -228,29 +220,17 @@ public class HomeActivity extends MyBaseActivity {
 
     private void setTabs(TabLayout tabLayout, LayoutInflater inflater, int[] tabTitlees, int[] tabImgs) {
         for (int i = 0; i < tabImgs.length; i++) {
-            if (i == 2) {
-                TabLayout.Tab tab = tabLayout.newTab();
-                View view = inflater.inflate(R.layout.view_tab_item_big, null);
-                tab.setCustomView(view);
 
-                TextView tvTitle = view.findViewById(R.id.tab_item_tv);
+            TabLayout.Tab tab = tabLayout.newTab();
+            View view = inflater.inflate(R.layout.view_tab_item, null);
+            tab.setCustomView(view);
 
-                tvTitle.setText(tabTitlees[i]);
-                ImageView imgTab = view.findViewById(R.id.tab_item_img);
-                imgTab.setImageResource(tabImgs[i]);
-                tabLayout.addTab(tab);
-            }else {
-                TabLayout.Tab tab = tabLayout.newTab();
-                View view = inflater.inflate(R.layout.view_tab_item, null);
-                tab.setCustomView(view);
+            TextView tvTitle = view.findViewById(R.id.tab_item_tv);
 
-                TextView tvTitle = view.findViewById(R.id.tab_item_tv);
-
-                tvTitle.setText(tabTitlees[i]);
-                ImageView imgTab = view.findViewById(R.id.tab_item_img);
-                imgTab.setImageResource(tabImgs[i]);
-                tabLayout.addTab(tab);
-            }
+            tvTitle.setText(tabTitlees[i]);
+            ImageView imgTab = view.findViewById(R.id.tab_item_img);
+            imgTab.setImageResource(tabImgs[i]);
+            tabLayout.addTab(tab);
 
         }
 
@@ -276,12 +256,12 @@ public class HomeActivity extends MyBaseActivity {
 
     private View getBadgeTabItemView(int position, boolean isShowBadge) {
 
-            View view = LayoutInflater.from(this).inflate(R.layout.view_tab_item, null);
-            TextView tvTitle = view.findViewById(R.id.tab_item_tv);
-            tvTitle.setText(TAB_TITLES[position]);
-            ImageView imgTab = view.findViewById(R.id.tab_item_img);
-            imgTab.setImageResource(TAB_IMGS[position]);
-            return view;
+        View view = LayoutInflater.from(this).inflate(R.layout.view_tab_item, null);
+        TextView tvTitle = view.findViewById(R.id.tab_item_tv);
+        tvTitle.setText(TAB_TITLES[position]);
+        ImageView imgTab = view.findViewById(R.id.tab_item_img);
+        imgTab.setImageResource(TAB_IMGS[position]);
+        return view;
 
     }
 
@@ -325,12 +305,10 @@ public class HomeActivity extends MyBaseActivity {
             refreshTabBadge(3, event.isBooleanData());
         } else if ("contactsIsHaveNoHandleMsg".equals(info)) {
             refreshTabBadge(2, event.isBooleanData());
-        }  else if ("refreshWork".equals(info)) {
+        } else if ("refreshWork".equals(info)) {
             controlFragment.onRefresh();
         }
     }
-
-
 
 
     private void setStatusBarColor(int position) {
@@ -346,8 +324,8 @@ public class HomeActivity extends MyBaseActivity {
                         .init();
                 break;
             case 2:
-                immersionBar.statusBarDarkFont(false)
-                        .navigationBarColor(R.color.colorThemeYellow)
+                immersionBar.statusBarDarkFont(true)
+                        .navigationBarColor(R.color.transparent)
                         .init();
                 break;
 

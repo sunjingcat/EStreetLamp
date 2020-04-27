@@ -8,12 +8,17 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="33dp"
-        android:background="@color/colorThemeYellow" />
-
-    <TextView
-        android:layout_width="wrap_content"
+        android:background="@color/white" />
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="控制"/>
+        android:background="@color/white">
+
+        <include
+            layout="@layout/layout_search"/>
+
+    </androidx.appcompat.widget.Toolbar>
 
 
 </LinearLayout>
