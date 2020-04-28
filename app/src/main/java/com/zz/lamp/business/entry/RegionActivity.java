@@ -18,6 +18,7 @@ import com.zz.lamp.bean.RegionExpandItem;
 import com.zz.lamp.bean.RegionExpandItem1;
 import com.zz.lamp.bean.RegionExpandItem2;
 import com.zz.lamp.business.entry.adapter.RegionAdapter;
+import com.zz.lib.commonlib.utils.ToolBarUtils;
 import com.zz.lib.core.ui.mvp.BasePresenter;
 
 import java.util.ArrayList;
@@ -83,6 +84,6 @@ public class RegionActivity extends MyBaseActivity {
 
     @Override
     protected void initToolBar() {
-
+        ToolBarUtils.getInstance().setNavigation(toolbar);
     }
 }
