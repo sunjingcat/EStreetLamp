@@ -39,8 +39,7 @@ public class RegionActivity extends MyBaseActivity {
     protected int getContentView() {
         return R.layout.activity_region;
     }
-
-
+//    https://github.com/CymChad/BaseRecyclerViewAdapterHelper/blob/master/readme/6-BaseNodeAdapter.md
     @Override
     public BasePresenter initPresenter() {
         return null;
