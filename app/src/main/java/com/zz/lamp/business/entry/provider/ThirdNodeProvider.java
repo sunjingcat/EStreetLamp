@@ -1,5 +1,7 @@
 package com.zz.lamp.business.entry.provider;
 
+import android.view.View;
+
 import com.chad.library.adapter.base.entity.node.BaseNode;
 import com.chad.library.adapter.base.provider.BaseNodeProvider;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
@@ -22,5 +24,9 @@ public class ThirdNodeProvider extends BaseNodeProvider {
     @Override
     public void convert(@NotNull BaseViewHolder baseViewHolder, BaseNode baseNode) {
         baseViewHolder.setText(R.id.title,((RegionExpandItem2)baseNode).getTitle());
+    }
+    @Override
+    public void onClick(@NotNull BaseViewHolder helper, @NotNull View view, BaseNode data, int position) {
+//        getAdapter().expandOrCollapse(position);
     }
 }

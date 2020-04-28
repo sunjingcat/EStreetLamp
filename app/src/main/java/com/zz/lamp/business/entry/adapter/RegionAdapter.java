@@ -28,11 +28,9 @@ import java.util.List;
  */
 
 public class RegionAdapter extends BaseNodeAdapter {
-    List<? extends BaseNode> list = new ArrayList<>();
-    public RegionAdapter(@Nullable List<? extends BaseNode> data) {
+    public RegionAdapter() {
         super();
-        this.list = data;
-        addFullSpanNodeProvider(new RootNodeProvider());
+        addNodeProvider(new RootNodeProvider());
         addNodeProvider(new SecondNodeProvider());
         addNodeProvider(new ThirdNodeProvider());
 
@@ -40,7 +38,7 @@ public class RegionAdapter extends BaseNodeAdapter {
 
     @Override
     protected int getItemType(@NotNull List<? extends BaseNode> list, int position) {
-        BaseNode node = this.list.get(position);
+        BaseNode node = list.get(position);
         if (node instanceof RegionExpandItem) {
             return 0;
         } else if (node instanceof RegionExpandItem1) {

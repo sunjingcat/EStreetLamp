@@ -1,13 +1,12 @@
 package com.zz.lamp.bean;
-
-import com.chad.library.adapter.base.entity.MultiItemEntity;
+import com.chad.library.adapter.base.entity.node.BaseExpandNode;
 import com.chad.library.adapter.base.entity.node.BaseNode;
 
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class RegionExpandItem1 extends BaseNode {
+public class RegionExpandItem1 extends BaseExpandNode {
 
     private String title;
 
@@ -19,6 +18,7 @@ public class RegionExpandItem1 extends BaseNode {
     public RegionExpandItem1(String title, List<BaseNode> childNode) {
         this.title = title;
         this.childNode = childNode;
+        setExpanded(true);
     }
 
     @Nullable

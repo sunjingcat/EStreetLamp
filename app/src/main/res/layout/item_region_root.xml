@@ -1,12 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:gravity="center_vertical"
     android:orientation="horizontal">
-    <TextView
-        android:id="@+id/title"
+
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="父级菜单"/>
+        android:padding="8dp"
+        android:src="@drawable/image_arrow" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="@color/colorTextBlack33"
+        android:textSize="14dp"
+        tools:text="父级菜单" />
+
+    <TextView
+        android:id="@+id/region_click"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="@color/colorTextBlack33"
+        android:textSize="14dp"
+        tools:text="选择" />
+
+    <TextView
+        android:id="@+id/region_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="@color/colorTextBlack33"
+        android:textSize="14dp"
+        android:padding="5dp"
+        android:background="@drawable/border_radius_5_yellow"
+        tools:text="添加" />
+
 
 </LinearLayout>

@@ -1,13 +1,17 @@
 package com.zz.lamp.business.entry;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.entity.node.BaseNode;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseActivity;
 import com.zz.lamp.bean.RegionExpandItem;
@@ -47,8 +51,12 @@ public class RegionActivity extends MyBaseActivity {
         ButterKnife.bind(this);
         List<BaseNode> entity = getEntity();
         rv.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new RegionAdapter(entity);
+        adapter = new RegionAdapter();
         rv.setAdapter(adapter);
+
+        adapter.addData(entity);
+        adapter.notifyDataSetChanged();
+
     }
 
     private List<BaseNode> getEntity() {
