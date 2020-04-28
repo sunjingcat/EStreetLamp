@@ -30,12 +30,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".business.login.LoginActivity"></activity>
+        <activity android:name=".business.entry.RegionActivity"></activity>
+        <activity android:name=".business.login.LoginActivity" />
         <activity
             android:name=".InfoActivity"
             android:theme="@style/ActivityDialogTheme" />
         <activity android:name=".business.mine.MineActivity" />
-        <activity android:name=".HomeActivity"
+        <activity
+            android:name=".HomeActivity"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

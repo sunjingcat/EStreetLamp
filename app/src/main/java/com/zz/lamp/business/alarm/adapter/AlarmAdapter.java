@@ -19,7 +19,7 @@ import java.util.List;
 
 public class AlarmAdapter extends BaseMultiItemQuickAdapter<AlarmBean, BaseViewHolder> {
 
-    public AlarmAdapter(@LayoutRes int layoutResId, @Nullable List<AlarmBean> data) {
+    public AlarmAdapter(@Nullable List<AlarmBean> data) {
         super( data);
         addItemType(1, R.layout.item_alarm_time);
         addItemType(2, R.layout.item_alarm_content);

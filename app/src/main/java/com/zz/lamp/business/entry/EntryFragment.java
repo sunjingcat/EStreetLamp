@@ -1,5 +1,6 @@
 package com.zz.lamp.business.entry;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.umeng.commonsdk.debug.I;
 import com.zz.lamp.R;
 import com.zz.lamp.base.ConcentratorBean;
 import com.zz.lamp.base.MyBaseFragment;
@@ -96,7 +98,7 @@ public class EntryFragment extends MyBaseFragment implements OnRefreshListener, 
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.entry_qy:
-
+                getActivity().startActivity(new Intent(getActivity(),RegionActivity.class));
                 break;
             case R.id.entry_jzq:
                 break;
