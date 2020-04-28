@@ -14,4 +14,10 @@
         <item name="tabBackground">@color/transparent</item>
         <item name="tabIndicatorHeight">0dp</item>
     </style>
+    <style name="ActivityDialogTheme" parent="android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+
+    </style>
 </resources>

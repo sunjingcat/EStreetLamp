@@ -224,14 +224,11 @@ public class HomeActivity extends MyBaseActivity {
             TabLayout.Tab tab = tabLayout.newTab();
             View view = inflater.inflate(R.layout.view_tab_item, null);
             tab.setCustomView(view);
-
             TextView tvTitle = view.findViewById(R.id.tab_item_tv);
-
             tvTitle.setText(tabTitlees[i]);
             ImageView imgTab = view.findViewById(R.id.tab_item_img);
             imgTab.setImageResource(tabImgs[i]);
             tabLayout.addTab(tab);
-
         }
 
     }

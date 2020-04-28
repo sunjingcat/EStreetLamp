@@ -30,9 +30,9 @@ public class App extends BaseApplication {
         if(!BuildConfig.LOG_DEBUG){
             Logger.clearLogAdapters();
         }
-        SDKInitializer.initialize(this);
-
-        SDKInitializer.setCoordType(CoordType.BD09LL);
+//        SDKInitializer.initialize(this);
+//
+//        SDKInitializer.setCoordType(CoordType.BD09LL);
 
     }
 

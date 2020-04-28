@@ -5,10 +5,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="33dp"
-        android:background="@color/white" />
+<!--    <View-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="33dp"-->
+<!--        android:background="@color/white" />-->
 
 
     <androidx.appcompat.widget.Toolbar
@@ -34,9 +34,9 @@
         app:tabMode="scrollable"
         app:elevation="0dp"
         android:layout_height="40dp"/>
-    <com.baidu.mapapi.map.MapView
-        android:id="@+id/bmapView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clickable="true" />
+<!--    <com.baidu.mapapi.map.MapView-->
+<!--        android:id="@+id/bmapView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:clickable="true" />-->
 </LinearLayout>
