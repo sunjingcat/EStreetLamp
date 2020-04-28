@@ -8,6 +8,7 @@
     <color name="colorbgLight">#deecf9</color>
     <color name="colorThemeRed">#4F7DF5</color>
     <color name="colorThemeYellow">#FFC107</color>
+    <color name="colorThemeYellowLight">#DDCA8A</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorEF">#EFF2F6</color>
     <color name="colorLine">#cccccc</color>

@@ -37,14 +37,7 @@
                 tools:text="52487963" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/item_entry_address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#444444"
-            android:textSize="14dp"
-            android:layout_marginTop="8dp"
-            tools:text="和平路3号" />
+
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
@@ -52,14 +45,7 @@
         android:gravity="center"
         android:layout_gravity="center_vertical"
         android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="开闸"
-            android:textColor="#2EAE73"
-            android:textSize="14dp"
-            android:padding="5dp"
-            />
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
