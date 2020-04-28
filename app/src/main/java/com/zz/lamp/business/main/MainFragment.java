@@ -49,9 +49,9 @@ public class MainFragment extends MyBaseFragment {
     TabLayout tabDevice;
     String[] tabs = {"全部设备", "集中器", "灯控器", "智慧灯杆", "LED", "摄像头", "IP音柱"};
     Unbinder unbinder;
-//    @BindView(R.id.bmapView)
-//    MapView bmapView;
-//    private BaiduMap mBaiduMap;
+    @BindView(R.id.bmapView)
+    MapView bmapView;
+    private BaiduMap mBaiduMap;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -74,7 +74,7 @@ public class MainFragment extends MyBaseFragment {
 
     @Override
     protected void initView(View view) {
-//        mBaiduMap = bmapView.getMap();
+        mBaiduMap = bmapView.getMap();
         setTabs(tabDevice, this.getLayoutInflater());
         tabDevice.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -103,25 +103,25 @@ public class MainFragment extends MyBaseFragment {
             }
         });
         tabDevice.getTabAt(0).select();
-//        mBaiduMap.showMapPoi(false);
-//        //定义Maker坐标点
-//        List<OverlayOptions> overlayOptions = new ArrayList<>();
-////构建Marker图标
-//        BitmapDescriptor bitmap = BitmapDescriptorFactory
-//                .fromResource(R.drawable.icon_marker_jzq);
-////构建MarkerOption，用于在地图上添加Marker
-//        OverlayOptions option = new MarkerOptions()
-//                .position(new LatLng(39.963175, 116.400244))
-//                .animateType(MarkerOptions.MarkerAnimateType.grow)
-//                .icon(bitmap);
-//        OverlayOptions option1 = new MarkerOptions()
-//                .position(new LatLng(39.17, 117.15))
-//                .animateType(MarkerOptions.MarkerAnimateType.grow)
-//                .icon(bitmap);
-//        overlayOptions.add(option);
-//        overlayOptions.add(option1);
-////在地图上添加Marker，并显示
-//        mBaiduMap.addOverlays(overlayOptions);
+        mBaiduMap.showMapPoi(false);
+        //定义Maker坐标点
+        List<OverlayOptions> overlayOptions = new ArrayList<>();
+//构建Marker图标
+        BitmapDescriptor bitmap = BitmapDescriptorFactory
+                .fromResource(R.drawable.icon_marker_jzq);
+//构建MarkerOption，用于在地图上添加Marker
+        OverlayOptions option = new MarkerOptions()
+                .position(new LatLng(39.963175, 116.400244))
+                .animateType(MarkerOptions.MarkerAnimateType.grow)
+                .icon(bitmap);
+        OverlayOptions option1 = new MarkerOptions()
+                .position(new LatLng(39.17, 117.15))
+                .animateType(MarkerOptions.MarkerAnimateType.grow)
+                .icon(bitmap);
+        overlayOptions.add(option);
+        overlayOptions.add(option1);
+//在地图上添加Marker，并显示
+        mBaiduMap.addOverlays(overlayOptions);
 
     }
     private Animation getScaleAnimation() {
@@ -189,18 +189,18 @@ public class MainFragment extends MyBaseFragment {
     @Override
     public void onPause() {
         super.onPause();
-//        bmapView.onPause();
+        bmapView.onPause();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-//        bmapView.onResume();
+        bmapView.onResume();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-//        bmapView.onDestroy();
+        bmapView.onDestroy();
     }
 }
