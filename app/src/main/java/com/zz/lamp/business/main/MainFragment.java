@@ -25,6 +25,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseFragment;
 import com.zz.lamp.business.mine.MineActivity;
+import com.zz.lamp.utils.TabUtils;
 import com.zz.lib.core.ui.mvp.BasePresenter;
 
 import java.util.ArrayList;
@@ -75,26 +76,16 @@ public class MainFragment extends MyBaseFragment {
     @Override
     protected void initView(View view) {
         mBaiduMap = bmapView.getMap();
-        setTabs(tabDevice, this.getLayoutInflater());
+        TabUtils.setTabs(tabDevice, this.getLayoutInflater(), tabs);
         tabDevice.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                View view = tab.getCustomView();
-                TextView tvTitle = view.findViewById(R.id.text);
-                if (null != tvTitle && tvTitle instanceof TextView) {
-                    // 改变 tab 选择状态下的字体大小
-                    tvTitle.setTextSize(16);
-                }
+                TabUtils.setTabSize(tab, 16);
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                View view = tab.getCustomView();
-                TextView tvTitle = view.findViewById(R.id.text);
-                if (null != tvTitle && tvTitle instanceof TextView) {
-                    // 改变 tab 选择状态下的字体大小
-                    tvTitle.setTextSize(14);
-                }
+                TabUtils.setTabSize(tab, 14);
             }
 
             @Override
@@ -160,20 +151,6 @@ public class MainFragment extends MyBaseFragment {
 
     }
 
-    private void setTabs(TabLayout tabLayout, LayoutInflater inflater) {
-        for (int i = 0; i < tabs.length; i++) {
-            TabLayout.Tab tab = tabLayout.newTab();
-            View view = inflater.inflate(R.layout.view_tab_top_item, null);
-            tab.setCustomView(view);
-            TextView tvTitle = view.findViewById(R.id.text);
-            tvTitle.setText(tabs[i]);
-            if (i == 0) {
-                tvTitle.setTextSize(16);
-            }
-            tabLayout.addTab(tab);
-        }
-
-    }
 
     @OnClick({R.id.main_mine, R.id.search_click})
     public void onViewClicked(View view) {

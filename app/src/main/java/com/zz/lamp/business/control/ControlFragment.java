@@ -11,6 +11,7 @@ import com.zz.lamp.R;
 import com.zz.lamp.base.ConcentratorBean;
 import com.zz.lamp.base.MyBaseFragment;
 import com.zz.lamp.business.control.adapter.ControlJzqAdapter;
+import com.zz.lamp.utils.TabUtils;
 import com.zz.lib.core.ui.mvp.BasePresenter;
 
 import java.util.ArrayList;
@@ -30,7 +31,6 @@ public class ControlFragment extends MyBaseFragment {
     Toolbar toolbar;
     @BindView(R.id.control_tab)
     TabLayout controlTab;
-    Unbinder unbinder;
     @BindView(R.id.rv_jzq)
     RecyclerView rvJzq;
     @BindView(R.id.rv_video)
@@ -42,7 +42,7 @@ public class ControlFragment extends MyBaseFragment {
     protected int getCreateView() {
         return R.layout.fragment_control;
     }
-
+    Unbinder unbinder;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
@@ -68,15 +68,11 @@ public class ControlFragment extends MyBaseFragment {
         adapter = new ControlJzqAdapter(R.layout.item_control_jzq, mlistVideo);
         rvVideo.setAdapter(adapter);
 
-        setTabs(controlTab, this.getLayoutInflater());
+        TabUtils.setTabs(controlTab, this.getLayoutInflater(), tabs);
         controlTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                View view = tab.getCustomView();
-                TextView tvTitle = view.findViewById(R.id.text);
-                if (null != tvTitle && tvTitle instanceof TextView) {
-                    tvTitle.setTextSize(16);
-                }
+                TabUtils.setTabSize(tab, 16);
                 int position = tab.getPosition();
                 if (position==0){
                     rvJzq.setVisibility(View.VISIBLE);
@@ -89,11 +85,7 @@ public class ControlFragment extends MyBaseFragment {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                View view = tab.getCustomView();
-                TextView tvTitle = view.findViewById(R.id.text);
-                if (null != tvTitle && tvTitle instanceof TextView) {
-                    tvTitle.setTextSize(14);
-                }
+                TabUtils.setTabSize(tab, 14);
             }
 
             @Override
@@ -118,20 +110,4 @@ public class ControlFragment extends MyBaseFragment {
 //            mPresenter.getData();
         }
     }
-
-    private void setTabs(TabLayout tabLayout, LayoutInflater inflater) {
-        for (int i = 0; i < tabs.length; i++) {
-            TabLayout.Tab tab = tabLayout.newTab();
-            View view = inflater.inflate(R.layout.view_tab_top_item, null);
-            tab.setCustomView(view);
-            TextView tvTitle = view.findViewById(R.id.text);
-            tvTitle.setText(tabs[i]);
-            if (i == 0) {
-                tvTitle.setTextSize(16);
-            }
-            tabLayout.addTab(tab);
-        }
-
-    }
-
 }

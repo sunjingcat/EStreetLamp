@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="10dp"
+    android:paddingRight="15dp"
+    android:orientation="horizontal">
+    <RelativeLayout
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="@color/colorThemeYellow"
+            android:layout_centerHorizontal="true"/>
+        <ImageView
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/image_radio_select"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_radius_5_white"
+        android:orientation="vertical"
+        android:padding="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="5dp"
+                android:layout_height="5dp"
+                android:background="@drawable/border_radius_yellow" />
+
+            <TextView
+                android:id="@+id/item_control_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:textColor="#444444"
+                android:textSize="15dp"
+                tools:text="集中器1" />
+
+            <TextView
+                android:id="@+id/item_control_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:textColor="#999999"
+                android:textSize="12dp"
+                tools:text="52487963" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="告警类型1"
+                android:background="@drawable/border_radius_5_green"
+                android:textColor="@color/white"
+                android:textSize="14dp" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:layout_marginLeft="8dp"
+                android:src="@drawable/image_arrow" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/colorEF" />
+
+        <TextView
+            android:id="@+id/item_control_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="#444444"
+            android:textSize="14dp"
+            android:lines="2"
+            android:ellipsize="end"
+            tools:text="和平路3号和平路3号和平路3号和平路3号和平路3号和平路3号和平路3号和平路3号和平路3号和平路3号和平路3号" />
+    </LinearLayout>
+
+
+</LinearLayout>
