@@ -1,5 +1,7 @@
 package com.zz.lamp.business.mine;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -8,36 +10,45 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.Toolbar;
+
+import com.troila.customealert.CustomDialog;
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseActivity;
 import com.zz.lamp.bean.UserBasicBean;
+import com.zz.lamp.business.login.LoginActivity;
 import com.zz.lamp.business.mine.mvp.Contract;
 import com.zz.lamp.business.mine.mvp.presenter.MineInfoPresenter;
+import com.zz.lamp.net.OutDateEvent;
 import com.zz.lamp.utils.GlideUtils;
 import com.zz.lib.commonlib.utils.CacheUtility;
-import com.zz.lib.core.ui.mvp.BasePresenter;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MineActivity extends MyBaseActivity<Contract.IsetMineInfoPresenter> implements Contract.IMineInfoView  {
+public class MineActivity extends MyBaseActivity<Contract.IsetMineInfoPresenter> implements Contract.IMineInfoView {
 
     @BindView(R.id.my_head)
     ImageView myHead;
-    @BindView(R.id.my_subTitle)
-    TextView mySubTitle;
-    @BindView(R.id.not_logged)
-    TextView notLogged;
-    @BindView(R.id.my_information)
-    RelativeLayout myInformation;
-    @BindView(R.id.my_ID_card)
-    LinearLayout myIDCard;
-    @BindView(R.id.my_contract)
-    LinearLayout myContract;
     @BindView(R.id.my_about)
     LinearLayout myAbout;
     UserBasicBean userInfo;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.my_name)
+    TextView myName;
+    @BindView(R.id.not_content)
+    TextView notContent;
+    @BindView(R.id.my_information)
+    RelativeLayout myInformation;
+    @BindView(R.id.my_password)
+    LinearLayout myPassword;
+    @BindView(R.id.my_code)
+    LinearLayout myCode;
+
     @Override
     protected int getContentView() {
         return R.layout.fragment_my;
@@ -59,19 +70,6 @@ public class MineActivity extends MyBaseActivity<Contract.IsetMineInfoPresenter>
 
     }
 
-    @OnClick({R.id.my_head, R.id.my_ID_card, R.id.my_contract, R.id.my_about})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.my_head:
-                break;
-            case R.id.my_ID_card:
-                break;
-            case R.id.my_contract:
-                break;
-            case R.id.my_about:
-                break;
-        }
-    }
 
     @Override
     public void showUserInfo(UserBasicBean userInfo) {
@@ -87,5 +85,47 @@ public class MineActivity extends MyBaseActivity<Contract.IsetMineInfoPresenter>
     @Override
     public void showIntent() {
 
+    }
+    private CustomDialog customDialog;
+    @OnClick({R.id.my_password, R.id.my_code, R.id.my_about, R.id.my_logout})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.my_password:
+                break;
+            case R.id.my_code:
+                break;
+            case R.id.my_about:
+                break;
+            case R.id.my_logout:
+                CustomDialog.Builder builder = new CustomDialog.Builder(MineActivity.this)
+                        .setTitle("提示")
+                        .setMessage("确定退出登录")
+                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                CacheUtility.saveToken("");
+                                CacheUtility.clear();
+                                startActivity(new Intent(MineActivity.this, LoginActivity.class));
+                                EventBus.getDefault().post(new OutDateEvent());
+                                finish();
+                            }
+                        });
+                customDialog = builder.create();
+                customDialog.show();
+                break;
+        }
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (customDialog != null && customDialog.isShowing()) {
+            customDialog.dismiss();
+        }
     }
 }

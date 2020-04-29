@@ -5,6 +5,7 @@ package com.zz.lamp.net;
 
 import com.zz.lamp.bean.ConcentratorBean;
 import com.zz.lamp.bean.ImageBean;
+import com.zz.lamp.bean.RegionExpandItem;
 import com.zz.lamp.bean.UserInfo;
 import com.zz.lamp.bean.Version;
 import com.zz.lamp.bean.IpAdress;
@@ -37,6 +38,9 @@ public interface ApiService {
 
     @GET("/app/light/terminal/list")
     Observable<JsonT<List<ConcentratorBean>>> getTerminalList(@QueryMap Map<String, Object> params);
+
+    @GET("/app/light/area/list")
+    Observable<JsonT<List<RegionExpandItem>>> getAreaList(@QueryMap Map<String, Object> params);
 
 
     @POST(URLs.VERSION + "/buildings/supervise/safety/item")

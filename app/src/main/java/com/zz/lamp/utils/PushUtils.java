@@ -29,7 +29,7 @@ public class PushUtils {
     }
     public static void setAlis(Context context){
         String userId = CacheUtility.getUserId();
-        PushAgent.getInstance(context).addAlias(userId, "talent", new UTrack.ICallBack() {
+        PushAgent.getInstance(context).addAlias(userId, "lamp", new UTrack.ICallBack() {
             @Override
             public void onMessage(boolean isSuccess, String message) {
             }
@@ -37,7 +37,7 @@ public class PushUtils {
     }
     public static void deletetAlis(Context context){
         String userId = CacheUtility.getUserId();
-        PushAgent.getInstance(context).deleteAlias(userId, "talent", new UTrack.ICallBack() {
+        PushAgent.getInstance(context).deleteAlias(userId, "lamp", new UTrack.ICallBack() {
             @Override
             public void onMessage(boolean isSuccess, String message) {
             }

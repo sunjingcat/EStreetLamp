@@ -14,11 +14,9 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.zz.lamp.R;
 import com.zz.lamp.bean.ConcentratorBean;
 import com.zz.lamp.base.MyBaseFragment;
-import com.zz.lamp.bean.IpAdress;
-import com.zz.lamp.business.control.mvp.Contract;
-import com.zz.lamp.business.control.mvp.presenter.TerminalPresenter;
 import com.zz.lamp.business.entry.adapter.ConcentratorBeanAdapter;
-import com.zz.lib.core.ui.mvp.BasePresenter;
+import com.zz.lamp.business.entry.mvp.Contract;
+import com.zz.lamp.business.entry.mvp.presenter.TerminalPresenter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,7 +46,7 @@ public class EntryFragment  extends MyBaseFragment<Contract.IsetTerminalPresente
     ConcentratorBeanAdapter adapter;
     List<ConcentratorBean> mlist = new ArrayList<>();
     Unbinder unbinder;
-    int pageNum = 0;
+    int pageNum = 1;
     int pageSize = 20;
     @Override
     protected int getCreateView() {
@@ -109,11 +107,13 @@ public class EntryFragment  extends MyBaseFragment<Contract.IsetTerminalPresente
                 getActivity().startActivity(new Intent(getActivity(),RegionActivity.class));
                 break;
             case R.id.entry_jzq:
+                getActivity().startActivity(new Intent(getActivity(),EntryJzqActivity.class));
                 break;
         }
     }
     @Override
     public void showIntent(List<ConcentratorBean> list) {
+        if (list==null)return;
         if (pageNum ==0){
             mlist.clear();
         }

@@ -18,16 +18,20 @@ import com.zz.lamp.bean.RegionExpandItem;
 import com.zz.lamp.bean.RegionExpandItem1;
 import com.zz.lamp.bean.RegionExpandItem2;
 import com.zz.lamp.business.entry.adapter.RegionAdapter;
+import com.zz.lamp.business.entry.mvp.Contract;
+import com.zz.lamp.business.entry.mvp.presenter.RegionPresenter;
 import com.zz.lib.commonlib.utils.ToolBarUtils;
 import com.zz.lib.core.ui.mvp.BasePresenter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class RegionActivity extends MyBaseActivity {
+public class RegionActivity extends MyBaseActivity<Contract.IsetRegionPresenter> implements Contract.IGetRegionlView {
 
     @BindView(R.id.toolbar_subtitle)
     TextView toolbarSubtitle;
@@ -42,48 +46,32 @@ public class RegionActivity extends MyBaseActivity {
     }
 //    https://github.com/CymChad/BaseRecyclerViewAdapterHelper/blob/master/readme/6-BaseNodeAdapter.md
     @Override
-    public BasePresenter initPresenter() {
-        return null;
+    public RegionPresenter initPresenter() {
+        return new RegionPresenter(this);
     }
 
     @Override
     protected void initView() {
         ButterKnife.bind(this);
-        List<BaseNode> entity = getEntity();
         rv.setLayoutManager(new LinearLayoutManager(this));
         adapter = new RegionAdapter();
         rv.setAdapter(adapter);
-
-        adapter.addData(entity);
-        adapter.notifyDataSetChanged();
-
+        getData();
     }
-
-    private List<BaseNode> getEntity() {
-        //总的 list，里面放的是 FirstNode
-        List<BaseNode> list = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            //SecondNode 的 list
-            List<BaseNode> secondNodeList = new ArrayList<>();
-            for (int n = 0; n <= 5; n++) {
-                List<BaseNode> thirdNodeList = new ArrayList<>();
-                for (int z = 0; z <= 3; z++) {
-                    RegionExpandItem2 thNode = new RegionExpandItem2("third Node " + z);
-                    thirdNodeList.add(thNode);
-                }
-                RegionExpandItem1 seNode = new RegionExpandItem1("Second Node " + n,thirdNodeList);
-                secondNodeList.add(seNode);
-            }
-            RegionExpandItem entity = new RegionExpandItem( "First Node " + i,secondNodeList);
-            list.add(entity);
-        }
-
-        return list;
-    }
-
-
     @Override
     protected void initToolBar() {
         ToolBarUtils.getInstance().setNavigation(toolbar);
+    }
+
+    @Override
+    public void showIntent(List<RegionExpandItem> list) {
+        if (list==null)return;
+        adapter.addData(list);
+        adapter.notifyDataSetChanged();
+    }
+    void getData(){
+        Map<String,Object> map = new HashMap<>();
+//        map.put("searchValue",pageSize);
+        mPresenter.getAreaList(map);
     }
 }

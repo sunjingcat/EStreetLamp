@@ -1,34 +1,24 @@
 package com.zz.lamp.bean;
 
-import com.chad.library.adapter.base.entity.node.BaseNode;
-
-import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
-
-public class RegionExpandItem2 extends BaseNode {
-    private String title;
-    private String  searchValue;// null,
-    private String      createBy;// cjw,
-    private String    createTime;// 2020-04-03 10;//30;//49,
-    private String    updateBy;// ,
-    private String  updateTime;// null,
-    private String   remark;// null,
-    private String    deptId;// 110,
-    private String   params;// {},
-    private String   parentName;// null,
-    private String  parentId;// null,
-    private String   orderNum;// 1,
-    private String    ancestors;// null,
-    private String  id;// 1,
-    private String   areaPid;// null,
-    private String   userId;// null,
-    private String    areaName;// 中智施维,
-    private String     areaLng;// 117.7947719493379,
-    private String    areaLat;// 39.164443269461685
-    public String getTitle() {
-        return title;
-    }
+public class Region {
+    private String searchValue;// null,
+    private String createBy;// cjw,
+    private String createTime;// 2020-04-03 10;//30;//49,
+    private String updateBy;// ,
+    private String updateTime;// null,
+    private String remark;// null,
+    private String deptId;// 110,
+    private String params;// {},
+    private String parentName;// null,
+    private String parentId;// null,
+    private String orderNum;// 1,
+    private String ancestors;// null,
+    private String id;// 1,
+    private String areaPid;// null,
+    private String userId;// null,
+    private String areaName;// 中智施维,
+    private String areaLng;// 117.7947719493379,
+    private String areaLat;// 39.164443269461685
 
     public String getSearchValue() {
         return searchValue;
@@ -100,15 +90,5 @@ public class RegionExpandItem2 extends BaseNode {
 
     public String getAreaLat() {
         return areaLat;
-    }
-
-    public RegionExpandItem2(String title) {
-        this.title = title;
-    }
-
-    @Nullable
-    @Override
-    public List<BaseNode> getChildNode() {
-        return null;
     }
 }

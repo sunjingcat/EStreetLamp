@@ -24,7 +24,7 @@ public class RootNodeProvider extends BaseNodeProvider {
 
     @Override
     public void convert(@NotNull BaseViewHolder baseViewHolder, BaseNode baseNode) {
-        baseViewHolder.setText(R.id.title,((RegionExpandItem)baseNode).getTitle());
+        baseViewHolder.setText(R.id.title,((RegionExpandItem)baseNode).getAreaName());
     }
     @Override
     public void onClick(@NotNull BaseViewHolder helper, @NotNull View view, BaseNode data, int position) {

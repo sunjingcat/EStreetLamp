@@ -58,14 +58,14 @@ public class CacheUtility {
     }
 
     public static void clear() {
-        SharedPreferences preferences = CommonApplication.getAppContext().getSharedPreferences("talent", Context.MODE_PRIVATE);
+        SharedPreferences preferences = CommonApplication.getAppContext().getSharedPreferences("lamp", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.clear();
 
         editor.commit();
     }
     public static SharedPreferences getPref() {
-        return CommonApplication.getAppContext().getSharedPreferences("talent", Context.MODE_PRIVATE);
+        return CommonApplication.getAppContext().getSharedPreferences("lamp", Context.MODE_PRIVATE);
     }
 
     public static void saveUserId( String userId) {

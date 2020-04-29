@@ -140,7 +140,7 @@ public class HomeActivity extends MyBaseActivity {
     protected void initView() {
         immersionBar = ImmersionBar.with(HomeActivity.this);
         immersionBar.statusBarDarkFont(true)
-                .navigationBarColor(R.color.transparent)
+                .navigationBarColor(R.color.colorAccent)
                 .init();
         mainTablayout = findViewById(R.id.main_tablayout);
         mainViewpager = findViewById(R.id.main_viewpager);

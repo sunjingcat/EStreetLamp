@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="预警"
-            android:textColor="#fff"
+            android:textColor="@color/colorTextBlack33"
             android:textSize="18dp" />
 
     </androidx.appcompat.widget.Toolbar>
