@@ -9,7 +9,8 @@ import com.zz.lib.commonlib.CommonApplication;
 public class CacheUtility {
     private static final String KEY_USERID = "key_userid";
     private static final String KEY_TOKEN = "key_token";
-    public static final String KEY_IMTOKEN = "key_im_token";
+    public static final String KEY_URL = "BASE_URL";
+    public static final String KEY_CODE = "key_code";
     private static final String KEY_PHONE = "key_phone";
     private static final String KEY_QQ = "key_qq";
     private static final String KEY_WXCHAT = "key_wxchat";
@@ -78,8 +79,17 @@ public class CacheUtility {
     public static void saveToken(String token) {
         spSave(KEY_TOKEN, token);
     }
-    public static void saveimToken(String token) {
-        spSave(KEY_IMTOKEN, token);
+    public static void saveURL(String url) {
+        spSave(KEY_URL, url);
+    }
+    public static void saveCode(String code) {
+        spSave(KEY_CODE, code);
+    }
+    public static String getURL() {
+        return spGetOut(KEY_URL,"http://city.tjzzsw.com/");
+    }
+    public static String getCode() {
+        return spGetOut(KEY_CODE,"");
     }
     public static boolean isLogin(){
         if (TextUtils.isEmpty(getToken())){

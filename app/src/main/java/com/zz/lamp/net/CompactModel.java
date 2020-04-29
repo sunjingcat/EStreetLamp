@@ -7,21 +7,21 @@ import com.zz.lib.commonlib.model.GsonModel;
  */
 
 public abstract class CompactModel extends GsonModel {
-    private boolean success;
+    private String code;
 
-    protected String message;
+    protected String msg;
     private Integer is_auth;
 
-    public void setSuccess(boolean success) {
-        this.success = success;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getMessage() {
-        return message;
+        return msg;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setMessage(String msg) {
+        this.msg = msg;
     }
 
     public Integer getIs_auth() {
@@ -33,7 +33,7 @@ public abstract class CompactModel extends GsonModel {
     }
 
     public boolean isSuccess() {
-       return success;
+       return code.equals("200");
     }
 
     public boolean isOutdate() {

@@ -1,4 +1,4 @@
-package com.zz.lamp.base;
+package com.zz.lamp.bean;
 
 public class ConcentratorBean {
 

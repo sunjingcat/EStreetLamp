@@ -114,8 +114,7 @@ public class BasePresenter<M, V> implements com.zz.lib.core.ui.mvp.BasePresenter
                 .addConverterFactory(GsonConverterFactory.create())
                 .createSApi(t);
     }
-
-
+    
     public static <T> T getUploadApi(Class<T> t) {
         String baseUrl = RetrofitClient.getInstance().getRetrofit().baseUrl().toString() ;
         return UploadRetrofit

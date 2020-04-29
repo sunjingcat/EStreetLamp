@@ -4,11 +4,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
 import com.zz.lamp.R;
-import com.zz.lamp.base.ConcentratorBean;
+import com.zz.lamp.bean.ConcentratorBean;
 import com.zz.lamp.base.MyBaseFragment;
 import com.zz.lamp.business.control.adapter.ControlJzqAdapter;
 import com.zz.lamp.utils.TabUtils;

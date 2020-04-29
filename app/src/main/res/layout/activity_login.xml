@@ -17,117 +17,130 @@
         android:layout_marginTop="40dp"
         android:src="@drawable/image_login_bg"></ImageView>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="120dp"
-        android:orientation="vertical">
+        android:fillViewport="true"
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="您好！"
-            android:textColor="#333333"
-            android:textSize="40dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="欢迎您的登录"
-            android:textColor="#333333"
-            android:textSize="30dp" />
-
-        <EditText
-            android:id="@+id/log_number"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="80dp"
-            android:background="@color/white"
-            android:hint="请输入手机号" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="#cccccc" />
+        android:layout_marginTop="100dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="您好！"
+                android:textColor="#333333"
+                android:textSize="35dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="欢迎您的登录"
+                android:textColor="#333333"
+                android:textSize="28dp" />
 
             <EditText
-                android:id="@+id/log_password"
+                android:id="@+id/log_number"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_weight="1"
+                android:layout_marginTop="60dp"
                 android:background="@color/white"
-                android:hint="请输入登录密码" />
+                android:text="apptest"
+                android:hint="请输入账号" />
 
-            <ImageView
-                android:id="@+id/login_password_show"
-                android:layout_width="wrap_content"
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#cccccc" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:text="123456"
+                    android:id="@+id/log_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:hint="请输入登录密码"
+                    android:inputType="textPassword"/>
+
+                <ImageView
+                    android:id="@+id/login_password_show"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:src="@drawable/image_login_password_show" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#cccccc" />
+
+            <EditText
+                android:id="@+id/log_code"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/white"
+                android:hint="请输入授权码"
+                android:text="600001" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#cccccc" />
+
+            <Button
+                android:id="@+id/login_btn"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:src="@drawable/image_login_password_show" />
-        </LinearLayout>
+                android:layout_marginTop="60dp"
+                android:background="@drawable/button_login"
+                android:text="登录"
+                android:textColor="@color/white"
+                android:textSize="14dp" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="#cccccc" />
-
-        <EditText
-            android:id="@+id/log_code"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-
-            android:background="@color/white"
-            android:hint="请输入授权码" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="#cccccc" />
-
-        <Button
-            android:id="@+id/login_btn"
-            android:layout_marginTop="80dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:background="@drawable/button_login"
-            android:textSize="14dp"
-            android:text="登录"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-            <CheckBox
-                android:id="@+id/boutique_all"
-                android:layout_width="wrap_content"
-                android:layout_margin="20px"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="20px"
-                android:drawableLeft="@drawable/check_login"
-                android:button="@null"
                 android:gravity="center"
-                android:padding="5px"
-                android:text="   已阅读并同意"
-                android:minWidth="40dp"
-                android:minHeight="30dp"
-                android:checked="true"
-                android:textSize="12dp"
-                android:textColor="#999999" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="用户服务协议"
-                android:textSize="12dp"
-                android:textColor="#6C410E"/>
-        </LinearLayout>
-    </LinearLayout>
+                android:orientation="horizontal">
 
+                <CheckBox
+                    android:id="@+id/boutique_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20px"
+                    android:layout_marginRight="20px"
+                    android:button="@null"
+                    android:checked="true"
+                    android:drawableLeft="@drawable/check_login"
+                    android:gravity="center"
+                    android:minWidth="40dp"
+                    android:minHeight="30dp"
+                    android:padding="5px"
+                    android:text="   已阅读并同意"
+                    android:textColor="#999999"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="用户服务协议"
+                    android:textColor="#6C410E"
+                    android:textSize="12dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
 </RelativeLayout>

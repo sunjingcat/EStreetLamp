@@ -18,7 +18,6 @@ public class App extends BaseApplication {
     public static App mApplication;
 
     private static Handler mHandler;  // 全局的Handler 可以防止内存泄露
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -45,6 +44,5 @@ public class App extends BaseApplication {
     public static Handler getHandler() {
         return mHandler;
     }
-
-
+    
 }

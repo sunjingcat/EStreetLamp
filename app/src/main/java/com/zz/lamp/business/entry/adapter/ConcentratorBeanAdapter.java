@@ -7,7 +7,7 @@ import androidx.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
-import com.zz.lamp.base.ConcentratorBean;
+import com.zz.lamp.bean.ConcentratorBean;
 
 import java.util.List;
 

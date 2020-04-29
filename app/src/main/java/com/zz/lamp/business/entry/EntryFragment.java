@@ -11,15 +11,19 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.umeng.commonsdk.debug.I;
 import com.zz.lamp.R;
-import com.zz.lamp.base.ConcentratorBean;
+import com.zz.lamp.bean.ConcentratorBean;
 import com.zz.lamp.base.MyBaseFragment;
+import com.zz.lamp.bean.IpAdress;
+import com.zz.lamp.business.control.mvp.Contract;
+import com.zz.lamp.business.control.mvp.presenter.TerminalPresenter;
 import com.zz.lamp.business.entry.adapter.ConcentratorBeanAdapter;
 import com.zz.lib.core.ui.mvp.BasePresenter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -31,7 +35,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class EntryFragment extends MyBaseFragment implements OnRefreshListener, OnLoadMoreListener {
+public class EntryFragment  extends MyBaseFragment<Contract.IsetTerminalPresenter> implements Contract.IGetTerminalView, OnRefreshListener, OnLoadMoreListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -44,7 +48,8 @@ public class EntryFragment extends MyBaseFragment implements OnRefreshListener, 
     ConcentratorBeanAdapter adapter;
     List<ConcentratorBean> mlist = new ArrayList<>();
     Unbinder unbinder;
-
+    int pageNum = 0;
+    int pageSize = 20;
     @Override
     protected int getCreateView() {
         return R.layout.fragment_entry;
@@ -71,11 +76,12 @@ public class EntryFragment extends MyBaseFragment implements OnRefreshListener, 
         rv.setAdapter(adapter);
         refreshLayout.setOnRefreshListener(this);
         refreshLayout.setOnLoadMoreListener(this);
+        getData();
     }
 
     @Override
-    public BasePresenter initPresenter() {
-        return null;
+    public TerminalPresenter initPresenter() {
+        return new TerminalPresenter(this);
     }
 
     @Override
@@ -85,13 +91,15 @@ public class EntryFragment extends MyBaseFragment implements OnRefreshListener, 
 
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {
-
+        pageNum = 0;
+        getData();
     }
 
 
     @Override
     public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-
+        pageNum++;
+        getData();
     }
 
     @OnClick({R.id.entry_qy, R.id.entry_jzq})
@@ -103,5 +111,20 @@ public class EntryFragment extends MyBaseFragment implements OnRefreshListener, 
             case R.id.entry_jzq:
                 break;
         }
+    }
+    @Override
+    public void showIntent(List<ConcentratorBean> list) {
+        if (pageNum ==0){
+            mlist.clear();
+        }
+        mlist.addAll(list);
+        adapter.notifyDataSetChanged();
+    }
+    void getData(){
+        Map<String,Object> map = new HashMap<>();
+        map.put("pageNum",pageNum);
+        map.put("pageSize",pageSize);
+//        map.put("searchValue",pageSize);
+        mPresenter.getTerminalList(map);
     }
 }

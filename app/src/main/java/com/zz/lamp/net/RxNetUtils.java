@@ -3,6 +3,7 @@ package com.zz.lamp.net;
 import android.app.Dialog;
 import android.text.TextUtils;
 
+import com.zz.lamp.BuildConfig;
 import com.zz.lib.commonlib.utils.CacheUtility;
 import com.zz.lib.core.http.RxHttpUtils;
 import com.zz.lib.core.http.base.BaseObserver;
@@ -45,13 +46,26 @@ public class RxNetUtils extends RxHttpUtils {
                 paras.put("token", CacheUtility.getToken());
                 rxhttp.addHeaders(paras);
             }
-
-
         }
-        Map<String,Object> param = new HashMap<>();
-        param.put("platformCode", "buildings");
-        rxhttp.addParams(param);
+//        Map<String,Object> param = new HashMap<>();
+//        rxhttp.addParams(param);
         rxhttp.baseUrl(rxhttp.getBaseUrl());
+        return rxhttp;
+    }
+
+    public static SingleRxHttp getSCInstance(String URL) {
+        SingleRxHttp rxhttp = SingleRxHttp.getInstance();
+
+        if(CacheUtility.isLogin()){
+            if (!TextUtils.isEmpty(CacheUtility.getToken()) ){
+                Map<String,Object> paras = new HashMap<>();
+                paras.put("token", CacheUtility.getToken());
+                rxhttp.addHeaders(paras);
+            }
+        }
+//        Map<String,Object> param = new HashMap<>();
+//        rxhttp.addParams(param);
+        rxhttp.baseUrl(URL);
         return rxhttp;
     }
 

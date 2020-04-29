@@ -32,21 +32,27 @@
         android:theme="@style/AppTheme">
         <activity android:name=".business.entry.EntryJzqActivity"></activity>
         <activity android:name=".business.entry.RegionActivity" />
-        <activity android:name=".business.login.LoginActivity" />
+        <activity
+            android:name=".business.login.LoginActivity"
+            android:configChanges="keyboard"
+            android:exported="false"
+            android:screenOrientation="fullSensor"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".InfoActivity"
             android:theme="@style/ActivityDialogTheme" />
         <activity android:name=".business.mine.MineActivity" />
         <activity
             android:name=".HomeActivity"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"></activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".StartpageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"

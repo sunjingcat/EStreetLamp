@@ -1,16 +1,8 @@
 package com.zz.lamp.business.entry.adapter;
 
 
-import androidx.annotation.LayoutRes;
-import androidx.annotation.Nullable;
-
-import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseNodeAdapter;
 import com.chad.library.adapter.base.entity.node.BaseNode;
-import com.chad.library.adapter.base.viewholder.BaseViewHolder;
-import com.zz.lamp.R;
-import com.zz.lamp.base.ConcentratorBean;
-import com.zz.lamp.bean.AlarmBean;
 import com.zz.lamp.bean.RegionExpandItem;
 import com.zz.lamp.bean.RegionExpandItem1;
 import com.zz.lamp.bean.RegionExpandItem2;
@@ -20,7 +12,6 @@ import com.zz.lamp.business.entry.provider.ThirdNodeProvider;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

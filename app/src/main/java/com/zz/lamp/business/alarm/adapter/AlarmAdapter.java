@@ -1,14 +1,11 @@
 package com.zz.lamp.business.alarm.adapter;
 
 
-import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.zz.lamp.R;
-import com.zz.lamp.base.ConcentratorBean;
 import com.zz.lamp.bean.AlarmBean;
 
 import java.util.List;

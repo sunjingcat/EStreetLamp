@@ -1,5 +1,7 @@
 package com.zz.lamp.net;
 
+import com.zz.lamp.BuildConfig;
+import com.zz.lib.commonlib.utils.CacheUtility;
 import com.zz.lib.core.http.http.RetrofitClient;
 import com.zz.lib.core.http.upload.UploadRetrofit;
 import com.zz.lib.core.ui.mvp.BasePresenterImpl;
@@ -22,6 +24,14 @@ public class MyBasePresenterImpl<V extends com.zz.lib.core.ui.mvp.BaseView> exte
     protected  <T> T getApi(Class<T> t) {
         return RxNetUtils
                 .getSInstance()
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .createSApi(t);
+    }
+
+    protected  <T> T getCApi(Class<T> t) {
+        return RxNetUtils
+                .getSCInstance(CacheUtility.getURL())
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .createSApi(t);

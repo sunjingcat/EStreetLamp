@@ -25,17 +25,17 @@ public class MineInfoPresenter extends MyBasePresenterImpl<Contract.IMineInfoVie
 
     @Override
     public void getMineInfo() {
-        RxNetUtils.request(getApi(ApiService.class).sendMessage(), new RequestObserver<JsonT<UserBasicBean>>(this) {
-            @Override
-            protected void onSuccess(JsonT<UserBasicBean> jsonT) {
-                view.showUserInfo(jsonT.getData());
-            }
-
-            @Override
-            protected void onFail2(JsonT<UserBasicBean> stringJsonT) {
-                super.onFail2(stringJsonT);
-            }
-        }, null);
+//        RxNetUtils.request(getApi(ApiService.class).sendMessage(), new RequestObserver<JsonT<UserBasicBean>>(this) {
+//            @Override
+//            protected void onSuccess(JsonT<UserBasicBean> jsonT) {
+//                view.showUserInfo(jsonT.getData());
+//            }
+//
+//            @Override
+//            protected void onFail2(JsonT<UserBasicBean> stringJsonT) {
+//                super.onFail2(stringJsonT);
+//            }
+//        }, null);
     }
 }
 
