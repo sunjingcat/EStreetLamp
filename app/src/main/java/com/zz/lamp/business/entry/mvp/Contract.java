@@ -22,10 +22,12 @@ public class Contract {
 
     public interface IsetRegionPresenter extends BasePresenter {
         void getAreaList(Map<String, Object> params);
+        void postAreaList(Map<String, Object> params);
     }
 
     public interface IGetRegionlView extends BaseView{
         void showIntent(List<RegionExpandItem> list);
+        void showPostIntent();
     }
 
 }

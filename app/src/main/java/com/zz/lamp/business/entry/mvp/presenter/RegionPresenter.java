@@ -36,4 +36,24 @@ public class RegionPresenter extends MyBasePresenterImpl<Contract.IGetRegionlVie
             }
         },mDialog);
     }
+
+    @Override
+    public void postAreaList(Map<String, Object> params) {
+        RxNetUtils.request(getCApi(ApiService.class).postArea(params), new RequestObserver<JsonT>(this) {
+            @Override
+            protected void onSuccess(JsonT data) {
+                if (data.isSuccess()) {
+                    view.showPostIntent();
+                }else {
+
+                }
+            }
+
+            @Override
+            protected void onFail2(JsonT userInfoJsonT) {
+                super.onFail2(userInfoJsonT);
+                view.showToast(userInfoJsonT.getMessage());
+            }
+        },mDialog);
+    }
 }

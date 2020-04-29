@@ -42,6 +42,9 @@ public interface ApiService {
     @GET("/app/light/area/list")
     Observable<JsonT<List<RegionExpandItem>>> getAreaList(@QueryMap Map<String, Object> params);
 
+    @POST( "/app/light/area")
+    Observable<JsonT> postArea(@QueryMap Map<String, Object> params);
+
 
     @POST(URLs.VERSION + "/buildings/supervise/safety/item")
     Observable<JsonT> submitSafetyFeedback(@QueryMap Map<String, Object> params);

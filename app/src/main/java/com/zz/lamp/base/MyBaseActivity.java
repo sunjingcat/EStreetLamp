@@ -9,7 +9,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.zz.lamp.App;
+import com.zz.lamp.HomeActivity;
+import com.zz.lamp.R;
 import com.zz.lamp.net.OutDateEvent;
 import com.zz.lamp.utils.woolglass.FragmentClass;
 import com.zz.lib.commonlib.CommonApplication;
@@ -39,6 +42,7 @@ public abstract class MyBaseActivity<P extends com.zz.lib.core.ui.mvp.BasePresen
         App.context=this;
 
     }
+
     //获取Activity布局
     protected abstract int getContentView();
     public void clearTransAnimation() {
@@ -48,7 +52,7 @@ public abstract class MyBaseActivity<P extends com.zz.lib.core.ui.mvp.BasePresen
     public void setTransAnimation(Bundle transAnimation) {
         mTransAnimation = transAnimation;
     }
-
+    ImmersionBar immersionBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -57,6 +61,10 @@ public abstract class MyBaseActivity<P extends com.zz.lib.core.ui.mvp.BasePresen
         mTransAnimation = AnimeUtils.sceneTransAnime(this);
         initView();
         initToolBar();
+        immersionBar = ImmersionBar.with(this);
+        immersionBar.statusBarDarkFont(true)
+                .navigationBarColor(R.color.colorAccent)
+                .init();
     }
 
     @Override

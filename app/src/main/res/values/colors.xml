@@ -14,7 +14,8 @@
     <color name="colorLine">#cccccc</color>
     <color name="colorTextBlack99">#999999</color>
     <color name="colorTextBlack33">#333333</color>
-    <color name="red">#D42B33</color>
+    <color name="color9C">#9C5F23</color>
+    <color name="red">#FE5151</color>
 
     <!-- 底部TAB导航颜色 -->
     <color name="tab_indicator">#d6d6d6</color>

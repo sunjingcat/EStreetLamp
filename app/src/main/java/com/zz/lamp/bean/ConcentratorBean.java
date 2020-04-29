@@ -8,7 +8,7 @@ public class ConcentratorBean {
     private String updateTime;// 2020-04-10 16;//15;//35,
     private String remark;// null,
     private String deptId;// 116,
-    private String params;// {},
+
     private String area;// null,
     private String id;// 2,
     private String terminalAddr;// 20040801,
@@ -19,14 +19,14 @@ public class ConcentratorBean {
     private String terminalLat;// 38.290273307174054,
     private String areaId;// 3,
     private String areaName;// 沧州师范学院,
-    private int isDoorCheck;// 0,
+    private String isDoorCheck;// 0,
     private String preEnergyQuantity;// 200,
     private String loopCount;// 1,
     private String lineCount;// 1,
     private String loopTransformerRatio;// 20,
-    private int lineTransformerRatio;// 20,
-    private int relayOnDelayedTime;// 5,
-    private int alarmDelayedTime;// 5
+    private String lineTransformerRatio;// 20,
+    private String relayOnDelayedTime;// 5,
+    private String alarmDelayedTime;// 5
 
     public String getSearchValue() {
         return searchValue;
@@ -56,9 +56,6 @@ public class ConcentratorBean {
         return deptId;
     }
 
-    public String getParams() {
-        return params;
-    }
 
     public String getArea() {
         return area;
@@ -100,7 +97,7 @@ public class ConcentratorBean {
         return areaName;
     }
 
-    public int getIsDoorCheck() {
+    public String getIsDoorCheck() {
         return isDoorCheck;
     }
 
@@ -120,15 +117,15 @@ public class ConcentratorBean {
         return loopTransformerRatio;
     }
 
-    public int getLineTransformerRatio() {
+    public String getLineTransformerRatio() {
         return lineTransformerRatio;
     }
 
-    public int getRelayOnDelayedTime() {
+    public String getRelayOnDelayedTime() {
         return relayOnDelayedTime;
     }
 
-    public int getAlarmDelayedTime() {
+    public String getAlarmDelayedTime() {
         return alarmDelayedTime;
     }
 }

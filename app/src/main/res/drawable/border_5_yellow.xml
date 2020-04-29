@@ -3,16 +3,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- 内部颜色 -->
     <solid
-        android:color="#FEECC2" />
+        android:color="@color/transparent" />
     <!-- 边缘线条颜色 -->
     <stroke
         android:width="1dp"
-        android:color="#FEECC2" />
+        android:color="@color/color9C" />
     <!-- 圆角的幅度 -->
     <corners
-        android:topLeftRadius="10dip"
-        android:topRightRadius="10dip"
-        android:bottomLeftRadius="10dip"
-        android:bottomRightRadius="10dip" />
+        android:topLeftRadius="5dip"
+        android:topRightRadius="5dip"
+        android:bottomLeftRadius="5dip"
+        android:bottomRightRadius="5dip" />
 
 </shape>

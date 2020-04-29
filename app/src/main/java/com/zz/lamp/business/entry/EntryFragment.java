@@ -1,6 +1,7 @@
 package com.zz.lamp.business.entry;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.zz.lamp.base.MyBaseFragment;
 import com.zz.lamp.business.entry.adapter.ConcentratorBeanAdapter;
 import com.zz.lamp.business.entry.mvp.Contract;
 import com.zz.lamp.business.entry.mvp.presenter.TerminalPresenter;
+import com.zz.lib.core.ui.widget.decorations.RecycleViewDivider;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -69,7 +71,7 @@ public class EntryFragment  extends MyBaseFragment<Contract.IsetTerminalPresente
     @Override
     protected void initView(View view) {
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rv.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
+        rv.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayoutManager.VERTICAL,1, Color.parseColor("#EDEFF7")));
         adapter = new ConcentratorBeanAdapter(R.layout.item_entry_jzq, mlist);
         rv.setAdapter(adapter);
         refreshLayout.setOnRefreshListener(this);
@@ -91,13 +93,15 @@ public class EntryFragment  extends MyBaseFragment<Contract.IsetTerminalPresente
     public void onRefresh(RefreshLayout refreshlayout) {
         pageNum = 0;
         getData();
+        refreshlayout.finishRefresh();
     }
 
 
     @Override
-    public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+    public void onLoadMore(RefreshLayout refresh) {
         pageNum++;
         getData();
+        refresh.finishLoadMore();
     }
 
     @OnClick({R.id.entry_qy, R.id.entry_jzq})
@@ -119,6 +123,11 @@ public class EntryFragment  extends MyBaseFragment<Contract.IsetTerminalPresente
         }
         mlist.addAll(list);
         adapter.notifyDataSetChanged();
+        if (mlist.size()>0){
+            llNull.setVisibility(View.GONE);
+        }else {
+            llNull.setVisibility(View.VISIBLE);
+        }
     }
     void getData(){
         Map<String,Object> map = new HashMap<>();

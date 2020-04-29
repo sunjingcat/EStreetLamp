@@ -34,7 +34,8 @@
                 android:layout_height="wrap_content"
                 android:text="您好！"
                 android:textColor="#333333"
-                android:textSize="35dp" />
+                android:textStyle="bold"
+                android:textSize="25dp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -42,7 +43,7 @@
                 android:layout_marginTop="10dp"
                 android:text="欢迎您的登录"
                 android:textColor="#333333"
-                android:textSize="28dp" />
+                android:textSize="18dp" />
 
             <EditText
                 android:id="@+id/log_number"
@@ -51,6 +52,7 @@
                 android:layout_marginTop="60dp"
                 android:background="@color/white"
                 android:text="apptest"
+                android:textColor="#444444"
                 android:hint="请输入账号" />
 
             <View
@@ -71,6 +73,7 @@
                     android:layout_height="40dp"
                     android:layout_weight="1"
                     android:background="@color/white"
+                    android:textColor="#444444"
                     android:hint="请输入登录密码"
                     android:inputType="textPassword"/>
 
@@ -79,6 +82,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
+                    android:textColor="#444444"
                     android:src="@drawable/image_login_password_show" />
             </LinearLayout>
 
@@ -107,8 +111,8 @@
                 android:layout_marginTop="60dp"
                 android:background="@drawable/button_login"
                 android:text="登录"
-                android:textColor="@color/white"
-                android:textSize="14dp" />
+                android:textColor="@color/color9C"
+                android:textSize="18dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -118,21 +122,20 @@
 
                 <CheckBox
                     android:id="@+id/boutique_all"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
                     android:layout_margin="20px"
                     android:layout_marginRight="20px"
-                    android:button="@null"
+                    android:button="@drawable/check_login"
                     android:checked="true"
-                    android:drawableLeft="@drawable/check_login"
-                    android:gravity="center"
-                    android:minWidth="40dp"
-                    android:minHeight="30dp"
-                    android:padding="5px"
+                   android:gravity="center" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="   已阅读并同意"
                     android:textColor="#999999"
                     android:textSize="12dp" />
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
