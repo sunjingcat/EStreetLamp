@@ -39,6 +39,9 @@ public interface ApiService {
     @GET("/app/light/terminal/list")
     Observable<JsonT<List<ConcentratorBean>>> getTerminalList(@QueryMap Map<String, Object> params);
 
+    @GET("/app/light/terminal/")
+    Observable<JsonT<ConcentratorBean>> getTerminalDetail(@QueryMap Map<String, Object> params);
+
     @POST( "/app/light/terminal/")
     Observable<JsonT> postTerminal(@QueryMap Map<String, Object> params);
 
