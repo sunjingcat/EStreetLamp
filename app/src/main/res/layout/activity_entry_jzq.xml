@@ -113,7 +113,8 @@
                     android:gravity="center_vertical|right"
                     android:hint="输入数字(8位)"
                     android:lines="1"
-                    android:maxEms="8"
+                    android:inputType="number"
+                    android:maxLength="8"
                     android:textColor="#333333"
                     android:textSize="14dp" />
 
@@ -151,9 +152,7 @@
                     android:background="@color/white"
                     android:gravity="center_vertical|right"
                     android:hint="请输入"
-                    android:inputType="number"
                     android:lines="1"
-                    android:maxEms="8"
                     android:textColor="#333333"
                     android:textSize="14dp" />
 
@@ -167,6 +166,7 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingLeft="15dp"
+                android:visibility="gone"
                 android:paddingRight="15dp">
 
                 <TextView

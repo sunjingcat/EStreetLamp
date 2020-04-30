@@ -1,22 +1,28 @@
 package com.zz.lamp.business.entry;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseActivity;
 import com.zz.lamp.bean.RegionExpandItem;
+import com.zz.lamp.business.SelectLocationActivity;
 import com.zz.lamp.business.entry.mvp.Contract;
 import com.zz.lamp.business.entry.mvp.presenter.TerminalAddPresenter;
 import com.zz.lib.commonlib.utils.ToolBarUtils;
 import com.zz.lib.commonlib.widget.SelectPopupWindows;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,8 +56,13 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
     @BindView(R.id.relayOnDelayedTime)
     EditText relayOnDelayedTime;
     @BindView(R.id.lat)
-    TextView lat;
+    TextView tv_lat;
+    String areaId;
+    String areaName;
+    int type = 0;
 
+    double lat = 0.0;
+    double lon = 0.0;
     @Override
     protected int getContentView() {
         return R.layout.activity_entry_jzq;
@@ -77,9 +88,10 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.toolbar_subtitle:
-
+                postData();
                 break;
             case R.id.tv_area:
+                startActivityForResult(new Intent(EntryJzqActivity.this,RegionActivity.class),1001);
                 break;
             case R.id.terminalType:
                 String[] PLANETS2 = new String[]{"塔吊", "升降机", "塔吊黑匣子","环境监测设备","其他"};
@@ -100,9 +112,103 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
                 });
                 break;
             case R.id.lat:
-
+                startActivityForResult(new Intent(EntryJzqActivity.this, SelectLocationActivity.class),1002);
                 break;
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode){
+            case 1001:
+                if (data == null)return;
+                 areaId = data.getStringExtra("areaId");
+                 areaName = data.getStringExtra("areaName");
+                tvArea.setText(areaName+"");
+                break;
+        }
+    }
+
+    void postData(){
+        Map<String, Object> params = new HashMap<>();
+        if (TextUtils.isEmpty(areaId)||TextUtils.isEmpty(areaName)){
+            showToast("请选择区域");
+            return;
+        }
+        params.put("areaId",areaId);
+        params.put("areaName",areaName);
+
+        String addr = terminalAddr.getText().toString();
+        if (TextUtils.isEmpty(addr)){
+            showToast("请输入集中器地址");
+            return;
+        }
+        params.put("terminalAddr",addr);
+
+        String name = terminalName.getText().toString();
+        if (TextUtils.isEmpty(name)){
+            showToast("请输入集中器别名");
+            return;
+        }
+        params.put("terminalName",name);
+
+        if (type==0){
+            showToast("请选择集中器类型");
+            return;
+        }
+        params.put("terminalType",type);
+
+        String count = loopCount.getText().toString();
+        if (TextUtils.isEmpty(count)){
+            showToast("请输入回路数量");
+            return;
+        }
+        params.put("loopCount",count);
+
+        String line_Count = lineCount.getText().toString();
+        if (TextUtils.isEmpty(line_Count)){
+            showToast("请输入支路数量");
+            return;
+        }
+        params.put("lineCount",line_Count);
+
+        String transformerRatio = loopTransformerRatio.getText().toString();
+        if (TextUtils.isEmpty(transformerRatio)){
+            showToast("请输入回路互感器变比");
+            return;
+        }
+        params.put("loopTransformerRatio",transformerRatio);
+
+        String line_transformerRatio = lineTransformerRatio.getText().toString();
+        if (TextUtils.isEmpty(line_transformerRatio)){
+            showToast("请输入相线互感器变比");
+            return;
+        }
+        params.put("lineTransformerRatio",line_transformerRatio);
+
+        String alarmDelayedTime_ = alarmDelayedTime.getText().toString();
+        if (TextUtils.isEmpty(alarmDelayedTime_)){
+            showToast("请输入报警延时");
+            return;
+        }
+        params.put("alarmDelayedTime",alarmDelayedTime_);
+
+        String relayOnDelayedTime_ = relayOnDelayedTime.getText().toString();
+        if (TextUtils.isEmpty(relayOnDelayedTime_)){
+            showToast("请输入上电合闸延时");
+            return;
+        }
+        params.put("relayOnDelayedTime",relayOnDelayedTime_);
+
+        if (lat==0.0||lon==0.0){
+            showToast("请选择经纬度");
+            return;
+        }
+        params.put("lat",lat);
+        params.put("lon",lon);
+        mPresenter.postTerminal(params);
     }
 
     @Override

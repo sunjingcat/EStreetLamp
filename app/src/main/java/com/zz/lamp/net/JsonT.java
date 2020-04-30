@@ -55,5 +55,14 @@ public class JsonT<T> extends CompactModel {
         this.last_time = last_time;
     }
 
-
+    @Override
+    public String toString() {
+        return "JsonT{" +
+                "data=" + data +
+                ", count=" + count +
+                ", page_count=" + page_count +
+                ", page=" + page +
+                ", last_time=" + last_time +
+                '}';
+    }
 }

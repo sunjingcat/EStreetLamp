@@ -1,10 +1,15 @@
 package com.zz.lamp.business.entry;
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.entity.node.BaseNode;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseActivity;
 import com.zz.lamp.bean.RegionExpandItem;
@@ -15,13 +20,16 @@ import com.zz.lamp.business.entry.adapter.RegionAdapter;
 import com.zz.lamp.business.entry.mvp.Contract;
 import com.zz.lamp.business.entry.mvp.presenter.RegionPresenter;
 import com.zz.lamp.utils.LogUtils;
+import com.zz.lamp.utils.SoftKeyboardUtils;
 import com.zz.lamp.widget.InputDialog;
 import com.zz.lib.commonlib.utils.ToolBarUtils;
+import com.zz.lib.core.ui.widget.decorations.RecycleViewDivider;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -56,7 +64,55 @@ public class RegionActivity extends MyBaseActivity<Contract.IsetRegionPresenter>
     protected void initView() {
         ButterKnife.bind(this);
         rv.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new RegionAdapter();
+        rv.addItemDecoration(new RecycleViewDivider(this, LinearLayoutManager.VERTICAL,1, Color.parseColor("#EDEFF7")));
+
+        adapter = new RegionAdapter(new RegionAdapter.OnProviderOnClick() {
+
+            @Override
+            public void onItemOnclick(BaseNode node, int type) {
+                if (type == 1){
+                    showInputDialog(node);
+                }else{
+                    Intent intent = new Intent();
+                    String areaPid="";
+                    String userId="";
+                    int orderNum=1;
+                    if (node instanceof RegionExpandItem) {
+                        RegionExpandItem node1 = (RegionExpandItem) node;
+                        areaPid=node1.getAreaPid();
+                        orderNum=node1.getOrderNum()+1;
+                        userId=node1.getUserId();
+                        intent.putExtra("areaId",node1.getId());
+                        intent.putExtra("areaName",node1.getAreaName());
+                    } else if (node instanceof RegionExpandItem1) {
+                        RegionExpandItem1 node1 = (RegionExpandItem1) node;
+                        areaPid=node1.getAreaPid();
+                        orderNum=node1.getOrderNum()+1;
+                        userId=node1.getUserId();
+                        intent.putExtra("areaId",node1.getId());
+                        intent.putExtra("areaName",node1.getAreaName());
+                    } else if (node instanceof RegionExpandItem2) {
+                        RegionExpandItem2 node1 = (RegionExpandItem2) node;
+                        areaPid=node1.getAreaPid();
+                        orderNum=node1.getOrderNum()+1;
+                        userId=node1.getUserId();
+                        intent.putExtra("areaId",node1.getId());
+                        intent.putExtra("areaName",node1.getAreaName());
+                    }else if (node instanceof RegionExpandItem3) {
+                        RegionExpandItem3 node1 = (RegionExpandItem3) node;
+                        areaPid=node1.getAreaPid();
+                        orderNum=node1.getOrderNum()+1;
+                        userId=node1.getUserId();
+                        intent.putExtra("areaId",node1.getId());
+                        intent.putExtra("areaName",node1.getAreaName());
+                    }
+
+                    setResult(RESULT_OK,intent);
+                    finish();
+
+                }
+            }
+        });
         rv.setAdapter(adapter);
         getData();
     }
@@ -75,7 +131,8 @@ public class RegionActivity extends MyBaseActivity<Contract.IsetRegionPresenter>
 
     @Override
     public void showPostIntent() {
-
+        showToast("添加成功");
+        getData();
     }
 
     void getData() {
@@ -125,6 +182,7 @@ public class RegionActivity extends MyBaseActivity<Contract.IsetRegionPresenter>
                     public void onClick(DialogInterface dialog, String msg) {
                         dialog.dismiss();
                         selectNode = null;
+                        SoftKeyboardUtils.closeInoutDecorView(RegionActivity.this);
                     }
                 })
                 .setPositiveButton("确定", new InputDialog.OnClickListener() {
@@ -132,7 +190,7 @@ public class RegionActivity extends MyBaseActivity<Contract.IsetRegionPresenter>
                     public void onClick(DialogInterface dialog, String msg) {
                         dialog.dismiss();
                         postData(node,msg);
-
+                        SoftKeyboardUtils.closeInoutDecorView(RegionActivity.this);
                     }
                 });
         selectNode = node;

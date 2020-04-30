@@ -25,9 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -71,7 +69,7 @@ public class EntryFragment  extends MyBaseFragment<Contract.IsetTerminalPresente
     @Override
     protected void initView(View view) {
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rv.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayoutManager.VERTICAL,1, Color.parseColor("#EDEFF7")));
+        rv.addItemDecoration(new RecycleViewDivider(getActivity(), LinearLayoutManager.VERTICAL));
         adapter = new ConcentratorBeanAdapter(R.layout.item_entry_jzq, mlist);
         rv.setAdapter(adapter);
         refreshLayout.setOnRefreshListener(this);

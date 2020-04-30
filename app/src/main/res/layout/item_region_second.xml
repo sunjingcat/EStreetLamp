@@ -8,11 +8,13 @@
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
     android:paddingRight="12dp"
+    android:background="@drawable/line_radius_10_light"
     android:paddingLeft="32dp">
 
     <ImageView
-        android:layout_width="7dp"
-        android:layout_height="12dp"
+        android:id="@+id/image_fold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:scaleType="center"
         android:src="@drawable/image_right" />
 
@@ -27,7 +29,7 @@
         tools:text="父级菜单" />
 
     <TextView
-        android:id="@+id/region_click"
+        android:id="@+id/region_add"
         android:layout_width="42dp"
         android:layout_height="wrap_content"
         android:textColor="@color/color9C"
@@ -36,10 +38,10 @@
         android:paddingBottom="5dp"
         android:gravity="center"
         android:background="@drawable/border_5_yellow"
-        tools:text="添加" />
+        android:text="添加" />
 
     <TextView
-        android:id="@+id/region_add"
+        android:id="@+id/region_click"
         android:layout_width="42dp"
         android:layout_height="wrap_content"
         android:textColor="@color/color9C"
@@ -49,7 +51,7 @@
         android:gravity="center"
         android:layout_marginLeft="10dp"
         android:background="@drawable/border_radius_5_yellow"
-        tools:text="选择" />
+        android:text="选择" />
 
 
 </LinearLayout>

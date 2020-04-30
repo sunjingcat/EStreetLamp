@@ -30,7 +30,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".business.entry.EntryJzqActivity"></activity>
+        <activity android:name=".business.SelectLocationActivity"></activity>
+        <activity android:name=".business.entry.EntryJzqActivity" />
         <activity android:name=".business.entry.RegionActivity" />
         <activity
             android:name=".business.login.LoginActivity"
@@ -44,7 +45,7 @@
         <activity android:name=".business.mine.MineActivity" />
         <activity
             android:name=".HomeActivity"
-            android:launchMode="singleTask"></activity>
+            android:launchMode="singleTask" />
         <activity android:name=".MainActivity" />
         <activity android:name=".StartpageActivity">
             <intent-filter>

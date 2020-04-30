@@ -4,6 +4,7 @@ import com.chad.library.adapter.base.entity.node.BaseNode;
 
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RegionExpandItem3 extends BaseNode {
@@ -46,6 +47,7 @@ public class RegionExpandItem3 extends BaseNode {
     @Nullable
     @Override
     public List<BaseNode> getChildNode() {
+
         return null;
     }
 }

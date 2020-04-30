@@ -16,10 +16,10 @@ public class RegionExpandItem1 extends BaseExpandNode {
     private String    areaName;// 中智施维,
     private String     areaLng;// 117.7947719493379,
     private String    areaLat;// 39.164443269461685
-    private List<BaseNode> childrens = new ArrayList<>();
+    private List<RegionExpandItem2> childrens = new ArrayList<>();
 
 
-    public RegionExpandItem1(List<BaseNode> childrens) {
+    public RegionExpandItem1(List<RegionExpandItem2> childrens) {
 
         setExpanded(true);
     }
@@ -52,13 +52,19 @@ public class RegionExpandItem1 extends BaseExpandNode {
         return areaLat;
     }
 
-    public List<BaseNode> getChildrens() {
+    public List<RegionExpandItem2> getChildrens() {
         return childrens;
     }
 
     @Nullable
     @Override
     public List<BaseNode> getChildNode() {
-        return childrens;
+        if (childrens==null)return null;
+         List<BaseNode> childs = new ArrayList<>();
+
+        for (BaseNode node:childrens){
+            childs.add(node);
+        }
+        return childs;
     }
 }

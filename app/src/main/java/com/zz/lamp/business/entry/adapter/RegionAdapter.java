@@ -21,12 +21,12 @@ import java.util.List;
  */
 
 public class RegionAdapter extends BaseNodeAdapter {
-    public RegionAdapter() {
+    public RegionAdapter(OnProviderOnClick onProviderOnClick) {
         super();
-        addNodeProvider(new RootNodeProvider());
-        addNodeProvider(new SecondNodeProvider());
-        addNodeProvider(new ThirdNodeProvider());
-        addNodeProvider(new FourthNodeProvider());
+        addNodeProvider(new RootNodeProvider(onProviderOnClick));
+        addNodeProvider(new SecondNodeProvider(onProviderOnClick));
+        addNodeProvider(new ThirdNodeProvider(onProviderOnClick));
+        addNodeProvider(new FourthNodeProvider(onProviderOnClick));
 
     }
 
@@ -43,5 +43,8 @@ public class RegionAdapter extends BaseNodeAdapter {
             return 3;
         }
         return -1;
+    }
+    public interface OnProviderOnClick{
+        void onItemOnclick(BaseNode node,int type);
     }
 }
