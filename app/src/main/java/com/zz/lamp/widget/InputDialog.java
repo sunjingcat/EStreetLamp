@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zz.lamp.R;
+import com.zz.lib.core.http.utils.ToastUtils;
 
 
 /**
@@ -227,7 +228,12 @@ public class InputDialog extends Dialog {
                 if (positiveButtonClickListener != null) {
                     lblPositive.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-                            positiveButtonClickListener.onClick(dialog,msg.getText().toString());
+                            String s = msg.getText().toString();
+                            if (TextUtils.isEmpty(s)){
+                                ToastUtils.showToast("请输入名称");
+                                return;
+                            }
+                            positiveButtonClickListener.onClick(dialog,s);
                             if (dialog !=null &&dialog.isShowing()){
                                 dialog.dismiss();
                             }

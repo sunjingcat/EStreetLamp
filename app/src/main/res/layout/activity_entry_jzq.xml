@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/bg"
     android:orientation="vertical">
 
     <View
@@ -71,7 +72,7 @@
                     android:textSize="14dp" />
 
                 <TextView
-                    android:id="@+id/storage_brand"
+                    android:id="@+id/tv_area"
                     style="@style/textRightStyle"
                     android:drawableRight="@drawable/image_arrow"
                     android:drawablePadding="5dp"
@@ -103,7 +104,7 @@
                     android:textSize="14dp" />
 
                 <EditText
-                    android:id="@+id/certi_name"
+                    android:id="@+id/terminalAddr"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
@@ -142,7 +143,7 @@
                     android:textSize="14dp" />
 
                 <EditText
-                    android:id="@+id/certi_alisa"
+                    android:id="@+id/terminalName"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
@@ -171,7 +172,7 @@
                 <TextView
                     style="@style/textLeftStyle"
                     android:text="*"
-                    android:textColor="@color/red" />
+                    android:textColor="@color/transparent" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -182,7 +183,7 @@
                     android:textSize="14dp" />
 
                 <TextView
-                    android:id="@+id/storage_brand1"
+                    android:id="@+id/terminalType"
                     style="@style/textRightStyle"
                     android:drawableRight="@drawable/image_arrow"
                     android:drawablePadding="5dp"
@@ -214,7 +215,7 @@
                     android:textSize="14dp" />
 
                 <EditText
-                    android:id="@+id/certi_alisa1"
+                    android:id="@+id/loopCount"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
@@ -253,7 +254,7 @@
                     android:textSize="14dp" />
 
                 <EditText
-                    android:id="@+id/certi_alisa2"
+                    android:id="@+id/lineCount"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
@@ -265,6 +266,194 @@
                     android:lines="1"
                     android:textColor="#333333"
                     android:textSize="14dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/colorWhite"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    style="@style/textLeftStyle"
+                    android:text="*"
+                    android:textColor="@color/red" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="回路互感器变比"
+                    android:textColor="#333333"
+                    android:textSize="14dp" />
+
+                <EditText
+                    android:id="@+id/loopTransformerRatio"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="center_vertical|right"
+                    android:hint="请输入"
+                    android:inputType="number"
+                    android:lines="1"
+                    android:textColor="#333333"
+                    android:textSize="14dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/colorWhite"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    style="@style/textLeftStyle"
+                    android:text="*"
+                    android:textColor="@color/red" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="相线互感器变比"
+                    android:textColor="#333333"
+                    android:textSize="14dp" />
+
+                <EditText
+                    android:id="@+id/lineTransformerRatio"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="center_vertical|right"
+                    android:hint="请输入"
+                    android:inputType="number"
+                    android:lines="1"
+                    android:textColor="#333333"
+                    android:textSize="14dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/colorWhite"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    style="@style/textLeftStyle"
+                    android:text="*"
+                    android:textColor="@color/red" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="报警延时"
+                    android:textColor="#333333"
+                    android:textSize="14dp" />
+
+                <EditText
+                    android:id="@+id/alarmDelayedTime"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="center_vertical|right"
+                    android:hint="请输入"
+                    android:inputType="number"
+                    android:lines="1"
+                    android:textColor="#333333"
+                    android:textSize="14dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/colorWhite"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    style="@style/textLeftStyle"
+                    android:text="*"
+                    android:textColor="@color/red" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="上电合闸延时"
+                    android:textColor="#333333"
+                    android:textSize="14dp" />
+
+                <EditText
+                    android:id="@+id/relayOnDelayedTime"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="center_vertical|right"
+                    android:hint="请输入"
+                    android:inputType="number"
+                    android:lines="1"
+                    android:textColor="#333333"
+                    android:textSize="14dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorWhite"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    style="@style/textLeftStyle"
+                    android:text="*"
+                    android:textColor="@color/red" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="经纬度"
+                    android:textColor="#333333"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/lat"
+                    style="@style/textRightStyle"
+                    android:drawableRight="@drawable/image_arrow"
+                    android:drawablePadding="5dp"
+                    android:hint="请选择" />
 
             </LinearLayout>
         </LinearLayout>

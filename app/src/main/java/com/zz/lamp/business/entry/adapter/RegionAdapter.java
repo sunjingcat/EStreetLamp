@@ -6,6 +6,7 @@ import com.chad.library.adapter.base.entity.node.BaseNode;
 import com.zz.lamp.bean.RegionExpandItem;
 import com.zz.lamp.bean.RegionExpandItem1;
 import com.zz.lamp.bean.RegionExpandItem2;
+import com.zz.lamp.bean.RegionExpandItem3;
 import com.zz.lamp.business.entry.provider.FourthNodeProvider;
 import com.zz.lamp.business.entry.provider.RootNodeProvider;
 import com.zz.lamp.business.entry.provider.SecondNodeProvider;
@@ -38,7 +39,7 @@ public class RegionAdapter extends BaseNodeAdapter {
             return 1;
         } else if (node instanceof RegionExpandItem2) {
             return 2;
-        }else if (node instanceof RegionExpandItem2) {
+        }else if (node instanceof RegionExpandItem3) {
             return 3;
         }
         return -1;

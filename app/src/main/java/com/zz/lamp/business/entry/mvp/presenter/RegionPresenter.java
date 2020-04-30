@@ -38,7 +38,7 @@ public class RegionPresenter extends MyBasePresenterImpl<Contract.IGetRegionlVie
     }
 
     @Override
-    public void postAreaList(Map<String, Object> params) {
+    public void postArea(Map<String, Object> params) {
         RxNetUtils.request(getCApi(ApiService.class).postArea(params), new RequestObserver<JsonT>(this) {
             @Override
             protected void onSuccess(JsonT data) {

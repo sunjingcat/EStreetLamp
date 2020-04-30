@@ -20,9 +20,17 @@ public class Contract {
         void showIntent(List<ConcentratorBean> list);
     }
 
+    public interface IsetTerminalAddPresenter extends BasePresenter {
+        void postTerminal(Map<String, Object> params);
+    }
+
+    public interface IGetTerminalAddView extends BaseView{
+        void showIntent();
+    }
+
     public interface IsetRegionPresenter extends BasePresenter {
         void getAreaList(Map<String, Object> params);
-        void postAreaList(Map<String, Object> params);
+        void postArea(Map<String, Object> params);
     }
 
     public interface IGetRegionlView extends BaseView{

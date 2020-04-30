@@ -1,12 +1,16 @@
 package com.zz.lamp.business.entry;
 
 import android.content.DialogInterface;
+import android.text.TextUtils;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.entity.node.BaseNode;
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseActivity;
 import com.zz.lamp.bean.RegionExpandItem;
+import com.zz.lamp.bean.RegionExpandItem1;
+import com.zz.lamp.bean.RegionExpandItem2;
+import com.zz.lamp.bean.RegionExpandItem3;
 import com.zz.lamp.business.entry.adapter.RegionAdapter;
 import com.zz.lamp.business.entry.mvp.Contract;
 import com.zz.lamp.business.entry.mvp.presenter.RegionPresenter;
@@ -80,10 +84,36 @@ public class RegionActivity extends MyBaseActivity<Contract.IsetRegionPresenter>
         mPresenter.getAreaList(map);
     }
     void postData(BaseNode node,String str) {
+        String areaPid="";
+        String userId="";
+        int orderNum=1;
+        if (node instanceof RegionExpandItem) {
+            RegionExpandItem node1 = (RegionExpandItem) node;
+            areaPid=node1.getAreaPid();
+            orderNum=node1.getOrderNum()+1;
+            userId=node1.getUserId();
+        } else if (node instanceof RegionExpandItem1) {
+            RegionExpandItem1 node1 = (RegionExpandItem1) node;
+            areaPid=node1.getAreaPid();
+            orderNum=node1.getOrderNum()+1;
+            userId=node1.getUserId();
+        } else if (node instanceof RegionExpandItem2) {
+            RegionExpandItem2 node1 = (RegionExpandItem2) node;
+            areaPid=node1.getAreaPid();
+            orderNum=node1.getOrderNum()+1;
+            userId=node1.getUserId();
+        }else if (node instanceof RegionExpandItem3) {
+            RegionExpandItem3 node1 = (RegionExpandItem3) node;
+            areaPid=node1.getAreaPid();
+            orderNum=node1.getOrderNum()+1;
+            userId=node1.getUserId();
+        }
         Map<String, Object> map = new HashMap<>();
         map.put("areaName",str);
-        map.put("areaPid",(RegionExpandItem)node);
-        mPresenter.getAreaList(map);
+        map.put("areaPid", TextUtils.isEmpty(areaPid)?"":areaPid);
+        map.put("orderNum",orderNum);
+        map.put("userId",TextUtils.isEmpty(userId)?"":userId);
+        mPresenter.postArea(map);
     }
 
     private void showInputDialog(BaseNode node) {
@@ -101,8 +131,7 @@ public class RegionActivity extends MyBaseActivity<Contract.IsetRegionPresenter>
                     @Override
                     public void onClick(DialogInterface dialog, String msg) {
                         dialog.dismiss();
-                        LogUtils.v("sj---" + msg);
-                        LogUtils.v("sj---" + node.toString());
+                        postData(node,msg);
 
                     }
                 });
@@ -123,6 +152,6 @@ public class RegionActivity extends MyBaseActivity<Contract.IsetRegionPresenter>
 
     @OnClick(R.id.toolbar_subtitle)
     public void onViewClicked() {
-        showInputDialog(new RegionExpandItem(1,""));
+        showInputDialog(new RegionExpandItem(0,""));
     }
 }
