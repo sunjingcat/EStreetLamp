@@ -145,6 +145,10 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
             showToast("请输入集中器地址");
             return;
         }
+        if (addr.length()!=8){
+            showToast("请输入正确的8位集中器地址");
+            return;
+        }
         params.put("terminalAddr",addr);
 
         String name = terminalName.getText().toString();
@@ -154,11 +158,7 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
         }
         params.put("terminalName",name);
 
-        if (type==0){
-            showToast("请选择集中器类型");
-            return;
-        }
-        params.put("terminalType",type);
+
 
         String count = loopCount.getText().toString();
         if (TextUtils.isEmpty(count)){
@@ -202,10 +202,13 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
         }
         params.put("relayOnDelayedTime",relayOnDelayedTime_);
 
-        if (lat==0.0||lon==0.0){
-            showToast("请选择经纬度");
-            return;
-        }
+        /**
+         *
+         */
+//        if (lat==0.0||lon==0.0){
+//            showToast("请选择经纬度");
+//            return;
+//        }
         params.put("lat",lat);
         params.put("lon",lon);
         mPresenter.postTerminal(params);
