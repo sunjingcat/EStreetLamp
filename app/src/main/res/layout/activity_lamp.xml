@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:id="@+id/bg"
-    android:orientation="vertical">
+    tools:context=".business.entry.EntryLampActivity">
 
     <View
         android:layout_width="match_parent"
@@ -21,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="录入集中器"
+            android:text="录入灯控器"
             android:textColor="@color/colorTextBlack33"
             android:textSize="18dp" />
 
@@ -40,9 +41,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-     >
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -68,16 +67,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="区域"
+                    android:text="路灯控制器地址"
                     android:textColor="#333333"
                     android:textSize="14dp" />
 
                 <TextView
-                    android:id="@+id/tv_area"
+                    android:id="@+id/devicecAddr"
                     style="@style/textRightStyle"
                     android:drawableRight="@drawable/image_arrow"
                     android:drawablePadding="5dp"
-                    android:hint="请选择" />
+                    android:hint="扫一扫" />
 
             </LinearLayout>
 
@@ -100,52 +99,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="集中器地址"
+                    android:text="路灯控制器别名"
                     android:textColor="#333333"
                     android:textSize="14dp" />
 
                 <EditText
-                    android:id="@+id/terminalAddr"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:background="@color/white"
-                    android:gravity="center_vertical|right"
-                    android:hint="输入数字(8位)"
-                    android:lines="1"
-                    android:inputType="number"
-                    android:maxLength="8"
-                    android:textColor="#333333"
-                    android:textSize="14dp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginTop="1dp"
-                android:background="@color/colorWhite"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp">
-
-                <TextView
-                    style="@style/textLeftStyle"
-                    android:text="*"
-                    android:textColor="@color/red" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="集中器别名"
-                    android:textColor="#333333"
-                    android:textSize="14dp" />
-
-                <EditText
-                    android:id="@+id/terminalName"
+                    android:id="@+id/deviceName"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
@@ -156,6 +115,75 @@
                     android:lines="1"
                     android:textColor="#333333"
                     android:textSize="14dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/colorWhite"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    style="@style/textLeftStyle"
+                    android:text="*"
+                    android:textColor="@color/red" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="路灯控制器编号"
+                    android:textColor="#333333"
+                    android:textSize="14dp" />
+
+                <EditText
+                    android:id="@+id/devicecCode"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="center_vertical|right"
+                    android:hint="请输入"
+                    android:lines="1"
+                    android:textColor="#333333"
+                    android:textSize="14dp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorWhite"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    style="@style/textLeftStyle"
+                    android:text="*"
+                    android:textColor="@color/red" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="安装时间"
+                    android:textColor="#333333"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/lightInstallTime"
+                    style="@style/textRightStyle"
+                    android:drawableRight="@drawable/image_arrow"
+                    android:drawablePadding="5dp"
+                    android:hint="请选择" />
 
             </LinearLayout>
 
@@ -167,29 +195,70 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingLeft="15dp"
-                android:visibility="gone"
                 android:paddingRight="15dp">
 
                 <TextView
                     style="@style/textLeftStyle"
                     android:text="*"
-                    android:textColor="@color/transparent" />
+                    android:textColor="@color/red" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="集中器类型"
+                    android:text="灯杆编号"
                     android:textColor="#333333"
                     android:textSize="14dp" />
 
-                <TextView
-                    android:id="@+id/terminalType"
-                    style="@style/textRightStyle"
-                    android:drawableRight="@drawable/image_arrow"
-                    android:drawablePadding="5dp"
-                    android:hint="请选择" />
+                <EditText
+                    android:id="@+id/lightPoleCode"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="center_vertical|right"
+                    android:hint="请输入"
+                    android:lines="1"
+                    android:textColor="#333333"
+                    android:textSize="14dp" />
+            </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/colorWhite"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    style="@style/textLeftStyle"
+                    android:text="*"
+                    android:textColor="@color/red" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="灯杆高度"
+                    android:textColor="#333333"
+                    android:textSize="14dp" />
+
+                <EditText
+                    android:id="@+id/lightPoleHeight"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="center_vertical|right"
+                    android:hint="请输入"
+                    android:lines="1"
+                    android:textColor="#333333"
+                    android:textSize="14dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -211,23 +280,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="回路数量"
+                    android:text="路灯类型"
                     android:textColor="#333333"
                     android:textSize="14dp" />
 
-                <EditText
-                    android:id="@+id/loopCount"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:background="@color/white"
-                    android:gravity="center_vertical|right"
-                    android:hint="请输入"
-                    android:inputType="number"
-                    android:lines="1"
-                    android:textColor="#333333"
-                    android:textSize="14dp" />
+                <TextView
+                    android:id="@+id/devicecType"
+                    style="@style/textRightStyle"
+                    android:drawableRight="@drawable/image_arrow"
+                    android:drawablePadding="5dp"
+                    android:hint="请选择" />
 
             </LinearLayout>
 
@@ -250,23 +312,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="支路数量"
+                    android:text="主灯类型	"
                     android:textColor="#333333"
                     android:textSize="14dp" />
 
-                <EditText
-                    android:id="@+id/lineCount"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:background="@color/white"
-                    android:gravity="center_vertical|right"
-                    android:hint="请输入"
-                    android:inputType="number"
-                    android:lines="1"
-                    android:textColor="#333333"
-                    android:textSize="14dp" />
+                <TextView
+                    android:id="@+id/lightMainType"
+                    style="@style/textRightStyle"
+                    android:drawableRight="@drawable/image_arrow"
+                    android:drawablePadding="5dp"
+                    android:hint="请选择" />
 
             </LinearLayout>
 
@@ -289,12 +344,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="回路互感器变比"
+                    android:text="主灯额定功率(W)"
                     android:textColor="#333333"
                     android:textSize="14dp" />
 
                 <EditText
-                    android:id="@+id/loopTransformerRatio"
+                    android:id="@+id/lightMainPower"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
@@ -302,11 +357,9 @@
                     android:background="@color/white"
                     android:gravity="center_vertical|right"
                     android:hint="请输入"
-                    android:inputType="number"
                     android:lines="1"
                     android:textColor="#333333"
                     android:textSize="14dp" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -328,12 +381,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="相线互感器变比"
+                    android:text="主灯功率阈值(W)"
                     android:textColor="#333333"
                     android:textSize="14dp" />
 
                 <EditText
-                    android:id="@+id/lineTransformerRatio"
+                    android:id="@+id/lightMainPowerLimit"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
@@ -341,88 +394,120 @@
                     android:background="@color/white"
                     android:gravity="center_vertical|right"
                     android:hint="请输入"
-                    android:inputType="number"
                     android:lines="1"
                     android:textColor="#333333"
                     android:textSize="14dp" />
-
             </LinearLayout>
-
             <LinearLayout
+                android:id="@+id/ll_auxiliary"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginTop="1dp"
-                android:background="@color/colorWhite"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/colorWhite"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp">
 
-                <TextView
-                    style="@style/textLeftStyle"
-                    android:text="*"
-                    android:textColor="@color/red" />
+                    <TextView
+                        style="@style/textLeftStyle"
+                        android:text="*"
+                        android:textColor="@color/red" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="报警延时"
-                    android:textColor="#333333"
-                    android:textSize="14dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="辅灯类型"
+                        android:textColor="#333333"
+                        android:textSize="14dp" />
 
-                <EditText
-                    android:id="@+id/alarmDelayedTime"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:background="@color/white"
-                    android:gravity="center_vertical|right"
-                    android:hint="请输入"
-                    android:inputType="number"
-                    android:lines="1"
-                    android:textColor="#333333"
-                    android:textSize="14dp" />
+                    <TextView
+                        android:id="@+id/lightAuxiliaryType"
+                        style="@style/textRightStyle"
+                        android:drawableRight="@drawable/image_arrow"
+                        android:drawablePadding="5dp"
+                        android:hint="请选择" />
 
-            </LinearLayout>
+                </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginTop="1dp"
-                android:background="@color/colorWhite"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/colorWhite"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp">
 
-                <TextView
-                    style="@style/textLeftStyle"
-                    android:text="*"
-                    android:textColor="@color/red" />
+                    <TextView
+                        style="@style/textLeftStyle"
+                        android:text="*"
+                        android:textColor="@color/red" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="上电合闸延时"
-                    android:textColor="#333333"
-                    android:textSize="14dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="辅灯额定功率(W)"
+                        android:textColor="#333333"
+                        android:textSize="14dp" />
 
-                <EditText
-                    android:id="@+id/relayOnDelayedTime"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:background="@color/white"
-                    android:gravity="center_vertical|right"
-                    android:hint="请输入"
-                    android:inputType="number"
-                    android:lines="1"
-                    android:textColor="#333333"
-                    android:textSize="14dp" />
+                    <EditText
+                        android:id="@+id/lightAuxiliaryPower"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:background="@color/white"
+                        android:gravity="center_vertical|right"
+                        android:hint="请输入"
+                        android:lines="1"
+                        android:textColor="#333333"
+                        android:textSize="14dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/colorWhite"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp">
+
+                    <TextView
+                        style="@style/textLeftStyle"
+                        android:text="*"
+                        android:textColor="@color/red" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="辅灯功率阈值(W)"
+                        android:textColor="#333333"
+                        android:textSize="14dp" />
+
+                    <EditText
+                        android:id="@+id/lightAuxiliaryPowerLimit"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:background="@color/white"
+                        android:gravity="center_vertical|right"
+                        android:hint="请输入"
+                        android:lines="1"
+                        android:textColor="#333333"
+                        android:textSize="14dp" />
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -459,6 +544,5 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
 
 </LinearLayout>

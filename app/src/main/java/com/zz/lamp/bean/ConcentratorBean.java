@@ -1,6 +1,8 @@
 package com.zz.lamp.bean;
 
-public class ConcentratorBean {
+import java.io.Serializable;
+
+public class ConcentratorBean implements Serializable {
     private String searchValue;// null,
     private String createBy;// czxy,
     private String createTime;// 2020-04-08 15;//54;//17,

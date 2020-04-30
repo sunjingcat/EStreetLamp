@@ -30,9 +30,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".business.control.TerminalControlActivity"></activity>
+        <activity android:name=".business.entry.EntryLampActivity"></activity>
+        <activity android:name=".business.control.TerminalControlActivity" />
         <activity android:name=".business.SelectLocationActivity" />
-        <activity android:name=".business.entry.EntryJzqActivity" />
+        <activity
+            android:name=".business.entry.EntryJzqActivity"
+            android:configChanges="keyboard"
+            android:exported="false"
+            android:fitsSystemWindows="true"
+            android:screenOrientation="fullSensor"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity android:name=".business.entry.RegionActivity" />
         <activity
             android:name=".business.login.LoginActivity"

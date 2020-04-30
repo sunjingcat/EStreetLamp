@@ -45,6 +45,9 @@ public interface ApiService {
     @POST( "/app/light/terminal/")
     Observable<JsonT> postTerminal(@QueryMap Map<String, Object> params);
 
+    @POST( "/app/light/lightDevice")
+    Observable<JsonT> postLamp(@QueryMap Map<String, Object> params);
+
 
     @GET("/app/light/area/list")
     Observable<JsonT<List<RegionExpandItem>>> getAreaList(@QueryMap Map<String, Object> params);

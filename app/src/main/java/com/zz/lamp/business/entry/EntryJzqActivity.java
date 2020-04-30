@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -205,10 +206,10 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
         /**
          *
          */
-//        if (lat==0.0||lon==0.0){
-//            showToast("请选择经纬度");
-//            return;
-//        }
+        if (lat==0.0||lon==0.0){
+            showToast("请选择经纬度");
+            return;
+        }
         params.put("lat",lat);
         params.put("lon",lon);
         mPresenter.postTerminal(params);
@@ -216,6 +217,8 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
 
     @Override
     public void showIntent() {
-
+        showToast("添加成功");
+        setResult(RESULT_OK);
+        finish();
     }
 }

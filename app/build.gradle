@@ -116,6 +116,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
     implementation project(':corelib')
+    implementation project(':MediaLib')
     implementation 'androidx.multidex:multidex:2.0.0'
     //友盟推送
     //PushSDK必须依赖基础组件库，所以需要加入对应依赖
@@ -138,7 +139,8 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
     implementation files('libs/BaiduLBS_Android.jar')
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.+'
-    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.2'  //1.0.5及以前版本的老用户升级需谨慎，API改动过大
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.2'
+    implementation project(path: ':mylibrary')  //1.0.5及以前版本的老用户升级需谨慎，API改动过大
 }
 
 def releaseTime() {
