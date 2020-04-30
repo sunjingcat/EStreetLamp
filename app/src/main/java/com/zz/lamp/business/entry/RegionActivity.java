@@ -169,7 +169,7 @@ public class RegionActivity extends MyBaseActivity<Contract.IsetRegionPresenter>
         map.put("areaName",str);
         map.put("areaPid", TextUtils.isEmpty(areaPid)?"":areaPid);
         map.put("orderNum",orderNum);
-        map.put("userId",TextUtils.isEmpty(userId)?"":userId);
+//        map.put("userId",TextUtils.isEmpty(userId)?"":userId);
         mPresenter.postArea(map);
     }
 

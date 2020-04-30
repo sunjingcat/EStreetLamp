@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.FrameLayout;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,7 +28,10 @@ public class AlarmFragment extends MyBaseFragment {
     @BindView(R.id.rv_processed)
     RecyclerView rvProcessed;
     Unbinder unbinder;
-
+    @BindView(R.id.main_layout)
+    FrameLayout mainLayout;
+    LeftFragment fragmentleft;
+    RightFragment fragmentRight;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
@@ -50,12 +53,13 @@ public class AlarmFragment extends MyBaseFragment {
     @Override
     protected void initView(View view) {
         TabUtils.setTabs(alarmTab, this.getLayoutInflater(), tabs);
+        onChangeFragment(0);
         alarmTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 TabUtils.setTabSize(tab, 16);
                 int position = tab.getPosition();
-
+                onChangeFragment(position);
             }
 
             @Override
@@ -69,6 +73,19 @@ public class AlarmFragment extends MyBaseFragment {
             }
         });
 
+    }
+    void onChangeFragment(int position){
+        if (position == 0) {
+            if (fragmentleft==null) {
+                fragmentleft = new LeftFragment();
+            }
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_layout, fragmentleft).commit();
+        }else {
+            if (fragmentRight==null) {
+                fragmentRight = new RightFragment();
+            }
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_layout, fragmentRight).commit();
+        }
     }
 
     @Override
