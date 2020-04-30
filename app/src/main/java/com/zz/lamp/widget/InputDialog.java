@@ -1,6 +1,7 @@
 package com.zz.lamp.widget;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -14,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zz.lamp.R;
+import com.zz.lamp.business.entry.RegionActivity;
+import com.zz.lamp.utils.SoftKeyboardUtils;
 import com.zz.lib.core.http.utils.ToastUtils;
 
 
@@ -234,6 +237,7 @@ public class InputDialog extends Dialog {
                                 return;
                             }
                             positiveButtonClickListener.onClick(dialog,s);
+                            SoftKeyboardUtils.closeInoutDecorView((Activity) context);
                             if (dialog !=null &&dialog.isShowing()){
                                 dialog.dismiss();
                             }

@@ -125,7 +125,7 @@ public class RegionActivity extends MyBaseActivity<Contract.IsetRegionPresenter>
     @Override
     public void showIntent(List<RegionExpandItem> list) {
         if (list == null) return;
-        adapter.addData(list);
+        adapter.setList(list);
         adapter.notifyDataSetChanged();
     }
 
@@ -146,22 +146,22 @@ public class RegionActivity extends MyBaseActivity<Contract.IsetRegionPresenter>
         int orderNum=1;
         if (node instanceof RegionExpandItem) {
             RegionExpandItem node1 = (RegionExpandItem) node;
-            areaPid=node1.getAreaPid();
+            areaPid=node1.getId();
             orderNum=node1.getOrderNum()+1;
             userId=node1.getUserId();
         } else if (node instanceof RegionExpandItem1) {
             RegionExpandItem1 node1 = (RegionExpandItem1) node;
-            areaPid=node1.getAreaPid();
+            areaPid=node1.getId();
             orderNum=node1.getOrderNum()+1;
             userId=node1.getUserId();
         } else if (node instanceof RegionExpandItem2) {
             RegionExpandItem2 node1 = (RegionExpandItem2) node;
-            areaPid=node1.getAreaPid();
+            areaPid=node1.getId();
             orderNum=node1.getOrderNum()+1;
             userId=node1.getUserId();
         }else if (node instanceof RegionExpandItem3) {
             RegionExpandItem3 node1 = (RegionExpandItem3) node;
-            areaPid=node1.getAreaPid();
+            areaPid=node1.getId();
             orderNum=node1.getOrderNum()+1;
             userId=node1.getUserId();
         }
@@ -169,6 +169,7 @@ public class RegionActivity extends MyBaseActivity<Contract.IsetRegionPresenter>
         map.put("areaName",str);
         map.put("areaPid", TextUtils.isEmpty(areaPid)?"":areaPid);
         map.put("orderNum",orderNum);
+//        LogUtils.v("sj------",map.toString());
 //        map.put("userId",TextUtils.isEmpty(userId)?"":userId);
         mPresenter.postArea(map);
     }
@@ -189,8 +190,9 @@ public class RegionActivity extends MyBaseActivity<Contract.IsetRegionPresenter>
                     @Override
                     public void onClick(DialogInterface dialog, String msg) {
                         dialog.dismiss();
+
                         postData(node,msg);
-                        SoftKeyboardUtils.closeInoutDecorView(RegionActivity.this);
+
                     }
                 });
         selectNode = node;
