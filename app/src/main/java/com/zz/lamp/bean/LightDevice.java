@@ -1,0 +1,109 @@
+package com.zz.lamp.bean;
+
+public class LightDevice {
+    private  String deviceName;//	string	路灯控制器别名
+    private  String devicecAddr;//	string	路灯控制器地址
+    private  String   devicecCode;//	string	路灯控制器编号
+    private  String  devicecLat;//	string	纬度
+    private  String  devicecLng	;//string	经度
+    private  String   devicecType;//	integer	路灯类型
+    private  String   id	;//integer	主键id
+    private  String lightAuxiliaryPower;//	number	辅灯额定功率(W)
+    private  String  lightAuxiliaryPowerLimit;//	number	辅灯功率阈值(W)
+    private  String  lightAuxiliaryType;//	integer	辅灯类型
+    private  String  lightInstallTime;//	string	安装时间
+    private  String   lightMainPower	;//number	主灯额定功率(W)
+    private  String  lightMainPowerLimit	;//number	主灯功率阈值(W)
+    private  String  lightMainType	;//integer	主灯类型
+    private  String   lightPoleCode;//	string	灯杆编号
+    private  String  lightPoleHeight	;//string	灯杆高度
+    private  String  lightPoleType	;//integer	灯杆类型
+    private  String   lightType	;//integer	灯头类型
+    private  String   lineId	;//integer	支路id
+    private  String   lineName	;//string	支路名称
+    private  String  terminalId	;//integer	集中控制器id
+
+    public String getDeviceName() {
+        return deviceName;
+    }
+
+    public String getDevicecAddr() {
+        return devicecAddr;
+    }
+
+    public String getDevicecCode() {
+        return devicecCode;
+    }
+
+    public String getDevicecLat() {
+        return devicecLat;
+    }
+
+    public String getDevicecLng() {
+        return devicecLng;
+    }
+
+    public String getDevicecType() {
+        return devicecType;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getLightAuxiliaryPower() {
+        return lightAuxiliaryPower;
+    }
+
+    public String getLightAuxiliaryPowerLimit() {
+        return lightAuxiliaryPowerLimit;
+    }
+
+    public String getLightAuxiliaryType() {
+        return lightAuxiliaryType;
+    }
+
+    public String getLightInstallTime() {
+        return lightInstallTime;
+    }
+
+    public String getLightMainPower() {
+        return lightMainPower;
+    }
+
+    public String getLightMainPowerLimit() {
+        return lightMainPowerLimit;
+    }
+
+    public String getLightMainType() {
+        return lightMainType;
+    }
+
+    public String getLightPoleCode() {
+        return lightPoleCode;
+    }
+
+    public String getLightPoleHeight() {
+        return lightPoleHeight;
+    }
+
+    public String getLightPoleType() {
+        return lightPoleType;
+    }
+
+    public String getLightType() {
+        return lightType;
+    }
+
+    public String getLineId() {
+        return lineId;
+    }
+
+    public String getLineName() {
+        return lineName;
+    }
+
+    public String getTerminalId() {
+        return terminalId;
+    }
+}

@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class Contract {
     public interface IsetTerminalControlPresenter extends BasePresenter {
-        void getTerminalDetail(Map<String, Object> params);
+        void getTerminalDetail(String id);
     }
 
     public interface IGetTerminalControlView extends BaseView{

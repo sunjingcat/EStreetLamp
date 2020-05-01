@@ -28,6 +28,22 @@
         <item name="android:layout_height">wrap_content</item>
 
     </style>
+    <style name="textInfoTitleStyle">
+        <!-- Customize your theme here. -->
+        <item name="android:textColor">@color/colorTextBlack99</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+
+    </style>
+    <style name="textInfoContentStyle">
+        <!-- Customize your theme here. -->
+        <item name="android:textColor">@color/colorTextBlack33</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+
+    </style>
     <style name="textRightStyle">
         <!-- Customize your theme here. -->
         <item name="android:textColor">@color/colorTextBlack33</item>

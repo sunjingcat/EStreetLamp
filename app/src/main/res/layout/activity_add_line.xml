@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="260dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/border_radius_10_white"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".InfoActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="5dp"
+            android:layout_height="16dp"
+            android:background="#444564" />
+
+        <TextView
+            android:id="@+id/item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:textColor="#444444"
+            android:textSize="18dp"
+            android:text="添加支路" />
+
+        <ImageView
+            android:id="@+id/close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:src="@drawable/image_close_gray" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/lblDialogMessage"
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:minHeight="30dp"
+        android:padding="10dp"
+        android:hint="请输入别名"
+        android:background="#F7F8FF"
+        android:lines="1"
+        android:textColor="#333333"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="14sp" />
+    <TextView
+        android:id="@+id/lblDialogSelect"
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:minHeight="30dp"
+        android:padding="10dp"
+        android:hint="请选择线路编码"
+        android:background="#F7F8FF"
+        android:textColor="#333333"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="14sp"
+        android:drawableRight="@drawable/image_arrow"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:layout_weight="1"
+            android:background="@drawable/border_radius_30_9c"
+            android:text="取消"
+            android:textColor="#9C5F23"
+            android:textSize="14sp" />
+        <View
+            android:layout_width="12dp"
+            android:layout_height="1dp"/>
+
+        <Button
+            android:id="@+id/btn_OK"
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:layout_weight="1"
+            android:background="@drawable/border_radius_30_f6"
+            android:text="确定"
+            android:textColor="#9C5F23"
+            android:textSize="14sp" />
+    </LinearLayout>
+</LinearLayout>

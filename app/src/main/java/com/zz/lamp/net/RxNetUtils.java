@@ -92,11 +92,16 @@ public class RxNetUtils extends RxHttpUtils {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
                 .createSApi(t);
     }
 
-
+    public static <T> T getCApi(Class<T> t) {
+        return RxNetUtils
+                .getSCInstance(CacheUtility.getURL())
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .createSApi(t);
+    }
     public static <T> T getUploadApi(Class<T> t) {
         String baseUrl = RetrofitClient.getInstance().getRetrofit().baseUrl().toString() ;
         return UploadRetrofit
