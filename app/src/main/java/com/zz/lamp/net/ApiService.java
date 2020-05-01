@@ -3,11 +3,13 @@ package com.zz.lamp.net;
 
 
 
+import com.zz.lamp.bean.CameraBean;
 import com.zz.lamp.bean.ConcentratorBean;
 import com.zz.lamp.bean.DeviceType;
 import com.zz.lamp.bean.ImageBean;
 import com.zz.lamp.bean.LightDevice;
 import com.zz.lamp.bean.LineBean;
+import com.zz.lamp.bean.RealTimeCtrlTerminal;
 import com.zz.lamp.bean.RegionExpandItem;
 import com.zz.lamp.bean.UsableCode;
 import com.zz.lamp.bean.UserInfo;
@@ -63,6 +65,13 @@ public interface ApiService {
 
     @GET("/app/light/lightDevice/list{terminalId}")
     Observable<JsonT<List<LightDevice>>> getLightDeviceList(@QueryMap Map<String, Object> params,@Path("terminalId") String terminalId);
+
+
+    @GET("/app/light/realTimeCtrl/terminal")
+    Observable<JsonT<List<RealTimeCtrlTerminal>>> getRealTimeCtrlTerminalList(@QueryMap Map<String, Object> params);
+
+    @GET("/app/carame/device/getCameraDevicelist")
+    Observable<JsonT<List<CameraBean>>> getCameraDevicelist(@QueryMap Map<String, Object> params);
 
     @POST( "/app/light/area/")
     Observable<JsonT> postArea(@QueryMap Map<String, Object> params);

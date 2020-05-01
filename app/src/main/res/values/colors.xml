@@ -16,6 +16,8 @@
     <color name="colorTextBlack33">#333333</color>
     <color name="color9C">#9C5F23</color>
     <color name="red">#FE5151</color>
+    <color name="green_2e">#2EAE73</color>
+    <color name="red_e8">#E84444</color>
 
     <!-- 底部TAB导航颜色 -->
     <color name="tab_indicator">#d6d6d6</color>

@@ -25,8 +25,7 @@ public class AlarmFragment extends MyBaseFragment {
     Toolbar toolbar;
     @BindView(R.id.alarm_tab)
     TabLayout alarmTab;
-    @BindView(R.id.rv_processed)
-    RecyclerView rvProcessed;
+
     Unbinder unbinder;
     @BindView(R.id.main_layout)
     FrameLayout mainLayout;

@@ -9,6 +9,8 @@ import com.google.android.material.tabs.TabLayout;
 import com.zz.lamp.R;
 import com.zz.lamp.bean.ConcentratorBean;
 import com.zz.lamp.base.MyBaseFragment;
+import com.zz.lamp.business.alarm.LeftFragment;
+import com.zz.lamp.business.alarm.RightFragment;
 import com.zz.lamp.business.control.adapter.ControlJzqAdapter;
 import com.zz.lamp.utils.TabUtils;
 import com.zz.lib.core.ui.mvp.BasePresenter;
@@ -30,13 +32,8 @@ public class ControlFragment extends MyBaseFragment {
     Toolbar toolbar;
     @BindView(R.id.control_tab)
     TabLayout controlTab;
-    @BindView(R.id.rv_jzq)
-    RecyclerView rvJzq;
-    @BindView(R.id.rv_video)
-    RecyclerView rvVideo;
-    List<ConcentratorBean> mlist = new ArrayList<>();
-    List<ConcentratorBean> mlistVideo = new ArrayList<>();
-    ControlJzqAdapter adapter;
+    TermialControlListFragment termialControlListFragment;
+    VideoControlListFragment videoControlListFragment;
     @Override
     protected int getCreateView() {
         return R.layout.fragment_control;
@@ -57,29 +54,15 @@ public class ControlFragment extends MyBaseFragment {
 
     @Override
     protected void initView(View view) {
-        rvJzq.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rvJzq.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
-        adapter = new ControlJzqAdapter(R.layout.item_control_jzq, mlist);
-        rvJzq.setAdapter(adapter);
-
-        rvVideo.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rvVideo.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
-        adapter = new ControlJzqAdapter(R.layout.item_control_jzq, mlistVideo);
-        rvVideo.setAdapter(adapter);
 
         TabUtils.setTabs(controlTab, this.getLayoutInflater(), tabs);
+        controlTab.getTabAt(0).select();
         controlTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 TabUtils.setTabSize(tab, 16);
                 int position = tab.getPosition();
-                if (position==0){
-                    rvJzq.setVisibility(View.VISIBLE);
-                    rvVideo.setVisibility(View.GONE);
-                }else {
-                    rvJzq.setVisibility(View.GONE);
-                    rvVideo.setVisibility(View.VISIBLE);
-                }
+                onChangeFragment(position);
             }
 
             @Override
@@ -107,6 +90,19 @@ public class ControlFragment extends MyBaseFragment {
     public void onRefresh() {
         if (mPresenter != null) {
 //            mPresenter.getData();
+        }
+    }
+    void onChangeFragment(int position){
+        if (position == 0) {
+            if (termialControlListFragment==null) {
+                termialControlListFragment = new TermialControlListFragment();
+            }
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_layout, termialControlListFragment).commit();
+        }else {
+            if (videoControlListFragment==null) {
+                videoControlListFragment = new VideoControlListFragment();
+            }
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_layout, videoControlListFragment).commit();
         }
     }
 }

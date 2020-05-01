@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="快速录入"
+            android:text="实时控制"
             android:textColor="@color/colorTextBlack33"
             android:textSize="18dp" />
 
@@ -30,15 +30,10 @@
         app:elevation="0dp"
         android:layout_height="40dp"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_jzq"
+    <FrameLayout
+        android:id="@+id/main_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_video"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+        android:layout_height="match_parent"/>
+
 
 </LinearLayout>
