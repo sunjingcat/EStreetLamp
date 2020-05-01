@@ -9,5 +9,6 @@
     <color name="result_view">#B0000000</color>
     <color name="result_point_color">#C0FFFF00</color>
     <color name="title">#181B2A</color>
+    <color name="frame">#80000000</color>
     <color name="white">#FFFFFF</color>
 </resources>

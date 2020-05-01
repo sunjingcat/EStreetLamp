@@ -19,7 +19,8 @@ import com.ebo.medialib.qrcode.google.zxing.activity.CaptureActivity;
 import com.ebo.medialib.qrcode.util.Constant;
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseActivity;
-import com.zz.lamp.bean.ConcentratorBean;
+import com.zz.lamp.bean.DeviceType;
+import com.zz.lamp.bean.LightDevice;
 import com.zz.lamp.business.SelectLocationActivity;
 import com.zz.lamp.business.entry.mvp.Contract;
 import com.zz.lamp.business.entry.mvp.presenter.LampAddPresenter;
@@ -28,8 +29,11 @@ import com.zz.lib.commonlib.utils.PermissionUtils;
 import com.zz.lib.commonlib.utils.ToolBarUtils;
 import com.zz.lib.commonlib.widget.SelectPopupWindows;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import androidx.annotation.Nullable;
@@ -78,9 +82,23 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetTerminalAddPr
     int devicecType_;
     int lightMainType_;
     int lightAuxiliaryType_;
+    int lightPoleType_;
+    int poleType_;
     String terminalId;
+    String lineId;
     double lat = 0.0;
     double lon = 0.0;
+    List<String> types = new ArrayList<>();
+    List<DeviceType> deviceTypes = new ArrayList<>();
+    @BindView(R.id.lightPoleType)
+    TextView lightPoleType;
+    @BindView(R.id.lightType)
+    TextView lightType;
+    @BindView(R.id.lineName)
+    TextView lineName;
+    @BindView(R.id.bg)
+    LinearLayout bg;
+
     @Override
     protected int getContentView() {
         return R.layout.activity_lamp;
@@ -91,6 +109,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetTerminalAddPr
     protected void initView() {
         ButterKnife.bind(this);
         terminalId = getIntent().getStringExtra("terminalId");
+        mPresenter.getLightDeviceType();
     }
 
     @Override
@@ -101,16 +120,29 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetTerminalAddPr
 
     @Override
     public void showIntent() {
-
     }
 
-    @OnClick({R.id.toolbar_subtitle, R.id.devicecAddr, R.id.lightInstallTime, R.id.devicecType, R.id.lightMainType, R.id.lightAuxiliaryType, R.id.lat})
+    @Override
+    public void showLightDeviceType(List<DeviceType> list) {
+        if (list == null) return;
+        deviceTypes = list;
+        types = new ArrayList<>();
+        for (DeviceType deviceType : list) {
+            types.add(deviceType.getModelName());
+        }
+    }
+
+    @OnClick({R.id.lineName,R.id.toolbar_subtitle, R.id.devicecAddr, R.id.lightInstallTime, R.id.devicecType, R.id.lightMainType, R.id.lightAuxiliaryType, R.id.lat, R.id.lightPoleType, R.id.lightType})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.toolbar_subtitle:
+                postData();
                 break;
             case R.id.devicecAddr:
                 startQrCode();
+                break;
+                case R.id.lineName:
+                startActivityForResult(new Intent(EntryLampActivity.this,LineActivity.class).putExtra("terminalId",terminalId),1001);
                 break;
             case R.id.lightInstallTime:
                 DatePickDialog dialog = new DatePickDialog(EntryLampActivity.this);
@@ -147,9 +179,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetTerminalAddPr
                 selectPopupWindows2.setOnItemClickListener(new SelectPopupWindows.OnItemClickListener() {
                     @Override
                     public void onSelected(int index, String msg) {
-
                         llAuxiliary.setVisibility(index == 0 ? View.GONE : View.VISIBLE);
-
                         devicecType_ = index + 1;
                         devicecType.setText(msg);
                     }
@@ -161,12 +191,17 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetTerminalAddPr
                 });
                 break;
             case R.id.lightMainType:
+                selectDeviceType(1);
                 break;
             case R.id.lightAuxiliaryType:
+                selectDeviceType(2);
                 break;
             case R.id.lat:
                 startActivityForResult(new Intent(this, SelectLocationActivity.class), 1002);
-
+                break;
+            case R.id.lightPoleType:
+                break;
+            case R.id.lightType:
                 break;
         }
     }
@@ -192,107 +227,128 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetTerminalAddPr
     public LampAddPresenter initPresenter() {
         return new LampAddPresenter(this);
     }
-    void postData(){
+
+    void postData() {
         Map<String, Object> params = new HashMap<>();
 
-        params.put("terminalId",terminalId);
+        params.put("terminalId", terminalId);
 
         String devicecAddr_ = devicecAddr.getText().toString();
-        if (TextUtils.isEmpty(devicecAddr_)){
+        if (TextUtils.isEmpty(devicecAddr_)) {
             showToast("请输入路灯控制器地址");
             return;
         }
-        params.put("terminalAddr",devicecAddr_);
+        params.put("terminalAddr", devicecAddr_);
 
         String deviceName_ = deviceName.getText().toString();
-        if (TextUtils.isEmpty(deviceName_)){
+        if (TextUtils.isEmpty(deviceName_)) {
             showToast("请输入路灯控制器别名");
             return;
         }
-        params.put("deviceName",deviceName_);
+        params.put("deviceName", deviceName_);
 
         String devicecCode_ = devicecCode.getText().toString();
-        if (TextUtils.isEmpty(devicecCode_)){
+        if (TextUtils.isEmpty(devicecCode_)) {
             showToast("请输入路灯控制器别名");
             return;
         }
-        params.put("devicecCode",devicecCode_);
+        params.put("devicecCode", devicecCode_);
 
 
-        if (lightInstallTime_==0.0){
+        if (TextUtils.isEmpty(lineId)) {
+            showToast("请选择支路");
+            return;
+        }
+        params.put("lineId", lineId);
+
+
+        if (lightInstallTime_ == 0.0) {
             showToast("请选择安装时间");
             return;
         }
-        params.put("lightInstallTime",lightInstallTime_);
+        params.put("lightInstallTime", lightInstallTime_/1000);
 
         String lightPoleCode_ = lightPoleCode.getText().toString();
-        if (TextUtils.isEmpty(lightPoleCode_)){
+        if (TextUtils.isEmpty(lightPoleCode_)) {
             showToast("请输入灯杆编号");
             return;
         }
-        params.put("lightPoleCode",lightPoleCode_);
+        params.put("lightPoleCode", lightPoleCode_);
 
         String lightPoleHeight_ = lightPoleHeight.getText().toString();
-        if (TextUtils.isEmpty(lightPoleHeight_)){
+        if (TextUtils.isEmpty(lightPoleHeight_)) {
             showToast("请输入灯杆高度");
             return;
         }
-        params.put("lightPoleHeight",lightPoleHeight_);
+        params.put("lightPoleHeight", lightPoleHeight_);
 
-        if (devicecType_ == 0){
+
+        if (lightPoleType_ == 0) {
+            showToast("请选择灯杆类型");
+            return;
+        }
+        params.put("lightPoleType", lightPoleType_);
+
+        if (poleType_ == 0) {
+            showToast("请选择灯头类型");
+            return;
+        }
+        params.put("poleType", poleType_);
+        if (devicecType_ == 0) {
             showToast("请选择路灯类型");
             return;
         }
-        params.put("devicecType",devicecType_);
+        params.put("devicecType", devicecType_);
 
-        if (lightMainType_ == 0){
+        if (lightMainType_ == 0) {
             showToast("请选择主灯类型");
             return;
         }
-        params.put("lightMainType",lightMainType_);
+        params.put("lightMainType", lightMainType_);
 
         String lightMainPower_ = lightMainPower.getText().toString();
-        if (TextUtils.isEmpty(lightMainPower_)){
+        if (TextUtils.isEmpty(lightMainPower_)) {
             showToast("请输入主灯额定功率(W)");
             return;
         }
-        params.put("lightMainPower",lightMainPower_);
+        params.put("lightMainPower", lightMainPower_);
 
         String lightMainPowerLimit_ = lightMainPowerLimit.getText().toString();
-        if (TextUtils.isEmpty(lightMainPowerLimit_)){
+        if (TextUtils.isEmpty(lightMainPowerLimit_)) {
             showToast("请输入主灯功率阈值(W)");
             return;
         }
-        params.put("lightMainPowerLimit",lightMainPowerLimit_);
-        if (devicecType_==2){
-            if (lightAuxiliaryType_ == 0){
+        params.put("lightMainPowerLimit", lightMainPowerLimit_);
+        if (devicecType_ == 2) {
+            if (lightAuxiliaryType_ == 0) {
                 showToast("请选择辅灯类型");
                 return;
             }
-            params.put("lightAuxiliaryType",lightAuxiliaryType_);
+            params.put("lightAuxiliaryType", lightAuxiliaryType_);
             String lightAuxiliaryPower_ = lightAuxiliaryPower.getText().toString();
-            if (TextUtils.isEmpty(lightAuxiliaryPower_)){
+            if (TextUtils.isEmpty(lightAuxiliaryPower_)) {
                 showToast("请输入辅灯额定功率(W)");
                 return;
             }
-            params.put("lightAuxiliaryPower",lightAuxiliaryPower_);
+            params.put("lightAuxiliaryPower", lightAuxiliaryPower_);
 
             String lightAuxiliaryPowerLimit_ = lightAuxiliaryPowerLimit.getText().toString();
-            if (TextUtils.isEmpty(lightAuxiliaryPowerLimit_)){
+            if (TextUtils.isEmpty(lightAuxiliaryPowerLimit_)) {
                 showToast("辅灯功率阈值(W)");
                 return;
             }
-            params.put("lightAuxiliaryPowerLimit",lightAuxiliaryPowerLimit_);
+            params.put("lightAuxiliaryPowerLimit", lightAuxiliaryPowerLimit_);
         }
 
-        if (lat==0.0||lon==0.0){
+        if (lat == 0.0 || lon == 0.0) {
             showToast("请选择经纬度");
             return;
         }
-        params.put("lat",lat);
-        params.put("lon",lon);
-        mPresenter.postTerminal(params);
+        params.put("lat", lat);
+        params.put("lon", lon);
+//        mPresenter.postTerminal(params);
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -302,6 +358,72 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetTerminalAddPr
             if (!TextUtils.isEmpty(scanResult)) {
                 devicecAddr.setText(scanResult);
             }
+        }if (requestCode == 1001 && resultCode == RESULT_OK) {
+            lineId = data.getStringExtra("lineId");
+            lineName.setText(data.getStringExtra("lineName")+""); ;
         }
     }
+
+    public void selectDeviceType(int type) {
+        String[] arr = (String[]) types.toArray(new String[types.size()]);
+        final SelectPopupWindows selectPopupWindows = new SelectPopupWindows(this, arr);
+        selectPopupWindows.showAtLocation(findViewById(R.id.bg),
+                Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+        selectPopupWindows.setOnItemClickListener(new SelectPopupWindows.OnItemClickListener() {
+            @Override
+            public void onSelected(int index, String msg) {
+                if (type == 1) {
+                    lightMainType_ = deviceTypes.get(index).getId();
+                    lightMainType.setText(msg);
+                }
+                if (type == 2) {
+                    lightAuxiliaryType_ = deviceTypes.get(index).getId();
+                    lightAuxiliaryType.setText(msg);
+                }
+            }
+
+            @Override
+            public void onCancel() {
+                selectPopupWindows.dismiss();
+            }
+        });
+    }
+    void showInfo(){
+        LightDevice device = (LightDevice)getIntent().getSerializableExtra("device");
+        if (device== null)return;
+        devicecCode.setText(device.getDevicecCode()+"");
+        lightInstallTime.setText(TimeUtils.getTime(device.getLightInstallTime(),TimeUtils.DATE_FORMAT_DATE));
+        lightInstallTime_ = device.getLightInstallTime()*1000;
+        lightPoleCode.setText(device.getLightPoleCode()+"");
+        lightPoleHeight.setText(device.getLightPoleHeight()+"");
+        lightPoleType.setText(device.getLightPoleType()+"");
+//        lightPoleType_= device.getLightPoleType();//TODO
+        lightType.setText(device.getLightType()+"");
+//        poleType_= device.getLightType();//TODO
+        if (device.getDevicecType()==1){
+            devicecType.setText("单灯");
+            llAuxiliary.setVisibility(View.GONE );
+        } if (device.getDevicecType()==2){
+            devicecType.setText("双灯");
+            llAuxiliary.setVisibility(View.VISIBLE );
+        }
+        devicecType_=device.getDevicecType();
+
+        lightMainType.setText(device.getLightMainTypeName()+"");
+        lightMainType_= device.getLightMainType();
+        lightMainPower.setText(device.getLightMainPower()+"");
+        lightMainPowerLimit.setText(device.getLightMainPowerLimit()+"");
+        lineName.setText(device.getLineName()+"");
+        lineId = device.getLineId();
+        lightAuxiliaryType.setText(device.getLightAuxiliaryTypeName()+"");
+        lightAuxiliaryType_= device.getLightAuxiliaryType();
+        lightAuxiliaryPower.setText(device.getLightAuxiliaryPower()+"");
+        lightAuxiliaryPowerLimit.setText(device.getLightAuxiliaryPowerLimit()+"");
+        lat_tv.setText(device.getDevicecLat()+","+device.getDevicecLng());
+        lat = Double.parseDouble(device.getDevicecLat());
+        lon = Double.parseDouble(device.getDevicecLng());
+
+    }
+
+
 }

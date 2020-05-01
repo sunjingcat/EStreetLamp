@@ -5,9 +5,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="33dp"
+        android:background="@color/title"></View>
     <!--actionbar-->
     <RelativeLayout
         android:id="@+id/actionbar"
+        android:layout_marginTop="33dp"
         android:layout_width="match_parent"
         android:layout_height="38dp"
         android:background="@color/title">
@@ -45,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:corner_color="@color/white"
-            app:frame_color="@color/title"
+            app:frame_color="@color/frame"
             app:label_text="二维码/条形码扫描"
             app:label_text_color="@color/white"
             app:laser_color="@color/title"

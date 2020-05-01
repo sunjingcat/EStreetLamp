@@ -4,6 +4,7 @@ package com.zz.lamp.net;
 
 
 import com.zz.lamp.bean.ConcentratorBean;
+import com.zz.lamp.bean.DeviceType;
 import com.zz.lamp.bean.ImageBean;
 import com.zz.lamp.bean.LightDevice;
 import com.zz.lamp.bean.LineBean;
@@ -54,11 +55,14 @@ public interface ApiService {
     @GET("/app/light/area/list")
     Observable<JsonT<List<RegionExpandItem>>> getAreaList(@QueryMap Map<String, Object> params);
 
+   @GET("/app/light/lightDeviceType/list")
+    Observable<JsonT<List<DeviceType>>> getLightDeviceTypet();
+
     @GET("/app/light/line/list/{terminalId}")
     Observable<JsonT<List<LineBean>>> getLineList(@Path("terminalId") String terminalId);
 
-    @GET("/app/light/lightDevice/list")
-    Observable<JsonT<List<LightDevice>>> getLightDeviceList(@QueryMap Map<String, Object> params);
+    @GET("/app/light/lightDevice/list{terminalId}")
+    Observable<JsonT<List<LightDevice>>> getLightDeviceList(@QueryMap Map<String, Object> params,@Path("terminalId") String terminalId);
 
     @POST( "/app/light/area/")
     Observable<JsonT> postArea(@QueryMap Map<String, Object> params);
@@ -67,7 +71,7 @@ public interface ApiService {
     Observable<JsonT> postLine(@QueryMap Map<String, Object> params);
 
     @GET("/app/light/line/getUsableCode/{terminalId}")
-    Observable<JsonT<List<UsableCode>>> getUsableCode(@Path("terminalId") String terminalId);
+    Observable<JsonT<String[]>> getUsableCode(@Path("terminalId") String terminalId);
 
 
     @POST(URLs.VERSION + "/buildings/supervise/safety/item")

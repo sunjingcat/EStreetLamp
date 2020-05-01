@@ -17,12 +17,19 @@ import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseActivity;
 import com.zz.lamp.bean.ConcentratorBean;
 import com.zz.lamp.bean.LineBean;
+import com.zz.lamp.bean.UsableCode;
 import com.zz.lamp.business.entry.adapter.ConcentratorBeanAdapter;
 import com.zz.lamp.business.entry.adapter.LineAdapter;
 import com.zz.lamp.business.entry.mvp.Contract;
 import com.zz.lamp.business.entry.mvp.presenter.LinePresenter;
+import com.zz.lamp.net.ApiService;
+import com.zz.lamp.net.JsonT;
+import com.zz.lamp.net.RequestObserver;
+import com.zz.lamp.net.RxNetUtils;
+import com.zz.lamp.utils.LogUtils;
 import com.zz.lib.commonlib.utils.ToolBarUtils;
 import com.zz.lib.core.ui.widget.decorations.RecycleViewDivider;
+import com.zz.lib.core.utils.LoadingUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,12 +37,16 @@ import java.util.List;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.zz.lamp.net.RxNetUtils.getCApi;
+import static com.zz.lib.core.http.utils.ToastUtils.showToast;
 
 public class LineActivity extends MyBaseActivity<Contract.IsetLinePresenter> implements Contract.IGetLineView {
 
@@ -52,6 +63,7 @@ public class LineActivity extends MyBaseActivity<Contract.IsetLinePresenter> imp
     LineAdapter adapter;
     List<LineBean> mlist = new ArrayList<>();
     String terminalId;
+   String[] UsableCode;
     @Override
     protected int getContentView() {
         return R.layout.activity_line;
@@ -70,6 +82,7 @@ public class LineActivity extends MyBaseActivity<Contract.IsetLinePresenter> imp
         adapter = new LineAdapter(R.layout.item_simple, mlist);
         rv.setAdapter(adapter);
         getData();
+        mPresenter.getUsableCode(terminalId);
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
@@ -100,19 +113,45 @@ public class LineActivity extends MyBaseActivity<Contract.IsetLinePresenter> imp
     }
 
     @Override
-    public void showPostIntent() {
+    public void showUsableCode(String[] list) {
+        if (list==null)return;
+        UsableCode = list;
+    }
 
+    @Override
+    public void showPostIntent() {
+        showToast("新建成功");
+        getData();
     }
 
     @OnClick({R.id.toolbar_subtitle})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.toolbar_subtitle:
-                startActivity(new Intent(this, AddLineActivity.class));
+                startActivityForResult(new Intent(this, AddLineActivity.class).putExtra("UsableCode",UsableCode),1003);
                 break;
         }
     }
     void getData(){
         mPresenter.getLineList(terminalId);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK&&data!=null){
+            switch (requestCode){
+                case 1003:
+                    //TODO 接口错误
+                    String name = data.getStringExtra("name");
+                    String code = data.getStringExtra("code");
+                    Map<String,Object> map = new HashMap<>();
+                    map.put("lineCode",code);
+                    map.put("lineName",name);
+                    map.put("terminalId",terminalId);
+                    mPresenter.postLine(map);
+                    break;
+            }
+        }
     }
 }

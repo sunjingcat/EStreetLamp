@@ -14,6 +14,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseActivity;
+import com.zz.lamp.bean.DeviceType;
 import com.zz.lamp.bean.RegionExpandItem;
 import com.zz.lamp.business.SelectLocationActivity;
 import com.zz.lamp.business.entry.mvp.Contract;
@@ -220,5 +221,10 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
         showToast("添加成功");
         setResult(RESULT_OK);
         finish();
+    }
+
+    @Override
+    public void showLightDeviceType(List<DeviceType> list) {
+
     }
 }

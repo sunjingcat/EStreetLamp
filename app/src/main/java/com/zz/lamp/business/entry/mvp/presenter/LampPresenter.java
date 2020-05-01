@@ -18,8 +18,8 @@ public class LampPresenter extends MyBasePresenterImpl<Contract.IGetLampView> im
         super(view);
     }
     @Override
-    public void getLampList(Map<String, Object> params) {
-        RxNetUtils.request(getCApi(ApiService.class).getLightDeviceList(params), new RequestObserver<JsonT<List<LightDevice>>>(this) {
+    public void getLampList(Map<String, Object> params,String id) {
+        RxNetUtils.request(getCApi(ApiService.class).getLightDeviceList(params,id), new RequestObserver<JsonT<List<LightDevice>>>(this) {
             @Override
             protected void onSuccess(JsonT<List<LightDevice>> data) {
                 if (data.isSuccess()) {

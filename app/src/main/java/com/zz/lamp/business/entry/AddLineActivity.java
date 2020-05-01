@@ -1,7 +1,10 @@
 package com.zz.lamp.business.entry;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +19,8 @@ import com.zz.lamp.net.ApiService;
 import com.zz.lamp.net.JsonT;
 import com.zz.lamp.net.RequestObserver;
 import com.zz.lamp.net.RxNetUtils;
+import com.zz.lamp.utils.LogUtils;
+import com.zz.lib.commonlib.widget.SelectPopupWindows;
 import com.zz.lib.core.ui.mvp.BasePresenter;
 import com.zz.lib.core.utils.LoadingUtils;
 
@@ -44,6 +49,9 @@ public class AddLineActivity extends Activity {
     @BindView(R.id.btn_OK)
     Button btnOK;
     String terminalId;
+    String type;
+    String [] UsableCode;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,9 +59,9 @@ public class AddLineActivity extends Activity {
         setContentView(R.layout.activity_add_line);
         ButterKnife.bind(this);
         terminalId = getIntent().getStringExtra("terminalId");
+        UsableCode = getIntent().getStringArrayExtra("UsableCode");
     }
-
-
+    
     @OnClick({R.id.close, R.id.lblDialogSelect, R.id.btn_cancel, R.id.btn_OK})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -61,29 +69,43 @@ public class AddLineActivity extends Activity {
                 finish();
                 break;
             case R.id.lblDialogSelect:
+                final SelectPopupWindows selectPopupWindows2 = new SelectPopupWindows(this, UsableCode);
+                selectPopupWindows2.showAtLocation(findViewById(R.id.bg),
+                        Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+                selectPopupWindows2.setOnItemClickListener(new SelectPopupWindows.OnItemClickListener() {
+                    @Override
+                    public void onSelected(int index, String msg) {
+                        LogUtils.v("sj---",msg);
+                        lblDialogSelect.setText(msg+"");
+                        type = msg;
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        selectPopupWindows2.dismiss();
+                    }
+                });
                 break;
             case R.id.btn_cancel:
+                finish();
                 break;
             case R.id.btn_OK:
+                String trim = lblDialogMessage.getText().toString().trim();
+                if (TextUtils.isEmpty(trim)){
+                    showToast("请输入别名");
+                    return;
+                }
+                if (TextUtils.isEmpty(type)){
+                    showToast("请选择线路编码");
+                    return;
+                }
+                Intent intent = new Intent();
+                intent.putExtra("name",trim);
+                intent.putExtra("code",type);
+                setResult(RESULT_OK,intent);
+                finish();
                 break;
         }
     }
-//    private void getData(){
-//        RxNetUtils.request(getCApi(ApiService.class).getUsableCode(terminalId), new RequestObserver<JsonT<List<UsableCode>>>(this) {
-//            @Override
-//            protected void onSuccess(JsonT<List<UsableCode>> data) {
-//                if (data.isSuccess()) {
-//
-//                }else {
-//
-//                }
-//            }
-//
-//            @Override
-//            protected void onFail2(JsonT<List<UsableCode>> userInfoJsonT) {
-//                super.onFail2(userInfoJsonT);
-//                showToast(userInfoJsonT.getMessage());
-//            }
-//        }, LoadingUtils.build(this));
-//    }
+
 }

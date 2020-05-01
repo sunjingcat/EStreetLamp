@@ -3,10 +3,12 @@ package com.zz.lamp.business.entry.mvp;
 
 
 import com.zz.lamp.bean.ConcentratorBean;
+import com.zz.lamp.bean.DeviceType;
 import com.zz.lamp.bean.IpAdress;
 import com.zz.lamp.bean.LightDevice;
 import com.zz.lamp.bean.LineBean;
 import com.zz.lamp.bean.RegionExpandItem;
+import com.zz.lamp.bean.UsableCode;
 import com.zz.lib.core.ui.mvp.BasePresenter;
 import com.zz.lib.core.ui.mvp.BaseView;
 
@@ -24,10 +26,12 @@ public class Contract {
 
     public interface IsetTerminalAddPresenter extends BasePresenter {
         void postTerminal(Map<String, Object> params);
+        void getLightDeviceType();
     }
 
     public interface IGetTerminalAddView extends BaseView{
         void showIntent();
+        void showLightDeviceType(List<DeviceType> list);
     }
 
     public interface IsetRegionPresenter extends BasePresenter {
@@ -41,7 +45,7 @@ public class Contract {
     }
 
     public interface IsetLampPresenter extends BasePresenter {
-        void getLampList(Map<String, Object> params);
+        void getLampList(Map<String, Object> params,String id);
         void getTerminalDetail(String id);
     }
 
@@ -52,13 +56,13 @@ public class Contract {
 
     public interface IsetLinePresenter extends BasePresenter {
         void getLineList(String id);
+        void getUsableCode(String id);
         void postLine(Map<String, Object> params);
     }
 
     public interface IGetLineView extends BaseView{
         void showIntent(List<LineBean> list);
+        void showUsableCode(String[] list);
         void showPostIntent();
     }
-
-
 }

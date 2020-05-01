@@ -6,6 +6,7 @@
     android:background="@drawable/border_radius_10_white"
     android:orientation="vertical"
     android:padding="10dp"
+    android:id="@+id/bg"
     tools:context=".InfoActivity">
 
     <LinearLayout

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:id="@+id/bg"
     tools:context=".business.entry.EntryLampActivity">
 
     <View
@@ -154,6 +154,37 @@
                     android:textSize="14dp" />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/colorWhite"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    style="@style/textLeftStyle"
+                    android:text="*"
+                    android:textColor="@color/red" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="支路"
+                    android:textColor="#333333"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/lineName"
+                    style="@style/textRightStyle"
+                    android:drawableRight="@drawable/image_arrow"
+                    android:drawablePadding="5dp"
+                    android:hint="请选择" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -243,6 +274,37 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:text="灯杆类型"
+                    android:textColor="#333333"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/lightPoleType"
+                    style="@style/textRightStyle"
+                    android:drawableRight="@drawable/image_arrow"
+                    android:drawablePadding="5dp"
+                    android:hint="请选择" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/colorWhite"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    style="@style/textLeftStyle"
+                    android:text="*"
+                    android:textColor="@color/red" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:text="灯杆高度"
                     android:textColor="#333333"
                     android:textSize="14dp" />
@@ -259,6 +321,38 @@
                     android:lines="1"
                     android:textColor="#333333"
                     android:textSize="14dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/colorWhite"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    style="@style/textLeftStyle"
+                    android:text="*"
+                    android:textColor="@color/red" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="灯头类型"
+                    android:textColor="#333333"
+                    android:textSize="14dp" />
+
+
+                <TextView
+                    android:id="@+id/lightType"
+                    style="@style/textRightStyle"
+                    android:drawableRight="@drawable/image_arrow"
+                    android:drawablePadding="5dp"
+                    android:hint="请选择" />
             </LinearLayout>
 
             <LinearLayout
@@ -357,6 +451,7 @@
                     android:background="@color/white"
                     android:gravity="center_vertical|right"
                     android:hint="请输入"
+                    android:inputType="number"
                     android:lines="1"
                     android:textColor="#333333"
                     android:textSize="14dp" />
@@ -394,15 +489,18 @@
                     android:background="@color/white"
                     android:gravity="center_vertical|right"
                     android:hint="请输入"
+                    android:inputType="number"
                     android:lines="1"
                     android:textColor="#333333"
                     android:textSize="14dp" />
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/ll_auxiliary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
@@ -467,6 +565,7 @@
                         android:background="@color/white"
                         android:gravity="center_vertical|right"
                         android:hint="请输入"
+                        android:inputType="number"
                         android:lines="1"
                         android:textColor="#333333"
                         android:textSize="14dp" />
@@ -504,6 +603,7 @@
                         android:background="@color/white"
                         android:gravity="center_vertical|right"
                         android:hint="请输入"
+                        android:inputType="number"
                         android:lines="1"
                         android:textColor="#333333"
                         android:textSize="14dp" />
