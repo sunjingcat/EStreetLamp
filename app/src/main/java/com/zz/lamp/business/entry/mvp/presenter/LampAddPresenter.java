@@ -1,5 +1,6 @@
 package com.zz.lamp.business.entry.mvp.presenter;
 import com.zz.lamp.bean.DeviceType;
+import com.zz.lamp.bean.DictBean;
 import com.zz.lamp.business.entry.mvp.Contract;
 import com.zz.lamp.net.ApiService;
 import com.zz.lamp.net.JsonT;
@@ -7,12 +8,13 @@ import com.zz.lamp.net.MyBasePresenterImpl;
 import com.zz.lamp.net.RequestObserver;
 import com.zz.lamp.net.RxNetUtils;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class LampAddPresenter extends MyBasePresenterImpl<Contract.IGetTerminalAddView> implements Contract.IsetTerminalAddPresenter {
+public class LampAddPresenter extends MyBasePresenterImpl<Contract.IGetLampAddView> implements Contract.IsetLampAddPresenter {
 
-    public LampAddPresenter(Contract.IGetTerminalAddView view) {
+    public LampAddPresenter(Contract.IGetLampAddView view) {
         super(view);
     }
 
@@ -50,6 +52,70 @@ public class LampAddPresenter extends MyBasePresenterImpl<Contract.IGetTerminalA
 
             @Override
             protected void onFail2(JsonT<List<DeviceType>> userInfoJsonT) {
+                super.onFail2(userInfoJsonT);
+                view.showToast(userInfoJsonT.getMessage());
+            }
+        },mDialog);
+    }
+
+    @Override
+    public void getLightType() {
+        Map<String,Object> map = new HashMap<>();
+        map.put("dictType","light_type");
+        RxNetUtils.request(getCApi(ApiService.class).getLighTypet(map), new RequestObserver<JsonT<List<DictBean>>>(this) {
+            @Override
+            protected void onSuccess(JsonT<List<DictBean>> data) {
+                if (data.isSuccess()) {
+                    view.showLightType(data.getData());
+                }else {
+
+                }
+            }
+
+            @Override
+            protected void onFail2(JsonT<List<DictBean>> userInfoJsonT) {
+                super.onFail2(userInfoJsonT);
+                view.showToast(userInfoJsonT.getMessage());
+            }
+        },mDialog);
+    }
+
+    @Override
+    public void getLightPoleType() {
+        Map<String,Object> map = new HashMap<>();
+        map.put("dictType","light_pole_type");
+        RxNetUtils.request(getCApi(ApiService.class).getLighTypet(map), new RequestObserver<JsonT<List<DictBean>>>(this) {
+            @Override
+            protected void onSuccess(JsonT<List<DictBean>> data) {
+                if (data.isSuccess()) {
+                    view.showLightPoleType(data.getData());
+                }else {
+
+                }
+            }
+
+            @Override
+            protected void onFail2(JsonT<List<DictBean>> userInfoJsonT) {
+                super.onFail2(userInfoJsonT);
+                view.showToast(userInfoJsonT.getMessage());
+            }
+        },mDialog);
+    }
+
+    @Override
+    public void checkLamp(Map<String, Object> params) {
+        RxNetUtils.request(getCApi(ApiService.class).checkLamp(params), new RequestObserver<JsonT>(this) {
+            @Override
+            protected void onSuccess(JsonT data) {
+                if (data.isSuccess()) {
+                    view.showCheck();
+                }else {
+
+                }
+            }
+
+            @Override
+            protected void onFail2(JsonT userInfoJsonT) {
                 super.onFail2(userInfoJsonT);
                 view.showToast(userInfoJsonT.getMessage());
             }

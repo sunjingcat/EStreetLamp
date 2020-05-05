@@ -20,6 +20,7 @@ import com.ebo.medialib.qrcode.util.Constant;
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseActivity;
 import com.zz.lamp.bean.DeviceType;
+import com.zz.lamp.bean.DictBean;
 import com.zz.lamp.bean.LightDevice;
 import com.zz.lamp.business.SelectLocationActivity;
 import com.zz.lamp.business.entry.mvp.Contract;
@@ -42,7 +43,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class EntryLampActivity extends MyBaseActivity<Contract.IsetTerminalAddPresenter> implements Contract.IGetTerminalAddView {
+public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresenter> implements Contract.IGetLampAddView {
 
     @BindView(R.id.toolbar_subtitle)
     TextView toolbarSubtitle;
@@ -82,8 +83,8 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetTerminalAddPr
     int devicecType_;
     int lightMainType_;
     int lightAuxiliaryType_;
-    int lightPoleType_;
-    int poleType_;
+    String lightPoleType_;
+    String lightType_;
     String terminalId;
     String lineId;
     double lat = 0.0;
@@ -98,7 +99,10 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetTerminalAddPr
     TextView lineName;
     @BindView(R.id.bg)
     LinearLayout bg;
-
+    List<DictBean> light_type_list= new ArrayList();
+    List<String> light_type_arry= new ArrayList();
+    List<DictBean> light_pole_type_list= new ArrayList();
+    List<String> light_pole_type_array= new ArrayList();
     @Override
     protected int getContentView() {
         return R.layout.activity_lamp;
@@ -110,6 +114,8 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetTerminalAddPr
         ButterKnife.bind(this);
         terminalId = getIntent().getStringExtra("terminalId");
         mPresenter.getLightDeviceType();
+        mPresenter.getLightPoleType();
+        mPresenter.getLightType();
     }
 
     @Override
@@ -132,11 +138,38 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetTerminalAddPr
         }
     }
 
+    @Override
+    public void showLightType(List<DictBean> list) {
+        if (list == null)return;
+        light_type_list.clear();
+        light_type_list.addAll(list);
+        light_type_arry = new ArrayList<>();
+        for (DictBean dictBean : list) {
+            light_type_arry.add(dictBean.getDictLabel());
+        }
+    }
+
+    @Override
+    public void showLightPoleType(List<DictBean> list) {
+        if (list == null)return;
+        light_pole_type_list.clear();
+        light_pole_type_list.addAll(list);
+        light_pole_type_array = new ArrayList<>();
+        for (DictBean dictBean : list) {
+            light_pole_type_array.add(dictBean.getDictLabel());
+        }
+    }
+
+    @Override
+    public void showCheck() {
+        postData(false);
+    }
+
     @OnClick({R.id.lineName,R.id.toolbar_subtitle, R.id.devicecAddr, R.id.lightInstallTime, R.id.devicecType, R.id.lightMainType, R.id.lightAuxiliaryType, R.id.lat, R.id.lightPoleType, R.id.lightType})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.toolbar_subtitle:
-                postData();
+                postData(true);
                 break;
             case R.id.devicecAddr:
                 startQrCode();
@@ -200,8 +233,10 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetTerminalAddPr
                 startActivityForResult(new Intent(this, SelectLocationActivity.class), 1002);
                 break;
             case R.id.lightPoleType:
+                selectLightType(2,light_pole_type_array);
                 break;
             case R.id.lightType:
+                selectLightType(1,light_type_arry);
                 break;
         }
     }
@@ -228,7 +263,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetTerminalAddPr
         return new LampAddPresenter(this);
     }
 
-    void postData() {
+    void postData(boolean isCheck) {
         Map<String, Object> params = new HashMap<>();
 
         params.put("terminalId", terminalId);
@@ -283,17 +318,17 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetTerminalAddPr
         params.put("lightPoleHeight", lightPoleHeight_);
 
 
-        if (lightPoleType_ == 0) {
+        if (TextUtils.isEmpty(lightPoleType_)) {
             showToast("请选择灯杆类型");
             return;
         }
         params.put("lightPoleType", lightPoleType_);
 
-        if (poleType_ == 0) {
+        if (TextUtils.isEmpty(lightType_)) {
             showToast("请选择灯头类型");
             return;
         }
-        params.put("poleType", poleType_);
+        params.put("lightType", lightType_);
         if (devicecType_ == 0) {
             showToast("请选择路灯类型");
             return;
@@ -346,6 +381,12 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetTerminalAddPr
         }
         params.put("lat", lat);
         params.put("lon", lon);
+
+        if (isCheck){
+            Map<String, Object> map = new HashMap<>();
+
+        }
+
 //        mPresenter.postTerminal(params);
     }
 
@@ -359,7 +400,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetTerminalAddPr
                 devicecAddr.setText(scanResult);
             }
         }if (requestCode == 1001 && resultCode == RESULT_OK) {
-            lineId = data.getStringExtra("lineId");
+            lineId = data.getStringExtra("lineId"+"");
             lineName.setText(data.getStringExtra("lineName")+""); ;
         }
     }
@@ -388,6 +429,30 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetTerminalAddPr
             }
         });
     }
+    public void selectLightType(int type,List<String> array) {
+        String[] arr = (String[]) array.toArray(new String[array.size()]);
+        final SelectPopupWindows selectPopupWindows = new SelectPopupWindows(this, arr);
+        selectPopupWindows.showAtLocation(findViewById(R.id.bg),
+                Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+        selectPopupWindows.setOnItemClickListener(new SelectPopupWindows.OnItemClickListener() {
+            @Override
+            public void onSelected(int index, String msg) {
+                if (type == 1) {
+                    lightType_ = light_type_list.get(index).getDictValue();
+                    lightType.setText(msg);
+                }
+                if (type == 2) {
+                    lightPoleType_ = light_pole_type_list.get(index).getDictValue();
+                    lightPoleType.setText(msg);
+                }
+            }
+
+            @Override
+            public void onCancel() {
+                selectPopupWindows.dismiss();
+            }
+        });
+    }
     void showInfo(){
         LightDevice device = (LightDevice)getIntent().getSerializableExtra("device");
         if (device== null)return;
@@ -397,9 +462,9 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetTerminalAddPr
         lightPoleCode.setText(device.getLightPoleCode()+"");
         lightPoleHeight.setText(device.getLightPoleHeight()+"");
         lightPoleType.setText(device.getLightPoleType()+"");
-//        lightPoleType_= device.getLightPoleType();//TODO
+        lightPoleType_= device.getLightPoleType();//TODO
         lightType.setText(device.getLightType()+"");
-//        poleType_= device.getLightType();//TODO
+        lightType_= device.getLightType();//TODO
         if (device.getDevicecType()==1){
             devicecType.setText("单灯");
             llAuxiliary.setVisibility(View.GONE );

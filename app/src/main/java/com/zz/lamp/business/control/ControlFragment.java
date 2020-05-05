@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.tabs.TabLayout;
+import com.zz.lamp.HomeActivity;
 import com.zz.lamp.R;
 import com.zz.lamp.bean.ConcentratorBean;
 import com.zz.lamp.base.MyBaseFragment;
@@ -56,7 +57,6 @@ public class ControlFragment extends MyBaseFragment {
     protected void initView(View view) {
 
         TabUtils.setTabs(controlTab, this.getLayoutInflater(), tabs);
-        controlTab.getTabAt(0).select();
         controlTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -75,6 +75,7 @@ public class ControlFragment extends MyBaseFragment {
 
             }
         });
+        onChangeFragment(0);
     }
 
     @Override
@@ -96,8 +97,10 @@ public class ControlFragment extends MyBaseFragment {
         if (position == 0) {
             if (termialControlListFragment==null) {
                 termialControlListFragment = new TermialControlListFragment();
+                getActivity().getSupportFragmentManager().beginTransaction().add(R.id.main_layout, termialControlListFragment).commit();
+            }else {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_layout, termialControlListFragment).commit();
             }
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_layout, termialControlListFragment).commit();
         }else {
             if (videoControlListFragment==null) {
                 videoControlListFragment = new VideoControlListFragment();

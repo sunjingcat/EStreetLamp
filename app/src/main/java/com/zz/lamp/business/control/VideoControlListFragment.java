@@ -1,10 +1,15 @@
 package com.zz.lamp.business.control;
 
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -13,9 +18,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseFragment;
 import com.zz.lamp.bean.CameraBean;
-import com.zz.lamp.bean.RealTimeCtrlTerminal;
 import com.zz.lamp.business.control.adapter.ControlCameraAdapter;
-import com.zz.lamp.business.control.adapter.ControlJzqAdapter;
 import com.zz.lamp.net.ApiService;
 import com.zz.lamp.net.JsonT;
 import com.zz.lamp.net.RequestObserver;
@@ -29,8 +32,6 @@ import java.util.List;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -50,6 +51,11 @@ public class VideoControlListFragment extends MyBaseFragment implements OnRefres
     SmartRefreshLayout refreshLayout;
     int pageNum = 1;
     int pageSize = 20;
+    @BindView(R.id.search_edit)
+    EditText searchEdit;
+    @BindView(R.id.search_click)
+    LinearLayout searchClick;
+    String searchValue;
     public VideoControlListFragment() {
         // Required empty public constructor
     }
@@ -82,6 +88,23 @@ public class VideoControlListFragment extends MyBaseFragment implements OnRefres
         refreshLayout.setOnRefreshListener(this);
         refreshLayout.setOnLoadMoreListener(this);
         getData();
+        searchEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    //点击搜索的时候隐藏软键盘
+                    searchValue = v.getText().toString();
+                    if (searchValue == null){
+                        searchValue = "";
+                    }
+                    getData();
+                    // 在这里写搜索的操作,一般都是网络请求数据
+                    return true;
+                }
+
+                return false;
+            }
+        });
     }
 
     @Override
@@ -96,7 +119,7 @@ public class VideoControlListFragment extends MyBaseFragment implements OnRefres
 
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-        pageNum=1;
+        pageNum = 1;
         getData();
         refreshLayout.finishRefresh();
     }
@@ -107,6 +130,7 @@ public class VideoControlListFragment extends MyBaseFragment implements OnRefres
         getData();
         refreshLayout.finishLoadMore();
     }
+
     public void showIntent(List<CameraBean> list) {
         if (list == null) return;
         if (pageNum == 0) {
@@ -120,16 +144,20 @@ public class VideoControlListFragment extends MyBaseFragment implements OnRefres
             llNull.setVisibility(View.VISIBLE);
         }
     }
-    void getData(){
+
+    void getData() {
         Map<String, Object> map = new HashMap<>();
         map.put("pageNum", pageNum);
         map.put("pageSize", pageSize);
+        if (!TextUtils.isEmpty(searchValue)){
+            map.put("searchValue", searchValue);
+        }
         RxNetUtils.request(getCApi(ApiService.class).getCameraDevicelist(map), new RequestObserver<JsonT<List<CameraBean>>>(this) {
             @Override
             protected void onSuccess(JsonT<List<CameraBean>> data) {
                 if (data.isSuccess()) {
                     showIntent(data.getData());
-                }else {
+                } else {
 
                 }
             }

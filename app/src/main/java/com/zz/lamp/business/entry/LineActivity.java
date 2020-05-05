@@ -89,7 +89,7 @@ public class LineActivity extends MyBaseActivity<Contract.IsetLinePresenter> imp
                 Intent intent = new Intent();
                 intent.putExtra("lineId",mlist.get(position).getId());
                 intent.putExtra("lineName",mlist.get(position).getLineName());
-                setResult(RESULT_OK);
+                setResult(RESULT_OK,intent);
                 finish();
             }
         });

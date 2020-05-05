@@ -36,8 +36,4 @@ public class TerminalAddPresenter extends MyBasePresenterImpl<Contract.IGetTermi
         },mDialog);
     }
 
-    @Override
-    public void getLightDeviceType() {
-
-    }
 }

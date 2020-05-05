@@ -16,14 +16,17 @@
         android:paddingTop="8dp"
         android:drawableLeft="@drawable/image_search"
         android:paddingBottom="8dp"
-        android:visibility="gone"
-        android:gravity="center" />
+        android:imeOptions="actionSearch"
+        android:singleLine="true"
+        android:maxLines="1"
+        android:gravity="left" />
     <LinearLayout
         android:id="@+id/search_click"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        android:visibility="gone">
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

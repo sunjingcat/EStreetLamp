@@ -6,6 +6,7 @@ package com.zz.lamp.net;
 import com.zz.lamp.bean.CameraBean;
 import com.zz.lamp.bean.ConcentratorBean;
 import com.zz.lamp.bean.DeviceType;
+import com.zz.lamp.bean.DictBean;
 import com.zz.lamp.bean.ImageBean;
 import com.zz.lamp.bean.LightDevice;
 import com.zz.lamp.bean.LineBean;
@@ -54,8 +55,14 @@ public interface ApiService {
     @POST( "/app/light/lightDevice")
     Observable<JsonT> postLamp(@QueryMap Map<String, Object> params);
 
+    @GET( "/app/light/line/check/lineName")
+    Observable<JsonT> checkLamp(@QueryMap Map<String, Object> params);
+
     @GET("/app/light/area/list")
     Observable<JsonT<List<RegionExpandItem>>> getAreaList(@QueryMap Map<String, Object> params);
+
+   @GET("/app/light/dict/getDicts")
+    Observable<JsonT<List<DictBean>>> getLighTypet(@QueryMap Map<String, Object> params);
 
    @GET("/app/light/lightDeviceType/list")
     Observable<JsonT<List<DeviceType>>> getLightDeviceTypet();

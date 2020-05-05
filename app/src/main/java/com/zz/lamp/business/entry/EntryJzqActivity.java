@@ -223,8 +223,5 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
         finish();
     }
 
-    @Override
-    public void showLightDeviceType(List<DeviceType> list) {
 
-    }
 }
