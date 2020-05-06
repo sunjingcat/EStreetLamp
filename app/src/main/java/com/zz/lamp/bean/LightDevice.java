@@ -14,7 +14,7 @@ public class LightDevice implements Serializable {
     private  String  lightAuxiliaryPowerLimit;//	number	辅灯功率阈值(W)
     private  Integer  lightAuxiliaryType;//	integer	辅灯类型
     private  Integer  lightAuxiliaryTypeName;//	integer	辅灯类型
-    private  Long  lightInstallTime;//	string	安装时间
+    private  String  lightInstallTime;//	string	安装时间
     private  String   lightMainPower	;//number	主灯额定功率(W)
     private  String  lightMainPowerLimit	;//number	主灯功率阈值(W)
     private  Integer  lightMainType	;//integer	主灯类型
@@ -75,7 +75,7 @@ public class LightDevice implements Serializable {
         return lightAuxiliaryType;
     }
 
-    public Long getLightInstallTime() {
+    public String getLightInstallTime() {
         return lightInstallTime;
     }
 

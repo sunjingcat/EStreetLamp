@@ -457,8 +457,8 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
         LightDevice device = (LightDevice)getIntent().getSerializableExtra("device");
         if (device== null)return;
         devicecCode.setText(device.getDevicecCode()+"");
-        lightInstallTime.setText(TimeUtils.getTime(device.getLightInstallTime(),TimeUtils.DATE_FORMAT_DATE));
-        lightInstallTime_ = device.getLightInstallTime()*1000;
+        lightInstallTime.setText(device.getLightInstallTime());
+        lightInstallTime_ = TimeUtils.parseTime(device.getLightInstallTime(),TimeUtils.DATE_FORMAT_DATE).getTime();
         lightPoleCode.setText(device.getLightPoleCode()+"");
         lightPoleHeight.setText(device.getLightPoleHeight()+"");
         lightPoleType.setText(device.getLightPoleType()+"");
@@ -487,8 +487,5 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
         lat_tv.setText(device.getDevicecLat()+","+device.getDevicecLng());
         lat = Double.parseDouble(device.getDevicecLat());
         lon = Double.parseDouble(device.getDevicecLng());
-
     }
-
-
 }

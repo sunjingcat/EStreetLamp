@@ -49,6 +49,9 @@ public interface ApiService {
     @GET("/app/light/terminal/{id}")
     Observable<JsonT<ConcentratorBean>> getTerminalDetail(@Path("id") String authCode);
 
+    @GET("/app/light/lightDevice/{id}")
+    Observable<JsonT<LightDevice>> getLampDetail(@Path("id") String id);
+
     @POST( "/app/light/terminal/")
     Observable<JsonT> postTerminal(@QueryMap Map<String, Object> params);
 
@@ -70,8 +73,8 @@ public interface ApiService {
     @GET("/app/light/line/list/{terminalId}")
     Observable<JsonT<List<LineBean>>> getLineList(@Path("terminalId") String terminalId);
 
-    @GET("/app/light/lightDevice/list{terminalId}")
-    Observable<JsonT<List<LightDevice>>> getLightDeviceList(@QueryMap Map<String, Object> params,@Path("terminalId") String terminalId);
+    @GET("/app/light/lightDevice/list/{terminalId}")
+    Observable<JsonT<List<LightDevice>>> getLightDeviceList(@Path("terminalId") String terminalId,@QueryMap Map<String, Object> params);
 
 
     @GET("/app/light/realTimeCtrl/terminal")

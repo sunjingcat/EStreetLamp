@@ -325,7 +325,7 @@
                     android:id="@+id/iv_show"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/image_open"></ImageView>
+                    android:src="@drawable/image_close_tab"></ImageView>
 
                 <TextView
                     android:id="@+id/tv_show"

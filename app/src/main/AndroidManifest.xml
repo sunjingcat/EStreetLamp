@@ -30,7 +30,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".business.entry.LineActivity"></activity>
+        <activity android:name=".business.entry.LightDetailActivity"></activity>
+        <activity android:name=".business.entry.LineActivity" />
         <activity android:name=".business.entry.LampListActivity" />
         <activity android:name=".business.entry.EntryLampActivity" />
         <activity android:name=".business.control.TerminalControlActivity" />
@@ -64,8 +65,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".business.entry.AddLineActivity"
-            android:theme="@style/ActivityDialogTheme"/>
+        <activity
+            android:name=".business.entry.AddLineActivity"
+            android:theme="@style/ActivityDialogTheme" />
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"

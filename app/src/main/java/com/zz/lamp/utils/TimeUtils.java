@@ -2,6 +2,7 @@ package com.zz.lamp.utils;
 
 import android.text.TextUtils;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -66,6 +67,16 @@ public class TimeUtils {
     public static String getTime(long timeInMillis, SimpleDateFormat dateFormat) {
         dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
         return dateFormat.format(new Date(timeInMillis));
+    }
+
+    public static Date parseTime(String time, SimpleDateFormat dateFormat) {
+        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+        try {
+            return dateFormat.parse(time);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return new Date();
     }
 
 

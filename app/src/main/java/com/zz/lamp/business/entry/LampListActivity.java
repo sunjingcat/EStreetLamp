@@ -102,7 +102,7 @@ public class LampListActivity extends MyBaseActivity<Contract.IsetLampPresenter>
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-                startActivity(new Intent(LampListActivity.this, LampListActivity.class).putExtra("terminalId", mlist.get(position).getId()));
+                startActivity(new Intent(LampListActivity.this, LightDetailActivity.class).putExtra("lightId", mlist.get(position).getId()));
             }
         });
     }
@@ -153,12 +153,12 @@ public class LampListActivity extends MyBaseActivity<Contract.IsetLampPresenter>
             case R.id.ll_show:
                 if (llGone.getVisibility() == View.VISIBLE) {
                     llGone.setVisibility(View.GONE);
-                    ivShow.setImageResource(R.drawable.image_close_tab);
-                    tvShow.setText("收起");
-                } else {
-                    llGone.setVisibility(View.VISIBLE);
                     ivShow.setImageResource(R.drawable.image_open);
                     tvShow.setText("打开");
+                } else {
+                    llGone.setVisibility(View.VISIBLE);
+                    ivShow.setImageResource(R.drawable.image_close_tab);
+                    tvShow.setText("收起");
                 }
                 break;
             case R.id.entry_lamp:
@@ -178,7 +178,6 @@ public class LampListActivity extends MyBaseActivity<Contract.IsetLampPresenter>
         map.put("pageSize", pageSize);
 //        map.put("searchValue",pageSize);
         mPresenter.getLampList(map, terminalId);
-        //TODO 接口异常
     }
 
     @Override
