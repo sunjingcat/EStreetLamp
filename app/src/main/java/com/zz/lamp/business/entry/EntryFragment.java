@@ -17,6 +17,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.zz.lamp.R;
 import com.zz.lamp.bean.ConcentratorBean;
 import com.zz.lamp.base.MyBaseFragment;
+import com.zz.lamp.business.SelectLocationActivity;
 import com.zz.lamp.business.entry.adapter.ConcentratorBeanAdapter;
 import com.zz.lamp.business.entry.mvp.Contract;
 import com.zz.lamp.business.entry.mvp.presenter.TerminalPresenter;
@@ -115,7 +116,8 @@ public class EntryFragment  extends MyBaseFragment<Contract.IsetTerminalPresente
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.entry_qy:
-                getActivity().startActivity(new Intent(getActivity(),RegionActivity.class));
+//                getActivity().startActivity(new Intent(getActivity(),RegionActivity.class));
+                getActivity().startActivity(new Intent(getActivity(), SelectLocationActivity.class));
                 break;
             case R.id.entry_jzq:
                 getActivity().startActivity(new Intent(getActivity(),EntryJzqActivity.class));

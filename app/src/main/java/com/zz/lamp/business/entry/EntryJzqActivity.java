@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 
+import com.baidu.mapapi.search.core.PoiInfo;
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseActivity;
 import com.zz.lamp.bean.DeviceType;
@@ -65,6 +66,7 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
 
     double lat = 0.0;
     double lon = 0.0;
+
     @Override
     protected int getContentView() {
         return R.layout.activity_entry_jzq;
@@ -93,10 +95,10 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
                 postData();
                 break;
             case R.id.tv_area:
-                startActivityForResult(new Intent(EntryJzqActivity.this,RegionActivity.class),1001);
+                startActivityForResult(new Intent(EntryJzqActivity.this, RegionActivity.class), 1001);
                 break;
             case R.id.terminalType:
-                String[] PLANETS2 = new String[]{"塔吊", "升降机", "塔吊黑匣子","环境监测设备","其他"};
+                String[] PLANETS2 = new String[]{"塔吊", "升降机", "塔吊黑匣子", "环境监测设备", "其他"};
                 final SelectPopupWindows selectPopupWindows2 = new SelectPopupWindows(this, PLANETS2);
                 selectPopupWindows2.showAtLocation(findViewById(R.id.bg),
                         Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
@@ -114,7 +116,7 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
                 });
                 break;
             case R.id.lat:
-                startActivityForResult(new Intent(EntryJzqActivity.this, SelectLocationActivity.class),1002);
+                startActivityForResult(new Intent(EntryJzqActivity.this, SelectLocationActivity.class), 1002);
                 break;
         }
     }
@@ -123,96 +125,102 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        switch (requestCode){
+        switch (requestCode) {
             case 1001:
-                if (data == null)return;
-                 areaId = data.getStringExtra("areaId");
-                 areaName = data.getStringExtra("areaName");
-                tvArea.setText(areaName+"");
+                if (data == null) return;
+                areaId = data.getStringExtra("areaId");
+                areaName = data.getStringExtra("areaName");
+                tvArea.setText(areaName + "");
+                break;
+            case 1002:
+                if (data == null) return;
+                PoiInfo poiInfo = data.getParcelableExtra("location");
+                lat = poiInfo.location.latitude;
+                lon = poiInfo.location.longitude;
+                tv_lat.setText(poiInfo.address + "");
                 break;
         }
     }
 
-    void postData(){
+    void postData() {
         Map<String, Object> params = new HashMap<>();
-        if (TextUtils.isEmpty(areaId)||TextUtils.isEmpty(areaName)){
+        if (TextUtils.isEmpty(areaId) || TextUtils.isEmpty(areaName)) {
             showToast("请选择区域");
             return;
         }
-        params.put("areaId",areaId);
-        params.put("areaName",areaName);
+        params.put("areaId", areaId);
+        params.put("areaName", areaName);
 
         String addr = terminalAddr.getText().toString();
-        if (TextUtils.isEmpty(addr)){
+        if (TextUtils.isEmpty(addr)) {
             showToast("请输入集中器地址");
             return;
         }
-        if (addr.length()!=8){
+        if (addr.length() != 8) {
             showToast("请输入正确的8位集中器地址");
             return;
         }
-        params.put("terminalAddr",addr);
+        params.put("terminalAddr", addr);
 
         String name = terminalName.getText().toString();
-        if (TextUtils.isEmpty(name)){
+        if (TextUtils.isEmpty(name)) {
             showToast("请输入集中器别名");
             return;
         }
-        params.put("terminalName",name);
-
+        params.put("terminalName", name);
 
 
         String count = loopCount.getText().toString();
-        if (TextUtils.isEmpty(count)){
+        if (TextUtils.isEmpty(count)) {
             showToast("请输入回路数量");
             return;
         }
-        params.put("loopCount",count);
+        params.put("loopCount", count);
 
         String line_Count = lineCount.getText().toString();
-        if (TextUtils.isEmpty(line_Count)){
+        if (TextUtils.isEmpty(line_Count)) {
             showToast("请输入支路数量");
             return;
         }
-        params.put("lineCount",line_Count);
+        params.put("lineCount", line_Count);
 
         String transformerRatio = loopTransformerRatio.getText().toString();
-        if (TextUtils.isEmpty(transformerRatio)){
+        if (TextUtils.isEmpty(transformerRatio)) {
             showToast("请输入回路互感器变比");
             return;
         }
-        params.put("loopTransformerRatio",transformerRatio);
+        params.put("loopTransformerRatio", transformerRatio);
 
         String line_transformerRatio = lineTransformerRatio.getText().toString();
-        if (TextUtils.isEmpty(line_transformerRatio)){
+        if (TextUtils.isEmpty(line_transformerRatio)) {
             showToast("请输入相线互感器变比");
             return;
         }
-        params.put("lineTransformerRatio",line_transformerRatio);
+        params.put("lineTransformerRatio", line_transformerRatio);
 
         String alarmDelayedTime_ = alarmDelayedTime.getText().toString();
-        if (TextUtils.isEmpty(alarmDelayedTime_)){
+        if (TextUtils.isEmpty(alarmDelayedTime_)) {
             showToast("请输入报警延时");
             return;
         }
-        params.put("alarmDelayedTime",alarmDelayedTime_);
+        params.put("alarmDelayedTime", alarmDelayedTime_);
 
         String relayOnDelayedTime_ = relayOnDelayedTime.getText().toString();
-        if (TextUtils.isEmpty(relayOnDelayedTime_)){
+        if (TextUtils.isEmpty(relayOnDelayedTime_)) {
             showToast("请输入上电合闸延时");
             return;
         }
-        params.put("relayOnDelayedTime",relayOnDelayedTime_);
+        params.put("relayOnDelayedTime", relayOnDelayedTime_);
 
         /**
          *
          */
-        if (lat==0.0||lon==0.0){
+        if (lat == 0.0 || lon == 0.0) {
             showToast("请选择经纬度");
             return;
         }
-        params.put("lat",lat);
-        params.put("lon",lon);
+        params.put("lat", lat);
+        params.put("lon", lon);
         mPresenter.postTerminal(params);
     }
 

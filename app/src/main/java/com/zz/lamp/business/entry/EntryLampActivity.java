@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.baidu.mapapi.search.core.PoiInfo;
 import com.codbking.widget.DatePickDialog;
 import com.codbking.widget.OnChangeLisener;
 import com.codbking.widget.OnSureLisener;
@@ -39,6 +40,7 @@ import java.util.Map;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -99,10 +101,11 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
     TextView lineName;
     @BindView(R.id.bg)
     LinearLayout bg;
-    List<DictBean> light_type_list= new ArrayList();
-    List<String> light_type_arry= new ArrayList();
-    List<DictBean> light_pole_type_list= new ArrayList();
-    List<String> light_pole_type_array= new ArrayList();
+    List<DictBean> light_type_list = new ArrayList();
+    List<String> light_type_arry = new ArrayList();
+    List<DictBean> light_pole_type_list = new ArrayList();
+    List<String> light_pole_type_array = new ArrayList();
+
     @Override
     protected int getContentView() {
         return R.layout.activity_lamp;
@@ -140,7 +143,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
 
     @Override
     public void showLightType(List<DictBean> list) {
-        if (list == null)return;
+        if (list == null) return;
         light_type_list.clear();
         light_type_list.addAll(list);
         light_type_arry = new ArrayList<>();
@@ -151,7 +154,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
 
     @Override
     public void showLightPoleType(List<DictBean> list) {
-        if (list == null)return;
+        if (list == null) return;
         light_pole_type_list.clear();
         light_pole_type_list.addAll(list);
         light_pole_type_array = new ArrayList<>();
@@ -165,7 +168,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
         postData(false);
     }
 
-    @OnClick({R.id.lineName,R.id.toolbar_subtitle, R.id.devicecAddr, R.id.lightInstallTime, R.id.devicecType, R.id.lightMainType, R.id.lightAuxiliaryType, R.id.lat, R.id.lightPoleType, R.id.lightType})
+    @OnClick({R.id.lineName, R.id.toolbar_subtitle, R.id.devicecAddr, R.id.lightInstallTime, R.id.devicecType, R.id.lightMainType, R.id.lightAuxiliaryType, R.id.lat, R.id.lightPoleType, R.id.lightType})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.toolbar_subtitle:
@@ -174,8 +177,8 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
             case R.id.devicecAddr:
                 startQrCode();
                 break;
-                case R.id.lineName:
-                startActivityForResult(new Intent(EntryLampActivity.this,LineActivity.class).putExtra("terminalId",terminalId),1001);
+            case R.id.lineName:
+                startActivityForResult(new Intent(EntryLampActivity.this, LineActivity.class).putExtra("terminalId", terminalId), 1001);
                 break;
             case R.id.lightInstallTime:
                 DatePickDialog dialog = new DatePickDialog(EntryLampActivity.this);
@@ -233,10 +236,10 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
                 startActivityForResult(new Intent(this, SelectLocationActivity.class), 1002);
                 break;
             case R.id.lightPoleType:
-                selectLightType(2,light_pole_type_array);
+                selectLightType(2, light_pole_type_array);
                 break;
             case R.id.lightType:
-                selectLightType(1,light_type_arry);
+                selectLightType(1, light_type_arry);
                 break;
         }
     }
@@ -301,7 +304,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
             showToast("请选择安装时间");
             return;
         }
-        params.put("lightInstallTime", lightInstallTime_/1000);
+        params.put("lightInstallTime", lightInstallTime_ / 1000);
 
         String lightPoleCode_ = lightPoleCode.getText().toString();
         if (TextUtils.isEmpty(lightPoleCode_)) {
@@ -382,7 +385,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
         params.put("lat", lat);
         params.put("lon", lon);
 
-        if (isCheck){
+        if (isCheck) {
             Map<String, Object> map = new HashMap<>();
 
         }
@@ -399,9 +402,18 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
             if (!TextUtils.isEmpty(scanResult)) {
                 devicecAddr.setText(scanResult);
             }
-        }if (requestCode == 1001 && resultCode == RESULT_OK) {
-            lineId = data.getStringExtra("lineId"+"");
-            lineName.setText(data.getStringExtra("lineName")+""); ;
+        }
+        if (requestCode == 1001 && resultCode == RESULT_OK) {
+            lineId = data.getStringExtra("lineId" + "");
+            lineName.setText(data.getStringExtra("lineName") + "");
+            ;
+        }
+        if (requestCode == 1002 && resultCode == RESULT_OK) {
+            if (data == null) return;
+            PoiInfo poiInfo = data.getParcelableExtra("location");
+            lat = poiInfo.location.latitude;
+            lon = poiInfo.location.longitude;
+            lat_tv.setText(poiInfo.address + "");
         }
     }
 
@@ -429,7 +441,8 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
             }
         });
     }
-    public void selectLightType(int type,List<String> array) {
+
+    public void selectLightType(int type, List<String> array) {
         String[] arr = (String[]) array.toArray(new String[array.size()]);
         final SelectPopupWindows selectPopupWindows = new SelectPopupWindows(this, arr);
         selectPopupWindows.showAtLocation(findViewById(R.id.bg),
@@ -453,38 +466,40 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
             }
         });
     }
-    void showInfo(){
-        LightDevice device = (LightDevice)getIntent().getSerializableExtra("device");
-        if (device== null)return;
-        devicecCode.setText(device.getDevicecCode()+"");
-        lightInstallTime.setText(device.getLightInstallTime());
-        lightInstallTime_ = TimeUtils.parseTime(device.getLightInstallTime(),TimeUtils.DATE_FORMAT_DATE).getTime();
-        lightPoleCode.setText(device.getLightPoleCode()+"");
-        lightPoleHeight.setText(device.getLightPoleHeight()+"");
-        lightPoleType.setText(device.getLightPoleType()+"");
-        lightPoleType_= device.getLightPoleType();//TODO
-        lightType.setText(device.getLightType()+"");
-        lightType_= device.getLightType();//TODO
-        if (device.getDevicecType()==1){
-            devicecType.setText("单灯");
-            llAuxiliary.setVisibility(View.GONE );
-        } if (device.getDevicecType()==2){
-            devicecType.setText("双灯");
-            llAuxiliary.setVisibility(View.VISIBLE );
-        }
-        devicecType_=device.getDevicecType();
 
-        lightMainType.setText(device.getLightMainTypeName()+"");
-        lightMainType_= device.getLightMainType();
-        lightMainPower.setText(device.getLightMainPower()+"");
-        lightMainPowerLimit.setText(device.getLightMainPowerLimit()+"");
-        lineName.setText(device.getLineName()+"");
+    void showInfo() {
+        LightDevice device = (LightDevice) getIntent().getSerializableExtra("device");
+        if (device == null) return;
+        devicecCode.setText(device.getDevicecCode() + "");
+        lightInstallTime.setText(device.getLightInstallTime());
+        lightInstallTime_ = TimeUtils.parseTime(device.getLightInstallTime(), TimeUtils.DATE_FORMAT_DATE).getTime();
+        lightPoleCode.setText(device.getLightPoleCode() + "");
+        lightPoleHeight.setText(device.getLightPoleHeight() + "");
+        lightPoleType.setText(device.getLightPoleType() + "");
+        lightPoleType_ = device.getLightPoleType();//TODO
+        lightType.setText(device.getLightType() + "");
+        lightType_ = device.getLightType();//TODO
+        if (device.getDevicecType() == 1) {
+            devicecType.setText("单灯");
+            llAuxiliary.setVisibility(View.GONE);
+        }
+        if (device.getDevicecType() == 2) {
+            devicecType.setText("双灯");
+            llAuxiliary.setVisibility(View.VISIBLE);
+        }
+        devicecType_ = device.getDevicecType();
+
+        lightMainType.setText(device.getLightMainTypeName() + "");
+        lightMainType_ = device.getLightMainType();
+        lightMainPower.setText(device.getLightMainPower() + "");
+        lightMainPowerLimit.setText(device.getLightMainPowerLimit() + "");
+        lineName.setText(device.getLineName() + "");
         lineId = device.getLineId();
-        lightAuxiliaryType.setText(device.getLightAuxiliaryTypeName()+"");
-        lightAuxiliaryType_= device.getLightAuxiliaryType();
-        lightAuxiliaryPower.setText(device.getLightAuxiliaryPower()+"");
-        lightAuxiliaryPowerLimit.setText(device.getLightAuxiliaryPowerLimit()+"");
-        lat_tv.setText(device.getDevicecLat()+","+device.getDevicecLng());
+        lightAuxiliaryType.setText(device.getLightAuxiliaryTypeName() + "");
+        lightAuxiliaryType_ = device.getLightAuxiliaryType();
+        lightAuxiliaryPower.setText(device.getLightAuxiliaryPower() + "");
+        lightAuxiliaryPowerLimit.setText(device.getLightAuxiliaryPowerLimit() + "");
+        lat_tv.setText(device.getDevicecLat() + "," + device.getDevicecLng());
         lat = Double.parseDouble(device.getDevicecLat());
         lon = Double.parseDouble(device.getDevicecLng());
     }

@@ -29,7 +29,7 @@
             android:layout_marginRight="10dp"
             android:padding="8dp"
             android:singleLine="true"
-            android:text="新建"
+            android:text="保存"
             android:textColor="@color/colorTextBlack33"
             android:textSize="16dp" />
     </androidx.appcompat.widget.Toolbar>
@@ -42,11 +42,28 @@
         android:text=""
         android:textColor="@color/colorTextBlack33"
         android:textSize="14dp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
     <com.baidu.mapapi.map.MapView
         android:id="@+id/bmapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"/>
+        />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_launcher"/>
+        <ImageView
+            android:id="@+id/my_site"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:src="@drawable/ic_launcher"/>
+    </RelativeLayout>
     <EditText
         android:id="@+id/search_edit"
         android:layout_width="match_parent"
@@ -56,6 +73,8 @@
         android:drawableLeft="@drawable/image_search"
         android:paddingBottom="8dp"
         android:imeOptions="actionSearch"
+        android:singleLine="true"
+        android:maxLines="1"
         android:gravity="center" />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"
