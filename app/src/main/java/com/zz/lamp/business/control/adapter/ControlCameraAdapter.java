@@ -1,10 +1,13 @@
 package com.zz.lamp.business.control.adapter;
 
 
+import android.widget.CheckBox;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.zz.lamp.R;
 import com.zz.lamp.bean.CameraBean;
+import com.zz.lamp.bean.LineBean;
 import com.zz.lamp.bean.RealTimeCtrlTerminal;
 
 import java.util.List;
@@ -25,7 +28,7 @@ public class ControlCameraAdapter extends BaseQuickAdapter<CameraBean, BaseViewH
 
     @Override
     protected void convert(BaseViewHolder holper, final CameraBean item) {
-//        GlideUtils.loadImage(mContext, item, (ImageView) holper.getView(R.id.item_approval_icon));
+        //        GlideUtils.loadImage(mContext, item, (ImageView) holper.getView(R.id.item_approval_icon));
         holper.setText(R.id.item_title,item.getDeviceName());
 
 

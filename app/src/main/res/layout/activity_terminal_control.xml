@@ -1,9 +1,392 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".business.control.TerminalControlActivity">
+    android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="33dp"
+        android:background="@color/white" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="集中器控制"
+            android:textColor="@color/colorTextBlack33"
+            android:textSize="18dp" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <RelativeLayout
+                    android:id="@+id/control_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/image_add_line" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:text="分组控制"
+                        android:textColor="#484A59"
+                        android:textSize="15dp" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="20dp"
+                    android:layout_height="1dp" />
+
+                <RelativeLayout
+                    android:id="@+id/control_lamp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/image_add_lamp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="25dp"
+                        android:text="单灯控制"
+                        android:textColor="#484A59"
+                        android:textSize="15dp" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="5dp"
+                        android:layout_height="16dp"
+                        android:background="#444564" />
+
+                    <TextView
+                        android:id="@+id/item_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:text="基础信息"
+                        android:textColor="#444444"
+                        android:textSize="18dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="8dp">
+
+                    <TextView
+                        style="@style/textInfoTitleStyle"
+                        android:width="120dp"
+                        android:text="区域" />
+
+                    <TextView
+                        android:id="@+id/areaName"
+                        style="@style/textInfoContentStyle"
+                        tools:text="当前状态" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="8dp">
+
+                    <TextView
+                        style="@style/textInfoTitleStyle"
+                        android:width="120dp"
+                        android:text="集中器地址" />
+
+                    <TextView
+                        android:id="@+id/terminalAddr"
+                        style="@style/textInfoContentStyle"
+                        tools:text="当前状态" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="8dp">
+
+                    <TextView
+                        style="@style/textInfoTitleStyle"
+                        android:width="120dp"
+                        android:text="集中器别名" />
+
+                    <TextView
+                        android:id="@+id/terminalName"
+                        style="@style/textInfoContentStyle"
+                        tools:text="当前状态" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="8dp">
+
+                    <TextView
+                        style="@style/textInfoTitleStyle"
+                        android:width="120dp"
+                        android:text="回路数量" />
+
+                    <TextView
+                        android:id="@+id/loopCount"
+                        style="@style/textInfoContentStyle"
+                        tools:text="当前状态" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="8dp">
+
+                    <TextView
+                        style="@style/textInfoTitleStyle"
+                        android:width="120dp"
+                        android:text="支路数量" />
+
+                    <TextView
+                        android:id="@+id/lineCount"
+                        style="@style/textInfoContentStyle"
+                        tools:text="当前状态" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="8dp">
+
+                    <TextView
+                        style="@style/textInfoTitleStyle"
+                        android:width="120dp"
+                        android:text="回路互感器变比" />
+
+                    <TextView
+                        android:id="@+id/loopTransformerRatio"
+                        style="@style/textInfoContentStyle"
+                        tools:text="当前状态" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="8dp">
+
+                    <TextView
+
+                        style="@style/textInfoTitleStyle"
+                        android:width="120dp"
+                        android:text="相线互感器变比" />
+
+                    <TextView
+                        android:id="@+id/lineTransformerRatio"
+                        style="@style/textInfoContentStyle"
+                        tools:text="当前状态" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="8dp">
+
+                    <TextView
+                        style="@style/textInfoTitleStyle"
+                        android:width="120dp"
+                        android:text="报警延时" />
+
+                    <TextView
+                        android:id="@+id/alarmDelayedTime"
+                        style="@style/textInfoContentStyle"
+                        tools:text="当前状态" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="8dp">
+
+                        <TextView
+                            style="@style/textInfoTitleStyle"
+                            android:width="120dp"
+                            android:text="上电合闸延时" />
+
+                        <TextView
+                            android:id="@+id/relayOnDelayedTime"
+                            style="@style/textInfoContentStyle"
+                            tools:text="当前状态" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="8dp">
+
+                        <TextView
+                            style="@style/textInfoTitleStyle"
+                            android:width="120dp"
+                            android:text="经纬度" />
+
+                        <TextView
+                            android:id="@+id/terminalLat"
+                            style="@style/textInfoContentStyle"
+                            tools:text="当前状态" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#EDEFF7" />
+
+            <LinearLayout
+                android:id="@+id/ll_show"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <ImageView
+                    android:id="@+id/iv_show"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/image_close_tab"></ImageView>
+
+                <TextView
+                    android:id="@+id/tv_show"
+                    style="@style/textInfoTitleStyle"
+                    android:text="收起"
+                    android:textSize="13dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="12dp"
+                android:paddingTop="8dp"
+                android:paddingRight="12dp"
+                android:paddingBottom="8dp">
+
+                <View
+                    android:layout_width="5dp"
+                    android:layout_height="16dp"
+                    android:background="#444564" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:text="分组控制"
+                    android:textColor="#444444"
+                    android:textSize="18dp" />
+
+                <CheckBox
+                    android:id="@+id/control_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/check_login"
+                    android:text="  全选" />
+            </LinearLayout>
+
+            <include layout="@layout/refresh_layout" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/control_close"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="拉闸" />
+
+                <Button
+                    android:id="@+id/control_open"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="合闸" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

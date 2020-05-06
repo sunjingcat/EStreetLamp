@@ -5,6 +5,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zz.lamp.R;
+import com.zz.lamp.utils.MyTimeTask;
+
+import java.util.TimerTask;
 
 
 /**
@@ -21,13 +26,13 @@ import com.zz.lamp.R;
  * @author Administrator
  */
 
-public class CustomDialog extends Dialog {
+public class TimerDialog extends Dialog {
 
-    public CustomDialog(Context context, int theme) {
+    public TimerDialog(Context context, int theme) {
         super(context, theme);
     }
 
-    public CustomDialog(Context context) {
+    public TimerDialog(Context context) {
         super(context);
     }
 
@@ -35,23 +40,10 @@ public class CustomDialog extends Dialog {
         private Context context;
         private String title;
         private String message;
-
-        private String iconType;
         private String positiveButtonText;
         private String negativeButtonText;
         private OnPClickListener positiveButtonClickListener;
         private OnClickListener negativeButtonClickListener;
-
-        private String titleColor;
-        private String contentColor;
-        private String buttonLeftColor;
-        private String buttonRightColor;
-
-        private float titleSize;
-        private float contentSize;
-        private float buttonLeftSize;
-        private float buttonRightSize;
-
 
         private boolean showCloseIcon = false;
         private boolean cancelOutSide = true;
@@ -65,6 +57,7 @@ public class CustomDialog extends Dialog {
             this.message = msg;
             this.title = title;
         }
+
         public Builder setMessage(String message) {
             this.message = message;
             return this;
@@ -84,83 +77,15 @@ public class CustomDialog extends Dialog {
             this.title = title;
             return this;
         }
+
         public interface OnPClickListener {
-            void onClick(CustomDialog v, String msg);
-        }
-        public Builder setShowCloseIcon(boolean showCloseIcon) {
-            this.showCloseIcon = showCloseIcon;
-            return this;
+            void onClick(TimerDialog v, String msg);
         }
 
-        public Builder setTitleColor(String titleColor) {
-            this.titleColor = titleColor;
-            return this;
-        }
-
-        public Builder setContentColor(String contentColor) {
-            this.contentColor = contentColor;
-            return this;
-        }
-
-        public Builder setButtonLeftColor(String buttonLeftColor) {
-            this.buttonLeftColor = buttonLeftColor;
-            return this;
-        }
-
-        public Builder setButtonRightColor(String buttonRightColor) {
-            this.buttonRightColor = buttonRightColor;
-            return this;
-        }
-
-        public Builder setTitleSize(float titleSize) {
-            this.titleSize = titleSize;
-            return this;
-        }
-
-        public Builder setContentSize(float contentSize) {
-            this.contentSize = contentSize;
-            return this;
-        }
-
-        public Builder setButtonLeftSize(float buttonLeftSize) {
-            this.buttonLeftSize = buttonLeftSize;
-            return this;
-        }
-
-        public Builder setButtonRightSize(float buttonRightSize) {
-            this.buttonRightSize = buttonRightSize;
-            return this;
-        }
-
-        public Builder setIconType(String iconType) {
-            this.iconType = iconType;
-            return this;
-        }
-//
-//        public Builder setPositiveButton(int positiveButtonText, OnClickListener listener) {
-//            this.positiveButtonText = (String) context.getText(positiveButtonText);
-//            this.positiveButtonClickListener = listener;
-//            return this;
-//        }
 
         public Builder setPositiveButton(String positiveButtonText, OnPClickListener listener) {
             this.positiveButtonText = positiveButtonText;
             this.positiveButtonClickListener = listener;
-            return this;
-        }
-
-        public Builder setPositiveButton(String positiveButtonText) {
-            this.positiveButtonText = positiveButtonText;
-            if (lblPositive!= null){
-                lblPositive.setEnabled(false);
-                lblPositive.setText(positiveButtonText+"s");
-                lblPositive.setTextColor(Color.parseColor("#BFBFBF"));
-                if ("确定".equals(positiveButtonText)){
-                    lblPositive.setTextColor(Color.parseColor("#586BFB"));
-                    lblPositive.setText(positiveButtonText);
-                    lblPositive.setEnabled(true);
-                }
-            }
             return this;
         }
 
@@ -180,12 +105,12 @@ public class CustomDialog extends Dialog {
             this.cancelOutSide = cancelOutSide;
             return this;
         }
-        TextView lblPositive;
+
         @SuppressLint("NewApi")
-        public CustomDialog create() {
+        public TimerDialog create() {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             // instantiate the dialog with the custom Theme
-            final CustomDialog dialog = new CustomDialog(context, R.style.custom_Progress);
+            final TimerDialog dialog = new TimerDialog(context, R.style.custom_Progress);
 
             View layout = inflater.inflate(R.layout.dialog_text_layout, null);
             dialog.addContentView(layout, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
@@ -196,12 +121,7 @@ public class CustomDialog extends Dialog {
                 TextView tvTitle = (TextView) layout.findViewById(R.id.lblDialogTitle);
                 tvTitle.setVisibility(View.VISIBLE);
                 tvTitle.setText(title);
-                if (!TextUtils.isEmpty(titleColor)) {
-                    tvTitle.setTextColor(Color.parseColor(titleColor));
-                }
-                if (titleSize != 0) {
-                    tvTitle.setTextSize(titleSize);
-                }
+
             }
 
             //set close icon
@@ -219,27 +139,17 @@ public class CustomDialog extends Dialog {
             // set the confirm button
             final TextView msg = (TextView) layout.findViewById(R.id.lblDialogMessage);
             msg.setText(message);
-            if (!TextUtils.isEmpty(contentColor)) {
-                msg.setTextColor(Color.parseColor(contentColor));
-            }
-            if (contentSize != 0) {
-                msg.setTextSize(contentSize);
-            }
+
             // set the cancel button
             if (!TextUtils.isEmpty(negativeButtonText)) {
                 TextView lblNegative = (TextView) layout.findViewById(R.id.lblNegative);
                 lblNegative.setText(negativeButtonText);
-                if (!TextUtils.isEmpty(buttonLeftColor)) {
-                    lblNegative.setTextColor(Color.parseColor(buttonLeftColor));
-                }
-                if (buttonLeftSize != 0) {
-                    lblNegative.setTextSize(buttonLeftSize);
-                }
+
                 if (negativeButtonClickListener != null) {
                     ((TextView) layout.findViewById(R.id.lblNegative)).setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             negativeButtonClickListener.onClick(dialog, DialogInterface.BUTTON_NEGATIVE);
-                            if (dialog !=null &&dialog.isShowing()){
+                            if (dialog != null && dialog.isShowing()) {
                                 dialog.dismiss();
                             }
                         }
@@ -249,19 +159,14 @@ public class CustomDialog extends Dialog {
                 layout.findViewById(R.id.lblNegative).setVisibility(View.GONE);
             }
             if (!TextUtils.isEmpty(positiveButtonText)) {
-                 lblPositive = (TextView) layout.findViewById(R.id.lblPositive);
-                if (!TextUtils.isEmpty(buttonRightColor)) {
-                    lblPositive.setTextColor(Color.parseColor(buttonRightColor));
-                }
-                if (buttonRightSize != 0) {
-                    lblPositive.setTextSize(buttonRightSize);
-                }
+                TextView lblPositive = (TextView) layout.findViewById(R.id.lblPositive);
+
                 lblPositive.setText(positiveButtonText);
                 if (positiveButtonClickListener != null) {
                     lblPositive.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-                            positiveButtonClickListener.onClick(dialog,  msg.getText().toString().trim());
-                            if (dialog !=null &&dialog.isShowing()){
+                            positiveButtonClickListener.onClick(dialog, msg.getText().toString().trim());
+                            if (dialog != null && dialog.isShowing()) {
                                 dialog.dismiss();
                             }
                         }

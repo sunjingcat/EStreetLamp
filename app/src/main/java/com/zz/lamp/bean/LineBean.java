@@ -5,6 +5,15 @@ public class LineBean {
     private String lineCode;//integer	线路编码
     private String lineName;//	string	线路名称
     private String terminalId;//integer	集中器终端id
+    private boolean check;//integer	集中器终端id
+
+    public boolean isCheck() {
+        return check;
+    }
+
+    public void setCheck(boolean check) {
+        this.check = check;
+    }
 
     public String getId() {
         return id;

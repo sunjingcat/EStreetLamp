@@ -97,6 +97,7 @@ public class VideoControlListFragment extends MyBaseFragment implements OnRefres
                     if (searchValue == null){
                         searchValue = "";
                     }
+                    pageNum = 1;
                     getData();
                     // 在这里写搜索的操作,一般都是网络请求数据
                     return true;

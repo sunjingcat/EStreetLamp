@@ -1,5 +1,6 @@
 package com.zz.lamp.business.control;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -11,6 +12,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -87,6 +90,12 @@ public class TermialControlListFragment extends MyBaseFragment implements OnRefr
         rv.setAdapter(adapter);
         refreshLayout.setOnRefreshListener(this);
         refreshLayout.setOnLoadMoreListener(this);
+        adapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
+                startActivity(new Intent(getActivity(),TerminalControlActivity.class).putExtra("terminalId",mlist.get(position).getId()));
+            }
+        });
         getData();
         searchEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -97,6 +106,7 @@ public class TermialControlListFragment extends MyBaseFragment implements OnRefr
                     if (searchValue == null){
                         searchValue = "";
                     }
+                    pageNum = 1;
                     getData();
                     // 在这里写搜索的操作,一般都是网络请求数据
                     return true;
