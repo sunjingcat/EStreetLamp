@@ -17,9 +17,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseActivity;
+import com.zz.lamp.bean.LightDeviceConBean;
 import com.zz.lamp.bean.LineBean;
+import com.zz.lamp.business.control.adapter.ControlLightAdapter;
 import com.zz.lamp.business.control.adapter.ControlLineAdapter;
 import com.zz.lamp.business.control.mvp.Contract;
 import com.zz.lamp.business.control.mvp.presenter.GroupControlPresenter;
@@ -38,7 +42,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class LigitDeviceControlActivity extends MyBaseActivity<Contract.IsetLightControlPresenter> implements Contract.IGetLightControlView {
+public class LigitDeviceControlActivity extends MyBaseActivity<Contract.IsetLightControlPresenter> implements Contract.IGetLightControlView, OnLoadMoreListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -55,8 +59,10 @@ public class LigitDeviceControlActivity extends MyBaseActivity<Contract.IsetLigh
     @BindView(R.id.control_open)
     Button controlOpen;
     String terminalId;
-    List<LineBean> mlist = new ArrayList<>();
-    ControlLineAdapter adapter;
+    List<LightDeviceConBean> mlist = new ArrayList<>();
+    ControlLightAdapter adapter;
+    int pageNum = 1;
+    int pageSize = 20;
     @Override
     protected int getContentView() {
         return R.layout.activity_light_control;
@@ -72,11 +78,11 @@ public class LigitDeviceControlActivity extends MyBaseActivity<Contract.IsetLigh
     protected void initView() {
         ButterKnife.bind(this);
         rv.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new ControlLineAdapter(R.layout.item_line_control, mlist);
+        adapter = new ControlLightAdapter(R.layout.item_line_control, mlist);
         rv.setAdapter(adapter);
         terminalId = getIntent().getStringExtra("terminalId");
-        mPresenter.getLightList(terminalId);
-        refreshLayout.setEnableLoadMore(false);
+        getData();
+        refreshLayout.setOnLoadMoreListener(this);
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
@@ -87,7 +93,7 @@ public class LigitDeviceControlActivity extends MyBaseActivity<Contract.IsetLigh
         controlAll.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                for (LineBean lineBean : mlist) {
+                for (LightDeviceConBean lineBean : mlist) {
                     lineBean.setCheck(isChecked);
                 }
                 adapter.notifyDataSetChanged();
@@ -101,9 +107,11 @@ public class LigitDeviceControlActivity extends MyBaseActivity<Contract.IsetLigh
     }
 
     @Override
-    public void showLightList(List<LineBean> list) {
+    public void showLightList(List<LightDeviceConBean> list) {
         if (list == null) return;
-        mlist.clear();
+        if (pageNum==1) {
+            mlist.clear();
+        }
         mlist.addAll(list);
         adapter.notifyDataSetChanged();
         if (mlist.size()>0){
@@ -155,7 +163,7 @@ public class LigitDeviceControlActivity extends MyBaseActivity<Contract.IsetLigh
 
     void postData(int opt) {
         List<String> list = new ArrayList<>();
-        for (LineBean lineBean : mlist) {
+        for (LightDeviceConBean lineBean : mlist) {
             if (lineBean.isCheck()) {
                 list.add(lineBean.getId());
             }
@@ -165,6 +173,12 @@ public class LigitDeviceControlActivity extends MyBaseActivity<Contract.IsetLigh
         params.put("ids", arr);
         params.put("opt", opt);
         mPresenter.realTimeCtrLight(params);
+    }
+    void getData(){
+        Map<String, Object> map = new HashMap<>();
+        map.put("pageNum",pageNum);
+        map.put("pageSize",pageSize);
+        mPresenter.getLightList(terminalId,map);
     }
     @Override
     protected void onDestroy() {
@@ -211,5 +225,11 @@ public class LigitDeviceControlActivity extends MyBaseActivity<Contract.IsetLigh
             task.stop();
         }
         TIMER = 5;
+    }
+
+    @Override
+    public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+        pageNum++;
+        getData();
     }
 }

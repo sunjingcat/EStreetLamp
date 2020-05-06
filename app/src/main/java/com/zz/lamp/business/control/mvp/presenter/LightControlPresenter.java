@@ -1,4 +1,5 @@
 package com.zz.lamp.business.control.mvp.presenter;
+import com.zz.lamp.bean.LightDeviceConBean;
 import com.zz.lamp.bean.LineBean;
 import com.zz.lamp.business.control.mvp.Contract;
 import com.zz.lamp.net.ApiService;
@@ -18,10 +19,10 @@ public class LightControlPresenter extends MyBasePresenterImpl<Contract.IGetLigh
 
 
     @Override
-    public void getLightList(String id) {
-        RxNetUtils.request(getCApi(ApiService.class).getRealTimeCtrlLineList(id), new RequestObserver<JsonT<List<LineBean>>>(this) {
+    public void getLightList(String id,Map<String, Object> params) {
+        RxNetUtils.request(getCApi(ApiService.class).getRealTimeCtrlLightDeviceList(id,params), new RequestObserver<JsonT<List<LightDeviceConBean>>>(this) {
             @Override
-            protected void onSuccess(JsonT<List<LineBean>> data) {
+            protected void onSuccess(JsonT<List<LightDeviceConBean>> data) {
                 if (data.isSuccess()) {
                     view.showLightList(data.getData());
                 } else {
@@ -30,7 +31,7 @@ public class LightControlPresenter extends MyBasePresenterImpl<Contract.IGetLigh
             }
 
             @Override
-            protected void onFail2(JsonT<List<LineBean>> userInfoJsonT) {
+            protected void onFail2(JsonT<List<LightDeviceConBean>> userInfoJsonT) {
                 super.onFail2(userInfoJsonT);
                 view.showToast(userInfoJsonT.getMessage());
             }

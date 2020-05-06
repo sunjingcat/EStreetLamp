@@ -20,7 +20,7 @@ public class GroupControlPresenter extends MyBasePresenterImpl<Contract.IGetGrou
 
     @Override
     public void getGroupList(String id) {
-        RxNetUtils.request(getCApi(ApiService.class).getRealTimeCtrlLineList(id), new RequestObserver<JsonT<List<LineBean>>>(this) {
+        RxNetUtils.request(getCApi(ApiService.class).getRealTimeCtrlGroupList(id), new RequestObserver<JsonT<List<LineBean>>>(this) {
             @Override
             protected void onSuccess(JsonT<List<LineBean>> data) {
                 if (data.isSuccess()) {

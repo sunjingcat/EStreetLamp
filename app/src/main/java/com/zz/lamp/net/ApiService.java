@@ -9,6 +9,7 @@ import com.zz.lamp.bean.DeviceType;
 import com.zz.lamp.bean.DictBean;
 import com.zz.lamp.bean.ImageBean;
 import com.zz.lamp.bean.LightDevice;
+import com.zz.lamp.bean.LightDeviceConBean;
 import com.zz.lamp.bean.LineBean;
 import com.zz.lamp.bean.RealTimeCtrlTerminal;
 import com.zz.lamp.bean.RegionExpandItem;
@@ -79,6 +80,12 @@ public interface ApiService {
 
     @GET("/app/light/realTimeCtrl/line/{terminalId}")
     Observable<JsonT<List<LineBean>>> getRealTimeCtrlLineList(@Path("terminalId") String terminalId);
+
+    @GET("/app/light/realTimeCtrl/group/{terminalId}")
+    Observable<JsonT<List<LineBean>>> getRealTimeCtrlGroupList(@Path("terminalId") String terminalId);
+
+    @GET("/app/light/realTimeCtrl/lightDevice/{terminalId}")
+    Observable<JsonT<List<LightDeviceConBean>>> getRealTimeCtrlLightDeviceList(@Path("terminalId") String terminalId, @QueryMap Map<String, Object> params);
 
     @GET("/app/light/lightDevice/list/{terminalId}")
     Observable<JsonT<List<LightDevice>>> getLightDeviceList(@Path("terminalId") String terminalId,@QueryMap Map<String, Object> params);

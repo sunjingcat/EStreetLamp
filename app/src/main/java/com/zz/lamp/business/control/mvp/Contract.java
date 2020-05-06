@@ -3,6 +3,7 @@ package com.zz.lamp.business.control.mvp;
 
 
 import com.zz.lamp.bean.ConcentratorBean;
+import com.zz.lamp.bean.LightDeviceConBean;
 import com.zz.lamp.bean.LineBean;
 import com.zz.lamp.bean.RegionExpandItem;
 import com.zz.lib.core.ui.mvp.BasePresenter;
@@ -35,12 +36,12 @@ public class Contract {
     }
 
     public interface IsetLightControlPresenter extends BasePresenter {
-        void getLightList(String id);
+        void getLightList(String id,Map<String, Object> params);
         void realTimeCtrLight(Map<String, Object> params);
     }
 
     public interface IGetLightControlView extends BaseView{
-        void showLightList(List<LineBean> list);
+        void showLightList(List<LightDeviceConBean> list);
         void showIntent();
     }
 
