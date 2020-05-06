@@ -212,7 +212,6 @@ public class LigitDeviceControlActivity extends MyBaseActivity<Contract.IsetLigh
                     if (TIMER==0){
                         stopTimer();
                         builder.setPositiveButton("确定");
-
                     }
                     break;
                 default:
