@@ -77,6 +77,9 @@ public interface ApiService {
     @GET("/app/light/line/list/{terminalId}")
     Observable<JsonT<List<LineBean>>> getLineList(@Path("terminalId") String terminalId);
 
+    @GET("/app/light/realTimeCtrl/line/{terminalId}")
+    Observable<JsonT<List<LineBean>>> getRealTimeCtrlLineList(@Path("terminalId") String terminalId);
+
     @GET("/app/light/lightDevice/list/{terminalId}")
     Observable<JsonT<List<LightDevice>>> getLightDeviceList(@Path("terminalId") String terminalId,@QueryMap Map<String, Object> params);
 

@@ -357,7 +357,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
-                    android:text="分组控制"
+                    android:text="支路控制"
                     android:textColor="#444444"
                     android:textSize="18dp" />
 

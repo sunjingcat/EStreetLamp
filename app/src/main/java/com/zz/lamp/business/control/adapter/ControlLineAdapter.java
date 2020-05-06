@@ -32,7 +32,7 @@ public class ControlLineAdapter extends BaseQuickAdapter<LineBean, BaseViewHolde
         checkBox.setEnabled(false);
         checkBox.setChecked(item.isCheck());
         holper.setText(R.id.item_control_title,item.getLineName());
-        holper.setText(R.id.item_control_state,item.getLineName());
+        holper.setText(R.id.item_control_state,item.getStatus()==0?"拉闸":"合闸");
 
     }
 

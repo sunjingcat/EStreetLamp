@@ -1,5 +1,4 @@
 package com.zz.lamp.business.control.mvp.presenter;
-import com.zz.lamp.bean.ConcentratorBean;
 import com.zz.lamp.bean.LineBean;
 import com.zz.lamp.business.control.mvp.Contract;
 import com.zz.lamp.net.ApiService;
@@ -11,39 +10,20 @@ import com.zz.lamp.net.RxNetUtils;
 import java.util.List;
 import java.util.Map;
 
-public class TerminalControlPresenter extends MyBasePresenterImpl<Contract.IGetTerminalControlView> implements Contract.IsetTerminalControlPresenter {
+public class LightControlPresenter extends MyBasePresenterImpl<Contract.IGetLightControlView> implements Contract.IsetLightControlPresenter {
 
-    public TerminalControlPresenter(Contract.IGetTerminalControlView view) {
+    public LightControlPresenter(Contract.IGetLightControlView view) {
         super(view);
     }
 
-    @Override
-    public void getTerminalDetail(String id) {
-        RxNetUtils.request(getCApi(ApiService.class).getTerminalDetail(id), new RequestObserver<JsonT<ConcentratorBean>>(this) {
-            @Override
-            protected void onSuccess(JsonT<ConcentratorBean> data) {
-                if (data.isSuccess()) {
-                    view.showDetail(data.getData());
-                }else {
-
-                }
-            }
-
-            @Override
-            protected void onFail2(JsonT<ConcentratorBean> userInfoJsonT) {
-                super.onFail2(userInfoJsonT);
-                view.showToast(userInfoJsonT.getMessage());
-            }
-        },mDialog);
-    }
 
     @Override
-    public void getLineList(String id) {
+    public void getLightList(String id) {
         RxNetUtils.request(getCApi(ApiService.class).getRealTimeCtrlLineList(id), new RequestObserver<JsonT<List<LineBean>>>(this) {
             @Override
             protected void onSuccess(JsonT<List<LineBean>> data) {
                 if (data.isSuccess()) {
-                    view.showLineList(data.getData());
+                    view.showLightList(data.getData());
                 } else {
 
                 }
@@ -58,7 +38,7 @@ public class TerminalControlPresenter extends MyBasePresenterImpl<Contract.IGetT
     }
 
     @Override
-    public void realTimeCtrlLine(Map<String, Object> params) {
+    public void realTimeCtrLight(Map<String, Object> params) {
         RxNetUtils.request(getCApi(ApiService.class).realTimeCtrlLine(params), new RequestObserver<JsonT>(this) {
             @Override
             protected void onSuccess(JsonT data) {

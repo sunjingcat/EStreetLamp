@@ -24,5 +24,25 @@ public class Contract {
         void showIntent();
     }
 
+    public interface IsetGroupControlPresenter extends BasePresenter {
+        void getGroupList(String id);
+        void realTimeCtrGroup(Map<String, Object> params);
+    }
+
+    public interface IGetGroupControlView extends BaseView{
+        void showGroupList(List<LineBean> list);
+        void showIntent();
+    }
+
+    public interface IsetLightControlPresenter extends BasePresenter {
+        void getLightList(String id);
+        void realTimeCtrLight(Map<String, Object> params);
+    }
+
+    public interface IGetLightControlView extends BaseView{
+        void showLightList(List<LineBean> list);
+        void showIntent();
+    }
+
 
 }

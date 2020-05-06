@@ -1,17 +1,13 @@
 package com.zz.lamp.business.control;
 
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -21,26 +17,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseActivity;
-import com.zz.lamp.bean.ConcentratorBean;
 import com.zz.lamp.bean.LineBean;
-import com.zz.lamp.business.control.adapter.ControlCameraAdapter;
 import com.zz.lamp.business.control.adapter.ControlLineAdapter;
 import com.zz.lamp.business.control.mvp.Contract;
-import com.zz.lamp.business.control.mvp.presenter.TerminalControlPresenter;
-import com.zz.lamp.business.login.LoginActivity;
-import com.zz.lamp.business.mine.MineActivity;
-import com.zz.lamp.net.OutDateEvent;
-import com.zz.lamp.utils.LogUtils;
+import com.zz.lamp.business.control.mvp.presenter.GroupControlPresenter;
+import com.zz.lamp.business.control.mvp.presenter.LightControlPresenter;
 import com.zz.lamp.utils.MyTimeTask;
 import com.zz.lamp.widget.CustomDialog;
-import com.zz.lib.commonlib.utils.CacheUtility;
 import com.zz.lib.commonlib.utils.ToolBarUtils;
-import com.zz.lib.core.ui.widget.decorations.RecycleViewDivider;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,64 +38,34 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class TerminalControlActivity extends MyBaseActivity<Contract.IsetTerminalControlPresenter> implements Contract.IGetTerminalControlView {
+public class LigitDeviceControlActivity extends MyBaseActivity<Contract.IsetLightControlPresenter> implements Contract.IGetLightControlView {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.control_group)
-    RelativeLayout controlGroup;
-    @BindView(R.id.control_lamp)
-    RelativeLayout controlLamp;
-    @BindView(R.id.item_title)
-    TextView itemTitle;
-    @BindView(R.id.areaName)
-    TextView areaName;
-    @BindView(R.id.terminalAddr)
-    TextView terminalAddr;
-    @BindView(R.id.terminalName)
-    TextView terminalName;
-    @BindView(R.id.loopCount)
-    TextView loopCount;
-    @BindView(R.id.lineCount)
-    TextView lineCount;
-    @BindView(R.id.loopTransformerRatio)
-    TextView loopTransformerRatio;
-    @BindView(R.id.lineTransformerRatio)
-    TextView lineTransformerRatio;
-    @BindView(R.id.alarmDelayedTime)
-    TextView alarmDelayedTime;
-    @BindView(R.id.relayOnDelayedTime)
-    TextView relayOnDelayedTime;
-    @BindView(R.id.terminalLat)
-    TextView terminalLat;
-    @BindView(R.id.ll_gone)
-    LinearLayout llGone;
-    @BindView(R.id.iv_show)
-    ImageView ivShow;
-    @BindView(R.id.tv_show)
-    TextView tvShow;
-    @BindView(R.id.ll_show)
-    LinearLayout llShow;
+    @BindView(R.id.control_all)
+    CheckBox controlAll;
     @BindView(R.id.ll_null)
     LinearLayout llNull;
     @BindView(R.id.rv)
     RecyclerView rv;
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout refreshLayout;
+    @BindView(R.id.control_close)
+    Button controlClose;
+    @BindView(R.id.control_open)
+    Button controlOpen;
     String terminalId;
     List<LineBean> mlist = new ArrayList<>();
     ControlLineAdapter adapter;
-    @BindView(R.id.control_all)
-    CheckBox controlAll;
-
     @Override
     protected int getContentView() {
-        return R.layout.activity_terminal_control;
+        return R.layout.activity_light_control;
     }
 
+
     @Override
-    public TerminalControlPresenter initPresenter() {
-        return new TerminalControlPresenter(this);
+    public LightControlPresenter initPresenter() {
+        return new LightControlPresenter(this);
     }
 
     @Override
@@ -119,9 +75,7 @@ public class TerminalControlActivity extends MyBaseActivity<Contract.IsetTermina
         adapter = new ControlLineAdapter(R.layout.item_line_control, mlist);
         rv.setAdapter(adapter);
         terminalId = getIntent().getStringExtra("terminalId");
-        mPresenter.getTerminalDetail(terminalId);
-
-        mPresenter.getLineList(terminalId);
+        mPresenter.getLightList(terminalId);
         refreshLayout.setEnableLoadMore(false);
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -147,23 +101,7 @@ public class TerminalControlActivity extends MyBaseActivity<Contract.IsetTermina
     }
 
     @Override
-    public void showDetail(ConcentratorBean concentratorBean) {
-        if (concentratorBean == null) return;
-        LogUtils.v(concentratorBean.toString());
-        areaName.setText(concentratorBean.getAreaName() + "");
-        terminalAddr.setText(concentratorBean.getTerminalAddr() + "");
-        terminalName.setText(concentratorBean.getTerminalName() + "");
-        loopCount.setText(concentratorBean.getLoopCount() + "");
-        lineCount.setText(concentratorBean.getLineCount() + "");
-        loopTransformerRatio.setText(concentratorBean.getLoopTransformerRatio() + "");
-        lineTransformerRatio.setText(concentratorBean.getLineTransformerRatio() + "");
-        alarmDelayedTime.setText(concentratorBean.getAlarmDelayedTime() + "");
-        relayOnDelayedTime.setText(concentratorBean.getRelayOnDelayedTime() + "");
-        terminalLat.setText(concentratorBean.getTerminalLat() + "," + concentratorBean.getTerminalLng());
-    }
-
-    @Override
-    public void showLineList(List<LineBean> list) {
+    public void showLightList(List<LineBean> list) {
         if (list == null) return;
         mlist.clear();
         mlist.addAll(list);
@@ -173,7 +111,6 @@ public class TerminalControlActivity extends MyBaseActivity<Contract.IsetTermina
         }else {
             llNull.setVisibility(View.VISIBLE);
         }
-
     }
 
     @Override
@@ -182,37 +119,20 @@ public class TerminalControlActivity extends MyBaseActivity<Contract.IsetTermina
     }
     private CustomDialog customDialog;
     CustomDialog.Builder builder;
-    @OnClick({R.id.control_group, R.id.control_lamp, R.id.ll_show, R.id.control_open, R.id.control_close})
+    @OnClick({R.id.control_close, R.id.control_open})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.control_group:
-                startActivity(new Intent(TerminalControlActivity.this,GroupControlActivity.class).putExtra("terminalId",terminalId));
-                break;
-            case R.id.control_lamp:
-                startActivity(new Intent(TerminalControlActivity.this,LigitDeviceControlActivity.class).putExtra("terminalId",terminalId));
-                break;
             case R.id.control_close:
                 showTimeDialog(0);
                 break;
             case R.id.control_open:
                 showTimeDialog(1);
                 break;
-            case R.id.ll_show:
-                if (llGone.getVisibility() == View.VISIBLE) {
-                    llGone.setVisibility(View.GONE);
-                    ivShow.setImageResource(R.drawable.image_open);
-                    tvShow.setText("打开");
-                } else {
-                    llGone.setVisibility(View.VISIBLE);
-                    ivShow.setImageResource(R.drawable.image_close_tab);
-                    tvShow.setText("收起");
-                }
-                break;
         }
     }
     void showTimeDialog(int opt){
         stopTimer();
-        builder = new CustomDialog.Builder(TerminalControlActivity.this)
+        builder = new CustomDialog.Builder(LigitDeviceControlActivity.this)
                 .setTitle("提示")
                 .setMessage(opt==0?"确定拉闸？":"确定合闸？")
                 .setCancelOutSide(false)
@@ -244,7 +164,7 @@ public class TerminalControlActivity extends MyBaseActivity<Contract.IsetTermina
         Map<String, Object> params = new HashMap<>();
         params.put("ids", arr);
         params.put("opt", opt);
-        mPresenter.realTimeCtrlLine(params);
+        mPresenter.realTimeCtrLight(params);
     }
     @Override
     protected void onDestroy() {
@@ -264,7 +184,7 @@ public class TerminalControlActivity extends MyBaseActivity<Contract.IsetTermina
                 //或者发广播，启动服务都是可以的
             }
         });
-       task.start();
+        task.start();
     }
 
     private Handler mHandler = new Handler(){
