@@ -5,6 +5,7 @@ package com.zz.lamp.business.control.mvp;
 import com.zz.lamp.bean.ConcentratorBean;
 import com.zz.lamp.bean.LightDeviceConBean;
 import com.zz.lamp.bean.LineBean;
+import com.zz.lamp.bean.RealTimeCtrlGroup;
 import com.zz.lamp.bean.RegionExpandItem;
 import com.zz.lib.core.ui.mvp.BasePresenter;
 import com.zz.lib.core.ui.mvp.BaseView;
@@ -16,7 +17,7 @@ public class Contract {
     public interface IsetTerminalControlPresenter extends BasePresenter {
         void getTerminalDetail(String id);
         void getLineList(String id);
-        void realTimeCtrlLine(Map<String, Object> params);
+        void realTimeCtrlLine(String id,Map<String, Object> params);
     }
 
     public interface IGetTerminalControlView extends BaseView{
@@ -31,7 +32,7 @@ public class Contract {
     }
 
     public interface IGetGroupControlView extends BaseView{
-        void showGroupList(List<LineBean> list);
+        void showGroupList(List<RealTimeCtrlGroup> list);
         void showIntent();
     }
 

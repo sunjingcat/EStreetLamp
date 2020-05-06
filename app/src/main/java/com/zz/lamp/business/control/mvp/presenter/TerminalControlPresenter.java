@@ -58,8 +58,8 @@ public class TerminalControlPresenter extends MyBasePresenterImpl<Contract.IGetT
     }
 
     @Override
-    public void realTimeCtrlLine(Map<String, Object> params) {
-        RxNetUtils.request(getCApi(ApiService.class).realTimeCtrlLine(params), new RequestObserver<JsonT>(this) {
+    public void realTimeCtrlLine(String id,Map<String, Object> params) {
+        RxNetUtils.request(getCApi(ApiService.class).realTimeCtrlLine(id,params), new RequestObserver<JsonT>(this) {
             @Override
             protected void onSuccess(JsonT data) {
                 if (data.isSuccess()) {

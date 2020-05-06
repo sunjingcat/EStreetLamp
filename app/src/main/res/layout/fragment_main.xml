@@ -19,9 +19,10 @@
 
         <ImageView
             android:id="@+id/main_mine"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/tab_entry"/>
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/image_null_avter"/>
         <include
             layout="@layout/layout_search"/>
 

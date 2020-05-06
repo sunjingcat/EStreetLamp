@@ -11,6 +11,7 @@ import com.zz.lamp.bean.ImageBean;
 import com.zz.lamp.bean.LightDevice;
 import com.zz.lamp.bean.LightDeviceConBean;
 import com.zz.lamp.bean.LineBean;
+import com.zz.lamp.bean.RealTimeCtrlGroup;
 import com.zz.lamp.bean.RealTimeCtrlTerminal;
 import com.zz.lamp.bean.RegionExpandItem;
 import com.zz.lamp.bean.UsableCode;
@@ -57,8 +58,14 @@ public interface ApiService {
     Observable<JsonT> postTerminal(@QueryMap Map<String, Object> params);
 
 
-    @POST( "/app/light/realTimeCtrl/line")
-    Observable<JsonT> realTimeCtrlLine(@QueryMap Map<String, Object> params);
+    @POST( "/app/light/realTimeCtrl/line/{terminalId}")
+    Observable<JsonT> realTimeCtrlLine(@Path("terminalId") String terminalId,@QueryMap Map<String, Object> params);
+
+    @POST( "/app/light/realTimeCtrl/group")
+    Observable<JsonT> realTimeCtrlGroup(@QueryMap Map<String, Object> params);
+
+    @POST( "/app/light/realTimeCtrl/lightDevice")
+    Observable<JsonT> realTimeCtrlLightDevice(@QueryMap Map<String, Object> params);
 
     @POST( "/app/light/lightDevice")
     Observable<JsonT> postLamp(@QueryMap Map<String, Object> params);
@@ -82,7 +89,7 @@ public interface ApiService {
     Observable<JsonT<List<LineBean>>> getRealTimeCtrlLineList(@Path("terminalId") String terminalId);
 
     @GET("/app/light/realTimeCtrl/group/{terminalId}")
-    Observable<JsonT<List<LineBean>>> getRealTimeCtrlGroupList(@Path("terminalId") String terminalId);
+    Observable<JsonT<List<RealTimeCtrlGroup>>> getRealTimeCtrlGroupList(@Path("terminalId") String terminalId);
 
     @GET("/app/light/realTimeCtrl/lightDevice/{terminalId}")
     Observable<JsonT<List<LightDeviceConBean>>> getRealTimeCtrlLightDeviceList(@Path("terminalId") String terminalId, @QueryMap Map<String, Object> params);

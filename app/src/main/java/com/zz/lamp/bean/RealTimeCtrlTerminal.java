@@ -7,7 +7,7 @@ public class RealTimeCtrlTerminal {
     private String      code;// null,
     private String      name;// 静心湖,
     private String      markerIconPath;// null,
-    private String     status;// 1,
+    private int     status;// 1,
     private String    warnStatus;// 0,
     private Double    lng;// 116.7916727236518,
     private Double   lat;// 38.290273307174054,
@@ -39,7 +39,7 @@ public class RealTimeCtrlTerminal {
         return markerIconPath;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 

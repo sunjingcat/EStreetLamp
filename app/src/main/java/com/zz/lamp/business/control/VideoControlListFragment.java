@@ -77,7 +77,7 @@ public class VideoControlListFragment extends MyBaseFragment implements OnRefres
 
     @Override
     protected int getCreateView() {
-        return R.layout.fragment_terminal_control_list;
+        return R.layout.fragment_video_control_list;
     }
 
     @Override
@@ -134,7 +134,7 @@ public class VideoControlListFragment extends MyBaseFragment implements OnRefres
 
     public void showIntent(List<CameraBean> list) {
         if (list == null) return;
-        if (pageNum == 0) {
+        if (pageNum == 1) {
             mlist.clear();
         }
         mlist.addAll(list);

@@ -40,7 +40,7 @@ public class LightControlPresenter extends MyBasePresenterImpl<Contract.IGetLigh
 
     @Override
     public void realTimeCtrLight(Map<String, Object> params) {
-        RxNetUtils.request(getCApi(ApiService.class).realTimeCtrlLine(params), new RequestObserver<JsonT>(this) {
+        RxNetUtils.request(getCApi(ApiService.class).realTimeCtrlLightDevice(params), new RequestObserver<JsonT>(this) {
             @Override
             protected void onSuccess(JsonT data) {
                 if (data.isSuccess()) {

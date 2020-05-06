@@ -115,7 +115,7 @@ public class LampListActivity extends MyBaseActivity<Contract.IsetLampPresenter>
     @Override
     public void showIntent(List<LightDevice> list) {
         if (list == null) return;
-        if (pageNum == 0) {
+        if (pageNum == 1) {
             mlist.clear();
         }
         mlist.addAll(list);

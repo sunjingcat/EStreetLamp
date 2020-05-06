@@ -17,10 +17,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.google.gson.Gson;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseActivity;
 import com.zz.lamp.bean.LineBean;
+import com.zz.lamp.bean.RealTimeCtrlGroup;
+import com.zz.lamp.business.control.adapter.ControlGroupAdapter;
 import com.zz.lamp.business.control.adapter.ControlLineAdapter;
 import com.zz.lamp.business.control.mvp.Contract;
 import com.zz.lamp.business.control.mvp.presenter.GroupControlPresenter;
@@ -55,8 +58,8 @@ public class GroupControlActivity extends MyBaseActivity<Contract.IsetGroupContr
     @BindView(R.id.control_open)
     Button controlOpen;
     String terminalId;
-    List<LineBean> mlist = new ArrayList<>();
-    ControlLineAdapter adapter;
+    List<RealTimeCtrlGroup> mlist = new ArrayList<>();
+    ControlGroupAdapter adapter;
     @Override
     protected int getContentView() {
         return R.layout.activity_group_control;
@@ -72,9 +75,10 @@ public class GroupControlActivity extends MyBaseActivity<Contract.IsetGroupContr
     protected void initView() {
         ButterKnife.bind(this);
         rv.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new ControlLineAdapter(R.layout.item_line_control, mlist);
+        adapter = new ControlGroupAdapter(R.layout.item_line_control, mlist);
         rv.setAdapter(adapter);
         terminalId = getIntent().getStringExtra("terminalId");
+        terminalId = "7";//TODO
         mPresenter.getGroupList(terminalId);
         refreshLayout.setEnableLoadMore(false);
         adapter.setOnItemClickListener(new OnItemClickListener() {
@@ -87,7 +91,7 @@ public class GroupControlActivity extends MyBaseActivity<Contract.IsetGroupContr
         controlAll.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                for (LineBean lineBean : mlist) {
+                for (RealTimeCtrlGroup lineBean : mlist) {
                     lineBean.setCheck(isChecked);
                 }
                 adapter.notifyDataSetChanged();
@@ -101,7 +105,7 @@ public class GroupControlActivity extends MyBaseActivity<Contract.IsetGroupContr
     }
 
     @Override
-    public void showGroupList(List<LineBean> list) {
+    public void showGroupList(List<RealTimeCtrlGroup> list) {
         if (list == null) return;
         mlist.clear();
         mlist.addAll(list);
@@ -154,15 +158,15 @@ public class GroupControlActivity extends MyBaseActivity<Contract.IsetGroupContr
     }
 
     void postData(int opt) {
-        List<String> list = new ArrayList<>();
-        for (LineBean lineBean : mlist) {
+        List<Integer> list = new ArrayList<>();
+        for (RealTimeCtrlGroup lineBean : mlist) {
             if (lineBean.isCheck()) {
                 list.add(lineBean.getId());
             }
         }
-        String[] arr = (String[]) list.toArray(new String[list.size()]);
+        String s = new Gson().toJson(list);
         Map<String, Object> params = new HashMap<>();
-        params.put("ids", arr);
+        params.put("ids", s);
         params.put("opt", opt);
         mPresenter.realTimeCtrGroup(params);
     }

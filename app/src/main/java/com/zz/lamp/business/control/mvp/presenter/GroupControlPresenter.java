@@ -1,6 +1,7 @@
 package com.zz.lamp.business.control.mvp.presenter;
 import com.zz.lamp.bean.ConcentratorBean;
 import com.zz.lamp.bean.LineBean;
+import com.zz.lamp.bean.RealTimeCtrlGroup;
 import com.zz.lamp.business.control.mvp.Contract;
 import com.zz.lamp.net.ApiService;
 import com.zz.lamp.net.JsonT;
@@ -20,9 +21,9 @@ public class GroupControlPresenter extends MyBasePresenterImpl<Contract.IGetGrou
 
     @Override
     public void getGroupList(String id) {
-        RxNetUtils.request(getCApi(ApiService.class).getRealTimeCtrlGroupList(id), new RequestObserver<JsonT<List<LineBean>>>(this) {
+        RxNetUtils.request(getCApi(ApiService.class).getRealTimeCtrlGroupList(id), new RequestObserver<JsonT<List<RealTimeCtrlGroup>>>(this) {
             @Override
-            protected void onSuccess(JsonT<List<LineBean>> data) {
+            protected void onSuccess(JsonT<List<RealTimeCtrlGroup>> data) {
                 if (data.isSuccess()) {
                     view.showGroupList(data.getData());
                 } else {
@@ -31,7 +32,7 @@ public class GroupControlPresenter extends MyBasePresenterImpl<Contract.IGetGrou
             }
 
             @Override
-            protected void onFail2(JsonT<List<LineBean>> userInfoJsonT) {
+            protected void onFail2(JsonT<List<RealTimeCtrlGroup>> userInfoJsonT) {
                 super.onFail2(userInfoJsonT);
                 view.showToast(userInfoJsonT.getMessage());
             }
@@ -40,7 +41,7 @@ public class GroupControlPresenter extends MyBasePresenterImpl<Contract.IGetGrou
 
     @Override
     public void realTimeCtrGroup(Map<String, Object> params) {
-        RxNetUtils.request(getCApi(ApiService.class).realTimeCtrlLine(params), new RequestObserver<JsonT>(this) {
+        RxNetUtils.request(getCApi(ApiService.class).realTimeCtrlGroup(params), new RequestObserver<JsonT>(this) {
             @Override
             protected void onSuccess(JsonT data) {
                 if (data.isSuccess()) {

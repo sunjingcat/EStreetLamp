@@ -28,7 +28,8 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,7 +39,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="8dp"
                 android:background="@color/white"
                 android:orientation="horizontal"
                 android:paddingLeft="20dp"
@@ -96,7 +97,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 android:background="@color/white"
                 android:orientation="vertical"
                 android:padding="15dp">
@@ -114,14 +115,20 @@
 
                     <TextView
                         android:id="@+id/item_title"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:layout_weight="1"
                         android:text="基础信息"
                         android:textColor="#444444"
                         android:textSize="18dp" />
-
+                    <TextView
+                        android:id="@+id/control_reStart"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/red_e8"
+                        android:padding="5dp"
+                        android:text="重启" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -338,55 +345,78 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:background="@color/white"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="12dp"
-                android:paddingTop="8dp"
-                android:paddingRight="12dp"
-                android:paddingBottom="8dp">
+                android:orientation="vertical">
 
-                <View
-                    android:layout_width="5dp"
-                    android:layout_height="16dp"
-                    android:background="#444564" />
-
-                <TextView
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="1"
-                    android:text="支路控制"
-                    android:textColor="#444444"
-                    android:textSize="18dp" />
+                    android:layout_marginTop="12dp"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="12dp"
+                    android:paddingTop="8dp"
+                    android:paddingRight="12dp"
+                    android:paddingBottom="8dp">
 
-                <CheckBox
-                    android:id="@+id/control_all"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:button="@drawable/check_login"
-                    android:text="  全选" />
-            </LinearLayout>
+                    <View
+                        android:layout_width="5dp"
+                        android:layout_height="16dp"
+                        android:background="#444564" />
 
-            <include layout="@layout/refresh_layout" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:text="支路控制"
+                        android:textColor="#444444"
+                        android:textSize="18dp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                    <CheckBox
+                        android:id="@+id/control_all"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@drawable/check_real"
+                        android:text="  全选" />
+                </LinearLayout>
 
-                <Button
-                    android:id="@+id/control_close"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="拉闸" />
+                <include layout="@layout/refresh_layout" />
 
-                <Button
-                    android:id="@+id/control_open"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="合闸" />
+
             </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:background="@color/white"
+        android:paddingTop="10dp"
+        >
+
+        <Button
+            android:id="@+id/control_close"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_weight="1"
+            android:background="@drawable/border_radius_5_ffc750"
+            android:text="拉闸"
+            android:textColor="@color/white"
+            android:textSize="14dp" />
+
+        <Button
+            android:id="@+id/control_open"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_weight="1"
+            android:background="@drawable/border_radius_5_4480d6"
+            android:text="合闸"
+            android:textColor="@color/white"
+            android:textSize="14dp" />
+    </LinearLayout>
 </LinearLayout>

@@ -28,7 +28,8 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -65,28 +66,53 @@
                     android:id="@+id/control_all"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:button="@drawable/check_login"
+                    android:button="@drawable/check_real"
                     android:text="  全选" />
             </LinearLayout>
 
             <include layout="@layout/refresh_layout" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
 
-                <Button
-                    android:id="@+id/control_close"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="拉闸" />
-
-                <Button
-                    android:id="@+id/control_open"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="合闸" />
-            </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="8dp"
+        android:background="@color/white"
+        android:paddingBottom="8dp">
+
+        <Button
+            android:id="@+id/control_close"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_weight="1"
+            android:background="@drawable/border_radius_5_ffc750"
+            android:text="拉闸"
+            android:textColor="@color/white"
+            android:textSize="14dp" />
+
+        <Button
+            android:id="@+id/control_open"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_weight="1"
+            android:background="@drawable/border_radius_5_4480d6"
+            android:text="合闸"
+            android:textColor="@color/white"
+            android:textSize="14dp" />
+        <Button
+            android:id="@+id/control_adjust"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_weight="1"
+            android:background="@drawable/border_radius_5_bd7a70"
+            android:text="合闸"
+            android:textColor="@color/white"
+            android:textSize="14dp" />
+    </LinearLayout>
 </LinearLayout>

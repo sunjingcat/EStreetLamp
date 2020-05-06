@@ -26,8 +26,6 @@ public class ControlFragment extends MyBaseFragment {
     Toolbar toolbar;
     @BindView(R.id.control_tab)
     TabLayout controlTab;
-    TermialControlListFragment termialControlListFragment;
-    VideoControlListFragment videoControlListFragment;
     @Override
     protected int getCreateView() {
         return R.layout.fragment_control;

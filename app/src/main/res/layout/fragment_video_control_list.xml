@@ -8,6 +8,9 @@
 
     <include layout="@layout/layout_search"
        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp"/>
     <include
         layout="@layout/refresh_layout"/>
 

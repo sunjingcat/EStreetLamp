@@ -143,7 +143,7 @@ public class TermialControlListFragment extends MyBaseFragment implements OnRefr
 
     public void showIntent(List<RealTimeCtrlTerminal> list) {
         if (list == null) return;
-        if (pageNum == 0) {
+        if (pageNum == 1) {
             mlist.clear();
         }
         mlist.addAll(list);

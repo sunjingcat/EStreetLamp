@@ -2,7 +2,6 @@ package com.zz.lamp.business.control;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
@@ -13,34 +12,22 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseActivity;
 import com.zz.lamp.bean.ConcentratorBean;
 import com.zz.lamp.bean.LineBean;
-import com.zz.lamp.business.control.adapter.ControlCameraAdapter;
 import com.zz.lamp.business.control.adapter.ControlLineAdapter;
 import com.zz.lamp.business.control.mvp.Contract;
 import com.zz.lamp.business.control.mvp.presenter.TerminalControlPresenter;
-import com.zz.lamp.business.login.LoginActivity;
-import com.zz.lamp.business.mine.MineActivity;
-import com.zz.lamp.net.OutDateEvent;
 import com.zz.lamp.utils.LogUtils;
 import com.zz.lamp.utils.MyTimeTask;
 import com.zz.lamp.widget.CustomDialog;
-import com.zz.lib.commonlib.utils.CacheUtility;
 import com.zz.lib.commonlib.utils.ToolBarUtils;
-import com.zz.lib.core.ui.widget.decorations.RecycleViewDivider;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,6 +35,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.TimerTask;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -119,6 +110,7 @@ public class TerminalControlActivity extends MyBaseActivity<Contract.IsetTermina
         adapter = new ControlLineAdapter(R.layout.item_line_control, mlist);
         rv.setAdapter(adapter);
         terminalId = getIntent().getStringExtra("terminalId");
+//        terminalId ="2";//TODO
         mPresenter.getTerminalDetail(terminalId);
 
         mPresenter.getLineList(terminalId);
@@ -168,9 +160,9 @@ public class TerminalControlActivity extends MyBaseActivity<Contract.IsetTermina
         mlist.clear();
         mlist.addAll(list);
         adapter.notifyDataSetChanged();
-        if (mlist.size()>0){
+        if (mlist.size() > 0) {
             llNull.setVisibility(View.GONE);
-        }else {
+        } else {
             llNull.setVisibility(View.VISIBLE);
         }
 
@@ -180,22 +172,27 @@ public class TerminalControlActivity extends MyBaseActivity<Contract.IsetTermina
     public void showIntent() {
 
     }
+
     private CustomDialog customDialog;
     CustomDialog.Builder builder;
-    @OnClick({R.id.control_group, R.id.control_lamp, R.id.ll_show, R.id.control_open, R.id.control_close})
+
+    @OnClick({R.id.control_group, R.id.control_lamp, R.id.ll_show, R.id.control_open, R.id.control_close, R.id.control_reStart})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.control_group:
-                startActivity(new Intent(TerminalControlActivity.this,GroupControlActivity.class).putExtra("terminalId",terminalId));
+                startActivity(new Intent(TerminalControlActivity.this, GroupControlActivity.class).putExtra("terminalId", terminalId));
                 break;
             case R.id.control_lamp:
-                startActivity(new Intent(TerminalControlActivity.this,LigitDeviceControlActivity.class).putExtra("terminalId",terminalId));
+                startActivity(new Intent(TerminalControlActivity.this, LigitDeviceControlActivity.class).putExtra("terminalId", terminalId));
                 break;
             case R.id.control_close:
-                showTimeDialog(0);
+                showTimeDialog(0,"拉闸");
                 break;
             case R.id.control_open:
-                showTimeDialog(1);
+                showTimeDialog(1,"合闸");
+                break;
+            case R.id.control_reStart:
+                showTimeDialog(2,"重启");
                 break;
             case R.id.ll_show:
                 if (llGone.getVisibility() == View.VISIBLE) {
@@ -210,11 +207,12 @@ public class TerminalControlActivity extends MyBaseActivity<Contract.IsetTermina
                 break;
         }
     }
-    void showTimeDialog(int opt){
+
+    void showTimeDialog(int opt,String title) {
         stopTimer();
         builder = new CustomDialog.Builder(TerminalControlActivity.this)
                 .setTitle("提示")
-                .setMessage(opt==0?"确定拉闸？":"确定合闸？")
+                .setMessage(  "确定"+title+"?")
                 .setCancelOutSide(false)
                 .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
@@ -240,12 +238,13 @@ public class TerminalControlActivity extends MyBaseActivity<Contract.IsetTermina
                 list.add(lineBean.getId());
             }
         }
-        String[] arr = (String[]) list.toArray(new String[list.size()]);
+        String s = new Gson().toJson(list);
         Map<String, Object> params = new HashMap<>();
-        params.put("ids", arr);
+        params.put("ids", s);
         params.put("opt", opt);
-        mPresenter.realTimeCtrlLine(params);
+        mPresenter.realTimeCtrlLine(terminalId,params);
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -254,28 +253,30 @@ public class TerminalControlActivity extends MyBaseActivity<Contract.IsetTermina
         }
         stopTimer();
     }
-    private   int TIMER = 5;
+
+    private int TIMER = 5;
     private MyTimeTask task;
-    private void setTimer(){
-        task =new MyTimeTask(1000, new TimerTask() {
+
+    private void setTimer() {
+        task = new MyTimeTask(1000, new TimerTask() {
             @Override
             public void run() {
                 mHandler.sendEmptyMessage(0);
                 //或者发广播，启动服务都是可以的
             }
         });
-       task.start();
+        task.start();
     }
 
-    private Handler mHandler = new Handler(){
+    private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
+            switch (msg.what) {
                 case 0:
                     TIMER--;
-                    builder.setPositiveButton(TIMER+"");
-                    if (TIMER==0){
+                    builder.setPositiveButton(TIMER + "");
+                    if (TIMER == 0) {
                         stopTimer();
                         builder.setPositiveButton("确定");
 
@@ -286,8 +287,9 @@ public class TerminalControlActivity extends MyBaseActivity<Contract.IsetTermina
             }
         }
     };
-    private void stopTimer(){
-        if (task!=null) {
+
+    private void stopTimer() {
+        if (task != null) {
             task.stop();
         }
         TIMER = 5;
