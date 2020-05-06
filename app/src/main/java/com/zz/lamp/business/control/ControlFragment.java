@@ -6,23 +6,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.tabs.TabLayout;
-import com.zz.lamp.HomeActivity;
 import com.zz.lamp.R;
-import com.zz.lamp.bean.ConcentratorBean;
 import com.zz.lamp.base.MyBaseFragment;
-import com.zz.lamp.business.alarm.LeftFragment;
-import com.zz.lamp.business.alarm.RightFragment;
-import com.zz.lamp.business.control.adapter.ControlJzqAdapter;
 import com.zz.lamp.utils.TabUtils;
+import com.zz.lamp.utils.woolglass.FragmentClass;
 import com.zz.lib.core.ui.mvp.BasePresenter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -94,18 +87,12 @@ public class ControlFragment extends MyBaseFragment {
         }
     }
     void onChangeFragment(int position){
+
         if (position == 0) {
-            if (termialControlListFragment==null) {
-                termialControlListFragment = new TermialControlListFragment();
-                getActivity().getSupportFragmentManager().beginTransaction().add(R.id.main_layout, termialControlListFragment).commit();
-            }else {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_layout, termialControlListFragment).commit();
-            }
+            setContentView(getActivity(),TermialControlListFragment.class,R.id.control_layout);
         }else {
-            if (videoControlListFragment==null) {
-                videoControlListFragment = new VideoControlListFragment();
-            }
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_layout, videoControlListFragment).commit();
+            setContentView(getActivity(),VideoControlListFragment.class,R.id.control_layout);
         }
     }
+
 }

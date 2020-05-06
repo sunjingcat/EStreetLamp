@@ -1,15 +1,23 @@
 package com.zz.lamp.base;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.zz.lamp.net.OutDateEvent;
+import com.zz.lamp.utils.woolglass.FragmentClass;
 import com.zz.lib.core.ui.BaseFragment;
 import com.zz.lib.core.utils.AnimeUtils;
 
@@ -81,5 +89,31 @@ public abstract class MyBaseFragment<P extends  com.zz.lib.core.ui.mvp.BasePrese
 
     protected void onOutDatePreExcuted() {
 
+    }
+    private Fragment lastFragment;
+    private String firstFragment;
+    protected Fragment setContentView(FragmentActivity activity, Class<? extends Fragment> fragmentClass, int FrameLayoutId) {
+        FragmentManager fragmentManager = activity.getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        String fragmentName = fragmentClass.getSimpleName();
+        Fragment fragment = (Fragment) fragmentManager.findFragmentByTag(fragmentName);
+
+        try {
+            if (fragment == null) {
+                fragment = fragmentClass.newInstance();
+                transaction.add(FrameLayoutId, fragment, fragmentName);
+                firstFragment = FragmentClass.newInstance();
+            }
+            if (lastFragment != null)
+                transaction.hide(lastFragment);
+            transaction.show(fragment);
+        } catch (java.lang.InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        lastFragment = fragment;
+        transaction.commit();
+        return fragment;
     }
 }

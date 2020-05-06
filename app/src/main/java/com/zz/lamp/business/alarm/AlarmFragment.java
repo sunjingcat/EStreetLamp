@@ -75,15 +75,9 @@ public class AlarmFragment extends MyBaseFragment {
     }
     void onChangeFragment(int position){
         if (position == 0) {
-            if (fragmentleft==null) {
-                fragmentleft = new LeftFragment();
-            }
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_layout, fragmentleft).commit();
+            setContentView(getActivity(),LeftFragment.class,R.id.main_layout);
         }else {
-            if (fragmentRight==null) {
-                fragmentRight = new RightFragment();
-            }
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_layout, fragmentRight).commit();
+            setContentView(getActivity(),RightFragment.class,R.id.main_layout);
         }
     }
 
