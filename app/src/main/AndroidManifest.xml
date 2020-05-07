@@ -30,7 +30,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".business.control.GroupControlActivity"></activity>
+        <activity android:name=".business.control.VideoActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="landscape"></activity>
+        <activity android:name=".business.control.GroupControlActivity" />
         <activity android:name=".business.entry.LightDetailActivity" />
         <activity android:name=".business.entry.LineActivity" />
         <activity android:name=".business.entry.LampListActivity" />
@@ -39,7 +42,7 @@
         <activity android:name=".business.SelectLocationActivity" />
         <activity
             android:name=".business.entry.EntryJzqActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden"/>
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity android:name=".business.entry.RegionActivity" />
         <activity
             android:name=".business.login.LoginActivity"
