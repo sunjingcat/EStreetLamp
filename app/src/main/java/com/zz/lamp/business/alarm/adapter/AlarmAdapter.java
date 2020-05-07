@@ -29,7 +29,10 @@ public class AlarmAdapter extends BaseMultiItemQuickAdapter<AlarmBean, BaseViewH
                 helper.setText(R.id.item_time, item.getCreateTime());
                 break;
             case 2:
-//                helper.setImageUrl(R.id.iv, item.getContent());
+                helper.setText(R.id.item_alarm_name, item.getSerialNumber()+"");
+                helper.setText(R.id.item_alarm_num, item.getTerminalAddr()+"");
+                helper.setText(R.id.item_alarm_content, item.getDescription()+"");
+                helper.setText(R.id.item_alarm_state, item.getAlarmStatus()+"");
                 break;
         }
 //        GlideUtils.loadImage(mContext, item, (ImageView) holper.getView(R.id.item_approval_icon));

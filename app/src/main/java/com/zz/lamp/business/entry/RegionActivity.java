@@ -65,7 +65,7 @@ public class RegionActivity extends MyBaseActivity<Contract.IsetRegionPresenter>
         ButterKnife.bind(this);
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.addItemDecoration(new RecycleViewDivider(this, LinearLayoutManager.VERTICAL,1, Color.parseColor("#EDEFF7")));
-         shouldBack = getIntent().getIntExtra("shouldBack",0);
+        shouldBack = getIntent().getIntExtra("shouldBack",0);
         adapter = new RegionAdapter(new RegionAdapter.OnProviderOnClick() {
 
             @Override
