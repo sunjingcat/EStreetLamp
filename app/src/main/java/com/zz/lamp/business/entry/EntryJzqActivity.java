@@ -1,6 +1,7 @@
 package com.zz.lamp.business.entry;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -37,6 +38,10 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
 
     @BindView(R.id.toolbar_subtitle)
     TextView toolbarSubtitle;
+    @BindView(R.id.tv_terminalAddr)
+    TextView tv_terminalAddr;
+    @BindView(R.id.tv_terminalName)
+    TextView tv_terminalName;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.tv_area)
@@ -162,19 +167,22 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
             return;
         }
         params.put("terminalAddr", addr);
-
+        if (check ==1){
+            Map<String, Object> map = new HashMap<>();
+            map.put("terminalAddr",terminalAddr);
+            mPresenter.checkTerminalAddr(map);
+            return;
+        }
         String name = terminalName.getText().toString();
         if (TextUtils.isEmpty(name)) {
             showToast("请输入集中器别名");
             return;
         }
         params.put("terminalName", name);
-        if (check == 1){
-            mPresenter.checkTerminalAddr(addr);
+        if (check == 2){
             Map<String, Object> map = new HashMap<>();
             map.put("terminalName",terminalName);
             mPresenter.checkTerminalName(map);
-
             return;
         }
 
@@ -243,14 +251,24 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
 
     @Override
     public void showCheckAddrIntent(JsonT jsonT) {
-        if (jsonT.isSuccess()){
-
+        if (!jsonT.isSuccess()){
+            tv_terminalAddr.setTextColor(getResources().getColor(R.color.red_e8));
+            showToast(jsonT.getMessage());
+        }else {
+            tv_terminalAddr.setTextColor(getResources().getColor(R.color.colorTextBlack33));
+            postData(2);
         }
     }
 
     @Override
     public void showCheckNameIntent(JsonT jsonT) {
-
+        if (!jsonT.isSuccess()){
+            tv_terminalName.setTextColor(getResources().getColor(R.color.red_e8));
+            showToast(jsonT.getMessage());
+        }else {
+            tv_terminalName.setTextColor(getResources().getColor(R.color.colorTextBlack33));
+            postData(0);
+        }
     }
 
 

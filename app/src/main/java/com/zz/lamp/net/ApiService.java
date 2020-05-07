@@ -59,11 +59,20 @@ public interface ApiService {
     @POST( "/app/light/terminal/")
     Observable<JsonT> postTerminal(@QueryMap Map<String, Object> params);
 
-    @GET( "/app/light/terminal/check/terminalAddr/{id}")
-    Observable<JsonT> checkTerminalAddr(@Path("id") String id);
+    @GET( "/app/light/terminal/check/terminalAddr")
+    Observable<JsonT> checkTerminalAddr(@QueryMap Map<String, Object> params);
 
     @GET( "/app/light/terminal/check/terminalName")
     Observable<JsonT> checkTerminalName(@QueryMap Map<String, Object> params);
+
+    @GET( "/app/light/lightDevice/check/deviceAddr")
+    Observable<JsonT> checkDeviceAddr(@QueryMap Map<String, Object> params);
+
+    @GET( "/app/light/lightDevice/check/deviceName")
+    Observable<JsonT> checkDeviceName(@QueryMap Map<String, Object> params);
+
+    @GET( "/app/light/lightDevice/check/deviceCode")
+    Observable<JsonT> checkDeviceCode(@QueryMap Map<String, Object> params);
 
 
     @POST( "/app/light/realTimeCtrl/line/{terminalId}")
@@ -72,8 +81,8 @@ public interface ApiService {
     @POST( "/app/light/realTimeCtrl/group")
     Observable<JsonT> realTimeCtrlGroup(@QueryMap Map<String, Object> params,@Query("ids") Integer[] ids);
 
-    @POST( "/app/light/realTimeCtrl/lightDevice")
-    Observable<JsonT> realTimeCtrlLightDevice(@QueryMap Map<String, Object> params);
+    @POST( "/app/light/realTimeCtrl/lightDevice/{terminalId}")
+    Observable<JsonT> realTimeCtrlLightDevice(@Path("terminalId") String terminalId,@QueryMap Map<String, Object> params);
 
     @POST( "/app/light/lightDevice")
     Observable<JsonT> postLamp(@QueryMap Map<String, Object> params);

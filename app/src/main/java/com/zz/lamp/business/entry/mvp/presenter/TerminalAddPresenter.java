@@ -37,8 +37,8 @@ public class TerminalAddPresenter extends MyBasePresenterImpl<Contract.IGetTermi
     }
 
     @Override
-    public void checkTerminalAddr(String id) {
-        RxNetUtils.request(getCApi(ApiService.class).checkTerminalAddr(id), new RequestObserver<JsonT>(this) {
+    public void checkTerminalAddr(Map<String, Object> params) {
+        RxNetUtils.request(getCApi(ApiService.class).checkTerminalAddr(params), new RequestObserver<JsonT>(this) {
             @Override
             protected void onSuccess(JsonT data) {
                 if (data.isSuccess()) {
@@ -51,7 +51,7 @@ public class TerminalAddPresenter extends MyBasePresenterImpl<Contract.IGetTermi
             @Override
             protected void onFail2(JsonT userInfoJsonT) {
                 super.onFail2(userInfoJsonT);
-                view.showCheckNameIntent(userInfoJsonT);
+                view.showCheckAddrIntent(userInfoJsonT);
             }
         },mDialog);
     }

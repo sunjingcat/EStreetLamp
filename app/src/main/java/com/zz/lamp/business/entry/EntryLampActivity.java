@@ -11,6 +11,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+
 import com.baidu.mapapi.search.core.PoiInfo;
 import com.codbking.widget.DatePickDialog;
 import com.codbking.widget.OnChangeLisener;
@@ -26,20 +29,17 @@ import com.zz.lamp.bean.LightDevice;
 import com.zz.lamp.business.SelectLocationActivity;
 import com.zz.lamp.business.entry.mvp.Contract;
 import com.zz.lamp.business.entry.mvp.presenter.LampAddPresenter;
+import com.zz.lamp.net.JsonT;
 import com.zz.lamp.utils.TimeUtils;
 import com.zz.lib.commonlib.utils.PermissionUtils;
 import com.zz.lib.commonlib.utils.ToolBarUtils;
 import com.zz.lib.commonlib.widget.SelectPopupWindows;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -105,6 +105,12 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
     List<String> light_type_arry = new ArrayList();
     List<DictBean> light_pole_type_list = new ArrayList();
     List<String> light_pole_type_array = new ArrayList();
+    @BindView(R.id.tv_devicecAddr)
+    TextView tvDevicecAddr;
+    @BindView(R.id.tv_deviceName)
+    TextView tvDeviceName;
+    @BindView(R.id.tv_devicecCode)
+    TextView tvDevicecCode;
 
     @Override
     protected int getContentView() {
@@ -116,6 +122,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
     protected void initView() {
         ButterKnife.bind(this);
         terminalId = getIntent().getStringExtra("terminalId");
+        showInfo();
         mPresenter.getLightDeviceType();
         mPresenter.getLightPoleType();
         mPresenter.getLightType();
@@ -164,15 +171,43 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
     }
 
     @Override
-    public void showCheck() {
-        postData(false);
+    public void showCheckAddrIntent(JsonT jsonT) {
+        if (!jsonT.isSuccess()) {
+            tvDevicecAddr.setTextColor(getResources().getColor(R.color.red_e8));
+            showToast(jsonT.getMessage());
+        } else {
+            tvDevicecAddr.setTextColor(getResources().getColor(R.color.colorTextBlack33));
+            postData(2);
+        }
+    }
+
+    @Override
+    public void showCheckNameIntent(JsonT jsonT) {
+        if (!jsonT.isSuccess()) {
+            tvDeviceName.setTextColor(getResources().getColor(R.color.red_e8));
+            showToast(jsonT.getMessage());
+        } else {
+            tvDeviceName.setTextColor(getResources().getColor(R.color.colorTextBlack33));
+            postData(3);
+        }
+    }
+
+    @Override
+    public void showCheckCodeIntent(JsonT jsonT) {
+        if (!jsonT.isSuccess()) {
+            tvDevicecCode.setTextColor(getResources().getColor(R.color.red_e8));
+            showToast(jsonT.getMessage());
+        } else {
+            tvDevicecCode.setTextColor(getResources().getColor(R.color.colorTextBlack33));
+            postData(0);
+        }
     }
 
     @OnClick({R.id.lineName, R.id.toolbar_subtitle, R.id.devicecAddr, R.id.lightInstallTime, R.id.devicecType, R.id.lightMainType, R.id.lightAuxiliaryType, R.id.lat, R.id.lightPoleType, R.id.lightType})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.toolbar_subtitle:
-                postData(true);
+                postData(1);
                 break;
             case R.id.devicecAddr:
                 startQrCode();
@@ -266,25 +301,35 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
         return new LampAddPresenter(this);
     }
 
-    void postData(boolean isCheck) {
+    void postData(int check) {
         Map<String, Object> params = new HashMap<>();
 
         params.put("terminalId", terminalId);
 
-        String devicecAddr_ = devicecAddr.getText().toString();
-        if (TextUtils.isEmpty(devicecAddr_)) {
+        String deviceAddr_ = devicecAddr.getText().toString();
+        if (TextUtils.isEmpty(deviceAddr_)) {
             showToast("请输入路灯控制器地址");
             return;
         }
-        params.put("terminalAddr", devicecAddr_);
-
+        params.put("devicecAddr", deviceAddr_);
+        if (check == 1) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("deviceAddr", deviceAddr_);
+            mPresenter.checkDeviceAddr(map);
+            return;
+        }
         String deviceName_ = deviceName.getText().toString();
         if (TextUtils.isEmpty(deviceName_)) {
             showToast("请输入路灯控制器别名");
             return;
         }
-        params.put("deviceName", deviceName_);
-
+        params.put("devicecName", deviceName_);
+        if (check == 2) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("deviceName", deviceName_);
+            mPresenter.checkDeviceName(map);
+            return;
+        }
         String devicecCode_ = devicecCode.getText().toString();
         if (TextUtils.isEmpty(devicecCode_)) {
             showToast("请输入路灯控制器别名");
@@ -292,7 +337,12 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
         }
         params.put("devicecCode", devicecCode_);
 
-
+        if (check == 3) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("deviceCode", devicecCode_);
+            mPresenter.checkDeviceCode(map);
+            return;
+        }
         if (TextUtils.isEmpty(lineId)) {
             showToast("请选择支路");
             return;
@@ -385,12 +435,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
         params.put("lat", lat);
         params.put("lon", lon);
 
-        if (isCheck) {
-            Map<String, Object> map = new HashMap<>();
-
-        }
-
-//        mPresenter.postTerminal(params);
+        mPresenter.postTerminal(params);
     }
 
     @Override
@@ -503,4 +548,5 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
         lat = Double.parseDouble(device.getDevicecLat());
         lon = Double.parseDouble(device.getDevicecLng());
     }
+
 }

@@ -39,11 +39,7 @@
         <activity android:name=".business.SelectLocationActivity" />
         <activity
             android:name=".business.entry.EntryJzqActivity"
-            android:configChanges="keyboard"
-            android:exported="false"
-            android:fitsSystemWindows="true"
-            android:screenOrientation="fullSensor"
-            android:windowSoftInputMode="stateVisible|adjustResize" />
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
         <activity android:name=".business.entry.RegionActivity" />
         <activity
             android:name=".business.login.LoginActivity"

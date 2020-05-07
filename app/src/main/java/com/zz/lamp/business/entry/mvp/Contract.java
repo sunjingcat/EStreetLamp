@@ -25,7 +25,7 @@ public class Contract {
 
     public interface IsetTerminalAddPresenter extends BasePresenter {
         void postTerminal(Map<String, Object> params);
-        void checkTerminalAddr(String id);
+        void checkTerminalAddr(Map<String, Object> params);
         void checkTerminalName(Map<String, Object> params);
     }
 
@@ -45,8 +45,10 @@ public class Contract {
 
         void getLightPoleType();
 
+        void checkDeviceAddr(Map<String, Object> params);
+        void checkDeviceName(Map<String, Object> params);
+        void checkDeviceCode(Map<String, Object> params);
 
-        void checkLamp(Map<String, Object> params);
 
 
     }
@@ -60,7 +62,9 @@ public class Contract {
 
         void showLightPoleType(List<DictBean> list);
 
-        void showCheck();
+        void showCheckAddrIntent(JsonT jsonT);
+        void showCheckNameIntent(JsonT jsonT);
+        void showCheckCodeIntent(JsonT jsonT);
 
 
 

@@ -103,12 +103,12 @@ public class LampAddPresenter extends MyBasePresenterImpl<Contract.IGetLampAddVi
     }
 
     @Override
-    public void checkLamp(Map<String, Object> params) {
-        RxNetUtils.request(getCApi(ApiService.class).checkLamp(params), new RequestObserver<JsonT>(this) {
+    public void checkDeviceAddr(Map<String, Object> params) {
+        RxNetUtils.request(getCApi(ApiService.class).checkDeviceAddr(params), new RequestObserver<JsonT>(this) {
             @Override
             protected void onSuccess(JsonT data) {
                 if (data.isSuccess()) {
-                    view.showCheck();
+                    view.showCheckAddrIntent(data);
                 }else {
 
                 }
@@ -117,8 +117,50 @@ public class LampAddPresenter extends MyBasePresenterImpl<Contract.IGetLampAddVi
             @Override
             protected void onFail2(JsonT userInfoJsonT) {
                 super.onFail2(userInfoJsonT);
-                view.showToast(userInfoJsonT.getMessage());
+                view.showCheckAddrIntent(userInfoJsonT);
             }
         },mDialog);
     }
+
+    @Override
+    public void checkDeviceName(Map<String, Object> params) {
+        RxNetUtils.request(getCApi(ApiService.class).checkDeviceName(params), new RequestObserver<JsonT>(this) {
+            @Override
+            protected void onSuccess(JsonT data) {
+                if (data.isSuccess()) {
+                    view.showCheckNameIntent(data);
+                }else {
+
+                }
+            }
+
+            @Override
+            protected void onFail2(JsonT userInfoJsonT) {
+                super.onFail2(userInfoJsonT);
+                view.showCheckNameIntent(userInfoJsonT);
+            }
+        },mDialog);
+    }
+
+    @Override
+    public void checkDeviceCode(Map<String, Object> params) {
+        RxNetUtils.request(getCApi(ApiService.class).checkDeviceCode(params), new RequestObserver<JsonT>(this) {
+            @Override
+            protected void onSuccess(JsonT data) {
+                if (data.isSuccess()) {
+                    view.showCheckCodeIntent(data);
+                }else {
+
+                }
+            }
+
+            @Override
+            protected void onFail2(JsonT userInfoJsonT) {
+                super.onFail2(userInfoJsonT);
+                view.showCheckCodeIntent(userInfoJsonT);
+            }
+        },mDialog);
+    }
+
+
 }

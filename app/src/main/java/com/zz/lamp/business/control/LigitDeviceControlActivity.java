@@ -203,9 +203,9 @@ public class LigitDeviceControlActivity extends MyBaseActivity<Contract.IsetLigh
         String s = new Gson().toJson(list);
         Map<String, Object> params = new HashMap<>();
         params.put("luminance", opt);
-        params.put("list", s);
+        params.put("lightDevices", s);
         params.put("terminalId", terminalId);
-        mPresenter.realTimeCtrLight(params);
+        mPresenter.realTimeCtrLight(terminalId,params);
     }
     void getData(){
         Map<String, Object> map = new HashMap<>();

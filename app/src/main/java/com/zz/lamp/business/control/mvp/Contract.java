@@ -39,7 +39,7 @@ public class Contract {
 
     public interface IsetLightControlPresenter extends BasePresenter {
         void getLightList(String id,Map<String, Object> params);
-        void realTimeCtrLight(Map<String, Object> params);
+        void realTimeCtrLight(String id,Map<String, Object> params);
     }
 
     public interface IGetLightControlView extends BaseView{
