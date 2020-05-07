@@ -4,12 +4,12 @@ public class LightDeviceConBean {
    private String areaName;// null,
     private String       terminalId;// 7,
     private String      terminalName;// 展厅集中器,
-    private String      id;// 9,
+    private Integer      id;// 9,
     private String     devicecCode;// 1,
     private String     deviceName;// 展厅-1,
     private String      devicecAddr;// 202004050004,
     private String       lightPoleCode;// 001,
-    private String       deviceType;// 1,
+    private Integer       deviceType;// 1,
     private String       voltage;// 228.4,
     private String       ampere;// 0.024,
     private String      power;// 0.0306,
@@ -35,7 +35,7 @@ public class LightDeviceConBean {
         return terminalName;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -55,7 +55,7 @@ public class LightDeviceConBean {
         return lightPoleCode;
     }
 
-    public String getDeviceType() {
+    public Integer getDeviceType() {
         return deviceType;
     }
 

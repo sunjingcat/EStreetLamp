@@ -168,7 +168,7 @@ public class VideoControlListFragment extends MyBaseFragment implements OnRefres
                 super.onFail2(userInfoJsonT);
                 showToast(userInfoJsonT.getMessage());
             }
-        }, LoadingUtils.build(getActivity()));
+        }, null);
     }
 
 }

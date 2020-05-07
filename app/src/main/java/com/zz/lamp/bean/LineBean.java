@@ -1,7 +1,7 @@
 package com.zz.lamp.bean;
 
 public class LineBean {
-    private String id;//integer	主键
+    private Integer id;//integer	主键
     private String lineCode;//integer	线路编码
     private String lineName;//	string	线路名称
     private String terminalId;//integer	集中器终端id
@@ -20,7 +20,7 @@ public class LineBean {
         this.check = check;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 

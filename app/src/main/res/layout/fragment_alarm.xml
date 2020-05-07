@@ -32,7 +32,8 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         app:elevation="0dp"
-        app:tabIndicatorHeight="0dp" />
+        app:tabIndicatorHeight="0dp"
+        android:background="@color/white"/>
 
     <FrameLayout
         android:id="@+id/main_layout"

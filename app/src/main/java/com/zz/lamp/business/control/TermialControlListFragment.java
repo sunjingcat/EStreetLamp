@@ -178,6 +178,6 @@ public class TermialControlListFragment extends MyBaseFragment implements OnRefr
                 super.onFail2(userInfoJsonT);
                 showToast(userInfoJsonT.getMessage());
             }
-        }, LoadingUtils.build(getActivity()));
+        }, null);
     }
 }

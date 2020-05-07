@@ -170,7 +170,7 @@ public class TerminalControlActivity extends MyBaseActivity<Contract.IsetTermina
 
     @Override
     public void showIntent() {
-
+        showToast("请求成功");
     }
 
     private CustomDialog customDialog;
@@ -232,17 +232,16 @@ public class TerminalControlActivity extends MyBaseActivity<Contract.IsetTermina
     }
 
     void postData(int opt) {
-        List<String> list = new ArrayList<>();
+        List<Integer> list = new ArrayList<>();
         for (LineBean lineBean : mlist) {
             if (lineBean.isCheck()) {
                 list.add(lineBean.getId());
             }
         }
-        String s = new Gson().toJson(list);
+        Integer[] arr = (Integer[])list.toArray(new Integer[list.size()]);
         Map<String, Object> params = new HashMap<>();
-        params.put("ids", s);
         params.put("opt", opt);
-        mPresenter.realTimeCtrlLine(terminalId,params);
+        mPresenter.realTimeCtrlLine(terminalId,params,arr);
     }
 
     @Override

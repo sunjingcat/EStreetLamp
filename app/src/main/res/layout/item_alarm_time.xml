@@ -10,8 +10,10 @@
         android:layout_height="wrap_content"
         android:gravity="center">
     <View
-        android:layout_width="1px"
-        android:layout_height="match_parent"
+        android:id="@+id/view"
+        android:layout_width="1dp"
+        android:layout_height="wrap_content"
+        android:minHeight="40dp"
         android:background="@color/colorThemeYellow"
         android:layout_centerHorizontal="true"/>
     <ImageView
@@ -22,6 +24,7 @@
         android:src="@drawable/image_radio_select"/>
     </RelativeLayout>
     <TextView
+        android:id="@+id/item_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"

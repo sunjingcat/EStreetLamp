@@ -26,7 +26,7 @@ public class AlarmAdapter extends BaseMultiItemQuickAdapter<AlarmBean, BaseViewH
     protected void convert(BaseViewHolder helper, final AlarmBean item) {
         switch (helper.getItemViewType()) {
             case 1:
-//                helper.setImageUrl(R.id.tv, item.getContent());
+                helper.setText(R.id.item_time, item.getCreateTime());
                 break;
             case 2:
 //                helper.setImageUrl(R.id.iv, item.getContent());

@@ -3,6 +3,7 @@ package com.zz.lamp.net;
 
 
 
+import com.zz.lamp.bean.AlarmBean;
 import com.zz.lamp.bean.CameraBean;
 import com.zz.lamp.bean.ConcentratorBean;
 import com.zz.lamp.bean.DeviceType;
@@ -10,6 +11,7 @@ import com.zz.lamp.bean.DictBean;
 import com.zz.lamp.bean.ImageBean;
 import com.zz.lamp.bean.LightDevice;
 import com.zz.lamp.bean.LightDeviceConBean;
+import com.zz.lamp.bean.LightPost;
 import com.zz.lamp.bean.LineBean;
 import com.zz.lamp.bean.RealTimeCtrlGroup;
 import com.zz.lamp.bean.RealTimeCtrlTerminal;
@@ -57,12 +59,18 @@ public interface ApiService {
     @POST( "/app/light/terminal/")
     Observable<JsonT> postTerminal(@QueryMap Map<String, Object> params);
 
+    @GET( "/app/light/terminal/check/terminalAddr/{id}")
+    Observable<JsonT> checkTerminalAddr(@Path("id") String id);
+
+    @GET( "/app/light/terminal/check/terminalName")
+    Observable<JsonT> checkTerminalName(@QueryMap Map<String, Object> params);
+
 
     @POST( "/app/light/realTimeCtrl/line/{terminalId}")
-    Observable<JsonT> realTimeCtrlLine(@Path("terminalId") String terminalId,@QueryMap Map<String, Object> params);
+    Observable<JsonT> realTimeCtrlLine(@Path("terminalId") String terminalId,@QueryMap Map<String, Object> params,@Query("ids") Integer[] ids);
 
     @POST( "/app/light/realTimeCtrl/group")
-    Observable<JsonT> realTimeCtrlGroup(@QueryMap Map<String, Object> params);
+    Observable<JsonT> realTimeCtrlGroup(@QueryMap Map<String, Object> params,@Query("ids") Integer[] ids);
 
     @POST( "/app/light/realTimeCtrl/lightDevice")
     Observable<JsonT> realTimeCtrlLightDevice(@QueryMap Map<String, Object> params);
@@ -100,6 +108,9 @@ public interface ApiService {
 
     @GET("/app/light/realTimeCtrl/terminal")
     Observable<JsonT<List<RealTimeCtrlTerminal>>> getRealTimeCtrlTerminalList(@QueryMap Map<String, Object> params);
+
+    @GET("/app/light/alarm/list")
+    Observable<JsonT<List<AlarmBean>>> getAlarmList(@QueryMap Map<String, Object> params);
 
     @GET("/app/carame/device/getCameraDevicelist")
     Observable<JsonT<List<CameraBean>>> getCameraDevicelist(@QueryMap Map<String, Object> params);

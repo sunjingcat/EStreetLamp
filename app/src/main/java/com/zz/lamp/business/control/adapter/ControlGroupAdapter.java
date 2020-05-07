@@ -28,12 +28,21 @@ public class ControlGroupAdapter extends BaseQuickAdapter<RealTimeCtrlGroup, Bas
 
     @Override
     protected void convert(BaseViewHolder holper, final RealTimeCtrlGroup item) {
-
+//        亮度值（0-关灯，100-开灯，2-99调光）
         CheckBox checkBox = (CheckBox) holper.getView(R.id.item_control_check);
         checkBox.setEnabled(false);
         checkBox.setChecked(item.isCheck());
         holper.setText(R.id.item_control_title,item.getBaseGroupName());
-        holper.setText(R.id.item_control_state,item.getLuminance()+"");
+        if (item.getLuminance()==0){
+            holper.setText(R.id.item_control_state,"关灯");
+            holper.setTextColor(R.id.item_control_state,Color.parseColor("#2EAE73") );
+        }else if(item.getLuminance()==100){
+            holper.setText(R.id.item_control_state,"开灯");
+            holper.setTextColor(R.id.item_control_state,Color.parseColor("#E84444") );
+        }else {
+            holper.setText(R.id.item_control_state,item.getLuminance()+"%");
+        }
+
 //        holper.setTextColor(R.id.item_control_state,item.getStatus()==0? Color.parseColor("#2EAE73") :Color.parseColor("#E84444"));
 
     }

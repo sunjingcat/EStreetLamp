@@ -1,5 +1,6 @@
 package com.zz.lamp.business.control.mvp.presenter;
 import com.zz.lamp.bean.LightDeviceConBean;
+import com.zz.lamp.bean.LightPost;
 import com.zz.lamp.bean.LineBean;
 import com.zz.lamp.business.control.mvp.Contract;
 import com.zz.lamp.net.ApiService;

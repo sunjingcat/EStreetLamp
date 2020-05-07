@@ -36,4 +36,44 @@ public class TerminalAddPresenter extends MyBasePresenterImpl<Contract.IGetTermi
         },mDialog);
     }
 
+    @Override
+    public void checkTerminalAddr(String id) {
+        RxNetUtils.request(getCApi(ApiService.class).checkTerminalAddr(id), new RequestObserver<JsonT>(this) {
+            @Override
+            protected void onSuccess(JsonT data) {
+                if (data.isSuccess()) {
+                    view.showCheckAddrIntent(data);
+                }else {
+
+                }
+            }
+
+            @Override
+            protected void onFail2(JsonT userInfoJsonT) {
+                super.onFail2(userInfoJsonT);
+                view.showCheckNameIntent(userInfoJsonT);
+            }
+        },mDialog);
+    }
+
+    @Override
+    public void checkTerminalName(Map<String, Object> params) {
+        RxNetUtils.request(getCApi(ApiService.class).checkTerminalName(params), new RequestObserver<JsonT>(this) {
+            @Override
+            protected void onSuccess(JsonT data) {
+                if (data.isSuccess()) {
+                    view.showCheckNameIntent(data);
+                }else {
+
+                }
+            }
+
+            @Override
+            protected void onFail2(JsonT userInfoJsonT) {
+                super.onFail2(userInfoJsonT);
+                view.showCheckNameIntent(userInfoJsonT);
+            }
+        },mDialog);
+    }
+
 }

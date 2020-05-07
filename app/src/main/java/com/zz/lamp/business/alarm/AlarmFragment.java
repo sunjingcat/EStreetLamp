@@ -29,8 +29,6 @@ public class AlarmFragment extends MyBaseFragment {
     Unbinder unbinder;
     @BindView(R.id.main_layout)
     FrameLayout mainLayout;
-    LeftFragment fragmentleft;
-    RightFragment fragmentRight;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = super.onCreateView(inflater, container, savedInstanceState);

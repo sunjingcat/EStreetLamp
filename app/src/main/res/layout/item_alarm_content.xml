@@ -12,8 +12,10 @@
         android:layout_height="wrap_content"
         android:gravity="center">
         <View
-            android:layout_width="1px"
-            android:layout_height="match_parent"
+            android:id="@+id/view"
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:minHeight="120dp"
             android:background="@color/colorThemeYellow"
             android:layout_centerHorizontal="true"/>
         <ImageView

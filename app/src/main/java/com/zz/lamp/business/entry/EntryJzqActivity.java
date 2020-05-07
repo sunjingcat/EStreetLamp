@@ -20,6 +20,7 @@ import com.zz.lamp.bean.RegionExpandItem;
 import com.zz.lamp.business.SelectLocationActivity;
 import com.zz.lamp.business.entry.mvp.Contract;
 import com.zz.lamp.business.entry.mvp.presenter.TerminalAddPresenter;
+import com.zz.lamp.net.JsonT;
 import com.zz.lib.commonlib.utils.ToolBarUtils;
 import com.zz.lib.commonlib.widget.SelectPopupWindows;
 
@@ -92,7 +93,7 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.toolbar_subtitle:
-                postData();
+                postData(1);
                 break;
             case R.id.tv_area:
                 startActivityForResult(new Intent(EntryJzqActivity.this, RegionActivity.class), 1001);
@@ -142,7 +143,7 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
         }
     }
 
-    void postData() {
+    void postData(int check) {
         Map<String, Object> params = new HashMap<>();
         if (TextUtils.isEmpty(areaId) || TextUtils.isEmpty(areaName)) {
             showToast("请选择区域");
@@ -168,7 +169,14 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
             return;
         }
         params.put("terminalName", name);
+        if (check == 1){
+            mPresenter.checkTerminalAddr(addr);
+            Map<String, Object> map = new HashMap<>();
+            map.put("terminalName",terminalName);
+            mPresenter.checkTerminalName(map);
 
+            return;
+        }
 
         String count = loopCount.getText().toString();
         if (TextUtils.isEmpty(count)) {
@@ -221,7 +229,9 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
         }
         params.put("lat", lat);
         params.put("lon", lon);
+
         mPresenter.postTerminal(params);
+
     }
 
     @Override
@@ -230,6 +240,19 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
         setResult(RESULT_OK);
         finish();
     }
+
+    @Override
+    public void showCheckAddrIntent(JsonT jsonT) {
+        if (jsonT.isSuccess()){
+
+        }
+    }
+
+    @Override
+    public void showCheckNameIntent(JsonT jsonT) {
+
+    }
+
 
 
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -67,20 +68,58 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:button="@drawable/check_real"
+                    android:drawablePadding="8dp"
+                    android:layout_marginLeft="10dp"
                     android:text="  全选" />
             </LinearLayout>
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:paddingLeft="12dp"
+                android:background="@color/white"
+                android:orientation="horizontal">
 
+                <RadioButton
+                    android:id="@+id/control_light_type_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/check_real"
+                    android:drawablePadding="8dp"
+                    android:checked="true"
+                    android:text="  全部" />
+
+                <RadioButton
+                    android:id="@+id/control_light_type_main"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/check_real"
+                    android:drawablePadding="8dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="  主灯" />
+
+                <RadioButton
+                    android:id="@+id/control_light_type_aux"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/check_real"
+                    android:drawablePadding="8dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="  辅灯" />
+            </RadioGroup>
             <include layout="@layout/refresh_layout" />
 
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:orientation="horizontal"
         android:paddingTop="8dp"
-        android:background="@color/white"
         android:paddingBottom="8dp">
 
         <Button
@@ -104,6 +143,7 @@
             android:text="合闸"
             android:textColor="@color/white"
             android:textSize="14dp" />
+
         <Button
             android:id="@+id/control_adjust"
             android:layout_width="0dp"
@@ -111,7 +151,7 @@
             android:layout_marginLeft="12dp"
             android:layout_weight="1"
             android:background="@drawable/border_radius_5_bd7a70"
-            android:text="合闸"
+            android:text="调光"
             android:textColor="@color/white"
             android:textSize="14dp" />
     </LinearLayout>

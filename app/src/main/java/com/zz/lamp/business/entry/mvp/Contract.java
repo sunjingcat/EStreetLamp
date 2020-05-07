@@ -7,6 +7,7 @@ import com.zz.lamp.bean.DictBean;
 import com.zz.lamp.bean.LightDevice;
 import com.zz.lamp.bean.LineBean;
 import com.zz.lamp.bean.RegionExpandItem;
+import com.zz.lamp.net.JsonT;
 import com.zz.lib.core.ui.mvp.BasePresenter;
 import com.zz.lib.core.ui.mvp.BaseView;
 
@@ -24,10 +25,14 @@ public class Contract {
 
     public interface IsetTerminalAddPresenter extends BasePresenter {
         void postTerminal(Map<String, Object> params);
+        void checkTerminalAddr(String id);
+        void checkTerminalName(Map<String, Object> params);
     }
 
     public interface IGetTerminalAddView extends BaseView {
         void showIntent();
+        void showCheckAddrIntent(JsonT jsonT);
+        void showCheckNameIntent(JsonT jsonT);
 
     }
 

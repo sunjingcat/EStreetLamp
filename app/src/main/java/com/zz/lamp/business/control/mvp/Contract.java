@@ -4,6 +4,7 @@ package com.zz.lamp.business.control.mvp;
 
 import com.zz.lamp.bean.ConcentratorBean;
 import com.zz.lamp.bean.LightDeviceConBean;
+import com.zz.lamp.bean.LightPost;
 import com.zz.lamp.bean.LineBean;
 import com.zz.lamp.bean.RealTimeCtrlGroup;
 import com.zz.lamp.bean.RegionExpandItem;
@@ -17,7 +18,7 @@ public class Contract {
     public interface IsetTerminalControlPresenter extends BasePresenter {
         void getTerminalDetail(String id);
         void getLineList(String id);
-        void realTimeCtrlLine(String id,Map<String, Object> params);
+        void realTimeCtrlLine(String id,Map<String, Object> params,Integer [] ids);
     }
 
     public interface IGetTerminalControlView extends BaseView{
@@ -28,7 +29,7 @@ public class Contract {
 
     public interface IsetGroupControlPresenter extends BasePresenter {
         void getGroupList(String id);
-        void realTimeCtrGroup(Map<String, Object> params);
+        void realTimeCtrGroup(Map<String, Object> params,Integer [] ids);
     }
 
     public interface IGetGroupControlView extends BaseView{

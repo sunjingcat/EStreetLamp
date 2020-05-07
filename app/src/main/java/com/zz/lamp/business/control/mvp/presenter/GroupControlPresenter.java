@@ -40,8 +40,8 @@ public class GroupControlPresenter extends MyBasePresenterImpl<Contract.IGetGrou
     }
 
     @Override
-    public void realTimeCtrGroup(Map<String, Object> params) {
-        RxNetUtils.request(getCApi(ApiService.class).realTimeCtrlGroup(params), new RequestObserver<JsonT>(this) {
+    public void realTimeCtrGroup(Map<String, Object> params,Integer[] ids) {
+        RxNetUtils.request(getCApi(ApiService.class).realTimeCtrlGroup(params,ids), new RequestObserver<JsonT>(this) {
             @Override
             protected void onSuccess(JsonT data) {
                 if (data.isSuccess()) {
