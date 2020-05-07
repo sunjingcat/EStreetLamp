@@ -260,6 +260,9 @@ public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCo
     public void onGetReverseGeoCodeResult(ReverseGeoCodeResult reverseGeoCodeResult) {
         if (null != reverseGeoCodeResult) {
             List<PoiInfo> poiList = reverseGeoCodeResult.getPoiList();
+            if(poiList==null){
+                return;
+            }
             mlist.clear();
             mlist.addAll(poiList);
             adapter.notifyDataSetChanged();

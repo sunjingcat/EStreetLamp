@@ -16,14 +16,9 @@
             android:layout_width="1dp"
             android:layout_height="wrap_content"
             android:minHeight="120dp"
-            android:background="@color/colorThemeYellow"
+            android:background="#FDC969"
             android:layout_centerHorizontal="true"/>
-        <ImageView
-            android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/image_radio_select"/>
+
     </RelativeLayout>
 
     <LinearLayout
@@ -40,6 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_vertical"
+            android:paddingBottom="5dp"
             android:orientation="horizontal">
 
             <View
@@ -49,33 +45,25 @@
 
             <TextView
                 android:id="@+id/item_alarm_name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:textColor="#444444"
                 android:textSize="15dp"
                 tools:text="集中器1" />
 
-            <TextView
-                android:id="@+id/item_alarm_num"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:textColor="#999999"
-                android:textSize="12dp"
-                tools:text="52487963" />
 
             <TextView
                 android:id="@+id/item_alarm_state"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:paddingLeft="5dp"
                 android:text="告警类型1"
                 android:background="@drawable/border_radius_5_green"
                 android:textColor="@color/white"
                 android:textSize="14dp"
-                android:layout_marginBottom="5dp"/>
+              />
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

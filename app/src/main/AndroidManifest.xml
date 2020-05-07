@@ -30,9 +30,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".business.control.VideoActivity"
+        <activity android:name=".business.alarm.AlarmDetailActivity"></activity>
+        <activity
+            android:name=".business.control.VideoActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
         <activity android:name=".business.control.GroupControlActivity" />
         <activity android:name=".business.entry.LightDetailActivity" />
         <activity android:name=".business.entry.LineActivity" />

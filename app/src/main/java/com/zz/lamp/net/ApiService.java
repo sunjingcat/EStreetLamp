@@ -121,6 +121,10 @@ public interface ApiService {
     @GET("/app/light/alarm/list")
     Observable<JsonT<List<AlarmBean>>> getAlarmList(@QueryMap Map<String, Object> params);
 
+    @POST( "/app/light/alarm/handleLightAlarm/{id}")
+    Observable<JsonT> handleLightAlarm(@Path("id") String id,@QueryMap Map<String, Object> params);
+
+
     @GET("/app/carame/device/getCameraDevicelist")
     Observable<JsonT<List<CameraBean>>> getCameraDevicelist(@QueryMap Map<String, Object> params);
 

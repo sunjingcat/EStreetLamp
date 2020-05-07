@@ -155,7 +155,7 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
             return;
         }
         params.put("areaId", areaId);
-        params.put("areaName", areaName);
+//        params.put("areaName", areaName);
 
         String addr = terminalAddr.getText().toString();
         if (TextUtils.isEmpty(addr)) {
@@ -235,8 +235,8 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
             showToast("请选择经纬度");
             return;
         }
-        params.put("lat", lat);
-        params.put("lon", lon);
+        params.put("terminalLat", lat);
+        params.put("terminalLng", lon);
 
         mPresenter.postTerminal(params);
 
