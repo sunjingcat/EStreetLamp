@@ -48,7 +48,7 @@ public class RegionActivity extends MyBaseActivity<Contract.IsetRegionPresenter>
     RegionAdapter adapter;
     private InputDialog customDialog;
     BaseNode selectNode;
-
+    int shouldBack;
     @Override
     protected int getContentView() {
         return R.layout.activity_region;
@@ -65,7 +65,7 @@ public class RegionActivity extends MyBaseActivity<Contract.IsetRegionPresenter>
         ButterKnife.bind(this);
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.addItemDecoration(new RecycleViewDivider(this, LinearLayoutManager.VERTICAL,1, Color.parseColor("#EDEFF7")));
-
+         shouldBack = getIntent().getIntExtra("shouldBack",0);
         adapter = new RegionAdapter(new RegionAdapter.OnProviderOnClick() {
 
             @Override
@@ -73,6 +73,7 @@ public class RegionActivity extends MyBaseActivity<Contract.IsetRegionPresenter>
                 if (type == 1){
                     showInputDialog(node);
                 }else{
+                    if (shouldBack==1)return;
                     Intent intent = new Intent();
                     String areaPid="";
                     String userId="";

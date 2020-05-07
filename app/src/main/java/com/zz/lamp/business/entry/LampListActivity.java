@@ -148,7 +148,7 @@ public class LampListActivity extends MyBaseActivity<Contract.IsetLampPresenter>
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.entry_line:
-                startActivity(new Intent(this, LineActivity.class).putExtra("terminalId", terminalId));
+                startActivity(new Intent(this, LineActivity.class).putExtra("terminalId", terminalId).putExtra("shouldBack",1));
                 break;
             case R.id.ll_show:
                 if (llGone.getVisibility() == View.VISIBLE) {

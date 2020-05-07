@@ -64,6 +64,7 @@ public class LineActivity extends MyBaseActivity<Contract.IsetLinePresenter> imp
     List<LineBean> mlist = new ArrayList<>();
     String terminalId;
    String[] UsableCode;
+   int shouldBack;
     @Override
     protected int getContentView() {
         return R.layout.activity_line;
@@ -78,6 +79,7 @@ public class LineActivity extends MyBaseActivity<Contract.IsetLinePresenter> imp
     protected void initView() {
         ButterKnife.bind(this);
         terminalId = getIntent().getStringExtra("terminalId");
+        shouldBack = getIntent().getIntExtra("shouldBack",0);
         rv.setLayoutManager(new LinearLayoutManager(this));
         adapter = new LineAdapter(R.layout.item_simple, mlist);
         rv.setAdapter(adapter);
@@ -86,6 +88,7 @@ public class LineActivity extends MyBaseActivity<Contract.IsetLinePresenter> imp
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
+                if (shouldBack ==1)return;
                 Intent intent = new Intent();
                 intent.putExtra("lineId",mlist.get(position).getId());
                 intent.putExtra("lineName",mlist.get(position).getLineName());
