@@ -136,6 +136,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
 
     @Override
     public void showIntent() {
+        devicecAddr.setText("");
         showToast("提交成功");
     }
 

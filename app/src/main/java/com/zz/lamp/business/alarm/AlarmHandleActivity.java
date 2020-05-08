@@ -1,7 +1,6 @@
 package com.zz.lamp.business.alarm;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -28,22 +27,19 @@ import com.zz.lamp.net.JsonT;
 import com.zz.lamp.net.RequestObserver;
 import com.zz.lamp.net.RxNetUtils;
 import com.zz.lamp.utils.BASE64;
-import com.zz.lamp.utils.BitmapUtil;
 import com.zz.lib.commonlib.utils.ToolBarUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.umeng.message.proguard.l.s;
 import static com.zz.lamp.net.RxNetUtils.getCApi;
 
-public class AlarmDetailActivity extends MyBaseActivity<Contract.IsetAlarmAddPresenter> implements Contract.IGetAlarmAddView {
+public class AlarmHandleActivity extends MyBaseActivity<Contract.IsetAlarmAddPresenter> implements Contract.IGetAlarmAddView {
     ArrayList<String> imagesAnnex = new ArrayList<>();
     ImageDeleteItemAdapter adapterAnnex;
     @BindView(R.id.rv_images_annex)
@@ -91,7 +87,7 @@ public class AlarmDetailActivity extends MyBaseActivity<Contract.IsetAlarmAddPre
                         .setMaxSelectCount(4) // 图片的最大选择数量，小于等于0时，不限数量。
                         .setSelected(imagesAnnex) // 把已选的图片传入默认选中。
                         .setViewImage(true) //是否点击放大图片查看,，默认为true
-                        .start(AlarmDetailActivity.this, 1102); // 打开相册
+                        .start(AlarmHandleActivity.this, 1102); // 打开相册
 
             }
 
@@ -160,10 +156,10 @@ public class AlarmDetailActivity extends MyBaseActivity<Contract.IsetAlarmAddPre
         }
         String s = new Gson().toJson(baseb4);
         Map<String, Object> map = new HashMap<>();
-        map.put("alarmStatus", "0");
+        map.put("alarmStatus", id);
         map.put("id", id);
         map.put("handleDescription", handleDescription);
-        map.put("handleFile", s);
+        map.put("handleFile", "[3]");
         mPresenter.submitData(id, map );
     }
     void getData() {
@@ -174,8 +170,8 @@ public class AlarmDetailActivity extends MyBaseActivity<Contract.IsetAlarmAddPre
             baseb4.add("data:image/jpg;base64," + BASE64.imageToBase64(str));
         }
         String s = new Gson().toJson(baseb4);
-        TestPost post = new TestPost("0", handleDescription, id,s);
-        RxNetUtils.request(getCApi(ApiService.class).handleLightAlarm(id,"0",handleDescription,id,s), new RequestObserver<JsonT>(this) {
+        TestPost post = new TestPost("1", handleDescription, id,s);
+        RxNetUtils.request(getCApi(ApiService.class).handleLightAlarm(id,post), new RequestObserver<JsonT>(this) {
             @Override
             protected void onSuccess(JsonT data) {
                 if (data.isSuccess()) {

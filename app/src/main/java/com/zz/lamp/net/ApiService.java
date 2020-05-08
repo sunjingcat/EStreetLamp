@@ -13,6 +13,7 @@ import com.zz.lamp.bean.LightDevice;
 import com.zz.lamp.bean.LightDeviceConBean;
 import com.zz.lamp.bean.LightPost;
 import com.zz.lamp.bean.LineBean;
+import com.zz.lamp.bean.MapListBean;
 import com.zz.lamp.bean.RealTimeCtrlGroup;
 import com.zz.lamp.bean.RealTimeCtrlTerminal;
 import com.zz.lamp.bean.RegionExpandItem;
@@ -21,6 +22,7 @@ import com.zz.lamp.bean.UsableCode;
 import com.zz.lamp.bean.UserInfo;
 import com.zz.lamp.bean.Version;
 import com.zz.lamp.bean.IpAdress;
+import com.zz.lamp.bean.YsConfig;
 
 import java.util.List;
 import java.util.Map;
@@ -28,6 +30,7 @@ import java.util.Map;
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
@@ -125,18 +128,30 @@ public interface ApiService {
     Observable<JsonT<List<AlarmBean>>> getAlarmList(@QueryMap Map<String, Object> params);
 
     @POST( "/app/light/alarm/handleLightAlarm/{id}")
-    Observable<JsonT> handleLightAlarm(@Path("id") String id,@QueryMap Map<String, Object> params,@Query("handleFile") String[] handleFile);
+    Observable<JsonT> handleLightAlarm(@Path("id") String id,@QueryMap Map<String, Object> params);
 
     @POST( "/app/light/alarm/handleLightAlarm/{id}")
     Observable<JsonT> handleLightAlarm(@Path("id") String id,@Body TestPost user);
 
 
+    @POST("/app/light/alarm/handleLightAlarm/{id}")
+    @FormUrlEncoded
+    Observable<JsonT> handleLightAlarm(@Path("id") String id,@Field("alarmStatus") String alarmStatus, @Field("handleDescription") String handleDescription, @Field("id") String ID, @Field("handleFile") String handleFile);
+
     @GET("/app/carame/device/getCameraDevicelist")
     Observable<JsonT<List<CameraBean>>> getCameraDevicelist(@QueryMap Map<String, Object> params);
 
 
+    @GET("/app/carame/device/getYsConfig")
+    Observable<JsonT<YsConfig>> getYsConfig();
+
+
     @GET("/app/light/alarm/getLightAlarmById")
     Observable<JsonT<AlarmBean>> getLightAlarmById(@QueryMap Map<String, Object> params);
+
+    @GET("/app/light/map/list")
+    Observable<JsonT<List<MapListBean>>> getMapList(@QueryMap Map<String, Object> params);
+
 
     @POST( "/app/light/area/")
     Observable<JsonT> postArea(@QueryMap Map<String, Object> params);

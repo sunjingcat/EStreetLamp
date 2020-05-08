@@ -92,7 +92,7 @@ public class VideoControlListFragment extends MyBaseFragment implements OnRefres
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-                startActivity(new Intent(getActivity(),VideoActivity.class).putExtra("id",mlist.get(position).getId()));
+                startActivity(new Intent(getActivity(),VideoActivity.class).putExtra("camera",mlist.get(position)));
             }
         });
         refreshLayout.setOnRefreshListener(this);

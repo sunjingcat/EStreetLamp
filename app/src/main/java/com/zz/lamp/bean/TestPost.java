@@ -6,9 +6,9 @@ public class TestPost {
     String alarmStatus;
     String  handleDescription;
     String  id;
-    List <String> handleFile;
+    String handleFile;
 
-    public TestPost(String alarmStatus, String handleDescription, String id, List<String> handleFile) {
+    public TestPost(String alarmStatus, String handleDescription, String id, String handleFile) {
         this.alarmStatus = alarmStatus;
         this.handleDescription = handleDescription;
         this.id = id;
@@ -23,7 +23,7 @@ public class TestPost {
         return handleDescription;
     }
 
-    public List<String> getHandleFile() {
+    public String getHandleFile() {
         return handleFile;
     }
 }

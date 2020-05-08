@@ -1,6 +1,8 @@
 package com.zz.lamp.bean;//
 
-public class CameraBean {
+import java.io.Serializable;
+
+public class CameraBean implements Serializable {
 
     String searchValue;// null,
     String createBy;// ,

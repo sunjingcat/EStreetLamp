@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 
 import com.baidu.mapapi.animation.Animation;
@@ -22,21 +23,30 @@ import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.google.android.material.tabs.TabLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseFragment;
+
+import com.zz.lamp.bean.MapListBean;
+import com.zz.lamp.business.main.mvp.Contract;
+import com.zz.lamp.business.main.mvp.presenter.MapPresenter;
 import com.zz.lamp.business.mine.MineActivity;
 import com.zz.lamp.utils.TabUtils;
 import com.zz.lib.core.ui.mvp.BasePresenter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class MainFragment extends MyBaseFragment {
+public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> implements Contract.IGetMapView {
 
     @BindView(R.id.search_edit)
     EditText searchEdit;
@@ -94,26 +104,8 @@ public class MainFragment extends MyBaseFragment {
             }
         });
         tabDevice.getTabAt(0).select();
+        getData(0);
         mBaiduMap.showMapPoi(false);
-        //定义Maker坐标点
-        List<OverlayOptions> overlayOptions = new ArrayList<>();
-//构建Marker图标
-        BitmapDescriptor bitmap = BitmapDescriptorFactory
-                .fromResource(R.drawable.icon_marker_jzq);
-//构建MarkerOption，用于在地图上添加Marker
-        OverlayOptions option = new MarkerOptions()
-                .position(new LatLng(39.963175, 116.400244))
-                .animateType(MarkerOptions.MarkerAnimateType.grow)
-                .icon(bitmap);
-        OverlayOptions option1 = new MarkerOptions()
-                .position(new LatLng(39.17, 117.15))
-                .animateType(MarkerOptions.MarkerAnimateType.grow)
-                .icon(bitmap);
-        overlayOptions.add(option);
-        overlayOptions.add(option1);
-//在地图上添加Marker，并显示
-        mBaiduMap.addOverlays(overlayOptions);
-
     }
     private Animation getScaleAnimation() {
         //创建缩放动画
@@ -142,8 +134,8 @@ public class MainFragment extends MyBaseFragment {
         return mScale;
     }
     @Override
-    public BasePresenter initPresenter() {
-        return null;
+    public MapPresenter initPresenter() {
+        return new MapPresenter(this);
     }
 
     @Override
@@ -179,5 +171,20 @@ public class MainFragment extends MyBaseFragment {
     public void onDestroy() {
         super.onDestroy();
         bmapView.onDestroy();
+    }
+    void getData(int deviceKind){
+        Map<String,Object> map = new HashMap<>();
+        map.put("deviceKind",deviceKind);
+        mPresenter.getData(map);
+    }
+
+    @Override
+    public void showResult() {
+
+    }
+
+    @Override
+    public void showDetailResult(List<MapListBean> alarmBean) {
+
     }
 }

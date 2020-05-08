@@ -27,8 +27,8 @@ public class AlarmAddPresenter extends MyBasePresenterImpl<Contract.IGetAlarmAdd
 
 
     @Override
-    public void submitData(String id,Map<String, Object> map,String [] handleFile) {
-        RxNetUtils.request(getCApi(ApiService.class).handleLightAlarm(id,map,handleFile), new RequestObserver<JsonT>(this) {
+    public void submitData(String id,Map<String, Object> map) {
+        RxNetUtils.request(getCApi(ApiService.class).handleLightAlarm(id,map), new RequestObserver<JsonT>(this) {
             @Override
             protected void onSuccess(JsonT data) {
                 if (data.isSuccess()) {
