@@ -73,7 +73,7 @@ public class ImageDeleteItemAdapter extends RecyclerView.Adapter<ImageDeleteItem
     }
     @Override
     public int getItemCount() {
-        if (mDatas.size()<4){
+        if (mDatas.size()<9){
             return mDatas.size()+1;
         }else {
             return mDatas.size();

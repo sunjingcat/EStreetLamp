@@ -1,9 +1,12 @@
 package com.zz.lamp.utils;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import androidx.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.widget.ImageView;
 
@@ -33,14 +36,29 @@ public class GlideUtils {
             if (TextUtils.isEmpty(url)){
                 return;
             }
-            RequestOptions options = new RequestOptions()
-                    .centerCrop()
-                    .placeholder(placeholderSoWhite) //占位图
-                    .error(R.color.colorWhite)       //错误图
-                    // .priority(Priority.HIGH)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL);
-            Glide.with(context).load(url).apply(options).into(imageView);
+            if (isBase64Img(url)){
+                Bitmap bitmap = base64ToBitmap(url);
+                if (bitmap == null) {
+                    RequestOptions options = new RequestOptions()
+                            .centerCrop()
+                            .placeholder(placeholderSoWhite)
+                            .error(errorSoWhite)
+                            //.priority(Priority.HIGH)
+                            .diskCacheStrategy(DiskCacheStrategy.ALL);
+                    Glide.with(context).load(url).apply(options).into(imageView);
+                } else {
 
+                    imageView.setImageBitmap(bitmap);
+                }
+            }else {
+                RequestOptions options = new RequestOptions()
+                        .centerCrop()
+                        .placeholder(placeholderSoWhite) //占位图
+                        .error(R.color.colorWhite)       //错误图
+                        // .priority(Priority.HIGH)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL);
+                Glide.with(context).load(url).apply(options).into(imageView);
+            }
 
         }
 
@@ -89,7 +107,15 @@ public class GlideUtils {
 
         }
 
-
+    public static boolean isBase64Img(String imgurl){
+        if(!TextUtils.isEmpty(imgurl)&&(imgurl.startsWith("data:image/png;base64,")
+                ||imgurl.startsWith("data:image/*;base64,")||imgurl.startsWith("data:image/jpg;base64,")
+        ))
+        {
+            return true;
+        }
+        return false;
+    }
         /**
          * 加载圆形图片
          */
@@ -251,4 +277,14 @@ public class GlideUtils {
 
 
         }
+    public static Bitmap base64ToBitmap(String base64Data) {
+        try {
+            byte[] bytes = Base64.decode(base64Data, Base64.DEFAULT);
+            return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+
 }

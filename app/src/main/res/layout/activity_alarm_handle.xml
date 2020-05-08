@@ -36,7 +36,8 @@
             android:singleLine="true"
             android:text="提交"
             android:textColor="@color/colorTextBlack33"
-            android:textSize="16dp" />
+            android:textSize="16dp"
+            android:visibility="gone"/>
     </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
@@ -86,7 +87,7 @@
                 android:layout_marginTop="1dp"
                 android:background="@color/white"
                 android:padding="12dp"
-                android:text="告警内容告警内容告警内容告警内容告警内容告警内 告警内容告警内容告警内容告警内容告警内容告警内 告警内容告警内容告警内容告警内容告警内容告警内 告警内容告警内容告警内容告警内容告警内容告警内 告警内容告警内容告警内容告警内容告警内容告警内 告警内容告警内容告警内容告警内容告警内容告警内"
+                tools:text="告警内容告警内容告警内容告警内容告警内容告警内 告警内容告警内容告警内容告警内容告警内容告警内 告警内容告警内容告警内容告警内容告警内容告警内 告警内容告警内容告警内容告警内容告警内容告警内 告警内容告警内容告警内容告警内容告警内容告警内 告警内容告警内容告警内容告警内容告警内容告警内"
                 android:textColor="#ff444444"
                 android:textSize="14sp"></TextView>
 

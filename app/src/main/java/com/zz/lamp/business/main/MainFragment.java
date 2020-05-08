@@ -8,12 +8,18 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
 import androidx.appcompat.widget.Toolbar;
 
 import com.baidu.mapapi.animation.Animation;
 import com.baidu.mapapi.animation.ScaleAnimation;
 import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.BitmapDescriptor;
+import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.MarkerOptions;
+import com.baidu.mapapi.map.OverlayOptions;
+import com.baidu.mapapi.model.LatLng;
 import com.google.android.material.tabs.TabLayout;
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseFragment;
@@ -23,6 +29,8 @@ import com.zz.lamp.business.main.mvp.Contract;
 import com.zz.lamp.business.main.mvp.presenter.MapPresenter;
 import com.zz.lamp.business.mine.MineActivity;
 import com.zz.lamp.utils.TabUtils;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -77,6 +85,8 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 TabUtils.setTabSize(tab, 16);
+                mBaiduMap.clear();
+                getData(tab.getPosition());
             }
 
             @Override
@@ -93,32 +103,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
         getData(0);
         mBaiduMap.showMapPoi(false);
     }
-    private Animation getScaleAnimation() {
-        //创建缩放动画
-        ScaleAnimation mScale = new ScaleAnimation(1f, 2f, 1f);
-        //设置动画执行时间
-        mScale.setDuration(2000);
-        //动画重复模式
-        mScale.setRepeatMode(Animation.RepeatMode.RESTART);
-        //动画重复次数
-        mScale.setRepeatCount(1);
-        //设置缩放动画监听
-        mScale.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart() {
-            }
-            @Override
-            public void onAnimationEnd() {
-            }
-            @Override
-            public void onAnimationCancel() {
-            }
-            @Override
-            public void onAnimationRepeat() {
-            }
-        });
-        return mScale;
-    }
+
     @Override
     public MapPresenter initPresenter() {
         return new MapPresenter(this);
@@ -158,9 +143,10 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
         super.onDestroy();
         bmapView.onDestroy();
     }
-    void getData(int deviceKind){
-        Map<String,Object> map = new HashMap<>();
-        map.put("deviceKind",deviceKind);
+
+    void getData(int deviceKind) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("deviceKind", deviceKind);
         mPresenter.getData(map);
     }
 
@@ -170,7 +156,23 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
     }
 
     @Override
-    public void showDetailResult(List<MapListBean> alarmBean) {
+    public void showDetailResult(List<MapListBean> list) {
+        addMarkers(list);
+    }
 
+    void addMarkers(List<MapListBean> list) {
+        BitmapDescriptor bitmap = BitmapDescriptorFactory
+                .fromResource(R.drawable.icon_marker_jzq);
+
+        List<OverlayOptions> overlayOptions = new ArrayList<>();
+        for (MapListBean mapListBean : list) {
+            if (mapListBean.getLat()==0.0||mapListBean.getLng()==0.0)continue;
+            LatLng point = new LatLng(mapListBean.getLat(), mapListBean.getLng());
+            OverlayOptions option = new MarkerOptions()
+                    .position(point)
+                    .icon(bitmap);
+            overlayOptions.add(option);
+        }
+        mBaiduMap.addOverlays(overlayOptions);
     }
 }

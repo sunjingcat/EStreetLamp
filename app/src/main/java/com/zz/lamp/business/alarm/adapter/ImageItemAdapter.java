@@ -9,8 +9,10 @@ import androidx.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
+import com.zz.lamp.BuildConfig;
 import com.zz.lamp.R;
 import com.zz.lamp.utils.GlideUtils;
+import com.zz.lib.commonlib.utils.CacheUtility;
 
 import java.util.List;
 
@@ -25,8 +27,8 @@ public class ImageItemAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder holder, final String item) {
-//        holder.setText(R.id.item_work_name,item.getName());
-        GlideUtils.loadImage(getContext(), item, (ImageView) holder.getView(R.id.image));
+        GlideUtils.loadImage(getContext(), CacheUtility.getURL() +item, (ImageView) holder.getView(R.id.image));
+
         holder.getView(R.id.image).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

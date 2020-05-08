@@ -64,7 +64,7 @@ public class AlarmDetailActivity extends MyBaseActivity<Contract.IsetAlarmAddPre
     @BindView(R.id.alarm_address)
     TextView alarm_address;
     @BindView(R.id.alarm_content)
-    EditText alarmContent;
+    TextView alarmContent;
 
     @Override
     protected int getContentView() {
@@ -108,6 +108,7 @@ public class AlarmDetailActivity extends MyBaseActivity<Contract.IsetAlarmAddPre
     public void showDetailResult(AlarmBean alarmBean) {
         alarmDes.setText(alarmBean.getDescription() + "");
         alarmTime.setText(alarmBean.getCreateTime() + "");
+        alarmContent.setText(alarmBean.getHandleDescription() + "");
         images.clear();
         if (alarmBean.getHandleFile()!=null) {
             images.addAll(alarmBean.getHandleFile());
