@@ -18,6 +18,7 @@ import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
+import com.baidu.mapapi.map.Overlay;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.google.android.material.tabs.TabLayout;
@@ -88,7 +89,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 TabUtils.setTabSize(tab, 16);
-                mBaiduMap.clear();
+                overlays.clear();
                 getData(tab.getPosition());
             }
 
@@ -176,7 +177,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
     public void showResult(List<MapListBean> list) {
         addMarkers(list);
     }
-
+    List<Overlay> overlays;
     void addMarkers(List<MapListBean> list) {
         List<OverlayOptions> overlayOptions = new ArrayList<>();
         for (MapListBean mapListBean : list) {
@@ -193,7 +194,8 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
                     .icon(bitmap);
             overlayOptions.add(option);
         }
-        mBaiduMap.addOverlays(overlayOptions);
+        overlays = mBaiduMap.addOverlays(overlayOptions);
+
     }
 
     @Override

@@ -22,6 +22,17 @@ android {
         }
         multiDexEnabled true
         javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
+
+        ndk {
+            // 注意：这里需要添加项目所需 CPU 类型的最小集
+            abiFilters "armeabi", "armeabi-v7a", "x86_64", "x86", "arm64-v8a"
+        }
+        manifestPlaceholders = [
+                //个推应用参数，请填写您申请的 GETUI_APP_ID，GETUI_APP_KEY，GETUI_APP_SECRET 值
+                GETUI_APP_ID : "U5pB9C3Gea8fbqZN0u3Vs4",
+                GETUI_APP_KEY : "VbgMT5qGfG9q5R2vtdihB9",
+                GETUI_APP_SECRET : "orAX9CBblD78RQG5ieMgf",
+        ]
     }
     sourceSets {
         main {
@@ -145,6 +156,7 @@ dependencies {
     implementation 'com.ezviz.sdk:ezuikit:2.2.1'
     //1.0.5及以前版本的老用户升级需谨慎，API改动过大
     implementation files('libs/tbs_sdk_thirdapp_v4.3.0.3_43903_sharewithdownloadwithfile_withoutGame_obfs_20200402_121309.jar')
+    implementation 'com.getui:sdk:2.+'
 }
 
 def releaseTime() {
