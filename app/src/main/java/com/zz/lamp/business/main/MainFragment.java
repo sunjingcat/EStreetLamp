@@ -1,6 +1,7 @@
 package com.zz.lamp.business.main;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,12 +12,11 @@ import android.widget.LinearLayout;
 
 import androidx.appcompat.widget.Toolbar;
 
-import com.baidu.mapapi.animation.Animation;
-import com.baidu.mapapi.animation.ScaleAnimation;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
@@ -24,10 +24,13 @@ import com.google.android.material.tabs.TabLayout;
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseFragment;
 
+import com.zz.lamp.bean.ConcentratorBean;
+import com.zz.lamp.bean.LightDevice;
 import com.zz.lamp.bean.MapListBean;
 import com.zz.lamp.business.main.mvp.Contract;
 import com.zz.lamp.business.main.mvp.presenter.MapPresenter;
 import com.zz.lamp.business.mine.MineActivity;
+import com.zz.lamp.utils.GlideUtils;
 import com.zz.lamp.utils.TabUtils;
 
 import java.util.ArrayList;
@@ -102,6 +105,24 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
         tabDevice.getTabAt(0).select();
         getData(0);
         mBaiduMap.showMapPoi(false);
+        mBaiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                Bundle extraInfo = marker.getExtraInfo();
+                String id = extraInfo.getString("id");
+                int deviceKind = extraInfo.getInt("deviceKind",0);
+                switch (deviceKind){
+                    case 1:
+                        mPresenter.getTerminalData(id);
+                        break;
+                    case 2:
+                        mPresenter.getLightDeviceData(id);
+                        break;
+                }
+
+                return false;
+            }
+        });
     }
 
     @Override
@@ -150,29 +171,38 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
         mPresenter.getData(map);
     }
 
-    @Override
-    public void showResult() {
-
-    }
 
     @Override
-    public void showDetailResult(List<MapListBean> list) {
+    public void showResult(List<MapListBean> list) {
         addMarkers(list);
     }
 
     void addMarkers(List<MapListBean> list) {
-        BitmapDescriptor bitmap = BitmapDescriptorFactory
-                .fromResource(R.drawable.icon_marker_jzq);
-
         List<OverlayOptions> overlayOptions = new ArrayList<>();
         for (MapListBean mapListBean : list) {
             if (mapListBean.getLat()==0.0||mapListBean.getLng()==0.0)continue;
+            Bitmap bitmap1 = GlideUtils.base64ToBitmap(mapListBean.getMarkerIconPath());
+            BitmapDescriptor bitmap = BitmapDescriptorFactory.fromBitmap(bitmap1);
             LatLng point = new LatLng(mapListBean.getLat(), mapListBean.getLng());
+            Bundle bundle = new Bundle();
+            bundle.putString("id",mapListBean.getId());
+            bundle.putInt("deviceKind",mapListBean.getDeviceKind());
             OverlayOptions option = new MarkerOptions()
+                    .extraInfo(bundle)
                     .position(point)
                     .icon(bitmap);
             overlayOptions.add(option);
         }
         mBaiduMap.addOverlays(overlayOptions);
+    }
+
+    @Override
+    public void showTerminalData(ConcentratorBean concentratorBean) {
+        startActivity(new Intent(getActivity(), InfoActivity.class).putExtra("TerminalInfo",concentratorBean));
+    }
+
+    @Override
+    public void showLightDeviceData(LightDevice lightDevice) {
+        startActivity(new Intent(getActivity(), InfoActivity.class).putExtra("DeviceInfo",lightDevice));
     }
 }

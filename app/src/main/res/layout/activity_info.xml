@@ -6,7 +6,7 @@
     android:background="@drawable/border_radius_10_white"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:context=".InfoActivity">
+    tools:context=".business.main.InfoActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

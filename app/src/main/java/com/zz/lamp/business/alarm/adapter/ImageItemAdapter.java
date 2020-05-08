@@ -9,7 +9,6 @@ import androidx.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
-import com.zz.lamp.BuildConfig;
 import com.zz.lamp.R;
 import com.zz.lamp.utils.GlideUtils;
 import com.zz.lib.commonlib.utils.CacheUtility;

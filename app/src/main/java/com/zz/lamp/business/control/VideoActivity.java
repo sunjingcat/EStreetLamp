@@ -1,5 +1,6 @@
 package com.zz.lamp.business.control;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.ProgressBar;
@@ -38,6 +39,7 @@ public class VideoActivity extends MyBaseActivity {
 
     @Override
     protected int getContentView() {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         return R.layout.activity_video;
     }
 

@@ -145,6 +145,12 @@ public interface ApiService {
     @GET("/app/light/map/list")
     Observable<JsonT<List<MapListBean>>> getMapList(@QueryMap Map<String, Object> params);
 
+    @GET("/app/light/map/lightDevice/{id}")
+    Observable<JsonT<ConcentratorBean>> getMapTerminalDetail(@Path("id") String id);
+
+    @GET("/app/light/map/lightDevice/{id}")
+    Observable<JsonT<LightDevice>> getMapLampDetail(@Path("id") String id);
+
 
     @POST( "/app/light/area/")
     Observable<JsonT> postArea(@QueryMap Map<String, Object> params);

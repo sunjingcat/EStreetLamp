@@ -117,6 +117,11 @@ public class LoginActivity extends MyBaseActivity<Contract.IsetLoginPresenter> i
     @Override
     public void showIntent() {
         showToast("登录成功");
-        startActivity(new Intent(this, HomeActivity.class));
+        finish();
+        Intent intent = new Intent();
+        intent.setClass(this, HomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 }

@@ -1,6 +1,8 @@
 package com.zz.lamp.business.main.mvp.presenter;
 
 import com.zz.lamp.bean.AlarmBean;
+import com.zz.lamp.bean.ConcentratorBean;
+import com.zz.lamp.bean.LightDevice;
 import com.zz.lamp.bean.MapListBean;
 import com.zz.lamp.business.main.mvp.Contract;
 import com.zz.lamp.net.ApiService;
@@ -23,25 +25,44 @@ public class MapPresenter extends MyBasePresenterImpl<Contract.IGetMapView> impl
     }
 
 
+    @Override
+    public void getTerminalData(String id) {
+        RxNetUtils.request(getCApi(ApiService.class).getMapTerminalDetail(id), new RequestObserver<JsonT<ConcentratorBean>>(this) {
+            @Override
+            protected void onSuccess(JsonT<ConcentratorBean> data) {
+                if (data.isSuccess()) {
+                    view.showTerminalData(data.getData());
+                }else {
+
+                }
+            }
+
+            @Override
+            protected void onFail2(JsonT<ConcentratorBean> userInfoJsonT) {
+                super.onFail2(userInfoJsonT);
+                view.showToast(userInfoJsonT.getMessage());
+            }
+        },mDialog);
+    }
 
     @Override
-    public void submitData(Map<String, Object> map) {
-//        RxNetUtils.request(getCApi(ApiService.class).handleLightAlarm(map), new RequestObserver<JsonT>(this) {
-//            @Override
-//            protected void onSuccess(JsonT data) {
-//                if (data.isSuccess()) {
-//                    view.showResult();
-//                }else {
-//
-//                }
-//            }
-//
-//            @Override
-//            protected void onFail2(JsonT userInfoJsonT) {
-//                super.onFail2(userInfoJsonT);
-//                view.showToast(userInfoJsonT.getMessage());
-//            }
-//        },mDialog);
+    public void getLightDeviceData(String id) {
+        RxNetUtils.request(getCApi(ApiService.class).getMapLampDetail(id), new RequestObserver<JsonT<LightDevice>>(this) {
+            @Override
+            protected void onSuccess(JsonT<LightDevice> data) {
+                if (data.isSuccess()) {
+                    view.showLightDeviceData(data.getData());
+                }else {
+
+                }
+            }
+
+            @Override
+            protected void onFail2(JsonT<LightDevice> userInfoJsonT) {
+                super.onFail2(userInfoJsonT);
+                view.showToast(userInfoJsonT.getMessage());
+            }
+        },mDialog);
     }
 
     @Override
@@ -50,7 +71,7 @@ public class MapPresenter extends MyBasePresenterImpl<Contract.IGetMapView> impl
             @Override
             protected void onSuccess(JsonT<List<MapListBean>> data) {
                 if (data.isSuccess()) {
-                    view.showDetailResult(data.getData());
+                    view.showResult(data.getData());
                 }else {
 
                 }

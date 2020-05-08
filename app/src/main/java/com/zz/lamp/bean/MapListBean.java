@@ -2,7 +2,7 @@ package com.zz.lamp.bean;
 
 public class MapListBean {
   private String  id;// 10,
-    private String          deviceKind;// 1,
+    private Integer          deviceKind;// 1,
     private String         addr;// 12345678,
     private String         code;// null,
     private String       name;// 集中器1,
@@ -19,7 +19,7 @@ public class MapListBean {
         return id;
     }
 
-    public String getDeviceKind() {
+    public Integer getDeviceKind() {
         return deviceKind;
     }
 

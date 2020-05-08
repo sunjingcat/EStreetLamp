@@ -56,7 +56,7 @@
             android:screenOrientation="fullSensor"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".InfoActivity"
+            android:name=".business.main.InfoActivity"
             android:theme="@style/ActivityDialogTheme" />
         <activity android:name=".business.mine.MineActivity" />
         <activity
