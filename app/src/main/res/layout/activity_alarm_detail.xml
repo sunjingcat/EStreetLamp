@@ -38,83 +38,100 @@
             android:textColor="@color/colorTextBlack33"
             android:textSize="16dp" />
     </androidx.appcompat.widget.Toolbar>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        >
+        android:layout_marginTop="10dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:orientation="horizontal"
-                android:padding="12dp"
-                android:background="@color/white">
+                android:padding="12dp">
+
                 <TextView
+                    android:id="@+id/alarm_name"
                     style="@style/textLeftStyle"
-                    tools:text="集中器别名"/>
+                    tools:text="集中器别名" />
+
                 <TextView
+                    android:id="@+id/alarm_address"
                     style="@style/textLeftStyle"
-                    tools:text="12897630"
+                    android:layout_marginLeft="15dp"
                     android:layout_weight="1"
                     android:textColor="#ffc4c4c4"
-                    android:layout_marginLeft="15dp"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp"
+                    tools:text="12897630" />
+
                 <TextView
+                    android:id="@+id/alarm_time"
                     style="@style/textLeftStyle"
-                    tools:text="2020-10-19"
-                    android:textColor="#ffc4c4c4"
                     android:layout_marginLeft="15dp"
-                    android:textSize="14sp"/>
+                    android:textColor="#ffc4c4c4"
+                    android:textSize="14sp"
+                    tools:text="2020-10-19" />
             </LinearLayout>
+
             <TextView
+                android:id="@+id/alarm_des"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
                 android:background="@color/white"
                 android:padding="12dp"
-                android:textColor="#ff444444"
-                android:textSize="14sp"
                 android:text="告警内容告警内容告警内容告警内容告警内容告警内 告警内容告警内容告警内容告警内容告警内容告警内 告警内容告警内容告警内容告警内容告警内容告警内 告警内容告警内容告警内容告警内容告警内容告警内 告警内容告警内容告警内容告警内容告警内容告警内 告警内容告警内容告警内容告警内容告警内容告警内"
-                ></TextView>
+                android:textColor="#ff444444"
+                android:textSize="14sp"></TextView>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="12dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/white">
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="12dp">
+
                 <TextView
                     style="@style/textLeftStyle"
-                    tools:text="备注"/>
+                    android:text="备注" />
+
                 <EditText
+                    android:id="@+id/alarm_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:lines="5"
-                    android:background="@color/white"
                     android:layout_marginTop="8dp"
+                    android:background="@color/white"
                     android:gravity="top"
-                    android:hint="请输入">
+                    android:hint="请输入"
+                    android:lines="5">
 
                 </EditText>
-            </LinearLayout> <LinearLayout
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="12dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/white">
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="12dp">
+
                 <TextView
                     style="@style/textLeftStyle"
-                    tools:text="上传照片"/>
-               <androidx.recyclerview.widget.RecyclerView
-                   android:id="@+id/rv_images_annex"
-                   android:layout_marginTop="8dp"
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"/>
+                    android:text="上传照片" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_images_annex"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

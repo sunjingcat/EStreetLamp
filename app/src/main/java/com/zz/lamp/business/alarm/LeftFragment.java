@@ -98,7 +98,7 @@ public class LeftFragment extends MyBaseFragment implements OnRefreshListener, O
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-                startActivity(new Intent(getActivity(),AlarmDetailActivity.class));
+                startActivity(new Intent(getActivity(),AlarmDetailActivity.class).putExtra("id",mlist.get(position).getId()));
             }
         });
         refreshLayout.setOnRefreshListener(this);

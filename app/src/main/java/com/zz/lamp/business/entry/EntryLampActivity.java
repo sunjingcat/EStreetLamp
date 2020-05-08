@@ -136,6 +136,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
 
     @Override
     public void showIntent() {
+        showToast("提交成功");
     }
 
     @Override
@@ -315,6 +316,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
         if (check == 1) {
             Map<String, Object> map = new HashMap<>();
             map.put("deviceAddr", deviceAddr_);
+            map.put("terminalId", terminalId);
             mPresenter.checkDeviceAddr(map);
             return;
         }
@@ -327,6 +329,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
         if (check == 2) {
             Map<String, Object> map = new HashMap<>();
             map.put("deviceName", deviceName_);
+            map.put("terminalId", terminalId);
             mPresenter.checkDeviceName(map);
             return;
         }
@@ -340,6 +343,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
         if (check == 3) {
             Map<String, Object> map = new HashMap<>();
             map.put("deviceCode", devicecCode_);
+            map.put("terminalId", terminalId);
             mPresenter.checkDeviceCode(map);
             return;
         }
@@ -449,9 +453,8 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
             }
         }
         if (requestCode == 1001 && resultCode == RESULT_OK) {
-            lineId = data.getStringExtra("lineId" + "");
+            lineId = data.getStringExtra("lineId" )+"";
             lineName.setText(data.getStringExtra("lineName") + "");
-            ;
         }
         if (requestCode == 1002 && resultCode == RESULT_OK) {
             if (data == null) return;
@@ -516,7 +519,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
         LightDevice device = (LightDevice) getIntent().getSerializableExtra("device");
         if (device == null) return;
         devicecCode.setText(device.getDevicecCode() + "");
-        lightInstallTime.setText(device.getLightInstallTime());
+        lightInstallTime.setText(device.getLightInstallTime()+"");
         lightInstallTime_ = TimeUtils.parseTime(device.getLightInstallTime(), TimeUtils.DATE_FORMAT_DATE).getTime();
         lightPoleCode.setText(device.getLightPoleCode() + "");
         lightPoleHeight.setText(device.getLightPoleHeight() + "");
@@ -540,13 +543,15 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
         lightMainPowerLimit.setText(device.getLightMainPowerLimit() + "");
         lineName.setText(device.getLineName() + "");
         lineId = device.getLineId();
-        lightAuxiliaryType.setText(device.getLightAuxiliaryTypeName() + "");
-        lightAuxiliaryType_ = device.getLightAuxiliaryType();
-        lightAuxiliaryPower.setText(device.getLightAuxiliaryPower() + "");
-        lightAuxiliaryPowerLimit.setText(device.getLightAuxiliaryPowerLimit() + "");
+        if (devicecType_== 2) {
+            lightAuxiliaryType.setText(device.getLightAuxiliaryTypeName() + "");
+            lightAuxiliaryType_ = device.getLightAuxiliaryType();
+            lightAuxiliaryPower.setText(device.getLightAuxiliaryPower() + "");
+            lightAuxiliaryPowerLimit.setText(device.getLightAuxiliaryPowerLimit() + "");
+        }
         lat_tv.setText(device.getDevicecLat() + "," + device.getDevicecLng());
-        lat = Double.parseDouble(device.getDevicecLat());
-        lon = Double.parseDouble(device.getDevicecLng());
+        lat = device.getDevicecLat();
+        lon = device.getDevicecLng();
     }
 
 }

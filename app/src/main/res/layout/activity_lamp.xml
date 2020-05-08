@@ -78,7 +78,6 @@
                     style="@style/textRightStyle"
                     android:drawableRight="@drawable/image_arrow"
                     android:drawablePadding="5dp"
-                    android:text="1234567654321"
                     android:hint="扫一扫" />
 
             </LinearLayout>
@@ -117,7 +116,6 @@
                     android:gravity="center_vertical|right"
                     android:hint="请输入"
                     android:lines="1"
-                    android:text="路灯1"
                     android:textColor="#333333"
                     android:textSize="14dp" />
             </LinearLayout>
@@ -157,7 +155,6 @@
                     android:gravity="center_vertical|right"
                     android:hint="请输入"
                     android:lines="1"
-                    android:text="123"
                     android:textColor="#333333"
                     android:textSize="14dp" />
             </LinearLayout>
@@ -259,7 +256,6 @@
                     android:gravity="center_vertical|right"
                     android:hint="请输入"
                     android:lines="1"
-                    android:text="1"
                     android:textColor="#333333"
                     android:textSize="14dp" />
             </LinearLayout>
@@ -328,7 +324,6 @@
                     android:gravity="center_vertical|right"
                     android:hint="请输入"
                     android:lines="1"
-                    android:text="10"
                     android:textColor="#333333"
                     android:textSize="14dp" />
             </LinearLayout>
@@ -463,7 +458,6 @@
                     android:hint="请输入"
                     android:inputType="number"
                     android:lines="1"
-                    android:text="2"
                     android:textColor="#333333"
                     android:textSize="14dp" />
             </LinearLayout>
@@ -502,7 +496,6 @@
                     android:hint="请输入"
                     android:inputType="number"
                     android:lines="1"
-                    android:text="13"
                     android:textColor="#333333"
                     android:textSize="14dp" />
             </LinearLayout>

@@ -2,6 +2,8 @@ package com.zz.lamp.bean;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
+import java.util.List;
+
 public class AlarmBean implements MultiItemEntity {
     private int itemType;
 
@@ -22,7 +24,7 @@ public class AlarmBean implements MultiItemEntity {
     private String    alarmDeviceType;// 1,
     private String   lightDeviceAddr;// 202004200047,
     private String   handleDescription;// null,
-    private String   handleFile;// null,
+    private List<String> handleFile;// null,
     private String  description;// 位于202004200047的灯控器发生辅灯损坏故障.
 
     public AlarmBean(int itemType, String createTime) {
@@ -98,7 +100,7 @@ public class AlarmBean implements MultiItemEntity {
         return handleDescription;
     }
 
-    public String getHandleFile() {
+    public List<String> getHandleFile() {
         return handleFile;
     }
 

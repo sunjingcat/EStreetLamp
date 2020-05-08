@@ -1,5 +1,6 @@
 package com.zz.lamp.business.control;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -11,10 +12,13 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.umeng.commonsdk.debug.I;
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseFragment;
 import com.zz.lamp.bean.CameraBean;
@@ -85,6 +89,12 @@ public class VideoControlListFragment extends MyBaseFragment implements OnRefres
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new ControlCameraAdapter(R.layout.item_simple, mlist);
         rv.setAdapter(adapter);
+        adapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
+                startActivity(new Intent(getActivity(),VideoActivity.class).putExtra("id",mlist.get(position).getId()));
+            }
+        });
         refreshLayout.setOnRefreshListener(this);
         refreshLayout.setOnLoadMoreListener(this);
         getData();

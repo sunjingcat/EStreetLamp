@@ -6,8 +6,8 @@ public class LightDevice implements Serializable {
     private  String deviceName;//	string	路灯控制器别名
     private  String devicecAddr;//	string	路灯控制器地址
     private  String   devicecCode;//	string	路灯控制器编号
-    private  String  devicecLat;//	string	纬度
-    private  String  devicecLng	;//string	经度
+    private  Double  devicecLat;//	string	纬度
+    private  Double  devicecLng	;//string	经度
     private  Integer   devicecType;//	integer	路灯类型
     private  String   id	;//integer	主键id
     private  String lightAuxiliaryPower;//	number	辅灯额定功率(W)
@@ -47,11 +47,13 @@ public class LightDevice implements Serializable {
         return devicecCode;
     }
 
-    public String getDevicecLat() {
+    public Double getDevicecLat() {
+        if (devicecLat==null)return 0.0;
         return devicecLat;
     }
 
-    public String getDevicecLng() {
+    public Double getDevicecLng() {
+        if (devicecLng==null)return 0.0;
         return devicecLng;
     }
 

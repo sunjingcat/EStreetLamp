@@ -1,5 +1,6 @@
 package com.zz.lamp.business.alarm.mvp;
 
+import com.zz.lamp.bean.AlarmBean;
 import com.zz.lib.core.ui.mvp.BasePresenter;
 import com.zz.lib.core.ui.mvp.BaseView;
 
@@ -10,12 +11,14 @@ import okhttp3.MultipartBody;
 
 public class Contract {
     public interface IsetAlarmAddPresenter extends BasePresenter {
-        void submitData(String url, Map<String, Object> map);
+        void submitData(String id, Map<String, Object> map,String [] handleFile);
+        void getData(Map<String, Object> map);
 
     }
 
     public interface IGetAlarmAddView extends BaseView {
         void showResult();
+        void showDetailResult(AlarmBean alarmBean);
 
     }
 }

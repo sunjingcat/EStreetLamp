@@ -16,6 +16,7 @@ import com.zz.lamp.bean.LineBean;
 import com.zz.lamp.bean.RealTimeCtrlGroup;
 import com.zz.lamp.bean.RealTimeCtrlTerminal;
 import com.zz.lamp.bean.RegionExpandItem;
+import com.zz.lamp.bean.TestPost;
 import com.zz.lamp.bean.UsableCode;
 import com.zz.lamp.bean.UserInfo;
 import com.zz.lamp.bean.Version;
@@ -26,6 +27,8 @@ import java.util.Map;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
+import retrofit2.http.Body;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -122,11 +125,18 @@ public interface ApiService {
     Observable<JsonT<List<AlarmBean>>> getAlarmList(@QueryMap Map<String, Object> params);
 
     @POST( "/app/light/alarm/handleLightAlarm/{id}")
-    Observable<JsonT> handleLightAlarm(@Path("id") String id,@QueryMap Map<String, Object> params);
+    Observable<JsonT> handleLightAlarm(@Path("id") String id,@QueryMap Map<String, Object> params,@Query("handleFile") String[] handleFile);
+
+    @POST( "/app/light/alarm/handleLightAlarm/{id}")
+    Observable<JsonT> handleLightAlarm(@Path("id") String id,@Body TestPost user);
 
 
     @GET("/app/carame/device/getCameraDevicelist")
     Observable<JsonT<List<CameraBean>>> getCameraDevicelist(@QueryMap Map<String, Object> params);
+
+
+    @GET("/app/light/alarm/getLightAlarmById")
+    Observable<JsonT<AlarmBean>> getLightAlarmById(@QueryMap Map<String, Object> params);
 
     @POST( "/app/light/area/")
     Observable<JsonT> postArea(@QueryMap Map<String, Object> params);

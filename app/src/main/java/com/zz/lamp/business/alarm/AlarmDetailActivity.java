@@ -2,36 +2,46 @@ package com.zz.lamp.business.alarm;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.donkingliang.imageselector.utils.ImageSelector;
-import com.donkingliang.imageselector.utils.ImageSelectorUtils;
-import com.zz.lamp.R;
-import com.zz.lamp.base.MyBaseActivity;
-import com.zz.lamp.business.alarm.adapter.ImageDeleteItemAdapter;
-import com.zz.lamp.business.alarm.mvp.Contract;
-import com.zz.lamp.business.alarm.mvp.presenter.AlarmAddPresenter;
-import com.zz.lib.commonlib.utils.ToolBarUtils;
-import com.zz.lib.core.ui.mvp.BasePresenter;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.donkingliang.imageselector.utils.ImageSelector;
+import com.donkingliang.imageselector.utils.ImageSelectorUtils;
+import com.zz.lamp.R;
+import com.zz.lamp.base.MyBaseActivity;
+import com.zz.lamp.bean.AlarmBean;
+import com.zz.lamp.bean.TestPost;
+import com.zz.lamp.business.alarm.adapter.ImageDeleteItemAdapter;
+import com.zz.lamp.business.alarm.mvp.Contract;
+import com.zz.lamp.business.alarm.mvp.presenter.AlarmAddPresenter;
+import com.zz.lamp.net.ApiService;
+import com.zz.lamp.net.JsonT;
+import com.zz.lamp.net.RequestObserver;
+import com.zz.lamp.net.RxNetUtils;
+import com.zz.lamp.utils.BASE64;
+import com.zz.lamp.utils.BitmapUtil;
+import com.zz.lib.commonlib.utils.ToolBarUtils;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 
-public class AlarmDetailActivity extends  MyBaseActivity<Contract.IsetAlarmAddPresenter> implements Contract.IGetAlarmAddView {
+import static com.zz.lamp.net.RxNetUtils.getCApi;
+
+public class AlarmDetailActivity extends MyBaseActivity<Contract.IsetAlarmAddPresenter> implements Contract.IGetAlarmAddView {
     ArrayList<String> imagesAnnex = new ArrayList<>();
     ImageDeleteItemAdapter adapterAnnex;
     @BindView(R.id.rv_images_annex)
@@ -42,6 +52,16 @@ public class AlarmDetailActivity extends  MyBaseActivity<Contract.IsetAlarmAddPr
     Toolbar toolbar;
     @BindView(R.id.bg)
     LinearLayout bg;
+    @BindView(R.id.alarm_name)
+    TextView alarmName;
+    @BindView(R.id.alarm_des)
+    TextView alarmDes;
+    @BindView(R.id.alarm_time)
+    TextView alarmTime;
+    @BindView(R.id.alarm_address)
+    TextView alarm_address;
+    @BindView(R.id.alarm_content)
+    EditText alarmContent;
 
     @Override
     protected int getContentView() {
@@ -79,6 +99,10 @@ public class AlarmDetailActivity extends  MyBaseActivity<Contract.IsetAlarmAddPr
                 adapterAnnex.notifyDataSetChanged();
             }
         });
+        String id = getIntent().getStringExtra("id");
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
+        mPresenter.getData(map);
     }
 
     @Override
@@ -89,7 +113,7 @@ public class AlarmDetailActivity extends  MyBaseActivity<Contract.IsetAlarmAddPr
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-         if (requestCode == 1102&&data!=null) {
+        if (requestCode == 1102 && data != null) {
             //获取选择器返回的数据
             ArrayList<String> images = data.getStringArrayListExtra(
                     ImageSelectorUtils.SELECT_RESULT);
@@ -97,8 +121,6 @@ public class AlarmDetailActivity extends  MyBaseActivity<Contract.IsetAlarmAddPr
                 this.imagesAnnex.clear();
             }
             this.imagesAnnex.addAll(images);
-//
-//            upload(images);
 
             adapterAnnex.notifyDataSetChanged();
         }
@@ -106,11 +128,67 @@ public class AlarmDetailActivity extends  MyBaseActivity<Contract.IsetAlarmAddPr
 
     @OnClick(R.id.toolbar_subtitle)
     public void onViewClicked() {
+        getData();
     }
 
     @Override
     public void showResult() {
+        showToast("提交成功");
+        finish();
+    }
 
+    @Override
+    public void showDetailResult(AlarmBean alarmBean) {
+        alarmDes.setText(alarmBean.getDescription() + "");
+        alarmTime.setText(alarmBean.getCreateTime() + "");
+
+    }
+
+    void postData() {
+        String handleDescription = alarmContent.getText().toString();
+        if (TextUtils.isEmpty(handleDescription)) {
+            showToast("请填写备注");
+            return;
+        }
+        ArrayList<String> baseb4 = new ArrayList<>();
+        String id = getIntent().getStringExtra("id");
+        for (String str : this.imagesAnnex) {
+            String s = BitmapUtil.compressImage(str);
+            baseb4.add(BASE64.imageToBase64(s));
+        }
+        String[] arr = (String[]) baseb4.toArray(new String[baseb4.size()]);
+//        Map<String, Object> map = new HashMap<>();
+//        map.put("alarmStatus", id);
+//        map.put("handleDescription", handleDescription);
+//        String[] arr1 = {"111"};
+//        mPresenter.submitData(id, map,arr );
+    }
+
+    void getData() {
+        String handleDescription = alarmContent.getText().toString();
+        String id = getIntent().getStringExtra("id");
+        ArrayList<String> baseb4 = new ArrayList<>();
+        for (String str : this.imagesAnnex) {
+            String s = BitmapUtil.compressImage(str);
+            baseb4.add("data:image/jpg;base64," + BASE64.imageToBase64(s));
+        }
+        TestPost post = new TestPost("1", handleDescription,id, baseb4);
+        RxNetUtils.request(getCApi(ApiService.class).handleLightAlarm(id, post), new RequestObserver<JsonT>(this) {
+            @Override
+            protected void onSuccess(JsonT data) {
+                if (data.isSuccess()) {
+                    showToast("-----");
+                } else {
+
+                }
+            }
+
+            @Override
+            protected void onFail2(JsonT userInfoJsonT) {
+                super.onFail2(userInfoJsonT);
+                showToast(userInfoJsonT.getMessage());
+            }
+        }, null);
     }
 
 }

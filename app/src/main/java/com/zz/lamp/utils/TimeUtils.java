@@ -70,6 +70,7 @@ public class TimeUtils {
     }
 
     public static Date parseTime(String time, SimpleDateFormat dateFormat) {
+        if (TextUtils.isEmpty(time))return new Date();
         dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
         try {
             return dateFormat.parse(time);

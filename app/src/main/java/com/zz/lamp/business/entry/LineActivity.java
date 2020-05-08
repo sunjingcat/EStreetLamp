@@ -90,7 +90,7 @@ public class LineActivity extends MyBaseActivity<Contract.IsetLinePresenter> imp
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
                 if (shouldBack ==1)return;
                 Intent intent = new Intent();
-                intent.putExtra("lineId",mlist.get(position).getId());
+                intent.putExtra("lineId",mlist.get(position).getId()+"");
                 intent.putExtra("lineName",mlist.get(position).getLineName());
                 setResult(RESULT_OK,intent);
                 finish();
