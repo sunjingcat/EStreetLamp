@@ -333,7 +333,7 @@ public class HomeActivity extends MyBaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            Fragment fragment = mainAdapter.getItem(0);
+            Fragment fragment = mainAdapter.getItem(mainTablayout.getSelectedTabPosition());
             /*然后在碎片中调用重写的onActivityResult方法*/
             Log.v("", "");
             fragment.onActivityResult(requestCode, resultCode, data);

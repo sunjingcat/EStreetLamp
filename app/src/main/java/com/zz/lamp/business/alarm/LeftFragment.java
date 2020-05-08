@@ -34,6 +34,7 @@ import com.zz.lamp.net.ApiService;
 import com.zz.lamp.net.JsonT;
 import com.zz.lamp.net.RequestObserver;
 import com.zz.lamp.net.RxNetUtils;
+import com.zz.lamp.utils.LogUtils;
 import com.zz.lib.core.ui.mvp.BasePresenter;
 
 import java.util.ArrayList;
@@ -98,7 +99,7 @@ public class LeftFragment extends MyBaseFragment implements OnRefreshListener, O
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-                startActivity(new Intent(getActivity(),AlarmDetailActivity.class).putExtra("id",mlist.get(position).getId()));
+                startActivity(new Intent(getActivity(),AlarmHandleActivity.class).putExtra("id",mlist.get(position).getId()));
             }
         });
         refreshLayout.setOnRefreshListener(this);
@@ -209,4 +210,13 @@ public class LeftFragment extends MyBaseFragment implements OnRefreshListener, O
         }, null);
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==-1){
+            pageNum = 1;
+            getData();
+            refreshLayout.finishRefresh();
+        }
+    }
 }

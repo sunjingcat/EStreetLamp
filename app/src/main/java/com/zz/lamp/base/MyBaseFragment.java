@@ -90,7 +90,7 @@ public abstract class MyBaseFragment<P extends  com.zz.lib.core.ui.mvp.BasePrese
     protected void onOutDatePreExcuted() {
 
     }
-    private Fragment lastFragment;
+    protected Fragment lastFragment;
     private String firstFragment;
     protected Fragment setContentView(FragmentActivity activity, Class<? extends Fragment> fragmentClass, int FrameLayoutId) {
         FragmentManager fragmentManager = activity.getSupportFragmentManager();

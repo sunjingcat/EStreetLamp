@@ -86,7 +86,7 @@
                 android:layout_marginTop="1dp"
                 android:background="@color/white"
                 android:padding="12dp"
-                tools:text="告警内容告警内容告警内容告警内容告警内容告警内 告警内容告警内容告警内容告警内容告警内容告警内 告警内容告警内容告警内容告警内容告警内容告警内 告警内容告警内容告警内容告警内容告警内容告警内 告警内容告警内容告警内容告警内容告警内容告警内 告警内容告警内容告警内容告警内容告警内容告警内"
+                android:text="告警内容告警内容告警内容告警内容告警内容告警内 告警内容告警内容告警内容告警内容告警内容告警内 告警内容告警内容告警内容告警内容告警内容告警内 告警内容告警内容告警内容告警内容告警内容告警内 告警内容告警内容告警内容告警内容告警内容告警内 告警内容告警内容告警内容告警内容告警内容告警内"
                 android:textColor="#ff444444"
                 android:textSize="14sp"></TextView>
 
@@ -102,7 +102,7 @@
                     style="@style/textLeftStyle"
                     android:text="备注" />
 
-                <TextView
+                <EditText
                     android:id="@+id/alarm_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -112,7 +112,7 @@
                     android:hint="请输入"
                     android:lines="5">
 
-                </TextView>
+                </EditText>
             </LinearLayout>
 
             <LinearLayout
@@ -123,6 +123,9 @@
                 android:orientation="vertical"
                 android:padding="12dp">
 
+                <TextView
+                    style="@style/textLeftStyle"
+                    android:text="上传照片" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_images_annex"

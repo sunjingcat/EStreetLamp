@@ -1,5 +1,6 @@
 package com.zz.lamp.business.alarm;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -16,6 +17,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -31,6 +34,7 @@ import com.zz.lamp.net.ApiService;
 import com.zz.lamp.net.JsonT;
 import com.zz.lamp.net.RequestObserver;
 import com.zz.lamp.net.RxNetUtils;
+import com.zz.lamp.utils.LogUtils;
 import com.zz.lib.core.ui.mvp.BasePresenter;
 
 import java.util.ArrayList;
@@ -111,6 +115,12 @@ public class RightFragment extends MyBaseFragment implements OnRefreshListener, 
                 }
 
                 return false;
+            }
+        });
+        adapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
+                startActivityForResult(new Intent(getActivity(),AlarmDetailActivity.class).putExtra("id",mlist.get(position).getId()),1001);
             }
         });
     }

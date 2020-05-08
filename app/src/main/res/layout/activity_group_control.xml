@@ -153,6 +153,7 @@
             android:background="@drawable/border_radius_5_bd7a70"
             android:text="调光"
             android:textColor="@color/white"
-            android:textSize="14dp" />
+            android:textSize="14dp"
+            android:layout_marginRight="12dp"/>
     </LinearLayout>
 </LinearLayout>

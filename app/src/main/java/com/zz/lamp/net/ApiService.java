@@ -127,13 +127,6 @@ public interface ApiService {
     @GET("/app/light/alarm/list")
     Observable<JsonT<List<AlarmBean>>> getAlarmList(@QueryMap Map<String, Object> params);
 
-    @POST( "/app/light/alarm/handleLightAlarm/{id}")
-    Observable<JsonT> handleLightAlarm(@Path("id") String id,@QueryMap Map<String, Object> params);
-
-    @POST( "/app/light/alarm/handleLightAlarm/{id}")
-    Observable<JsonT> handleLightAlarm(@Path("id") String id,@Body TestPost user);
-
-
     @POST("/app/light/alarm/handleLightAlarm/{id}")
     @FormUrlEncoded
     Observable<JsonT> handleLightAlarm(@Path("id") String id,@Field("alarmStatus") String alarmStatus, @Field("handleDescription") String handleDescription, @Field("id") String ID, @Field("handleFile") String handleFile);

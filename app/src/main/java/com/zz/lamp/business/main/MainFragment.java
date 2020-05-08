@@ -8,24 +8,13 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 
 import com.baidu.mapapi.animation.Animation;
 import com.baidu.mapapi.animation.ScaleAnimation;
 import com.baidu.mapapi.map.BaiduMap;
-import com.baidu.mapapi.map.BitmapDescriptor;
-import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.MapView;
-import com.baidu.mapapi.map.MarkerOptions;
-import com.baidu.mapapi.map.OverlayOptions;
-import com.baidu.mapapi.model.LatLng;
 import com.google.android.material.tabs.TabLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseFragment;
 
@@ -34,9 +23,6 @@ import com.zz.lamp.business.main.mvp.Contract;
 import com.zz.lamp.business.main.mvp.presenter.MapPresenter;
 import com.zz.lamp.business.mine.MineActivity;
 import com.zz.lamp.utils.TabUtils;
-import com.zz.lib.core.ui.mvp.BasePresenter;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

@@ -21,6 +21,7 @@ import com.zz.lamp.base.MyBaseActivity;
 import com.zz.lamp.bean.AlarmBean;
 import com.zz.lamp.bean.TestPost;
 import com.zz.lamp.business.alarm.adapter.ImageDeleteItemAdapter;
+import com.zz.lamp.business.alarm.adapter.ImageItemAdapter;
 import com.zz.lamp.business.alarm.mvp.Contract;
 import com.zz.lamp.business.alarm.mvp.presenter.AlarmAddPresenter;
 import com.zz.lamp.net.ApiService;
@@ -44,8 +45,8 @@ import static com.umeng.message.proguard.l.s;
 import static com.zz.lamp.net.RxNetUtils.getCApi;
 
 public class AlarmDetailActivity extends MyBaseActivity<Contract.IsetAlarmAddPresenter> implements Contract.IGetAlarmAddView {
-    ArrayList<String> imagesAnnex = new ArrayList<>();
-    ImageDeleteItemAdapter adapterAnnex;
+    ArrayList<String> images = new ArrayList<>();
+    ImageItemAdapter adapter;
     @BindView(R.id.rv_images_annex)
     RecyclerView rvImagesAnnex;
     @BindView(R.id.toolbar_subtitle)
@@ -79,28 +80,8 @@ public class AlarmDetailActivity extends MyBaseActivity<Contract.IsetAlarmAddPre
     protected void initView() {
         ButterKnife.bind(this);
         rvImagesAnnex.setLayoutManager(new GridLayoutManager(this, 3));
-        adapterAnnex = new ImageDeleteItemAdapter(this, imagesAnnex);
-        rvImagesAnnex.setAdapter(adapterAnnex);
-        adapterAnnex.setOnclick(new ImageDeleteItemAdapter.Onclick() {
-            @Override
-            public void onclickAdd(View v, int option) {
-
-                ImageSelector.builder()
-                        .useCamera(true) // 设置是否使用拍照
-                        .setSingle(false)  //设置是否单选
-                        .setMaxSelectCount(4) // 图片的最大选择数量，小于等于0时，不限数量。
-                        .setSelected(imagesAnnex) // 把已选的图片传入默认选中。
-                        .setViewImage(true) //是否点击放大图片查看,，默认为true
-                        .start(AlarmDetailActivity.this, 1102); // 打开相册
-
-            }
-
-            @Override
-            public void onclickDelete(View v, int option) {
-                imagesAnnex.remove(option);
-                adapterAnnex.notifyDataSetChanged();
-            }
-        });
+        adapter = new ImageItemAdapter(R.layout.item_image, images);
+        rvImagesAnnex.setAdapter(adapter);
         String id = getIntent().getStringExtra("id");
         Map<String, Object> map = new HashMap<>();
         map.put("id", id);
@@ -113,83 +94,25 @@ public class AlarmDetailActivity extends MyBaseActivity<Contract.IsetAlarmAddPre
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1102 && data != null) {
-            //获取选择器返回的数据
-            ArrayList<String> images = data.getStringArrayListExtra(
-                    ImageSelectorUtils.SELECT_RESULT);
-            if (images.size() > 0) {
-                this.imagesAnnex.clear();
-            }
-            this.imagesAnnex.addAll(images);
+    public void showResult() {
 
-            adapterAnnex.notifyDataSetChanged();
-        }
     }
-
     @OnClick(R.id.toolbar_subtitle)
     public void onViewClicked() {
-        getData();
-        postData();
-    }
-
-    @Override
-    public void showResult() {
-        showToast("提交成功");
+        setResult(RESULT_OK);
         finish();
     }
+
 
     @Override
     public void showDetailResult(AlarmBean alarmBean) {
         alarmDes.setText(alarmBean.getDescription() + "");
         alarmTime.setText(alarmBean.getCreateTime() + "");
-
+        images.clear();
+        if (alarmBean.getHandleFile()!=null) {
+            images.addAll(alarmBean.getHandleFile());
+        }
+        adapter.notifyDataSetChanged();
     }
 
-    void postData() {
-        String handleDescription = alarmContent.getText().toString();
-        if (TextUtils.isEmpty(handleDescription)) {
-            showToast("请填写备注");
-            return;
-        }
-        ArrayList<String> baseb4 = new ArrayList<>();
-        String id = getIntent().getStringExtra("id");
-        for (String str : this.imagesAnnex) {
-            baseb4.add("data:image/jpg;base64," + BASE64.imageToBase64(str));
-        }
-        String s = new Gson().toJson(baseb4);
-        Map<String, Object> map = new HashMap<>();
-        map.put("alarmStatus", "0");
-        map.put("id", id);
-        map.put("handleDescription", handleDescription);
-        map.put("handleFile", s);
-        mPresenter.submitData(id, map );
-    }
-    void getData() {
-        String handleDescription = alarmContent.getText().toString();
-        String id = getIntent().getStringExtra("id");
-        ArrayList<String> baseb4 = new ArrayList<>();
-        for (String str : this.imagesAnnex) {
-            baseb4.add("data:image/jpg;base64," + BASE64.imageToBase64(str));
-        }
-        String s = new Gson().toJson(baseb4);
-        TestPost post = new TestPost("0", handleDescription, id,s);
-        RxNetUtils.request(getCApi(ApiService.class).handleLightAlarm(id,"0",handleDescription,id,s), new RequestObserver<JsonT>(this) {
-            @Override
-            protected void onSuccess(JsonT data) {
-                if (data.isSuccess()) {
-                    showToast("-----");
-                } else {
-
-                }
-            }
-
-            @Override
-            protected void onFail2(JsonT userInfoJsonT) {
-                super.onFail2(userInfoJsonT);
-                showToast(userInfoJsonT.getMessage());
-            }
-        }, null);
-    }
 }

@@ -63,7 +63,7 @@ public class AlarmHandleActivity extends MyBaseActivity<Contract.IsetAlarmAddPre
 
     @Override
     protected int getContentView() {
-        return R.layout.activity_alarm_detail;
+        return R.layout.activity_alarm_handle;
     }
 
     @Override
@@ -126,13 +126,13 @@ public class AlarmHandleActivity extends MyBaseActivity<Contract.IsetAlarmAddPre
 
     @OnClick(R.id.toolbar_subtitle)
     public void onViewClicked() {
-        getData();
         postData();
     }
 
     @Override
     public void showResult() {
         showToast("提交成功");
+        setResult(RESULT_OK);
         finish();
     }
 
@@ -142,50 +142,15 @@ public class AlarmHandleActivity extends MyBaseActivity<Contract.IsetAlarmAddPre
         alarmTime.setText(alarmBean.getCreateTime() + "");
 
     }
-
     void postData() {
         String handleDescription = alarmContent.getText().toString();
-        if (TextUtils.isEmpty(handleDescription)) {
-            showToast("请填写备注");
-            return;
-        }
-        ArrayList<String> baseb4 = new ArrayList<>();
-        String id = getIntent().getStringExtra("id");
-        for (String str : this.imagesAnnex) {
-            baseb4.add("data:image/jpg;base64," + BASE64.imageToBase64(str));
-        }
-        String s = new Gson().toJson(baseb4);
-        Map<String, Object> map = new HashMap<>();
-        map.put("alarmStatus", id);
-        map.put("id", id);
-        map.put("handleDescription", handleDescription);
-        map.put("handleFile", "[3]");
-        mPresenter.submitData(id, map );
-    }
-    void getData() {
-        String handleDescription = alarmContent.getText().toString();
         String id = getIntent().getStringExtra("id");
         ArrayList<String> baseb4 = new ArrayList<>();
         for (String str : this.imagesAnnex) {
             baseb4.add("data:image/jpg;base64," + BASE64.imageToBase64(str));
         }
         String s = new Gson().toJson(baseb4);
-        TestPost post = new TestPost("1", handleDescription, id,s);
-        RxNetUtils.request(getCApi(ApiService.class).handleLightAlarm(id,post), new RequestObserver<JsonT>(this) {
-            @Override
-            protected void onSuccess(JsonT data) {
-                if (data.isSuccess()) {
-                    showToast("-----");
-                } else {
+        mPresenter.submitData(id,"0",handleDescription,id,s);
 
-                }
-            }
-
-            @Override
-            protected void onFail2(JsonT userInfoJsonT) {
-                super.onFail2(userInfoJsonT);
-                showToast(userInfoJsonT.getMessage());
-            }
-        }, null);
     }
 }
