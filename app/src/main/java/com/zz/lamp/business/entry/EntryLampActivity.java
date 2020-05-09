@@ -26,7 +26,7 @@ import com.zz.lamp.base.MyBaseActivity;
 import com.zz.lamp.bean.DeviceType;
 import com.zz.lamp.bean.DictBean;
 import com.zz.lamp.bean.LightDevice;
-import com.zz.lamp.business.SelectLocationActivity;
+import com.zz.lamp.business.map.SelectLocationActivity;
 import com.zz.lamp.business.entry.mvp.Contract;
 import com.zz.lamp.business.entry.mvp.presenter.LampAddPresenter;
 import com.zz.lamp.net.JsonT;

@@ -1,7 +1,6 @@
 package com.zz.lamp.business.entry;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +16,6 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.zz.lamp.R;
 import com.zz.lamp.bean.ConcentratorBean;
 import com.zz.lamp.base.MyBaseFragment;
-import com.zz.lamp.business.SelectLocationActivity;
 import com.zz.lamp.business.entry.adapter.ConcentratorBeanAdapter;
 import com.zz.lamp.business.entry.mvp.Contract;
 import com.zz.lamp.business.entry.mvp.presenter.TerminalPresenter;

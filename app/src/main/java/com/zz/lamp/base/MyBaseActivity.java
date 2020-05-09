@@ -73,7 +73,12 @@ public abstract class MyBaseActivity<P extends com.zz.lib.core.ui.mvp.BasePresen
                 .navigationBarColor(R.color.colorAccent)
                 .init();
     }
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (immersionBar != null)
+            immersionBar.destroy();  //必须调用该方法，防止内存泄漏，不调用该方法，如果界面bar发生改变，在不关闭app的情况下，退出此界面再进入将记忆最后一次bar改变的状态
+    }
     @Override
     protected void onPause() {
         super.onPause();

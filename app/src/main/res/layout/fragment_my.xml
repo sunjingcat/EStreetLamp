@@ -41,7 +41,7 @@
             android:layout_height="200px"
             android:layout_centerVertical="true"
             android:layout_marginLeft="50px"
-            android:src="@drawable/ic_launcher" />
+            android:src="@drawable/image_null_avter" />
 
         <LinearLayout
             android:layout_width="match_parent"

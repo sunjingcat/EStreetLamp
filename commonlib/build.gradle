@@ -33,7 +33,6 @@ dependencies {
     api 'org.greenrobot:eventbus:3.1.1'
     api 'com.orhanobut:logger:2.2.0'
     api 'com.tencent.bugly:crashreport:latest.release'
-    api 'com.zhy:autolayout:1.4.5'
     api 'androidx.recyclerview:recyclerview:1.0.0'
     api 'com.gyf.barlibrary:barlibrary:2.3.0'
     implementation 'com.contrarywind:wheelview:4.0.8'

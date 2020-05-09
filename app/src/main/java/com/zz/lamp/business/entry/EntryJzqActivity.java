@@ -1,12 +1,9 @@
 package com.zz.lamp.business.entry;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -16,9 +13,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.baidu.mapapi.search.core.PoiInfo;
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseActivity;
-import com.zz.lamp.bean.DeviceType;
-import com.zz.lamp.bean.RegionExpandItem;
-import com.zz.lamp.business.SelectLocationActivity;
+import com.zz.lamp.business.map.SelectLocationActivity;
 import com.zz.lamp.business.entry.mvp.Contract;
 import com.zz.lamp.business.entry.mvp.presenter.TerminalAddPresenter;
 import com.zz.lamp.net.JsonT;
@@ -26,7 +21,6 @@ import com.zz.lib.commonlib.utils.ToolBarUtils;
 import com.zz.lib.commonlib.widget.SelectPopupWindows;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;

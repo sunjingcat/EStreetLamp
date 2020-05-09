@@ -7,12 +7,19 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.zz.lamp.base.MyBaseActivity;
 import com.zz.lamp.bean.RegionExpandItem;
 import com.zz.lamp.net.JsonT;
+import com.zz.lib.core.ui.mvp.BasePresenter;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends MyBaseActivity {
+
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_main;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,5 +33,20 @@ public class MainActivity extends AppCompatActivity {
 
 //取出 weatherInfo
         Log.v("sj---", statusLs.toString());
+    }
+
+    @Override
+    public BasePresenter initPresenter() {
+        return null;
+    }
+
+    @Override
+    protected void initView() {
+
+    }
+
+    @Override
+    protected void initToolBar() {
+
     }
 }
