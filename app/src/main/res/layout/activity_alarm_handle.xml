@@ -112,6 +112,7 @@
                     android:background="@color/white"
                     android:gravity="top"
                     android:hint="请输入"
+                    android:textSize="14dp"
                     android:lines="5">
 
                 </EditText>

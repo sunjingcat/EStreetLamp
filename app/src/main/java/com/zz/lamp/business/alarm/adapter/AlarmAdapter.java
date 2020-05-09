@@ -29,7 +29,7 @@ public class AlarmAdapter extends BaseMultiItemQuickAdapter<AlarmBean, BaseViewH
                 helper.setText(R.id.item_time, item.getCreateTime());
                 break;
             case 2:
-                helper.setText(R.id.item_alarm_name, item.getTerminalAddr()+"");
+                helper.setText(R.id.item_alarm_name, item.getTerminalName()+""+item.getDeviceName());
                 helper.setText(R.id.item_alarm_content, item.getDescription()+"");
                 helper.setText(R.id.item_alarm_state, item.getAlarmStatus()+"");
                 break;

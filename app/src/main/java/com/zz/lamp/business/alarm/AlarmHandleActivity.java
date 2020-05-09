@@ -1,7 +1,6 @@
 package com.zz.lamp.business.alarm;
 
 import android.content.Intent;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -22,10 +21,6 @@ import com.zz.lamp.bean.TestPost;
 import com.zz.lamp.business.alarm.adapter.ImageDeleteItemAdapter;
 import com.zz.lamp.business.alarm.mvp.Contract;
 import com.zz.lamp.business.alarm.mvp.presenter.AlarmAddPresenter;
-import com.zz.lamp.net.ApiService;
-import com.zz.lamp.net.JsonT;
-import com.zz.lamp.net.RequestObserver;
-import com.zz.lamp.net.RxNetUtils;
 import com.zz.lamp.utils.BASE64;
 import com.zz.lib.commonlib.utils.ToolBarUtils;
 
@@ -139,6 +134,7 @@ public class AlarmHandleActivity extends MyBaseActivity<Contract.IsetAlarmAddPre
 
     @Override
     public void showDetailResult(AlarmBean alarmBean) {
+        alarmName.setText(alarmBean.getTerminalName()+""+alarmBean.getDeviceName());
         alarmDes.setText(alarmBean.getDescription() + "");
         alarmTime.setText(alarmBean.getCreateTime() + "");
 

@@ -107,6 +107,7 @@ public class AlarmDetailActivity extends MyBaseActivity<Contract.IsetAlarmAddPre
 
     @Override
     public void showDetailResult(AlarmBean alarmBean) {
+        alarmName.setText(alarmBean.getTerminalName()+""+alarmBean.getDeviceName());
         alarmDes.setText(alarmBean.getDescription() + "");
         alarmTime.setText(alarmBean.getCreateTime() + "");
         alarmContent.setText(alarmBean.getHandleDescription() + "");

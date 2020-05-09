@@ -17,7 +17,9 @@ public class AlarmBean implements MultiItemEntity {
     private String    id;// 101,
     private String    serialNumber;// 0010110705209C0C0000,
     private String   terminalAddr;// 20042001,
+    private String   terminalName;// 20042001,
     private String   devicecCode;// 3,
+    private String   deviceName;// 3,
     private Integer   alarmType;// 2,
     private String  alarmValue;// 0,
     private String   alarmStatus;// 1,
@@ -26,6 +28,14 @@ public class AlarmBean implements MultiItemEntity {
     private String   handleDescription;// null,
     private List<String> handleFile;// null,
     private String  description;// 位于202004200047的灯控器发生辅灯损坏故障.
+
+    public String getTerminalName() {
+        return terminalName;
+    }
+
+    public String getDeviceName() {
+        return deviceName;
+    }
 
     public AlarmBean(int itemType, String createTime) {
         this.itemType = itemType;

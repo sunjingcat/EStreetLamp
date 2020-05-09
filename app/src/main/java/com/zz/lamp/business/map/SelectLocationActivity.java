@@ -3,6 +3,7 @@ package com.zz.lamp.business.map;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -27,26 +28,21 @@ import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
-import com.baidu.mapapi.search.core.PoiDetailInfo;
 import com.baidu.mapapi.search.core.PoiInfo;
 import com.baidu.mapapi.search.geocode.GeoCodeResult;
 import com.baidu.mapapi.search.geocode.GeoCoder;
 import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
-import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
-import com.baidu.mapapi.search.poi.PoiCitySearchOption;
-import com.baidu.mapapi.search.poi.PoiDetailResult;
-import com.baidu.mapapi.search.poi.PoiDetailSearchResult;
-import com.baidu.mapapi.search.poi.PoiIndoorResult;
-import com.baidu.mapapi.search.poi.PoiResult;
-import com.baidu.mapapi.search.poi.PoiSearch;
+import com.baidu.mapapi.search.sug.OnGetSuggestionResultListener;
+import com.baidu.mapapi.search.sug.SuggestionResult;
+import com.baidu.mapapi.search.sug.SuggestionSearch;
+import com.baidu.mapapi.search.sug.SuggestionSearchOption;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseActivity;
 import com.zz.lamp.business.entry.adapter.SearchLocationAdapter;
-import com.zz.lamp.utils.LogUtils;
 import com.zz.lib.commonlib.utils.ToolBarUtils;
 import com.zz.lib.core.ui.mvp.BasePresenter;
 
@@ -77,35 +73,9 @@ public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCo
     public BDLocationListener myListener = new MyLocationListener();
     List<PoiInfo> mlist = new ArrayList<>();
     SearchLocationAdapter adapter;
-    PoiInfo locationInfo;
+    PoiInfo locationInfo = new PoiInfo();
     String mCity = "天津";
-    OnGetPoiSearchResultListener poiSearchResultListener = new OnGetPoiSearchResultListener() {
-        @Override
-        public void onGetPoiResult(PoiResult poiResult) {
-            List<PoiInfo> allPoi = poiResult.getAllPoi();
-            if (allPoi == null) return;
-            mlist.clear();
-            mlist.addAll(allPoi);
-            adapter.notifyDataSetChanged();
-        }
 
-        @Override
-        public void onGetPoiDetailResult(PoiDetailSearchResult poiDetailSearchResult) {
-            List<PoiDetailInfo> poiDetailInfoList = poiDetailSearchResult.getPoiDetailInfoList();
-            LogUtils.v("sj--", "2");
-        }
-
-        @Override
-        public void onGetPoiIndoorResult(PoiIndoorResult poiIndoorResult) {
-            LogUtils.v("sj--", "3");
-        }
-
-        //废弃
-        @Override
-        public void onGetPoiDetailResult(PoiDetailResult poiDetailResult) {
-
-        }
-    };
 
     @Override
     protected int getContentView() {
@@ -117,6 +87,8 @@ public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCo
     public BasePresenter initPresenter() {
         return null;
     }
+
+    SuggestionSearch mSuggestionSearch;
 
     @Override
     protected void initView() {
@@ -146,10 +118,7 @@ public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCo
                     // 在这里写搜索的操作,一般都是网络请求数据
                     String trim = v.getText().toString().trim();
                     if (!TextUtils.isEmpty(trim)) {
-                        mPoiSearch.searchInCity(new PoiCitySearchOption()
-                                .city(mCity)
-                                .keyword(trim)
-                                .pageNum(10));
+                        suggestSearch(trim);
                     }
                     return true;
                 }
@@ -165,12 +134,50 @@ public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCo
         manager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
+    /**
+     * * 模糊搜索
+     * *
+     * * @param keyword 关键字
+     */
+    private void suggestSearch(String keyword) {
+
+        mSuggestionSearch.requestSuggestion((new SuggestionSearchOption())
+                .keyword(keyword)
+                .city("苏州"));
+    }
+
+    /**
+     * 模糊搜索监听
+     */
+    OnGetSuggestionResultListener listener = new OnGetSuggestionResultListener() {
+        public void onGetSuggestionResult(SuggestionResult res) {
+            if (res == null || res.getAllSuggestions() == null) {
+                return;
+                //未找到相关结果
+            } else {
+                List<PoiInfo> list = new ArrayList<>();
+                List<SuggestionResult.SuggestionInfo> resl = res.getAllSuggestions();
+
+                for (int i = 0; i < resl.size(); i++) {
+                    Log.i("result: ", "city" + resl.get(i).city + " dis " + resl.get(i).district + "key " + resl.get(i).key);
+                    PoiInfo info = new PoiInfo();
+                    info.setLocation(resl.get(i).getPt());
+                    info.setAddress(resl.get(i).getKey());
+                    list.add(info);
+                }
+                mlist.clear();
+                mlist.addAll(list);
+                adapter.notifyDataSetChanged();
+            }
+            //获取在线建议检索结果
+        }
+    };
+
     @Override
     protected void initToolBar() {
         ToolBarUtils.getInstance().setNavigation(toolbar);
     }
 
-    PoiSearch mPoiSearch;
     GeoCoder geoCoder;
 
     private void initMap() {
@@ -192,13 +199,15 @@ public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCo
         initLocation();
         geoCoder = GeoCoder.newInstance();
         geoCoder.setOnGetGeoCodeResultListener(this);
-        mPoiSearch = PoiSearch.newInstance();
-        mPoiSearch.setOnGetPoiSearchResultListener(poiSearchResultListener);
+        mSuggestionSearch = SuggestionSearch.newInstance();
+        // tv=(TextView) findViewById(R.id.editText1);
+        mSuggestionSearch.setOnGetSuggestionResultListener(listener);
         mLocationClient.registerLocationListener(myListener);    //注册监听函数
         //开启定位
         mLocationClient.start();
         //图片点击事件，回到定位点
         mLocationClient.requestLocation();
+        mBaiduMap.showMapPoi(false);
         mBaiduMap.setOnMapStatusChangeListener(new BaiduMap.OnMapStatusChangeListener() {
             //地图状态开始改变。
             public void onMapStatusChangeStart(MapStatus status) {
@@ -214,9 +223,11 @@ public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCo
             public void onMapStatusChangeFinish(MapStatus status) {
                 //改变结束之后，获取地图可视范围的中心点坐标
                 LatLng latLng = status.target;
+                showLocation(latLng.latitude, latLng.longitude);
                 geoCoder.reverseGeoCode(new ReverseGeoCodeOption().location(latLng));
                 //拿到经纬度之后，就可以反地理编码获取地址信息了
                 //initGeoCoder(latLng)
+
             }
 
             //地图状态变化中
@@ -258,8 +269,12 @@ public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCo
     @Override
     public void onGetReverseGeoCodeResult(ReverseGeoCodeResult reverseGeoCodeResult) {
         if (null != reverseGeoCodeResult) {
+
+            tv_name.setText(reverseGeoCodeResult.getAddress() + "");
+            locationInfo.setLocation(reverseGeoCodeResult.getLocation());
+            locationInfo.setAddress(reverseGeoCodeResult.getAddress());
             List<PoiInfo> poiList = reverseGeoCodeResult.getPoiList();
-            if(poiList==null){
+            if (poiList == null) {
                 return;
             }
             mlist.clear();
@@ -274,12 +289,12 @@ public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCo
         switch (view.getId()) {
             case R.id.toolbar_subtitle:
                 Intent intent = new Intent();
-                intent.putExtra("location",locationInfo);
-                setResult(RESULT_OK,intent);
+                intent.putExtra("location", locationInfo);
+                setResult(RESULT_OK, intent);
                 finish();
                 break;
             case R.id.my_site:
-                showLocation(latLng.latitude,latLng.longitude);
+                showLocation(latLng.latitude, latLng.longitude);
                 break;
         }
     }
@@ -294,6 +309,12 @@ public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCo
             // 构造定位数据
 
             if (location != null) {
+                MyLocationData locData = new MyLocationData.Builder()
+                        // 此处设置开发者获取到的方向信息，顺时针0-360
+                        .direction(100).latitude(location.getLatitude())
+                        .longitude(location.getLongitude()).build();
+                // 设置定位数据
+                mBaiduMap.setMyLocationData(locData);
                 showLocation(location.getLatitude(), location.getLongitude());
                 tv_name.setText(location.getAddrStr() + "");
                 locationInfo = new PoiInfo();
@@ -320,8 +341,7 @@ public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCo
         super.onDestroy();
         //在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
         mMapView.onDestroy();
-
-        mPoiSearch.destroy();
+        mSuggestionSearch.destroy();
     }
 
     @Override
@@ -339,12 +359,7 @@ public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCo
     }
 
     private void showLocation(double latitude, double longitude) {
-        MyLocationData locData = new MyLocationData.Builder()
-                // 此处设置开发者获取到的方向信息，顺时针0-360
-                .direction(100).latitude(latitude)
-                .longitude(longitude).build();
-        // 设置定位数据
-        mBaiduMap.setMyLocationData(locData);
+
 
         LatLng ll = new LatLng(latitude,
                 longitude);

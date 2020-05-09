@@ -21,6 +21,8 @@ import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.Overlay;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.FutureTarget;
 import com.google.android.material.tabs.TabLayout;
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseFragment;
@@ -33,7 +35,9 @@ import com.zz.lamp.business.main.mvp.presenter.MapPresenter;
 import com.zz.lamp.business.mine.MineActivity;
 import com.zz.lamp.utils.GlideUtils;
 import com.zz.lamp.utils.TabUtils;
+import com.zz.lib.commonlib.utils.CacheUtility;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -179,23 +183,32 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
     }
     List<Overlay> overlays;
     void addMarkers(List<MapListBean> list) {
-        List<OverlayOptions> overlayOptions = new ArrayList<>();
-        for (MapListBean mapListBean : list) {
-            if (mapListBean.getLat()==0.0||mapListBean.getLng()==0.0)continue;
-            Bitmap bitmap1 = GlideUtils.base64ToBitmap(mapListBean.getMarkerIconPath());
-            if (bitmap1==null)return;
-            BitmapDescriptor bitmap = BitmapDescriptorFactory.fromBitmap(bitmap1);
-            LatLng point = new LatLng(mapListBean.getLat(), mapListBean.getLng());
-            Bundle bundle = new Bundle();
-            bundle.putString("id",mapListBean.getId());
-            bundle.putInt("deviceKind",mapListBean.getDeviceKind());
-            OverlayOptions option = new MarkerOptions()
-                    .extraInfo(bundle)
-                    .position(point)
-                    .icon(bitmap);
-            overlayOptions.add(option);
+        try {
+            List<OverlayOptions> overlayOptions = new ArrayList<>();
+            for (MapListBean mapListBean : list) {
+                if (mapListBean.getLat()==0.0||mapListBean.getLng()==0.0)continue;
+                FutureTarget<Bitmap> target = Glide.with(this)
+                        .asBitmap()
+                        .load(CacheUtility.getURL()+mapListBean.getMarkerIconPath())
+                        .submit();
+                Bitmap bitmap1 = target.get();
+                if (bitmap1==null)return;
+                BitmapDescriptor bitmap = BitmapDescriptorFactory.fromBitmap(bitmap1);
+                LatLng point = new LatLng(mapListBean.getLat(), mapListBean.getLng());
+                Bundle bundle = new Bundle();
+                bundle.putString("id",mapListBean.getId());
+                bundle.putInt("deviceKind",mapListBean.getDeviceKind());
+                OverlayOptions option = new MarkerOptions()
+                        .extraInfo(bundle)
+                        .position(point)
+                        .icon(bitmap);
+                overlayOptions.add(option);
+            }
+            overlays = mBaiduMap.addOverlays(overlayOptions);
+        }catch (Exception e){
+
         }
-        overlays = mBaiduMap.addOverlays(overlayOptions);
+
 
     }
 
