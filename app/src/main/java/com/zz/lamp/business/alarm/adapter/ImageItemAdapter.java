@@ -26,7 +26,7 @@ public class ImageItemAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder holder, final String item) {
-        GlideUtils.loadImage(getContext(), CacheUtility.getURL() +item, (ImageView) holder.getView(R.id.image));
+        GlideUtils.loadImage(getContext(), item, (ImageView) holder.getView(R.id.image));
 
         holder.getView(R.id.image).setOnClickListener(new View.OnClickListener() {
             @Override

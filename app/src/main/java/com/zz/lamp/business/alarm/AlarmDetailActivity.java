@@ -97,6 +97,7 @@ public class AlarmDetailActivity extends MyBaseActivity<Contract.IsetAlarmAddPre
     public void showResult() {
 
     }
+
     @OnClick(R.id.toolbar_subtitle)
     public void onViewClicked() {
         setResult(RESULT_OK);
@@ -109,10 +110,16 @@ public class AlarmDetailActivity extends MyBaseActivity<Contract.IsetAlarmAddPre
         alarmDes.setText(alarmBean.getDescription() + "");
         alarmTime.setText(alarmBean.getCreateTime() + "");
         alarmContent.setText(alarmBean.getHandleDescription() + "");
+        mPresenter.getImage("alarm", alarmBean.getId());
+    }
+
+    @Override
+    public void showImage(List<String> list) {
+        if (list == null) return;
         images.clear();
-        if (alarmBean.getHandleFile()!=null) {
-            images.addAll(alarmBean.getHandleFile());
-        }
+
+        images.addAll(list);
+
         adapter.notifyDataSetChanged();
     }
 

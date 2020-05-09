@@ -89,7 +89,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 TabUtils.setTabSize(tab, 16);
-                overlays.clear();
+                if (overlays!=null){overlays.clear();}
                 getData(tab.getPosition());
             }
 
@@ -183,6 +183,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
         for (MapListBean mapListBean : list) {
             if (mapListBean.getLat()==0.0||mapListBean.getLng()==0.0)continue;
             Bitmap bitmap1 = GlideUtils.base64ToBitmap(mapListBean.getMarkerIconPath());
+            if (bitmap1==null)return;
             BitmapDescriptor bitmap = BitmapDescriptorFactory.fromBitmap(bitmap1);
             LatLng point = new LatLng(mapListBean.getLat(), mapListBean.getLng());
             Bundle bundle = new Bundle();

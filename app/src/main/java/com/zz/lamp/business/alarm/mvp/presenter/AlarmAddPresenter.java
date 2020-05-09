@@ -66,5 +66,25 @@ public class AlarmAddPresenter extends MyBasePresenterImpl<Contract.IGetAlarmAdd
         },mDialog);
     }
 
+    @Override
+    public void getImage(String type,String modelId) {
+        RxNetUtils.request(getCApi(ApiService.class).getImageBase64(type,modelId), new RequestObserver<JsonT<List<String>>>(this) {
+            @Override
+            protected void onSuccess(JsonT<List<String>> data) {
+                if (data.isSuccess()) {
+                    view.showImage(data.getData());
+                }else {
+
+                }
+            }
+
+            @Override
+            protected void onFail2(JsonT<List<String>> userInfoJsonT) {
+                super.onFail2(userInfoJsonT);
+                view.showToast(userInfoJsonT.getMessage());
+            }
+        },mDialog);
+    }
+
 }
 

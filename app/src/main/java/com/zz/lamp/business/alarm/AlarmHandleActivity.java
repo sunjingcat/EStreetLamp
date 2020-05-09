@@ -31,6 +31,7 @@ import com.zz.lib.commonlib.utils.ToolBarUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -142,6 +143,12 @@ public class AlarmHandleActivity extends MyBaseActivity<Contract.IsetAlarmAddPre
         alarmTime.setText(alarmBean.getCreateTime() + "");
 
     }
+
+    @Override
+    public void showImage(List<String> list) {
+
+    }
+
     void postData() {
         String handleDescription = alarmContent.getText().toString();
         String id = getIntent().getStringExtra("id");

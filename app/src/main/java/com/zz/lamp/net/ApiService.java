@@ -142,6 +142,9 @@ public interface ApiService {
     @GET("/app/light/alarm/getLightAlarmById")
     Observable<JsonT<AlarmBean>> getLightAlarmById(@QueryMap Map<String, Object> params);
 
+    @GET("/app/light/enclosure/base64/{type}/{modelId}")
+    Observable<JsonT<List<String>>> getImageBase64(@Path("type") String type,@Path("modelId") String modelId);
+
     @GET("/app/light/map/list")
     Observable<JsonT<List<MapListBean>>> getMapList(@QueryMap Map<String, Object> params);
 
