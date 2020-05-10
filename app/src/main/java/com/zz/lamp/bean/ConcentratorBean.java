@@ -17,8 +17,8 @@ public class ConcentratorBean implements Serializable {
     private String terminalName;// 静心湖,
     private String terminalSim;// 20200408202004088888,
     private String terminalType;// 1,
-    private String terminalLng;// 116.7916727236518,
-    private String terminalLat;// 38.290273307174054,
+    private Double terminalLng;// 116.7916727236518,
+    private Double terminalLat;// 38.290273307174054,
     private String areaId;// 3,
     private String areaName;// 沧州师范学院,
     private String isDoorCheck;// 0,
@@ -83,11 +83,13 @@ public class ConcentratorBean implements Serializable {
         return terminalType;
     }
 
-    public String getTerminalLng() {
+    public Double getTerminalLng() {
+        if (terminalLng == null)return 0.0;
         return terminalLng;
     }
 
-    public String getTerminalLat() {
+    public Double getTerminalLat() {
+        if (terminalLat == null)return 0.0;
         return terminalLat;
     }
 

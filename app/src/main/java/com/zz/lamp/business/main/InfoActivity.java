@@ -17,6 +17,8 @@ import com.zz.lamp.bean.LightDetailBean;
 import com.zz.lamp.bean.LightDevice;
 import com.zz.lamp.business.entry.adapter.LightDetailAdapter;
 import com.zz.lamp.business.main.adapter.DetailAdapter;
+import com.zz.lamp.utils.NavUtils;
+import com.zz.lib.core.http.utils.ToastUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -40,6 +42,8 @@ public class InfoActivity extends Activity {
     Button btnControl;
     List<LightDetailBean> mlist = new ArrayList<>();
     DetailAdapter adapter ;
+    Double lat;
+    Double lon;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +56,11 @@ public class InfoActivity extends Activity {
         LightDevice deviceInfo = (LightDevice) getIntent().getSerializableExtra("DeviceInfo");
         if (deviceInfo!=null){
             showIntent(deviceInfo);
+            lat = deviceInfo.getDevicecLat();
+            lon = deviceInfo.getDevicecLng();
+        }if (deviceInfo!=null){
+            lat = terminalInfo.getTerminalLat();
+            lon = terminalInfo.getTerminalLng();
         }
 
     }
@@ -60,8 +69,15 @@ public class InfoActivity extends Activity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_nav:
+                if (!NavUtils.isInstalled()){
+                    ToastUtils.showToast("未安装百度地图");
+                    return;
+                }else {
+                    NavUtils.invokeNavi(this,null,"中智.智慧路灯",lat+","+lon);
+                }
                 break;
             case R.id.btn_control:
+
                 break;
         }
     }
