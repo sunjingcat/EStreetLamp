@@ -67,7 +67,7 @@
         android:layout_width="250dp"
         android:layout_height="45dp"
         android:layout_marginTop="30dp"
-        android:background="#F6E0AD"
+        android:background="@drawable/border_radius_10_f6"
         android:text="检查版本更新"
         android:textColor="#9C5F23" />
 </LinearLayout>

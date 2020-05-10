@@ -67,7 +67,7 @@
             android:layout_height="45dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="50dp"
-            android:background="#F6E0AD"
+            android:background="@drawable/border_radius_10_f6"
             android:text="完成"
             android:textColor="#9C5F23" />
     </LinearLayout>

@@ -22,12 +22,27 @@ public class AlarmBean implements MultiItemEntity {
     private String   deviceName;// 3,
     private Integer   alarmType;// 2,
     private String  alarmValue;// 0,
-    private String   alarmStatus;// 1,
+    private Integer   alarmStatus;// 1,
     private String    alarmDeviceType;// 1,
     private String   lightDeviceAddr;// 202004200047,
     private String   handleDescription;// null,
     private List<String> handleFile;// null,
     private String  description;// 位于202004200047的灯控器发生辅灯损坏故障.
+    private String  alarmDegree;// 位于202004200047的灯控器发生辅灯损坏故障.
+    private String  alarmDegreeType;// 位于202004200047的灯控器发生辅灯损坏故障.
+    private String  alarmDegreeColor;// 位于202004200047的灯控器发生辅灯损坏故障.
+
+    public String getAlarmDegreeColor() {
+        return alarmDegreeColor;
+    }
+
+    public String getAlarmDegree() {
+        return alarmDegree;
+    }
+
+    public String getAlarmDegreeType() {
+        return alarmDegreeType;
+    }
 
     public String getTerminalName() {
         return terminalName;
@@ -94,7 +109,7 @@ public class AlarmBean implements MultiItemEntity {
         return alarmValue;
     }
 
-    public String getAlarmStatus() {
+    public Integer getAlarmStatus() {
         return alarmStatus;
     }
 
