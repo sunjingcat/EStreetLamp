@@ -22,9 +22,6 @@ import com.zz.lib.core.ui.mvp.BasePresenter;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

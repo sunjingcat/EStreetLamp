@@ -10,5 +10,16 @@
         android:layout_width="match_parent"
         android:background="#FF000000"
         android:layout_height="match_parent"/>
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:background="#e0000000">
+        <com.zz.lamp.widget.DiskMenuViewEight
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            />
+    </LinearLayout>
 
 </RelativeLayout>
