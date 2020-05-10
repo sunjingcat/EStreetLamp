@@ -201,6 +201,7 @@
         android:layout_marginRight="15dp"
         android:background="@drawable/border_radius_10_white"
         android:text="退出登录"
+        style="?android:attr/borderlessButtonStyle"
         android:textColor="@color/red"
         android:textSize="15dp" />
 </LinearLayout>

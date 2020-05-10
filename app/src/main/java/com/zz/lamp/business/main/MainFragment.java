@@ -167,7 +167,9 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
     @Override
     public void onDestroy() {
         super.onDestroy();
-        bmapView.onDestroy();
+        if (bmapView!=null) {
+            bmapView.onDestroy();
+        }
     }
 
     void getData(int deviceKind) {

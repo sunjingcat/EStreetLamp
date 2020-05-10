@@ -91,10 +91,15 @@ public class MineActivity extends MyBaseActivity<Contract.IsetMineInfoPresenter>
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.my_password:
+                startActivity(new Intent(MineActivity.this,PasswordActivity.class));
+
                 break;
             case R.id.my_code:
+                startActivity(new Intent(MineActivity.this,ChangeCodeActivity.class));
+
                 break;
             case R.id.my_about:
+                startActivity(new Intent(MineActivity.this,AboutActivity.class));
                 break;
             case R.id.my_logout:
                 CustomDialog.Builder builder = new CustomDialog.Builder(MineActivity.this)
