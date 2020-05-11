@@ -32,7 +32,7 @@ public class ControlLightAdapter extends BaseQuickAdapter<LightDeviceConBean, Ba
         checkBox.setEnabled(false);
         checkBox.setChecked(item.isCheck());
         holper.setText(R.id.item_control_title,item.getDeviceName());
-        holper.setText(R.id.item_control_state,item.getStatus()==0?"拉闸":"合闸");
+        holper.setText(R.id.item_control_state,item.getStatus()==0?"关灯":"开灯");
 
     }
 
