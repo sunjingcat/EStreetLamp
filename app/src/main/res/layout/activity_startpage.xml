@@ -5,27 +5,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+
     >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
-            android:src="@mipmap/ic_launcher"/>
+            android:src="@drawable/splash_bg" />
+
         <TextView
             android:id="@+id/skip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="跳过"
-            android:textColor="#fff"
-            android:textSize="20sp"
             android:layout_alignParentRight="true"
             android:layout_margin="20dp"
-            />
+            android:text="跳过"
+            android:textColor="#333"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="100dp"
+            android:src="@drawable/splash_image_top" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="40dp"
+            android:src="@drawable/splash_image_bottom" />
 
 
     </RelativeLayout>

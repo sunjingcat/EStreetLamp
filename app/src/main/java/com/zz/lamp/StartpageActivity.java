@@ -23,7 +23,7 @@ public class StartpageActivity extends MyBaseActivity implements View.OnClickLis
     }
     private void initSeconds() {
         /** 倒计时60秒，一次1秒 */
-        CountDownTimer timer = new CountDownTimer(1*1000, 1000) {
+        CountDownTimer timer = new CountDownTimer(3*1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 // TODO Auto-generated method stub
