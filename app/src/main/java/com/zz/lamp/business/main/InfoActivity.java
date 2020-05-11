@@ -17,6 +17,7 @@ import com.zz.lamp.bean.LightDetailBean;
 import com.zz.lamp.bean.LightDevice;
 import com.zz.lamp.business.entry.adapter.LightDetailAdapter;
 import com.zz.lamp.business.main.adapter.DetailAdapter;
+import com.zz.lamp.utils.LogUtils;
 import com.zz.lamp.utils.NavUtils;
 import com.zz.lib.core.http.utils.ToastUtils;
 
@@ -84,28 +85,48 @@ public class InfoActivity extends Activity {
     public void showIntent(LightDevice lightDevice) {
         if (lightDevice == null) return;
         mlist.clear();
-        mlist.add(new LightDetailBean("路灯控制器地址",lightDevice.getDevicecAddr()+""));
-        mlist.add(new LightDetailBean("支路",lightDevice.getLineName()+""));
-        mlist.add(new LightDetailBean("路灯控制器编号",lightDevice.getDevicecCode()+""));
-        mlist.add(new LightDetailBean("路灯控制器别名",lightDevice.getDeviceName()+""));
-        mlist.add(new LightDetailBean("安装时间",lightDevice.getLightInstallTime()+""));
+        List<LightDetailBean> list = new ArrayList<>();
+        list.add(new LightDetailBean("路灯控制器地址",lightDevice.getDevicecAddr()+""));
+        list.add(new LightDetailBean("支路",lightDevice.getLineName()+""));
+        list.add(new LightDetailBean("路灯控制器编号",lightDevice.getDevicecCode()+""));
+        list.add(new LightDetailBean("路灯控制器别名",lightDevice.getDeviceName()+""));
+        list.add(new LightDetailBean("安装时间",lightDevice.getLightInstallTime()+""));
 
-        mlist.add(new LightDetailBean("路杆编号",lightDevice.getLightPoleCode()+""));
-        mlist.add(new LightDetailBean("路杆类型",lightDevice.getLightPoleType()+""));
-        mlist.add(new LightDetailBean("路杆高度",lightDevice.getLightPoleHeight()+""));
-        mlist.add(new LightDetailBean("灯头类型",lightDevice.getLightType()+""));
+        list.add(new LightDetailBean("路杆编号",lightDevice.getLightPoleCode()+""));
+        list.add(new LightDetailBean("路杆类型",lightDevice.getLightPoleType()+""));
+        list.add(new LightDetailBean("路杆高度",lightDevice.getLightPoleHeight()+""));
+        list.add(new LightDetailBean("灯头类型",lightDevice.getLightType()+""));
 
-        mlist.add(new LightDetailBean("路灯类型",lightDevice.getDevicecType()+""));
-        mlist.add(new LightDetailBean("主灯类型",lightDevice.getLightMainTypeName()+""));
-        mlist.add(new LightDetailBean("主灯额定功率(W)",lightDevice.getLightMainPower()+""));
-        mlist.add(new LightDetailBean("主灯功率阈值(W)",lightDevice.getLightMainPowerLimit()+""));
+        list.add(new LightDetailBean("路灯类型",lightDevice.getDevicecType()+""));
+        list.add(new LightDetailBean("主灯类型",lightDevice.getLightMainTypeName()+""));
+        list.add(new LightDetailBean("主灯额定功率(W)",lightDevice.getLightMainPower()+""));
+        list.add(new LightDetailBean("主灯功率阈值(W)",lightDevice.getLightMainPowerLimit()+""));
 
         if (lightDevice.getDevicecType()==2){
-            mlist.add(new LightDetailBean("辅灯类型",lightDevice.getLightAuxiliaryTypeName()+""));
-            mlist.add(new LightDetailBean("辅灯额定功率(W)",lightDevice.getLightAuxiliaryPower()+""));
-            mlist.add(new LightDetailBean("辅灯功率阈值(W)",lightDevice.getLightAuxiliaryPowerLimit()+""));
+            list.add(new LightDetailBean("辅灯类型",lightDevice.getLightAuxiliaryTypeName()+""));
+            list.add(new LightDetailBean("辅灯额定功率(W)",lightDevice.getLightAuxiliaryPower()+""));
+            list.add(new LightDetailBean("辅灯功率阈值(W)",lightDevice.getLightAuxiliaryPowerLimit()+""));
         }
+        mlist.addAll(list);
         adapter.notifyDataSetChanged();
 
+    }
+
+    public void showIntent(ConcentratorBean concentratorBean) {
+        if (concentratorBean == null) return;
+        mlist.clear();
+        List<LightDetailBean> list = new ArrayList<>();
+        list.add(new LightDetailBean("区域",concentratorBean.getAreaName()+""));
+        list.add(new LightDetailBean("集中器别名",concentratorBean.getAreaName()+""));
+        list.add(new LightDetailBean("集中器地址",concentratorBean.getTerminalAddr()+""));
+        list.add(new LightDetailBean("回路数量",concentratorBean.getLoopCount()+""));
+        list.add(new LightDetailBean("支路数量",concentratorBean.getLineCount()+""));
+        list.add(new LightDetailBean("回路互感器变比",concentratorBean.getLoopTransformerRatio()+""));
+        list.add(new LightDetailBean("相线互感器变比",concentratorBean.getLineTransformerRatio()+""));
+        list.add(new LightDetailBean("报警延时",concentratorBean.getAlarmDelayedTime()+""));
+        list.add(new LightDetailBean("上电合闸延时",concentratorBean.getRelayOnDelayedTime()+""));
+        list.add(new LightDetailBean("经纬度",concentratorBean.getTerminalLat() + "," + concentratorBean.getTerminalLng()+""));
+        mlist.addAll(list);
+        adapter.notifyDataSetChanged();
     }
 }

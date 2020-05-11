@@ -163,7 +163,7 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
         params.put("terminalAddr", addr);
         if (check ==1){
             Map<String, Object> map = new HashMap<>();
-            map.put("terminalAddr",terminalAddr);
+            map.put("terminalAddr",addr);
             mPresenter.checkTerminalAddr(map);
             return;
         }
@@ -175,7 +175,7 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
         params.put("terminalName", name);
         if (check == 2){
             Map<String, Object> map = new HashMap<>();
-            map.put("terminalName",terminalName);
+            map.put("terminalName",name);
             mPresenter.checkTerminalName(map);
             return;
         }
