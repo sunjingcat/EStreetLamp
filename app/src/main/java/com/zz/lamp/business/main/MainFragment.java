@@ -186,6 +186,9 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
     }
     List<Overlay> overlays;
     void addMarkers(List<MapListBean> list) {
+        if (list==null||list.size()==0){
+
+        }
         try {
             List<OverlayOptions> overlayOptions = new ArrayList<>();
             for (MapListBean mapListBean : list) {
@@ -217,7 +220,6 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
             //计算中心点经纬度，将其设为启动时地图中心
             AMapUtils.setCenter(mBaiduMap);
         }catch (Exception e){
-
         }
 
 

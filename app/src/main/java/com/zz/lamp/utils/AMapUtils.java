@@ -12,7 +12,7 @@ import com.zz.lamp.bean.MapListBean;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
+//https://blog.csdn.net/shilidianshoumuren/article/details/54847692
 public class AMapUtils {
     /**
      * 根据用户的起点和终点经纬度计算两点间距离，此距离为相对较短的距离，单位米。

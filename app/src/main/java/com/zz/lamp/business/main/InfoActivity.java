@@ -61,7 +61,8 @@ public class InfoActivity extends Activity {
             lat = deviceInfo.getDevicecLat();
             lon = deviceInfo.getDevicecLng();
         }
-        if (deviceInfo != null) {
+        if (terminalInfo != null) {
+            showIntent(terminalInfo);
             lat = terminalInfo.getTerminalLat();
             lon = terminalInfo.getTerminalLng();
         }
