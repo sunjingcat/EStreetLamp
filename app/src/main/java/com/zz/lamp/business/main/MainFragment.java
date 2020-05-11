@@ -33,6 +33,7 @@ import com.zz.lamp.bean.MapListBean;
 import com.zz.lamp.business.main.mvp.Contract;
 import com.zz.lamp.business.main.mvp.presenter.MapPresenter;
 import com.zz.lamp.business.mine.MineActivity;
+import com.zz.lamp.utils.AMapUtils;
 import com.zz.lamp.utils.GlideUtils;
 import com.zz.lamp.utils.TabUtils;
 import com.zz.lib.commonlib.utils.CacheUtility;
@@ -207,6 +208,14 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
                 overlayOptions.add(option);
             }
             overlays = mBaiduMap.addOverlays(overlayOptions);
+            //比较选出集合中最大经纬度
+            AMapUtils.getMax(list);
+            //计算两个Marker之间的距离
+            AMapUtils.calculateDistance();
+            //根据距离判断地图级别
+            AMapUtils.getLevel(mBaiduMap);
+            //计算中心点经纬度，将其设为启动时地图中心
+            AMapUtils.setCenter(mBaiduMap);
         }catch (Exception e){
 
         }
