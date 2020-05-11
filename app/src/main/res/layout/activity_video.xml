@@ -16,10 +16,17 @@
         android:layout_alignParentRight="true"
         android:gravity="center"
         android:background="#e0000000">
-        <com.zz.lamp.widget.DiskMenuViewEight
+        <com.dlong.rep.dlroundmenuview.DLRoundMenuView
+            android:id="@+id/dl_rmv"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            />
+            app:RMCoreMenuDrawable="@drawable/image_close"
+            app:RMHasCoreMenu="true"
+            app:RMRoundMenuDrawable="@drawable/image_arrow"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </LinearLayout>
 
 </RelativeLayout>

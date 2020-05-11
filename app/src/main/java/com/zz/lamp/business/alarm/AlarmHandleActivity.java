@@ -17,7 +17,6 @@ import com.google.gson.Gson;
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseActivity;
 import com.zz.lamp.bean.AlarmBean;
-import com.zz.lamp.bean.TestPost;
 import com.zz.lamp.business.alarm.adapter.ImageDeleteItemAdapter;
 import com.zz.lamp.business.alarm.mvp.Contract;
 import com.zz.lamp.business.alarm.mvp.presenter.AlarmAddPresenter;
@@ -32,8 +31,6 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static com.zz.lamp.net.RxNetUtils.getCApi;
 
 public class AlarmHandleActivity extends MyBaseActivity<Contract.IsetAlarmAddPresenter> implements Contract.IGetAlarmAddView {
     ArrayList<String> imagesAnnex = new ArrayList<>();

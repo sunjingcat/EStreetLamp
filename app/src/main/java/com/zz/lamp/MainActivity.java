@@ -1,39 +1,25 @@
 package com.zz.lamp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.zz.lamp.base.MyBaseActivity;
-import com.zz.lamp.bean.RegionExpandItem;
-import com.zz.lamp.net.JsonT;
+import com.zz.lib.core.http.utils.ToastUtils;
 import com.zz.lib.core.ui.mvp.BasePresenter;
 
-import java.util.List;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends MyBaseActivity {
 
+    private long mExitTime = 0;
     @Override
     protected int getContentView() {
         return R.layout.activity_main;
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        String json = "{\"code\":200,\"msg\":\"OK\",\"data\":[{\"id\":1,\"areaPid\":null,\"orderNum\":1,\"userId\":null,\"areaName\":\"中智施维\",\"areaLng\":\"117.7947719493379\",\"areaLat\":\"39.164443269461685\",\"childrens\":[{\"id\":2,\"areaPid\":1,\"orderNum\":1,\"userId\":null,\"areaName\":\"展厅演示\",\"areaLng\":null,\"areaLat\":null,\"childrens\":null}]},{\"id\":3,\"areaPid\":null,\"orderNum\":1,\"userId\":null,\"areaName\":\"沧州师范学院\",\"areaLng\":\"116.80318001723468\",\"areaLat\":\"38.311914259085206\",\"childrens\":null},{\"id\":4,\"areaPid\":null,\"orderNum\":1,\"userId\":null,\"areaName\":\"津南工厂（测试）\",\"areaLng\":\"117.33928119982326\",\"areaLat\":\"38.96417220526327\",\"childrens\":null},{\"id\":5,\"areaPid\":null,\"orderNum\":2,\"userId\":null,\"areaName\":\"公司展厅\",\"areaLng\":\"117.17393109273767\",\"areaLat\":\"39.06810118691012\",\"childrens\":null}]}";
-//        String json = "{\"id\":5,\"areaPid\":null,\"orderNum\":2,\"userId\":null,\"areaName\":\"公司展厅\",\"areaLng\":\"117.17393109273767\",\"areaLat\":\"39.06810118691012\",\"childrens\":null}";
-        Gson gson = new Gson();
-        JsonT<List<RegionExpandItem>> statusLs = gson.fromJson(json, new TypeToken<JsonT<List<RegionExpandItem>>>(){}.getType());
-
-
-//取出 weatherInfo
-        Log.v("sj---", statusLs.toString());
-    }
 
     @Override
     public BasePresenter initPresenter() {
@@ -42,11 +28,52 @@ public class MainActivity extends MyBaseActivity {
 
     @Override
     protected void initView() {
-
+        ButterKnife.bind(this);
     }
 
     @Override
     protected void initToolBar() {
 
+    }
+
+    @OnClick({R.id.main_group_1, R.id.main_group_2, R.id.main_group_3, R.id.main_group_4, R.id.main_group_5, R.id.main_group_6})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.main_group_1:
+                Intent intent = new Intent();
+                intent.setClass(this, HomeActivity.class);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+//                        Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                break;
+            case R.id.main_group_2:
+                showToast("暂未开放，敬请期待");
+                break;
+            case R.id.main_group_3:
+                showToast("暂未开放，敬请期待");
+                break;
+            case R.id.main_group_4:
+                showToast("暂未开放，敬请期待");
+                break;
+            case R.id.main_group_5:
+                showToast("暂未开放，敬请期待");
+                break;
+            case R.id.main_group_6:
+                showToast("暂未开放，敬请期待");
+                break;
+        }
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if ((System.currentTimeMillis() - mExitTime) > 2000) {//
+                ToastUtils.showToast("再按一次退出程序");
+                mExitTime = System.currentTimeMillis();
+            } else {
+                finish();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

@@ -58,7 +58,6 @@ public class HomeActivity extends MyBaseActivity {
     private MainTabViewPagerAdapter mainAdapter;
 
 
-    private long mExitTime = 0;
     private ControlFragment controlFragment;
     private AlarmFragment alarmFragment;
     private MainFragment mainFragment;
@@ -280,19 +279,7 @@ public class HomeActivity extends MyBaseActivity {
     }
 
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if ((System.currentTimeMillis() - mExitTime) > 2000) {//
-                ToastUtils.showToast("再按一次退出程序");
-                mExitTime = System.currentTimeMillis();
-            } else {
-                finish();
-            }
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
+
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventSuccessComment(EventBusSimpleInfo event) {

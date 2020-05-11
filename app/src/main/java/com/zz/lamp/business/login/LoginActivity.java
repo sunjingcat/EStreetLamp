@@ -12,6 +12,7 @@ import android.widget.ImageView;
 
 import com.zz.lamp.App;
 import com.zz.lamp.HomeActivity;
+import com.zz.lamp.MainActivity;
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseActivity;
 
@@ -119,9 +120,9 @@ public class LoginActivity extends MyBaseActivity<Contract.IsetLoginPresenter> i
         showToast("登录成功");
         finish();
         Intent intent = new Intent();
-        intent.setClass(this, HomeActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
-                Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.setClass(this, MainActivity.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+//                Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 }
