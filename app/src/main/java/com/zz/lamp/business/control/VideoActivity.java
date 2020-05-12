@@ -2,10 +2,16 @@ package com.zz.lamp.business.control;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
+import com.dlong.rep.dlroundmenuview.DLRoundMenuView;
+import com.dlong.rep.dlroundmenuview.Interface.OnMenuClickListener;
+import com.dlong.rep.dlroundmenuview.Interface.OnMenuLongClickListener;
+import com.dlong.rep.dlroundmenuview.Interface.OnMenuTouchListener;
 import com.ezvizuikit.open.EZUIError;
 import com.ezvizuikit.open.EZUIKit;
 import com.ezvizuikit.open.EZUIPlayer;
@@ -20,11 +26,11 @@ import com.zz.lamp.net.RxNetUtils;
 import com.zz.lamp.utils.LogUtils;
 import com.zz.lib.core.ui.mvp.BasePresenter;
 
-import java.io.Serializable;
 import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static com.zz.lamp.net.RxNetUtils.getCApi;
 
@@ -33,6 +39,12 @@ public class VideoActivity extends MyBaseActivity {
     @BindView(R.id.player_ui)
     EZUIPlayer playerUi;
     CameraBean cameraBean;
+    @BindView(R.id.dl_rmv)
+    DLRoundMenuView dlRmv;
+    @BindView(R.id.video_add)
+    ImageView videoAdd;
+    @BindView(R.id.video_cut)
+    ImageView videoCut;
 
     @Override
     protected int getContentView() {
@@ -92,6 +104,13 @@ public class VideoActivity extends MyBaseActivity {
             }
         });
         getData();
+
+        dlRmv.setOnMenuTouchListener(new OnMenuTouchListener() {
+            @Override
+            public void OnTouch(MotionEvent event,int position) {
+                LogUtils.v("sj--",position+"");
+            }
+        });
     }
 
     @Override
@@ -133,5 +152,15 @@ public class VideoActivity extends MyBaseActivity {
         playerUi.setUrl(url);
         playerUi.startPlay();
 
+    }
+
+    @OnClick({R.id.video_add, R.id.video_cut})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.video_add:
+                break;
+            case R.id.video_cut:
+                break;
+        }
     }
 }

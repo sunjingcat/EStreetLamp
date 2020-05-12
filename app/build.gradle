@@ -159,7 +159,8 @@ dependencies {
     //1.0.5及以前版本的老用户升级需谨慎，API改动过大
     implementation files('libs/tbs_sdk_thirdapp_v4.3.0.3_43903_sharewithdownloadwithfile_withoutGame_obfs_20200402_121309.jar')
     implementation 'com.getui:sdk:2.+'
-    implementation 'com.github.D10NGYANG:DL10RoundMenuView:1.0.5'
+    implementation project(path: ':dlroundmenuview')
+//    implementation 'com.github.D10NGYANG:DL10RoundMenuView:1.0.5'
 }
 
 def releaseTime() {

@@ -1,1 +1,1 @@
-include ':app', ':commonlib', ':corelib', ':MediaLib', ':mylibrary'
+include ':app', ':commonlib', ':corelib', ':MediaLib', ':mylibrary', ':dlroundmenuview'
