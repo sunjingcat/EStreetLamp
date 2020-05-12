@@ -41,8 +41,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.umeng.message.proguard.l.s;
-import static com.zz.lamp.net.RxNetUtils.getCApi;
 
 public class AlarmDetailActivity extends MyBaseActivity<Contract.IsetAlarmAddPresenter> implements Contract.IGetAlarmAddView {
     ArrayList<String> images = new ArrayList<>();

@@ -19,6 +19,7 @@ import com.zz.lamp.bean.RealTimeCtrlTerminal;
 import com.zz.lamp.bean.RegionExpandItem;
 import com.zz.lamp.bean.TestPost;
 import com.zz.lamp.bean.UsableCode;
+import com.zz.lamp.bean.UserBasicBean;
 import com.zz.lamp.bean.UserInfo;
 import com.zz.lamp.bean.Version;
 import com.zz.lamp.bean.IpAdress;
@@ -82,7 +83,7 @@ public interface ApiService {
 
 
     @POST( "/app/light/realTimeCtrl/line/{terminalId}")
-    Observable<JsonT> realTimeCtrlLine(@Path("terminalId") String terminalId,@QueryMap Map<String, Object> params,@Query("ids") Integer[] ids);
+    Observable<JsonT> realTimeCtrlLine(@Path("terminalId") String terminalId,@QueryMap Map<String, Object> params,@Query("lineCodes") Integer[] lineCodes);
 
     @POST( "/app/light/realTimeCtrl/group")
     Observable<JsonT> realTimeCtrlGroup(@QueryMap Map<String, Object> params,@Query("ids") Integer[] ids);
@@ -164,6 +165,14 @@ public interface ApiService {
     @GET("/app/light/line/getUsableCode/{terminalId}")
     Observable<JsonT<String[]>> getUsableCode(@Path("terminalId") String terminalId);
 
+    @GET("/app/light")
+    Observable<JsonT<UserBasicBean>> getUserDetail();
+
+    @GET("/app/light/logout")
+    Observable<JsonT> logout();
+
+    @POST( "/app/light/resetPwd")
+    Observable<JsonT> resetPwd(@QueryMap Map<String, Object> params);
 
     @POST(URLs.VERSION + "/buildings/supervise/safety/item")
     Observable<JsonT> submitSafetyFeedback(@QueryMap Map<String, Object> params);

@@ -25,17 +25,43 @@ public class MineInfoPresenter extends MyBasePresenterImpl<Contract.IMineInfoVie
 
     @Override
     public void getMineInfo() {
-//        RxNetUtils.request(getApi(ApiService.class).sendMessage(), new RequestObserver<JsonT<UserBasicBean>>(this) {
-//            @Override
-//            protected void onSuccess(JsonT<UserBasicBean> jsonT) {
-//                view.showUserInfo(jsonT.getData());
-//            }
-//
-//            @Override
-//            protected void onFail2(JsonT<UserBasicBean> stringJsonT) {
-//                super.onFail2(stringJsonT);
-//            }
-//        }, null);
+        RxNetUtils.request(getCApi(ApiService.class).getUserDetail(), new RequestObserver<JsonT<UserBasicBean>>(this) {
+            @Override
+            protected void onSuccess(JsonT<UserBasicBean> data) {
+                if (data.isSuccess()) {
+                    view.showUserInfo(data.getData());
+                } else {
+
+                }
+            }
+
+            @Override
+            protected void onFail2(JsonT<UserBasicBean> userInfoJsonT) {
+                super.onFail2(userInfoJsonT);
+                view.showToast(userInfoJsonT.getMessage());
+            }
+        }, mDialog);
+    }
+
+    @Override
+    public void logout() {
+        RxNetUtils.request(getCApi(ApiService.class).logout(), new RequestObserver<JsonT>(this) {
+            @Override
+            protected void onSuccess(JsonT data) {
+                if (data.isSuccess()) {
+                    view.showIntent();
+                } else {
+
+                }
+            }
+
+            @Override
+            protected void onFail2(JsonT userInfoJsonT) {
+                super.onFail2(userInfoJsonT);
+                view.showToast(userInfoJsonT.getMessage());
+                view.showIntent();
+            }
+        }, mDialog);
     }
 }
 

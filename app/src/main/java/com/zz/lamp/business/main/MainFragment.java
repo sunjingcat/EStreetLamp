@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ import com.zz.lamp.base.MyBaseFragment;
 import com.zz.lamp.bean.ConcentratorBean;
 import com.zz.lamp.bean.LightDevice;
 import com.zz.lamp.bean.MapListBean;
+import com.zz.lamp.bean.UserBasicBean;
 import com.zz.lamp.business.main.mvp.Contract;
 import com.zz.lamp.business.main.mvp.presenter.MapPresenter;
 import com.zz.lamp.business.mine.MineActivity;
@@ -266,5 +268,12 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
     @Override
     public void showLightDeviceData(LightDevice lightDevice) {
         startActivity(new Intent(getActivity(), InfoActivity.class).putExtra("DeviceInfo", lightDevice));
+    }
+
+    @Override
+    public void showUserInfo(UserBasicBean userInfo) {
+        if (!TextUtils.isEmpty(userInfo.getAvatar())) {
+            GlideUtils.loadCircleImage(getActivity(), userInfo.getAvatar(), main_mine);
+        }
     }
 }

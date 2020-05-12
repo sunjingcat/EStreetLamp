@@ -19,7 +19,7 @@ public class TerminalControlPresenter extends MyBasePresenterImpl<Contract.IGetT
 
     @Override
     public void getTerminalDetail(String id) {
-        RxNetUtils.request(getCApi(ApiService.class).getTerminalDetail(id), new RequestObserver<JsonT<ConcentratorBean>>(this) {
+        RxNetUtils.request(getCApi(ApiService.class).getMapTerminalDetail(id), new RequestObserver<JsonT<ConcentratorBean>>(this) {
             @Override
             protected void onSuccess(JsonT<ConcentratorBean> data) {
                 if (data.isSuccess()) {

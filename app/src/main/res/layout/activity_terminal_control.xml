@@ -122,195 +122,20 @@
                         android:text="基础信息"
                         android:textColor="#444444"
                         android:textSize="18dp" />
+
                     <TextView
                         android:id="@+id/control_reStart"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/red_e8"
                         android:padding="5dp"
-                        android:text="重启" />
+                        android:text="重启"
+                        android:textColor="@color/red_e8" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingTop="8dp">
-
-                    <TextView
-                        style="@style/textInfoTitleStyle"
-                        android:width="120dp"
-                        android:text="区域" />
-
-                    <TextView
-                        android:id="@+id/areaName"
-                        style="@style/textInfoContentStyle"
-                        tools:text="当前状态" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingTop="8dp">
-
-                    <TextView
-                        style="@style/textInfoTitleStyle"
-                        android:width="120dp"
-                        android:text="集中器地址" />
-
-                    <TextView
-                        android:id="@+id/terminalAddr"
-                        style="@style/textInfoContentStyle"
-                        tools:text="当前状态" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingTop="8dp">
-
-                    <TextView
-                        style="@style/textInfoTitleStyle"
-                        android:width="120dp"
-                        android:text="集中器别名" />
-
-                    <TextView
-                        android:id="@+id/terminalName"
-                        style="@style/textInfoContentStyle"
-                        tools:text="当前状态" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingTop="8dp">
-
-                    <TextView
-                        style="@style/textInfoTitleStyle"
-                        android:width="120dp"
-                        android:text="回路数量" />
-
-                    <TextView
-                        android:id="@+id/loopCount"
-                        style="@style/textInfoContentStyle"
-                        tools:text="当前状态" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingTop="8dp">
-
-                    <TextView
-                        style="@style/textInfoTitleStyle"
-                        android:width="120dp"
-                        android:text="支路数量" />
-
-                    <TextView
-                        android:id="@+id/lineCount"
-                        style="@style/textInfoContentStyle"
-                        tools:text="当前状态" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingTop="8dp">
-
-                    <TextView
-                        style="@style/textInfoTitleStyle"
-                        android:width="120dp"
-                        android:text="回路互感器变比" />
-
-                    <TextView
-                        android:id="@+id/loopTransformerRatio"
-                        style="@style/textInfoContentStyle"
-                        tools:text="当前状态" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingTop="8dp">
-
-                    <TextView
-
-                        style="@style/textInfoTitleStyle"
-                        android:width="120dp"
-                        android:text="相线互感器变比" />
-
-                    <TextView
-                        android:id="@+id/lineTransformerRatio"
-                        style="@style/textInfoContentStyle"
-                        tools:text="当前状态" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingTop="8dp">
-
-                    <TextView
-                        style="@style/textInfoTitleStyle"
-                        android:width="120dp"
-                        android:text="报警延时" />
-
-                    <TextView
-                        android:id="@+id/alarmDelayedTime"
-                        style="@style/textInfoContentStyle"
-                        tools:text="当前状态" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/ll_gone"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_info"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:paddingTop="8dp">
-
-                        <TextView
-                            style="@style/textInfoTitleStyle"
-                            android:width="120dp"
-                            android:text="上电合闸延时" />
-
-                        <TextView
-                            android:id="@+id/relayOnDelayedTime"
-                            style="@style/textInfoContentStyle"
-                            tools:text="当前状态" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:paddingTop="8dp">
-
-                        <TextView
-                            style="@style/textInfoTitleStyle"
-                            android:width="120dp"
-                            android:text="经纬度" />
-
-                        <TextView
-                            android:id="@+id/terminalLat"
-                            style="@style/textInfoContentStyle"
-                            tools:text="当前状态" />
-                    </LinearLayout>
-
-
-                </LinearLayout>
-
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
 
             <View
@@ -387,14 +212,14 @@
             </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingBottom="10dp"
         android:background="@color/white"
+        android:orientation="horizontal"
         android:paddingTop="10dp"
-        >
+        android:paddingBottom="10dp">
 
         <Button
             android:id="@+id/control_close"
@@ -419,4 +244,184 @@
             android:textColor="@color/white"
             android:textSize="14dp" />
     </LinearLayout>
+
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="horizontal"-->
+    <!--        android:paddingTop="8dp">-->
+
+    <!--        <TextView-->
+    <!--            style="@style/textInfoTitleStyle"-->
+    <!--            android:width="120dp"-->
+    <!--            android:text="区域" />-->
+
+    <!--        <TextView-->
+    <!--            android:id="@+id/areaName"-->
+    <!--            style="@style/textInfoContentStyle"-->
+    <!--            tools:text="当前状态" />-->
+    <!--    </LinearLayout>-->
+
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="horizontal"-->
+    <!--        android:paddingTop="8dp">-->
+
+    <!--        <TextView-->
+    <!--            style="@style/textInfoTitleStyle"-->
+    <!--            android:width="120dp"-->
+    <!--            android:text="集中器地址" />-->
+
+    <!--        <TextView-->
+    <!--            android:id="@+id/terminalAddr"-->
+    <!--            style="@style/textInfoContentStyle"-->
+    <!--            tools:text="当前状态" />-->
+    <!--    </LinearLayout>-->
+
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="horizontal"-->
+    <!--        android:paddingTop="8dp">-->
+
+    <!--        <TextView-->
+    <!--            style="@style/textInfoTitleStyle"-->
+    <!--            android:width="120dp"-->
+    <!--            android:text="集中器别名" />-->
+
+    <!--        <TextView-->
+    <!--            android:id="@+id/terminalName"-->
+    <!--            style="@style/textInfoContentStyle"-->
+    <!--            tools:text="当前状态" />-->
+    <!--    </LinearLayout>-->
+
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="horizontal"-->
+    <!--        android:paddingTop="8dp">-->
+
+    <!--        <TextView-->
+    <!--            style="@style/textInfoTitleStyle"-->
+    <!--            android:width="120dp"-->
+    <!--            android:text="回路数量" />-->
+
+    <!--        <TextView-->
+    <!--            android:id="@+id/loopCount"-->
+    <!--            style="@style/textInfoContentStyle"-->
+    <!--            tools:text="当前状态" />-->
+    <!--    </LinearLayout>-->
+
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="horizontal"-->
+    <!--        android:paddingTop="8dp">-->
+
+    <!--        <TextView-->
+    <!--            style="@style/textInfoTitleStyle"-->
+    <!--            android:width="120dp"-->
+    <!--            android:text="支路数量" />-->
+
+    <!--        <TextView-->
+    <!--            android:id="@+id/lineCount"-->
+    <!--            style="@style/textInfoContentStyle"-->
+    <!--            tools:text="当前状态" />-->
+    <!--    </LinearLayout>-->
+
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="horizontal"-->
+    <!--        android:paddingTop="8dp">-->
+
+    <!--        <TextView-->
+    <!--            style="@style/textInfoTitleStyle"-->
+    <!--            android:width="120dp"-->
+    <!--            android:text="回路互感器变比" />-->
+
+    <!--        <TextView-->
+    <!--            android:id="@+id/loopTransformerRatio"-->
+    <!--            style="@style/textInfoContentStyle"-->
+    <!--            tools:text="当前状态" />-->
+    <!--    </LinearLayout>-->
+
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="horizontal"-->
+    <!--        android:paddingTop="8dp">-->
+
+    <!--        <TextView-->
+
+    <!--            style="@style/textInfoTitleStyle"-->
+    <!--            android:width="120dp"-->
+    <!--            android:text="相线互感器变比" />-->
+
+    <!--        <TextView-->
+    <!--            android:id="@+id/lineTransformerRatio"-->
+    <!--            style="@style/textInfoContentStyle"-->
+    <!--            tools:text="当前状态" />-->
+    <!--    </LinearLayout>-->
+
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="horizontal"-->
+    <!--        android:paddingTop="8dp">-->
+
+    <!--        <TextView-->
+    <!--            style="@style/textInfoTitleStyle"-->
+    <!--            android:width="120dp"-->
+    <!--            android:text="报警延时" />-->
+
+    <!--        <TextView-->
+    <!--            android:id="@+id/alarmDelayedTime"-->
+    <!--            style="@style/textInfoContentStyle"-->
+    <!--            tools:text="当前状态" />-->
+    <!--    </LinearLayout>-->
+
+    <!--    <LinearLayout-->
+    <!--        android:id="@+id/ll_gone"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="vertical">-->
+
+    <!--        <LinearLayout-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:orientation="horizontal"-->
+    <!--            android:paddingTop="8dp">-->
+
+    <!--            <TextView-->
+    <!--                style="@style/textInfoTitleStyle"-->
+    <!--                android:width="120dp"-->
+    <!--                android:text="上电合闸延时" />-->
+
+    <!--            <TextView-->
+    <!--                android:id="@+id/relayOnDelayedTime"-->
+    <!--                style="@style/textInfoContentStyle"-->
+    <!--                tools:text="当前状态" />-->
+    <!--        </LinearLayout>-->
+
+    <!--        <LinearLayout-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:orientation="horizontal"-->
+    <!--            android:paddingTop="8dp">-->
+
+    <!--            <TextView-->
+    <!--                style="@style/textInfoTitleStyle"-->
+    <!--                android:width="120dp"-->
+    <!--                android:text="经纬度" />-->
+
+    <!--            <TextView-->
+    <!--                android:id="@+id/terminalLat"-->
+    <!--                style="@style/textInfoContentStyle"-->
+    <!--                tools:text="当前状态" />-->
+    <!--        </LinearLayout>-->
+
+
+    <!--    </LinearLayout>-->
 </LinearLayout>

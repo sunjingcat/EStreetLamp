@@ -94,7 +94,7 @@
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="KCQIZTYEdN9G7hzkTwbmPHdnZ0qtSBxU" />
+            android:value="WpcSzZmbGm2suikRU1TZKKXPCrwNNXek" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

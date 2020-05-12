@@ -20,7 +20,9 @@ public class IToast {
 //        com.ebo.commonlib.utils.toastcompat.Toast.makeText(CommonApplication.getAppContext(), text, EToast2.LENGTH_SHORT).show();
 //    }
     public static void show(Context context,String text) {
-        Toast.makeText(context, text,Toast.LENGTH_SHORT).show();
+        Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
+        toast.setText(text);
+        toast.show();
     }
 
 }

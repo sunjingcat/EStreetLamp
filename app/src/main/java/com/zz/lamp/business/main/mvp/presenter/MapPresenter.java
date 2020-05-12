@@ -4,6 +4,7 @@ import com.zz.lamp.bean.AlarmBean;
 import com.zz.lamp.bean.ConcentratorBean;
 import com.zz.lamp.bean.LightDevice;
 import com.zz.lamp.bean.MapListBean;
+import com.zz.lamp.bean.UserBasicBean;
 import com.zz.lamp.business.main.mvp.Contract;
 import com.zz.lamp.net.ApiService;
 import com.zz.lamp.net.JsonT;
@@ -79,6 +80,26 @@ public class MapPresenter extends MyBasePresenterImpl<Contract.IGetMapView> impl
 
             @Override
             protected void onFail2(JsonT<List<MapListBean>> userInfoJsonT) {
+                super.onFail2(userInfoJsonT);
+                view.showToast(userInfoJsonT.getMessage());
+            }
+        },mDialog);
+    }
+
+    @Override
+    public void getUserInfoData() {
+        RxNetUtils.request(getCApi(ApiService.class).getUserDetail(), new RequestObserver<JsonT<UserBasicBean>>(this) {
+            @Override
+            protected void onSuccess(JsonT<UserBasicBean> data) {
+                if (data.isSuccess()) {
+                    view.showUserInfo(data.getData());
+                }else {
+
+                }
+            }
+
+            @Override
+            protected void onFail2(JsonT<UserBasicBean> userInfoJsonT) {
                 super.onFail2(userInfoJsonT);
                 view.showToast(userInfoJsonT.getMessage());
             }

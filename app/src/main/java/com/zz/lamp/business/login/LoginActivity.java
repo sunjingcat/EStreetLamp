@@ -45,7 +45,6 @@ public class LoginActivity extends MyBaseActivity<Contract.IsetLoginPresenter> i
 
     @Override
     protected int getContentView() {
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         return R.layout.activity_login;
     }
 

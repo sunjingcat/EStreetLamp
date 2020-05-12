@@ -96,7 +96,7 @@ public abstract class MyBaseActivity<P extends com.zz.lib.core.ui.mvp.BasePresen
 ////                Intent.FLAG_ACTIVITY_CLEAR_TASK);
 //        intent.putExtra("drawback", true);
 //        startActivity(intent);
-        IToast.show(this,"跳登录");
+//        IToast.show(this,"跳登录");
     }
 
     protected void onOutDatePreExcuted() {

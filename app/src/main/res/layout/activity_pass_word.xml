@@ -37,21 +37,29 @@
 
 
         <EditText
-            android:id="@+id/ed_password"
+            android:id="@+id/ed_password_old"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginTop="25dp"
             android:background="@drawable/line_radius_10_light"
-            android:hint="请输入授权码"
+            android:hint="请输入旧密码"
             android:textSize="15dp" />
 
+        <EditText
+            android:id="@+id/ed_password"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/line_radius_10_light"
+            android:hint="请输入新密码"
+            android:textSize="15dp" />
         <EditText
             android:id="@+id/ed_password_again"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/line_radius_10_light"
-            android:hint="请输入授权码"
+            android:hint="请输入新密码"
             android:textSize="15dp" />
 
         <Button

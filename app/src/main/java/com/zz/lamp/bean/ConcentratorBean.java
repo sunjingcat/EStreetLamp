@@ -1,5 +1,7 @@
 package com.zz.lamp.bean;
 
+import android.text.TextUtils;
+
 import java.io.Serializable;
 
 public class ConcentratorBean implements Serializable {
@@ -29,6 +31,66 @@ public class ConcentratorBean implements Serializable {
     private String lineTransformerRatio;// 20,
     private String relayOnDelayedTime;// 5,
     private String alarmDelayedTime;// 5
+    private int terminalOnOff;
+    private int isOnline;
+    private String terminalOnOffText;
+    private String isOnlineText;
+    private int maintenanceMode;
+    private String maintenanceModeText;
+
+    private String   simCode;// 89860422021980117827,
+
+
+    private String   signalStrength;// 10,
+
+    private String   signalStrengthText;// 弱,
+    private String  lightOnTime;// 11;//45;//00,
+    private String   lightOffTime;// 12;//00;//00,
+    private String   powerOnTime;// 2020-05-12 08;//43;//56,
+    private String   powerOffTime;// 2020-04-11 16;//14;//26,
+    private String  reportState;// null,
+    private String    lineState;// 00000000,
+    private String   switchState;// 0000000000000000,
+    private String  reportStateText;// null,
+    private String   groupLuminance;// 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+    private Integer    doorState;// 1,
+    private String   doorStateText;// 开,
+    private String   voltageA;// 233.4,
+    private String   ampereA;// 0.0,
+    private String   powerA;// 0.0,
+    private String    energyA;// 60.64,
+    private String   voltageB;// 233.0,
+    private String   ampereB;// 0.0,
+    private String   powerB;// 0.0,
+    private String   energyB;// 0.01,
+    private String  voltageC;// 233.0,
+    private String  ampereC;// 0.0,
+    private String  powerC;// 0.0,
+    private String  energyC;// 0.01,
+    private String  leakCurrent;// 0.0 A,
+    private String  voltage;// 233.4 V,
+    private String  ampere;// 0.0 A,
+    private String   power;// 0.0 KW,
+    private String   energy;// 60.66 KWH,
+    private Integer   nowState;// 3,
+    private String   nowStateText;// 定时上报,
+    private Integer   lightDeviceCount;// 2,
+    private String  lightDeviceSucceedCount;// 0
+    public int getTerminalOnOff() {
+        return terminalOnOff;
+    }
+
+    public int getIsOnline() {
+        return isOnline;
+    }
+
+    public String getTerminalOnOffText() {
+        return terminalOnOffText;
+    }
+
+    public String getIsOnlineText() {
+        return isOnlineText;
+    }
 
     public String getSearchValue() {
         return searchValue;
@@ -127,6 +189,157 @@ public class ConcentratorBean implements Serializable {
 
     public String getRelayOnDelayedTime() {
         return relayOnDelayedTime;
+    }
+
+    public int getMaintenanceMode() {
+        return maintenanceMode;
+    }
+
+    public String getMaintenanceModeText() {
+        return maintenanceModeText;
+    }
+
+    public String getSimCode() {
+        return simCode;
+    }
+
+    public String getSignalStrength() {
+        return signalStrength;
+    }
+
+    public String getSignalStrengthText() {
+        return signalStrengthText;
+    }
+
+    public String getLightOnTime() {
+        return lightOnTime;
+    }
+
+    public String getLightOffTime() {
+        return lightOffTime;
+    }
+
+    public String getPowerOnTime() {
+        return powerOnTime;
+    }
+
+    public String getPowerOffTime() {
+        if(TextUtils.isEmpty(powerOffTime)){
+            return "未掉电";
+        }
+        return powerOffTime;
+    }
+
+    public String getReportState() {
+        return reportState;
+    }
+
+    public String getLineState() {
+        return lineState;
+    }
+
+    public String getSwitchState() {
+        return switchState;
+    }
+
+    public String getReportStateText() {
+        return reportStateText;
+    }
+
+    public String getGroupLuminance() {
+        return groupLuminance;
+    }
+
+    public Integer getDoorState() {
+        return doorState;
+    }
+
+    public String getDoorStateText() {
+        return doorStateText;
+    }
+
+    public String getVoltageA() {
+        return voltageA;
+    }
+
+    public String getAmpereA() {
+        return ampereA;
+    }
+
+    public String getPowerA() {
+        return powerA;
+    }
+
+    public String getEnergyA() {
+        return energyA;
+    }
+
+    public String getVoltageB() {
+        return voltageB;
+    }
+
+    public String getAmpereB() {
+        return ampereB;
+    }
+
+    public String getPowerB() {
+        return powerB;
+    }
+
+    public String getEnergyB() {
+        return energyB;
+    }
+
+    public String getVoltageC() {
+        return voltageC;
+    }
+
+    public String getAmpereC() {
+        return ampereC;
+    }
+
+    public String getPowerC() {
+        return powerC;
+    }
+
+    public String getEnergyC() {
+        return energyC;
+    }
+
+    public String getLeakCurrent() {
+        return leakCurrent;
+    }
+
+    public String getVoltage() {
+        return voltage;
+    }
+
+    public String getAmpere() {
+        return ampere;
+    }
+
+    public String getPower() {
+        return power;
+    }
+
+    public String getEnergy() {
+        return energy;
+    }
+
+    public Integer getNowState() {
+        return nowState;
+    }
+
+    public String getNowStateText() {
+        return nowStateText;
+    }
+
+    public Integer getLightDeviceCount() {
+        return lightDeviceCount;
+    }
+
+    public String getLightDeviceSucceedCount() {
+        return lightDeviceSucceedCount;
     }
 
     public String getAlarmDelayedTime() {

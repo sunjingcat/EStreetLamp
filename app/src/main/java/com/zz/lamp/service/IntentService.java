@@ -18,6 +18,7 @@ public class IntentService extends GTIntentService {
     @Override
     public void onReceiveMessageData(Context context, GTTransmitMessage msg) {
         // 透传消息的处理，详看 SDK demo
+        Log.e(TAG, "onReceiveMessageData -> " + msg);
     }
 
     // 接收 cid
@@ -34,15 +35,22 @@ public class IntentService extends GTIntentService {
     // 各种事件处理回执
     @Override
     public void onReceiveCommandResult(Context context, GTCmdMessage cmdMessage) {
+        Log.e(TAG, "onReceiveMessageData -> " + cmdMessage);
     }
 
     // 通知到达，只有个推通道下发的通知会回调此方法
     @Override
     public void onNotificationMessageArrived(Context context, GTNotificationMessage msg) {
+        Log.e(TAG, "onNotificationMessageArrived -> " + msg);
+        String content = msg.getContent();
+        Log.e(TAG, "content -> " + content);
     }
 
     // 通知点击，只有个推通道下发的通知会回调此方法
     @Override
     public void onNotificationMessageClicked(Context context, GTNotificationMessage msg) {
+        Log.e(TAG, "onNotificationMessageClicked -> " + msg);
+        String content = msg.getContent();
+        Log.e(TAG, "content -> " + content);
     }
 }

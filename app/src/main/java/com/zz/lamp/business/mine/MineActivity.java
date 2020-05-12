@@ -62,6 +62,7 @@ public class MineActivity extends MyBaseActivity<Contract.IsetMineInfoPresenter>
     @Override
     protected void initView() {
         ButterKnife.bind(this);
+        mPresenter.getMineInfo();
 
     }
 
@@ -74,7 +75,8 @@ public class MineActivity extends MyBaseActivity<Contract.IsetMineInfoPresenter>
     @Override
     public void showUserInfo(UserBasicBean userInfo) {
         this.userInfo = userInfo;
-        CacheUtility.spSave("name", userInfo.getName());
+        myName.setText(userInfo.getUserName()+"");
+        notContent.setText(userInfo.getPhonenumber()+"");
 
         if (!TextUtils.isEmpty(userInfo.getAvatar())) {
 
@@ -84,14 +86,20 @@ public class MineActivity extends MyBaseActivity<Contract.IsetMineInfoPresenter>
 
     @Override
     public void showIntent() {
-
+        CacheUtility.saveToken("");
+        CacheUtility.clear();
+        startActivity(new Intent(MineActivity.this, LoginActivity.class));
+        EventBus.getDefault().post(new OutDateEvent());
+        finish();
     }
     private CustomDialog customDialog;
     @OnClick({R.id.my_password, R.id.my_code, R.id.my_about, R.id.my_logout})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.my_password:
-                startActivity(new Intent(MineActivity.this,PasswordActivity.class));
+                if (userInfo==null||TextUtils.isEmpty(userInfo.getLoginName())){
+                    return;}
+                startActivity(new Intent(MineActivity.this,PasswordActivity.class).putExtra("userName",userInfo.getLoginName()));
 
                 break;
             case R.id.my_code:
@@ -114,11 +122,7 @@ public class MineActivity extends MyBaseActivity<Contract.IsetMineInfoPresenter>
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                CacheUtility.saveToken("");
-                                CacheUtility.clear();
-                                startActivity(new Intent(MineActivity.this, LoginActivity.class));
-                                EventBus.getDefault().post(new OutDateEvent());
-                                finish();
+                                mPresenter.logout();
                             }
                         });
                 customDialog = builder.create();

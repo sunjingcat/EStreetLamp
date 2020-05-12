@@ -18,7 +18,6 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.umeng.commonsdk.debug.I;
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseFragment;
 import com.zz.lamp.bean.CameraBean;
