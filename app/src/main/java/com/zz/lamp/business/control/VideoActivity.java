@@ -129,8 +129,9 @@ public class VideoActivity extends MyBaseActivity {
     void initVideo(YsConfig ysConfig) {
         EZUIKit.initWithAppKey(getApplication(), ysConfig.getAppKey());
         EZUIKit.setAccessToken(ysConfig.getAccessToken());
-        String url = "ezopen://" + "open.ezviz.com/" + cameraBean.getSeriesNumber() + "/" + cameraBean.getChannelNo() + ".live";
+        String url = "ezopen://" + "open.ys7.com/" + cameraBean.getSeriesNumber() + "/" + cameraBean.getChannelNo() + ".live";
         playerUi.setUrl(url);
         playerUi.startPlay();
+
     }
 }

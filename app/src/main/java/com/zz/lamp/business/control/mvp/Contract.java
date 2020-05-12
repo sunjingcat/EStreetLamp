@@ -47,5 +47,16 @@ public class Contract {
         void showIntent();
     }
 
+    public interface IsetVideoControlPresenter extends BasePresenter {
+        void getLightList(String id,Map<String, Object> params);
+        void realTimeCtrLight(String id,Map<String, Object> params);
+    }
+
+    public interface IGetVideoControlView extends BaseView{
+        void showLightList(List<LightDeviceConBean> list);
+        void showIntent();
+    }
+
+
 
 }
