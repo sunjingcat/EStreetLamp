@@ -8,6 +8,7 @@ import com.zz.lamp.bean.LightPost;
 import com.zz.lamp.bean.LineBean;
 import com.zz.lamp.bean.RealTimeCtrlGroup;
 import com.zz.lamp.bean.RegionExpandItem;
+import com.zz.lamp.bean.YsConfig;
 import com.zz.lib.core.ui.mvp.BasePresenter;
 import com.zz.lib.core.ui.mvp.BaseView;
 
@@ -48,12 +49,13 @@ public class Contract {
     }
 
     public interface IsetVideoControlPresenter extends BasePresenter {
-        void getLightList(String id,Map<String, Object> params);
-        void realTimeCtrLight(String id,Map<String, Object> params);
+        void getYsConfig();
+        void startControl(Map<String, Object> params);
+        void shopControl(Map<String, Object> params);
     }
 
     public interface IGetVideoControlView extends BaseView{
-        void showLightList(List<LightDeviceConBean> list);
+        void showYsConfig(YsConfig ysConfig);
         void showIntent();
     }
 

@@ -18,7 +18,10 @@ import com.ezvizuikit.open.EZUIPlayer;
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseActivity;
 import com.zz.lamp.bean.CameraBean;
+import com.zz.lamp.bean.RealTimeCtrlGroup;
 import com.zz.lamp.bean.YsConfig;
+import com.zz.lamp.business.control.mvp.Contract;
+import com.zz.lamp.business.control.mvp.presenter.VideoControlPresenter;
 import com.zz.lamp.net.ApiService;
 import com.zz.lamp.net.JsonT;
 import com.zz.lamp.net.RequestObserver;
@@ -27,6 +30,9 @@ import com.zz.lamp.utils.LogUtils;
 import com.zz.lib.core.ui.mvp.BasePresenter;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,7 +40,7 @@ import butterknife.OnClick;
 
 import static com.zz.lamp.net.RxNetUtils.getCApi;
 
-public class VideoActivity extends MyBaseActivity {
+public class VideoActivity extends MyBaseActivity<Contract.IsetVideoControlPresenter> implements Contract.IGetVideoControlView {
 
     @BindView(R.id.player_ui)
     EZUIPlayer playerUi;
@@ -54,8 +60,8 @@ public class VideoActivity extends MyBaseActivity {
 
 
     @Override
-    public BasePresenter initPresenter() {
-        return null;
+    public VideoControlPresenter initPresenter() {
+        return new VideoControlPresenter(this);
     }
 
     @Override
@@ -103,14 +109,46 @@ public class VideoActivity extends MyBaseActivity {
 
             }
         });
-        getData();
-
+        mPresenter.getYsConfig();
+        int lastPosition=100;
         dlRmv.setOnMenuTouchListener(new OnMenuTouchListener() {
             @Override
             public void OnTouch(MotionEvent event,int position) {
+              if(lastPosition == position)  {
+                  return;
+              }else {
+                    control(position);
+              }
                 LogUtils.v("sj--",position+"");
             }
         });
+    }
+    private void control(int position){
+       if (cameraBean==null){
+           return;
+       }
+//        操作命令：0-上，1-下，2-左，3-右，4-左上，5-左下，6-右上，7-右下，8-放大，9-缩小，10-近焦距，11-远焦距
+        Map<String,Object> map = new HashMap<>();
+        map.put("id",cameraBean.getId());
+        if (position==-1){
+//            map.put("direction",0);
+//            mPresenter.shopControl(map);
+        }if (position==0){
+            map.put("direction",0);
+            mPresenter.shopControl(map);
+        }if (position==1){
+            map.put("direction",3);
+            mPresenter.shopControl(map);
+        }if (position==2){
+            map.put("direction",1);
+            mPresenter.shopControl(map);
+        }if (position==3){
+            map.put("direction",2);
+            mPresenter.shopControl(map);
+        }else if (position==-2){
+            map.put("direction",0);
+            mPresenter.shopControl(map);
+        }
     }
 
     @Override
@@ -124,25 +162,6 @@ public class VideoActivity extends MyBaseActivity {
 
         //停止播放
         playerUi.stopPlay();
-    }
-
-    void getData() {
-        RxNetUtils.request(getCApi(ApiService.class).getYsConfig(), new RequestObserver<JsonT<YsConfig>>(this) {
-            @Override
-            protected void onSuccess(JsonT<YsConfig> data) {
-                if (data.isSuccess()) {
-                    initVideo(data.getData());
-                } else {
-
-                }
-            }
-
-            @Override
-            protected void onFail2(JsonT<YsConfig> userInfoJsonT) {
-                super.onFail2(userInfoJsonT);
-                showToast(userInfoJsonT.getMessage());
-            }
-        }, null);
     }
 
     void initVideo(YsConfig ysConfig) {
@@ -162,5 +181,16 @@ public class VideoActivity extends MyBaseActivity {
             case R.id.video_cut:
                 break;
         }
+    }
+
+
+    @Override
+    public void showYsConfig(YsConfig ysConfig) {
+        initVideo(ysConfig);
+    }
+
+    @Override
+    public void showIntent() {
+
     }
 }

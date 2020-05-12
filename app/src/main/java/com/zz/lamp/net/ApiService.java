@@ -143,6 +143,12 @@ public interface ApiService {
     @GET("/app/light/alarm/getLightAlarmById")
     Observable<JsonT<AlarmBean>> getLightAlarmById(@QueryMap Map<String, Object> params);
 
+    @GET("/app/carame/device/startControl")
+    Observable<JsonT> startControl(@QueryMap Map<String, Object> params);
+
+    @GET("/app/carame/device/stopControl")
+    Observable<JsonT> stopControl(@QueryMap Map<String, Object> params);
+
     @GET("/app/light/enclosure/base64/{type}/{modelId}")
     Observable<JsonT<List<String>>> getImageBase64(@Path("type") String type,@Path("modelId") String modelId);
 
