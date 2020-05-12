@@ -110,15 +110,17 @@ public class VideoActivity extends MyBaseActivity<Contract.IsetVideoControlPrese
             }
         });
         mPresenter.getYsConfig();
-        int lastPosition=100;
+        final int[] lastPosition = {100};
         dlRmv.setOnMenuTouchListener(new OnMenuTouchListener() {
             @Override
             public void OnTouch(MotionEvent event,int position) {
-              if(lastPosition == position)  {
+              if(lastPosition[0] == position)  {
                   return;
               }else {
-                    control(position);
+                  control(position);
+
               }
+              lastPosition[0] = position;
                 LogUtils.v("sj--",position+"");
             }
         });
