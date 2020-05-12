@@ -51,7 +51,7 @@ public class VideoActivity extends MyBaseActivity<Contract.IsetVideoControlPrese
     ImageView videoAdd;
     @BindView(R.id.video_cut)
     ImageView videoCut;
-
+   int lastPosition = 100;
     @Override
     protected int getContentView() {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
@@ -110,17 +110,16 @@ public class VideoActivity extends MyBaseActivity<Contract.IsetVideoControlPrese
             }
         });
         mPresenter.getYsConfig();
-        final int[] lastPosition = {100};
         dlRmv.setOnMenuTouchListener(new OnMenuTouchListener() {
             @Override
             public void OnTouch(MotionEvent event,int position) {
-              if(lastPosition[0] == position)  {
+              if(lastPosition == position)  {
                   return;
               }else {
                   control(position);
 
               }
-              lastPosition[0] = position;
+              lastPosition = position;
                 LogUtils.v("sj--",position+"");
             }
         });
