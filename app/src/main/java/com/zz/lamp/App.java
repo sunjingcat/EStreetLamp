@@ -40,7 +40,7 @@ public class App extends BaseApplication {
 
         SDKInitializer.setCoordType(CoordType.BD09LL);
 
-        EZUIKit.initWithAppKey(this, "5edf4821985d4127ad7489b50b21b166");
+//        EZUIKit.initWithAppKey(this, "5edf4821985d4127ad7489b50b21b166");
 
         PushManager.getInstance().initialize(this);
         PushManager.getInstance().setDebugLogger(this, new IUserLoggerInterface() {
