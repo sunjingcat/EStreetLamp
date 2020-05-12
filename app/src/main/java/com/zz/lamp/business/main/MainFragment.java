@@ -3,6 +3,8 @@ package com.zz.lamp.business.main;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -94,7 +96,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 TabUtils.setTabSize(tab, 16);
-                if (overlays!=null){overlays.clear();}
+                clearMarkers();
                 getData(tab.getPosition());
             }
 
@@ -116,8 +118,8 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
             public boolean onMarkerClick(Marker marker) {
                 Bundle extraInfo = marker.getExtraInfo();
                 String id = extraInfo.getString("id");
-                int deviceKind = extraInfo.getInt("deviceKind",0);
-                switch (deviceKind){
+                int deviceKind = extraInfo.getInt("deviceKind", 0);
+                switch (deviceKind) {
                     case 1:
                         mPresenter.getTerminalData(id);
                         break;
@@ -159,6 +161,14 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
         bmapView.onPause();
     }
 
+    void clearMarkers() {
+        if (overlays != null && !overlays.isEmpty()) {
+            overlays.clear();
+            bmapView.invalidate();
+
+        }
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -168,7 +178,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (bmapView!=null) {
+        if (bmapView != null) {
             bmapView.onDestroy();
         }
     }
@@ -184,54 +194,77 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
     public void showResult(List<MapListBean> list) {
         addMarkers(list);
     }
-    List<Overlay> overlays;
-    void addMarkers(List<MapListBean> list) {
-        if (list==null||list.size()==0){
 
+    List<Overlay> overlays;
+    List<OverlayOptions> overlayOptions = new ArrayList<>();
+    List<MapListBean> mapListList = new ArrayList<>();
+    void addMarkers(List<MapListBean> list) {
+        if (list == null || list.size() == 0) {
+            return;
         }
-        try {
-            List<OverlayOptions> overlayOptions = new ArrayList<>();
-            for (MapListBean mapListBean : list) {
-                if (mapListBean.getLat()==0.0||mapListBean.getLng()==0.0)continue;
-                FutureTarget<Bitmap> target = Glide.with(this)
-                        .asBitmap()
-                        .load(CacheUtility.getURL()+mapListBean.getMarkerIconPath())
-                        .submit();
-                Bitmap bitmap1 = target.get();
-                if (bitmap1==null)return;
-                BitmapDescriptor bitmap = BitmapDescriptorFactory.fromBitmap(bitmap1);
-                LatLng point = new LatLng(mapListBean.getLat(), mapListBean.getLng());
-                Bundle bundle = new Bundle();
-                bundle.putString("id",mapListBean.getId());
-                bundle.putInt("deviceKind",mapListBean.getDeviceKind());
-                OverlayOptions option = new MarkerOptions()
-                        .extraInfo(bundle)
-                        .position(point)
-                        .icon(bitmap);
-                overlayOptions.add(option);
+        mapListList = list;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    for (MapListBean mapListBean : list) {
+                        if (mapListBean.getLat() == 0.0 || mapListBean.getLng() == 0.0) continue;
+                        FutureTarget<Bitmap> target = Glide.with(getActivity())
+                                .asBitmap()
+                                .load(CacheUtility.getURL() + mapListBean.getMarkerIconPath())
+                                .submit();
+                        Bitmap bitmap1 = target.get();
+                        if (bitmap1 == null) return;
+                        BitmapDescriptor bitmap = BitmapDescriptorFactory.fromBitmap(bitmap1);
+                        LatLng point = new LatLng(mapListBean.getLat(), mapListBean.getLng());
+                        Bundle bundle = new Bundle();
+                        bundle.putString("id", mapListBean.getId());
+                        bundle.putInt("deviceKind", mapListBean.getDeviceKind());
+                        OverlayOptions option = new MarkerOptions()
+                                .extraInfo(bundle)
+                                .position(point)
+                                .icon(bitmap);
+                        overlayOptions.add(option);
+                        if (overlayOptions.size()>0){
+                            mHandler.sendEmptyMessage(1);
+                        }
+                    }
+
+                } catch (Exception e) {
+                    clearMarkers();
+                }
             }
-            overlays = mBaiduMap.addOverlays(overlayOptions);
-            //比较选出集合中最大经纬度
-            AMapUtils.getMax(list);
-            //计算两个Marker之间的距离
-            AMapUtils.calculateDistance();
-            //根据距离判断地图级别
-            AMapUtils.getLevel(mBaiduMap);
-            //计算中心点经纬度，将其设为启动时地图中心
-            AMapUtils.setCenter(mBaiduMap);
-        }catch (Exception e){
-        }
+        }).start();
+
 
 
     }
 
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 1:
+                    if (overlayOptions==null)return;
+                    overlays = mBaiduMap.addOverlays(overlayOptions);
+                    AMapUtils.setMapZoom(mapListList, mBaiduMap);
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
+
+
     @Override
     public void showTerminalData(ConcentratorBean concentratorBean) {
-        startActivity(new Intent(getActivity(), InfoActivity.class).putExtra("TerminalInfo",concentratorBean));
+        startActivity(new Intent(getActivity(), InfoActivity.class).putExtra("TerminalInfo", concentratorBean));
     }
 
     @Override
     public void showLightDeviceData(LightDevice lightDevice) {
-        startActivity(new Intent(getActivity(), InfoActivity.class).putExtra("DeviceInfo",lightDevice));
+        startActivity(new Intent(getActivity(), InfoActivity.class).putExtra("DeviceInfo", lightDevice));
     }
 }

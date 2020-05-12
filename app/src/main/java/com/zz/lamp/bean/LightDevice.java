@@ -4,11 +4,11 @@ import java.io.Serializable;
 
 public class LightDevice implements Serializable {
     private  String deviceName;//	string	路灯控制器别名
-    private  String devicecAddr;//	string	路灯控制器地址
-    private  String   devicecCode;//	string	路灯控制器编号
-    private  Double  devicecLat;//	string	纬度
-    private  Double  devicecLng	;//string	经度
-    private  Integer   devicecType;//	integer	路灯类型
+    private  String deviceAddr;//	string	路灯控制器地址
+    private  String   deviceCode;//	string	路灯控制器编号
+    private  Double  deviceLat;//	string	纬度
+    private  Double  deviceLng	;//string	经度
+    private  Integer   deviceType;//	integer	路灯类型
     private  String   id	;//integer	主键id
     private  String lightAuxiliaryPower;//	number	辅灯额定功率(W)
     private  String  lightAuxiliaryPowerLimit;//	number	辅灯功率阈值(W)
@@ -39,26 +39,27 @@ public class LightDevice implements Serializable {
         return deviceName;
     }
 
-    public String getDevicecAddr() {
-        return devicecAddr;
+    public String getDeviceAddr() {
+        return deviceAddr;
     }
 
-    public String getDevicecCode() {
-        return devicecCode;
+    public String getDeviceCode() {
+        return deviceCode;
     }
 
-    public Double getDevicecLat() {
-        if (devicecLat==null)return 0.0;
-        return devicecLat;
+    public Double getDeviceLat() {
+        if (deviceLat==null)return 0.0;
+        return deviceLat;
     }
 
-    public Double getDevicecLng() {
-        if (devicecLng==null)return 0.0;
-        return devicecLng;
+    public Double getDeviceLng() {
+        if (deviceLng==null)return 0.0;
+        return deviceLng;
     }
 
-    public Integer getDevicecType() {
-        return devicecType;
+    public Integer getDeviceType() {
+        if (deviceType==null) return 0;
+        return deviceType;
     }
 
     public String getId() {

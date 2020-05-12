@@ -88,9 +88,9 @@ public class LightDetailActivity extends MyBaseActivity {
     public void showIntent(LightDevice lightDevice) {
         if (lightDevice == null) return;
         mlist.clear();
-        mlist.add(new LightDetailBean("路灯控制器地址",lightDevice.getDevicecAddr()+""));
+        mlist.add(new LightDetailBean("路灯控制器地址",lightDevice.getDeviceAddr()+""));
         mlist.add(new LightDetailBean("支路",lightDevice.getLineName()+""));
-        mlist.add(new LightDetailBean("路灯控制器编号",lightDevice.getDevicecCode()+""));
+        mlist.add(new LightDetailBean("路灯控制器编号",lightDevice.getDeviceCode()+""));
         mlist.add(new LightDetailBean("路灯控制器别名",lightDevice.getDeviceName()+""));
         mlist.add(new LightDetailBean("安装时间",lightDevice.getLightInstallTime()+""));
 
@@ -99,12 +99,12 @@ public class LightDetailActivity extends MyBaseActivity {
         mlist.add(new LightDetailBean("路杆高度",lightDevice.getLightPoleHeight()+""));
         mlist.add(new LightDetailBean("灯头类型",lightDevice.getLightType()+""));
 
-        mlist.add(new LightDetailBean("路灯类型",lightDevice.getDevicecType()+""));
+        mlist.add(new LightDetailBean("路灯类型",lightDevice.getDeviceType()+""));
         mlist.add(new LightDetailBean("主灯类型",lightDevice.getLightMainTypeName()+""));
         mlist.add(new LightDetailBean("主灯额定功率(W)",lightDevice.getLightMainPower()+""));
         mlist.add(new LightDetailBean("主灯功率阈值(W)",lightDevice.getLightMainPowerLimit()+""));
 
-         if (lightDevice.getDevicecType()==2){
+         if (lightDevice.getDeviceType()==2){
              mlist.add(new LightDetailBean("辅灯类型",lightDevice.getLightAuxiliaryTypeName()+""));
              mlist.add(new LightDetailBean("辅灯额定功率(W)",lightDevice.getLightAuxiliaryPower()+""));
              mlist.add(new LightDetailBean("辅灯功率阈值(W)",lightDevice.getLightAuxiliaryPowerLimit()+""));

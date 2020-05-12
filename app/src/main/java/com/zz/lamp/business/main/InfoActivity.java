@@ -58,8 +58,8 @@ public class InfoActivity extends Activity {
         LightDevice deviceInfo = (LightDevice) getIntent().getSerializableExtra("DeviceInfo");
         if (deviceInfo != null) {
             showIntent(deviceInfo);
-            lat = deviceInfo.getDevicecLat();
-            lon = deviceInfo.getDevicecLng();
+            lat = deviceInfo.getDeviceLat();
+            lon = deviceInfo.getDeviceLng();
         }
         if (terminalInfo != null) {
             showIntent(terminalInfo);
@@ -93,9 +93,9 @@ public class InfoActivity extends Activity {
         if (lightDevice == null) return;
         mlist.clear();
         List<LightDetailBean> list = new ArrayList<>();
-        list.add(new LightDetailBean("路灯控制器地址", lightDevice.getDevicecAddr() + ""));
+        list.add(new LightDetailBean("路灯控制器地址", lightDevice.getDeviceAddr() + ""));
         list.add(new LightDetailBean("支路", lightDevice.getLineName() + ""));
-        list.add(new LightDetailBean("路灯控制器编号", lightDevice.getDevicecCode() + ""));
+        list.add(new LightDetailBean("路灯控制器编号", lightDevice.getDeviceCode() + ""));
         list.add(new LightDetailBean("路灯控制器别名", lightDevice.getDeviceName() + ""));
         list.add(new LightDetailBean("安装时间", lightDevice.getLightInstallTime() + ""));
 
@@ -104,12 +104,12 @@ public class InfoActivity extends Activity {
         list.add(new LightDetailBean("路杆高度", lightDevice.getLightPoleHeight() + ""));
         list.add(new LightDetailBean("灯头类型", lightDevice.getLightType() + ""));
 
-        list.add(new LightDetailBean("路灯类型", lightDevice.getDevicecType() + ""));
+        list.add(new LightDetailBean("路灯类型", lightDevice.getDeviceType() + ""));
         list.add(new LightDetailBean("主灯类型", lightDevice.getLightMainTypeName() + ""));
         list.add(new LightDetailBean("主灯额定功率(W)", lightDevice.getLightMainPower() + ""));
         list.add(new LightDetailBean("主灯功率阈值(W)", lightDevice.getLightMainPowerLimit() + ""));
 
-        if (lightDevice.getDevicecType() == 2) {
+        if (lightDevice.getDeviceType() == 2) {
             list.add(new LightDetailBean("辅灯类型", lightDevice.getLightAuxiliaryTypeName() + ""));
             list.add(new LightDetailBean("辅灯额定功率(W)", lightDevice.getLightAuxiliaryPower() + ""));
             list.add(new LightDetailBean("辅灯功率阈值(W)", lightDevice.getLightAuxiliaryPowerLimit() + ""));

@@ -27,7 +27,7 @@ public class LampAdapter extends BaseQuickAdapter<LightDevice, BaseViewHolder> {
     protected void convert(BaseViewHolder holper, final LightDevice item) {
 //        GlideUtils.loadImage(mContext, item, (ImageView) holper.getView(R.id.item_approval_icon));
         holper.setText(R.id.item_entry_name,item.getDeviceName());
-        holper.setText(R.id.item_entry_num,item.getDevicecAddr());
+        holper.setText(R.id.item_entry_num,item.getDeviceAddr());
 
     }
 

@@ -12,6 +12,7 @@ import com.zz.lamp.bean.MapListBean;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 //https://blog.csdn.net/shilidianshoumuren/article/details/54847692
 public class AMapUtils {
     /**
@@ -64,6 +65,7 @@ public class AMapUtils {
     private static double minLatitude;
     private static double maxLongitude;
     private static double minLongitude;
+
     public static void getMax(List<MapListBean> list) {
         List<Double> latitudeList = new ArrayList<Double>();
         List<Double> longitudeList = new ArrayList<Double>();
@@ -84,15 +86,17 @@ public class AMapUtils {
      * 计算两个Marker之间的距离
      */
     private static double distance;
+
     public static void calculateDistance() {
         distance = GeoHasher.GetDistance(maxLatitude, maxLongitude, minLatitude, minLongitude);
     }
 
     /**
-     *根据距离判断地图级别
+     * 根据距离判断地图级别
      */
     private static float level;
     private static LatLng center;
+
     public static void getLevel(BaiduMap mBaiduMap) {
         int zoom[] = {10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 1000, 2000, 25000, 50000, 100000, 200000, 500000, 1000000, 2000000};
         for (int i = 0; i < zoom.length; i++) {
@@ -105,6 +109,7 @@ public class AMapUtils {
             }
         }
     }
+
     /**
      * 计算中心点经纬度，将其设为启动时地图中心
      */
@@ -112,5 +117,17 @@ public class AMapUtils {
         center = new LatLng((maxLatitude + minLatitude) / 2, (maxLongitude + minLongitude) / 2);
         MapStatusUpdate status1 = MapStatusUpdateFactory.newLatLng(center);
         mBaiduMap.animateMapStatus(status1, 500);
+    }
+
+    public static void setMapZoom(List<MapListBean> list, BaiduMap mBaiduMap) {
+
+        //比较选出集合中最大经纬度
+        getMax(list);
+        //计算两个Marker之间的距离
+        calculateDistance();
+        //根据距离判断地图级别
+        getLevel(mBaiduMap);
+        //计算中心点经纬度，将其设为启动时地图中心
+        setCenter(mBaiduMap);
     }
 }
