@@ -133,20 +133,24 @@ public class VideoActivity extends MyBaseActivity<Contract.IsetVideoControlPrese
         map.put("id",cameraBean.getId());
         if (position==-1){
 //            map.put("direction",0);
-//            mPresenter.shopControl(map);
+//            mPresenter.startControl(map);
         }if (position==0){
             map.put("direction",0);
-            mPresenter.shopControl(map);
+            LogUtils.v("sj----上");
         }if (position==1){
+            LogUtils.v("sj----右");
             map.put("direction",3);
-            mPresenter.shopControl(map);
+            mPresenter.startControl(map);
         }if (position==2){
+            LogUtils.v("sj----下");
             map.put("direction",1);
-            mPresenter.shopControl(map);
+            mPresenter.startControl(map);
         }if (position==3){
+            LogUtils.v("sj----左");
             map.put("direction",2);
-            mPresenter.shopControl(map);
+            mPresenter.startControl(map);
         }else if (position==-2){
+            LogUtils.v("sj----停");
             map.put("direction",0);
             mPresenter.shopControl(map);
         }
