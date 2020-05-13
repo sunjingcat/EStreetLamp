@@ -51,7 +51,8 @@ public class VideoActivity extends MyBaseActivity<Contract.IsetVideoControlPrese
     ImageView videoAdd;
     @BindView(R.id.video_cut)
     ImageView videoCut;
-   int lastPosition = 100;
+    int lastPosition = 100;
+
     @Override
     protected int getContentView() {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
@@ -112,46 +113,82 @@ public class VideoActivity extends MyBaseActivity<Contract.IsetVideoControlPrese
         mPresenter.getYsConfig();
         dlRmv.setOnMenuTouchListener(new OnMenuTouchListener() {
             @Override
-            public void OnTouch(MotionEvent event,int position) {
-              if(lastPosition == position)  {
-                  return;
-              }else {
-                  control(position);
+            public void OnTouch(MotionEvent event, int position) {
+                if (lastPosition == position) {
+                    return;
+                } else {
+                    control(position);
 
-              }
-              lastPosition = position;
-                LogUtils.v("sj--",position+"");
+                }
+                lastPosition = position;
+                LogUtils.v("sj--", position + "");
+            }
+        });
+        videoAdd.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        control(8);
+                        lastPosition = 8;
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        control(-2);
+                        lastPosition = -2;
+                        break;
+                }
+                return true;
+            }
+        });
+        videoCut.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        control(9);
+                        lastPosition = 9;
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        control(-2);
+                        lastPosition = -2;
+                        break;
+                }
+                return true;
             }
         });
     }
-    private void control(int position){
-       if (cameraBean==null){
-           return;
-       }
+
+    private void control(int position) {
+        if (cameraBean == null) {
+            return;
+        }
 //        操作命令：0-上，1-下，2-左，3-右，4-左上，5-左下，6-右上，7-右下，8-放大，9-缩小，10-近焦距，11-远焦距
-        Map<String,Object> map = new HashMap<>();
-        map.put("id",cameraBean.getId());
-        if (position==-1){
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", cameraBean.getId());
+        if (position == -1) {
 //            map.put("direction",0);
 //            mPresenter.startControl(map);
-        }if (position==0){
-            map.put("direction",0);
+        }
+        if (position == 0) {
+            map.put("direction", 0);
             LogUtils.v("sj----上");
-        }if (position==1){
+        }
+        if (position == 1) {
             LogUtils.v("sj----右");
-            map.put("direction",3);
+            map.put("direction", 3);
             mPresenter.startControl(map);
-        }if (position==2){
+        }
+        if (position == 2) {
             LogUtils.v("sj----下");
-            map.put("direction",1);
+            map.put("direction", 1);
             mPresenter.startControl(map);
-        }if (position==3){
+        }
+        if (position == 3) {
             LogUtils.v("sj----左");
-            map.put("direction",2);
+            map.put("direction", 2);
             mPresenter.startControl(map);
-        }else if (position==-2){
-            LogUtils.v("sj----停");
-            map.put("direction",0);
+        } else if (position == -2) {
+            map.put("direction", lastPosition);
             mPresenter.shopControl(map);
         }
     }
@@ -182,6 +219,7 @@ public class VideoActivity extends MyBaseActivity<Contract.IsetVideoControlPrese
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.video_add:
+
                 break;
             case R.id.video_cut:
                 break;
