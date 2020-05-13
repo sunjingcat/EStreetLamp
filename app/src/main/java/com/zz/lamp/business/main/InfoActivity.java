@@ -1,6 +1,7 @@
 package com.zz.lamp.business.main;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,8 @@ import com.zz.lamp.R;
 import com.zz.lamp.bean.ConcentratorBean;
 import com.zz.lamp.bean.LightDetailBean;
 import com.zz.lamp.bean.LightDevice;
+import com.zz.lamp.business.control.LigitDeviceControlActivity;
+import com.zz.lamp.business.control.TerminalControlActivity;
 import com.zz.lamp.business.entry.adapter.LightDetailAdapter;
 import com.zz.lamp.business.main.adapter.DetailAdapter;
 import com.zz.lamp.utils.LogUtils;
@@ -45,7 +48,8 @@ public class InfoActivity extends Activity {
     DetailAdapter adapter;
     Double lat;
     Double lon;
-
+    ConcentratorBean terminalInfo;
+    LightDevice deviceInfo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,8 +58,8 @@ public class InfoActivity extends Activity {
         infoRv.setLayoutManager(new LinearLayoutManager(this));
         adapter = new DetailAdapter(R.layout.item_detail, mlist);
         infoRv.setAdapter(adapter);
-        ConcentratorBean terminalInfo = (ConcentratorBean) getIntent().getSerializableExtra("TerminalInfo");
-        LightDevice deviceInfo = (LightDevice) getIntent().getSerializableExtra("DeviceInfo");
+         terminalInfo = (ConcentratorBean) getIntent().getSerializableExtra("TerminalInfo");
+         deviceInfo = (LightDevice) getIntent().getSerializableExtra("DeviceInfo");
         if (deviceInfo != null) {
             showIntent(deviceInfo);
             lat = deviceInfo.getDeviceLat();
@@ -81,7 +85,12 @@ public class InfoActivity extends Activity {
                 }
                 break;
             case R.id.btn_control:
-
+                if (deviceInfo != null) {
+                    startActivity(new Intent(this, LigitDeviceControlActivity.class).putExtra("terminalId", deviceInfo.getTerminalId()));
+                }
+                if (terminalInfo != null) {
+                    startActivity(new Intent(this, TerminalControlActivity.class).putExtra("terminalId",terminalInfo.getId()));
+                }
                 break;
             case R.id.close:
                 finish();

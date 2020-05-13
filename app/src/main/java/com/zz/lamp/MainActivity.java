@@ -6,6 +6,7 @@ import android.view.KeyEvent;
 import android.view.View;
 
 import com.zz.lamp.base.MyBaseActivity;
+import com.zz.lamp.utils.UpdateManager;
 import com.zz.lib.core.http.utils.ToastUtils;
 import com.zz.lib.core.ui.mvp.BasePresenter;
 
@@ -29,6 +30,7 @@ public class MainActivity extends MyBaseActivity {
     @Override
     protected void initView() {
         ButterKnife.bind(this);
+        new UpdateManager(this).checkUpdate();
     }
 
     @Override

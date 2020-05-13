@@ -5,8 +5,8 @@ package com.zz.lamp.bean;
  */
 
 public class Version {
-    private String version_name;//1.000.002,
-    private int version_code;//1,
+    private String versionName;//1.000.002,
+    private int versionCode;//1,
     private int necessary;//1,
     private String download;//http;////www.topbtch.com/download,
     private String changes;//1.增加版本检测<br> 2.优化K线
@@ -21,19 +21,19 @@ public class Version {
     }
 
     public String getVersion_name() {
-        return version_name;
+        return versionName;
     }
 
     public void setVersion_name(String version_name) {
-        this.version_name = version_name;
+        this.versionName = version_name;
     }
 
     public int getVersion_code() {
-        return version_code;
+        return versionCode;
     }
 
     public void setVersion_code(int version_code) {
-        this.version_code = version_code;
+        this.versionCode = version_code;
     }
 
     public int getNecessary() {

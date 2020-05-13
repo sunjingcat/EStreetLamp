@@ -41,6 +41,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import static com.zz.lamp.net.RxNetUtils.getApi;
+import static com.zz.lamp.net.RxNetUtils.getCApi;
 
 /**
  * 检查是否有更新
@@ -145,7 +146,7 @@ public class UpdateManager {
 
     private void updateVersion() {
         //网络请求
-        RxNetUtils.request(getApi(ApiService.class).getVersion(""), new RequestObserver<JsonT<Version>>() {
+        RxNetUtils.request(getCApi(ApiService.class).getVersion(getVersionCode()+""), new RequestObserver<JsonT<Version>>() {
             @Override
             protected void onSuccess(JsonT<Version> json) {
                 if (json.isSuccess()) {
