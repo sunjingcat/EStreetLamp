@@ -33,6 +33,7 @@ public class AlarmBean implements MultiItemEntity {
     private String  alarmDegreeColor;// 位于202004200047的灯控器发生辅灯损坏故障.
 
     public String getAlarmDegreeColor() {
+        if (alarmDegreeColor==null)return "#cecece";
         return alarmDegreeColor;
     }
 

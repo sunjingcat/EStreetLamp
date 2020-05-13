@@ -149,7 +149,7 @@ public class UpdateManager {
         RxNetUtils.request(getCApi(ApiService.class).getVersion(getVersionCode()+""), new RequestObserver<JsonT<Version>>() {
             @Override
             protected void onSuccess(JsonT<Version> json) {
-                if (json.isSuccess()) {
+                if (json.isSuccess()&&json.getData()!=null) {
                     if (json.getData().getVersion_code() > getVersionCode()) {
                         if (!TextUtils.isEmpty(json.getData().getDownload())) {
                             apkURL = json.getData().getDownload();
