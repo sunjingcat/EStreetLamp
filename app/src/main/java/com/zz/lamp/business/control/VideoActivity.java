@@ -165,6 +165,8 @@ public class VideoActivity extends MyBaseActivity<Contract.IsetVideoControlPrese
 //        操作命令：0-上，1-下，2-左，3-右，4-左上，5-左下，6-右上，7-右下，8-放大，9-缩小，10-近焦距，11-远焦距
         Map<String, Object> map = new HashMap<>();
         map.put("id", cameraBean.getId());
+        map.put("channelNo", cameraBean.getChannelNo());
+        map.put("deviceSerial", cameraBean.getSeriesNumber());
         if (position == -1) {
 //            map.put("direction",0);
 //            mPresenter.startControl(map);
