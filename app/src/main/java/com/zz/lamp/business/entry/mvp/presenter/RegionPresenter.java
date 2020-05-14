@@ -56,4 +56,44 @@ public class RegionPresenter extends MyBasePresenterImpl<Contract.IGetRegionlVie
             }
         },mDialog);
     }
+
+    @Override
+    public void deleteArea(String id) {
+        RxNetUtils.request(getCApi(ApiService.class).checkDelete(id), new RequestObserver<JsonT>(this) {
+            @Override
+            protected void onSuccess(JsonT data) {
+                if (data.isSuccess()) {
+                    delete(id);
+                }else {
+
+                }
+            }
+
+            @Override
+            protected void onFail2(JsonT userInfoJsonT) {
+                super.onFail2(userInfoJsonT);
+                view.showToast(userInfoJsonT.getMessage());
+            }
+        },mDialog);
+
+    }
+
+    public void delete(String id) {
+        RxNetUtils.request(getCApi(ApiService.class).areaDelete(id), new RequestObserver<JsonT>(this) {
+            @Override
+            protected void onSuccess(JsonT data) {
+                if (data.isSuccess()) {
+                    view.showDeleteIntent();
+                }else {
+
+                }
+            }
+
+            @Override
+            protected void onFail2(JsonT userInfoJsonT) {
+                super.onFail2(userInfoJsonT);
+                view.showToast(userInfoJsonT.getMessage());
+            }
+        },mDialog);
+    }
 }

@@ -74,12 +74,14 @@ public class Contract {
         void getAreaList(Map<String, Object> params);
 
         void postArea(Map<String, Object> params);
+        void deleteArea(String id);
     }
 
     public interface IGetRegionlView extends BaseView {
         void showIntent(List<RegionExpandItem> list);
 
         void showPostIntent();
+        void showDeleteIntent();
     }
 
     public interface IsetLampPresenter extends BasePresenter {

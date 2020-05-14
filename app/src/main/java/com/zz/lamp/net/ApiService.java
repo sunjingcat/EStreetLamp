@@ -31,6 +31,7 @@ import java.util.Map;
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -162,6 +163,12 @@ public interface ApiService {
 
     @GET("/app/light/map/lightDevice/{id}")
     Observable<JsonT<LightDevice>> getMapLampDetail(@Path("id") String id);
+
+    @GET("/app/light/area/checkDelete/{id}")
+    Observable<JsonT> checkDelete(@Path("id") String id);
+
+    @DELETE("/app/light/area/{id}  ")
+    Observable<JsonT> areaDelete(@Path("id") String id);
 
 
     @POST( "/app/light/area/")

@@ -16,8 +16,10 @@ import java.io.Serializable;
 
 public class ThirdNodeProvider extends BaseNodeProvider implements Serializable {
     RegionAdapter.OnProviderOnClick onProviderOnClick;
-    public ThirdNodeProvider(RegionAdapter.OnProviderOnClick onProviderOnClick) {
+    int isEdit;
+    public ThirdNodeProvider(int isEdit,RegionAdapter.OnProviderOnClick onProviderOnClick) {
         this.onProviderOnClick = onProviderOnClick;
+        this.isEdit = isEdit;
     }
     @Override
     public int getItemViewType() {
@@ -39,20 +41,42 @@ public class ThirdNodeProvider extends BaseNodeProvider implements Serializable 
                 getAdapter().expandOrCollapse(baseViewHolder.getAdapterPosition());
             }
         });
-        baseViewHolder.getView(R.id.region_click).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onProviderOnClick.onItemOnclick(baseNode,0);
-            }
-        });
+        if (isEdit == 1) {
+            baseViewHolder.getView(R.id.region_add).setVisibility(View.VISIBLE);
+            baseViewHolder.getView(R.id.region_edit).setVisibility(View.VISIBLE);
+            baseViewHolder.getView(R.id.region_delete).setVisibility(View.VISIBLE);
+        } else {
+            baseViewHolder.getView(R.id.region_add).setVisibility(View.GONE);
+            baseViewHolder.getView(R.id.region_edit).setVisibility(View.GONE);
+            baseViewHolder.getView(R.id.region_delete).setVisibility(View.GONE);
+        }
+
         baseViewHolder.getView(R.id.region_add).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onProviderOnClick.onItemOnclick(baseNode,1);
+                onProviderOnClick.onItemOnclick(baseNode, 1);
             }
         });
+        baseViewHolder.getView(R.id.region_edit).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onProviderOnClick.onItemOnclick(baseNode, 2);
+            }
+        });
+        baseViewHolder.getView(R.id.region_delete).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onProviderOnClick.onItemOnclick(baseNode, 3);
+            }
+        });
+
     }
+
     @Override
     public void onClick(@NotNull BaseViewHolder helper, @NotNull View view, BaseNode data, int position) {
+        if (isEdit == 0) {
+            onProviderOnClick.onItemOnclick(data, 0);
+        }
+
     }
 }

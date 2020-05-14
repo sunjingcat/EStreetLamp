@@ -32,26 +32,39 @@
         android:id="@+id/region_add"
         android:layout_width="42dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/color9C"
-        android:textSize="14dp"
+        android:background="@drawable/border_5_yellow"
+        android:gravity="center"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
-        android:gravity="center"
-        android:background="@drawable/border_5_yellow"
-        android:text="添加" />
+        android:text="添加"
+        android:textColor="@color/color9C"
+        android:textSize="14dp" />
 
     <TextView
-        android:id="@+id/region_click"
+        android:id="@+id/region_edit"
         android:layout_width="42dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/color9C"
-        android:textSize="14dp"
+        android:background="@drawable/border_5_yellow"
+        android:gravity="center"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
+        android:text="修改"
+        android:layout_marginLeft="8dp"
+        android:textColor="@color/color9C"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/region_delete"
+        android:layout_width="42dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_5_yellow"
         android:gravity="center"
-        android:layout_marginLeft="10dp"
-        android:background="@drawable/border_radius_5_yellow"
-        android:text="选择" />
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_marginLeft="8dp"
+        android:text="删除"
+        android:textColor="@color/color9C"
+        android:textSize="14dp" />
 
 
 </LinearLayout>
