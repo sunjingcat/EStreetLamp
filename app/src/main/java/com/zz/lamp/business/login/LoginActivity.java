@@ -10,6 +10,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.igexin.sdk.PushManager;
 import com.zz.lamp.App;
 import com.zz.lamp.HomeActivity;
 import com.zz.lamp.MainActivity;
@@ -117,6 +118,9 @@ public class LoginActivity extends MyBaseActivity<Contract.IsetLoginPresenter> i
     @Override
     public void showIntent() {
         showToast("登录成功");
+        String code = logCode.getText().toString();
+        PushManager.getInstance().turnOnPush(this);
+        PushManager.getInstance().bindAlias(this,code);
         finish();
         Intent intent = new Intent();
         intent.setClass(this, MainActivity.class);

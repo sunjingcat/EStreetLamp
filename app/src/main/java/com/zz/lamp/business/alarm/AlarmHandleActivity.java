@@ -70,6 +70,7 @@ public class AlarmHandleActivity extends MyBaseActivity<Contract.IsetAlarmAddPre
         rvImagesAnnex.setLayoutManager(new GridLayoutManager(this, 3));
         adapterAnnex = new ImageDeleteItemAdapter(this, imagesAnnex);
         rvImagesAnnex.setAdapter(adapterAnnex);
+        toolbarSubtitle.setVisibility(View.VISIBLE);
         adapterAnnex.setOnclick(new ImageDeleteItemAdapter.Onclick() {
             @Override
             public void onclickAdd(View v, int option) {

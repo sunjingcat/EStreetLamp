@@ -177,7 +177,7 @@ public class RegionActivity extends MyBaseActivity<Contract.IsetRegionPresenter>
 
     private void showInputDialog(BaseNode node) {
         InputDialog.Builder builder = new InputDialog.Builder(RegionActivity.this)
-                .setTitle("提示")
+                .setTitle("区域名")
                 .setMessage("")
                 .setNegativeButton("取消", new InputDialog.OnClickListener() {
                     @Override

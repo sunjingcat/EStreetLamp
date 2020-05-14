@@ -48,6 +48,8 @@
         android:background="#F7F8FF"
         android:textColor="#333333"
         android:layout_marginTop="10dp"
+        android:maxEms="30"
+        android:maxLength="15"
         android:layout_marginBottom="10dp"
         android:textSize="14sp" />
 

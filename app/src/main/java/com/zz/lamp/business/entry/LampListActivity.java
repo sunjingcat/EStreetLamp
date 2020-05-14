@@ -140,7 +140,7 @@ public class LampListActivity extends MyBaseActivity<Contract.IsetLampPresenter>
         lineTransformerRatio.setText(concentratorBean.getLineTransformerRatio() + "");
         alarmDelayedTime.setText(concentratorBean.getAlarmDelayedTime() + "");
         relayOnDelayedTime.setText(concentratorBean.getRelayOnDelayedTime() + "");
-        terminalLat.setText(concentratorBean.getTerminalLat() + "," + concentratorBean.getTerminalLng());
+//        terminalLat.setText(concentratorBean.getTerminalLat() + "," + concentratorBean.getTerminalLng());
     }
 
 

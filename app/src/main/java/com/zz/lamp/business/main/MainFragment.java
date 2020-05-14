@@ -1,17 +1,22 @@
 package com.zz.lamp.business.main;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 
@@ -70,6 +75,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
     @BindView(R.id.bmapView)
     MapView bmapView;
     private BaiduMap mBaiduMap;
+    private String searchValue;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -133,8 +139,30 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
                 return false;
             }
         });
-    }
+        mPresenter.getUserInfoData();
+        searchEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    //点击搜索的时候隐藏软键盘
+                    hideKeyboard(searchEdit);
+                    // 在这里写搜索的操作,一般都是网络请求数据
+                    searchValue = v.getText().toString().trim();
+                    clearMarkers();
+                    getData(tabDevice.getSelectedTabPosition());
 
+                    return true;
+                }
+
+                return false;
+            }
+        });
+    }
+    public void hideKeyboard(View view) {
+        InputMethodManager manager = (InputMethodManager) view.getContext()
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        manager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
     @Override
     public MapPresenter initPresenter() {
         return new MapPresenter(this);
@@ -153,6 +181,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
                 getActivity().startActivity(new Intent(getActivity(), MineActivity.class));
                 break;
             case R.id.search_click:
+
                 break;
         }
     }
@@ -188,6 +217,9 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
     void getData(int deviceKind) {
         Map<String, Object> map = new HashMap<>();
         map.put("deviceKind", deviceKind);
+        if (!TextUtils.isEmpty(searchValue)){
+            map.put("searchValue", searchValue);
+        }
         mPresenter.getData(map);
     }
 
@@ -249,7 +281,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
             super.handleMessage(msg);
             switch (msg.what) {
                 case 1:
-                    if (overlayOptions==null)return;
+                    if (overlayOptions==null||overlayOptions.size()==0)return;
                     overlays = mBaiduMap.addOverlays(overlayOptions);
                     AMapUtils.setMapZoom(mapListList, mBaiduMap);
                     break;

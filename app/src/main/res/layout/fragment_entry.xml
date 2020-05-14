@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="快速录入"
+            android:text="基础数据"
             android:textColor="@color/colorTextBlack33"
             android:textSize="18dp" />
 

@@ -359,7 +359,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
             showToast("请选择安装时间");
             return;
         }
-        params.put("lightInstallTime", lightInstallTime_ / 1000);
+        params.put("lightInstallTime", TimeUtils.getTime(lightInstallTime_,TimeUtils.DATE_FORMAT_DATE) );
 
         String lightPoleCode_ = lightPoleCode.getText().toString();
         if (TextUtils.isEmpty(lightPoleCode_)) {

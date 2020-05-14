@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 
+import com.igexin.sdk.PushManager;
 import com.troila.customealert.CustomDialog;
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseActivity;
@@ -90,6 +91,7 @@ public class MineActivity extends MyBaseActivity<Contract.IsetMineInfoPresenter>
         CacheUtility.clear();
         startActivity(new Intent(MineActivity.this, LoginActivity.class));
         EventBus.getDefault().post(new OutDateEvent());
+        PushManager.getInstance().turnOffPush(this);
         finish();
     }
     private CustomDialog customDialog;

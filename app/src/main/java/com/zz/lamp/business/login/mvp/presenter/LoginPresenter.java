@@ -1,5 +1,6 @@
 package com.zz.lamp.business.login.mvp.presenter;
 
+import com.igexin.sdk.PushManager;
 import com.zz.lamp.bean.UserInfo;
 import com.zz.lamp.bean.IpAdress;
 import com.zz.lamp.business.login.mvp.Contract;
@@ -30,6 +31,7 @@ public class LoginPresenter extends MyBasePresenterImpl<Contract.IGetLoginView> 
                     CacheUtility.saveURL(url);
                     CacheUtility.saveCode(jsonT.getData().getAuthcode());
                     view.setAuthCode(jsonT.getData());
+
                 }else {
 //                    view.showMessage(login_data.getMessage());
                 }
