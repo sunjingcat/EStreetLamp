@@ -74,6 +74,8 @@
                 android:text="录入集中器"/>
         </RelativeLayout>
     </LinearLayout>
+    <include layout="@layout/layout_search"
+        />
     <include layout="@layout/refresh_layout" />
 
 </LinearLayout>

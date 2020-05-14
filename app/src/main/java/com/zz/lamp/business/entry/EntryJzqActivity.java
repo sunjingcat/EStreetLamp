@@ -174,7 +174,7 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
         if (!TextUtils.isEmpty(terminalId)) {
             params.put("id", terminalId);
         }
-        if (TextUtils.isEmpty(areaId) || TextUtils.isEmpty(areaName)) {
+        if (TextUtils.isEmpty(areaId) ) {
             showToast("请选择区域");
             return;
         }
@@ -268,7 +268,7 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
 
     @Override
     public void showIntent() {
-        showToast("添加成功");
+        showToast("成功");
         setResult(RESULT_OK);
         finish();
     }

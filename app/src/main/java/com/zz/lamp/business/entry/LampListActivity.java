@@ -93,7 +93,6 @@ public class LampListActivity extends MyBaseActivity<Contract.IsetLampPresenter>
     protected void initView() {
         ButterKnife.bind(this);
         terminalId = getIntent().getStringExtra("terminalId");
-        mPresenter.getTerminalDetail(terminalId);
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.addItemDecoration(new RecycleViewDivider(this, LinearLayoutManager.VERTICAL));
         adapter = new LampAdapter(R.layout.item_entry_jzq, mlist);
@@ -111,6 +110,7 @@ public class LampListActivity extends MyBaseActivity<Contract.IsetLampPresenter>
     @Override
     protected void onResume() {
         super.onResume();
+        mPresenter.getTerminalDetail(terminalId);
         getData();
     }
 
