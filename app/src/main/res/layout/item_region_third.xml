@@ -9,7 +9,7 @@
     android:paddingBottom="10dp"
     android:background="@drawable/line_radius_10_light"
     android:paddingRight="12dp"
-    android:paddingLeft="32dp">
+    android:paddingLeft="52dp">
 
     <ImageView
         android:id="@+id/image_fold"

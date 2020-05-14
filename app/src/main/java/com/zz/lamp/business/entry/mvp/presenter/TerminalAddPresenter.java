@@ -37,6 +37,26 @@ public class TerminalAddPresenter extends MyBasePresenterImpl<Contract.IGetTermi
     }
 
     @Override
+    public void getTerminalDetail(String id) {
+        RxNetUtils.request(getCApi(ApiService.class).getTerminalDetail(id), new RequestObserver<JsonT<ConcentratorBean>>(this) {
+            @Override
+            protected void onSuccess(JsonT<ConcentratorBean> data) {
+                if (data.isSuccess()) {
+                    view.showTerminalDetail(data.getData());
+                }else {
+
+                }
+            }
+
+            @Override
+            protected void onFail2(JsonT<ConcentratorBean> userInfoJsonT) {
+                super.onFail2(userInfoJsonT);
+                view.showToast(userInfoJsonT.getMessage());
+            }
+        },mDialog);
+    }
+
+    @Override
     public void checkTerminalAddr(Map<String, Object> params) {
         RxNetUtils.request(getCApi(ApiService.class).checkTerminalAddr(params), new RequestObserver<JsonT>(this) {
             @Override
@@ -76,4 +96,42 @@ public class TerminalAddPresenter extends MyBasePresenterImpl<Contract.IGetTermi
         },mDialog);
     }
 
+    @Override
+    public void deleteTerminal(String ids) {
+        RxNetUtils.request(getCApi(ApiService.class).checkDeleteTerminal(ids), new RequestObserver<JsonT>(this) {
+            @Override
+            protected void onSuccess(JsonT data) {
+                if (data.isSuccess()) {
+                    delete(ids);
+                }else {
+
+                }
+            }
+
+            @Override
+            protected void onFail2(JsonT userInfoJsonT) {
+                super.onFail2(userInfoJsonT);
+                view.showToast(userInfoJsonT.getMessage());
+            }
+        },mDialog);
+    }
+
+    public void delete(String id) {
+        RxNetUtils.request(getCApi(ApiService.class).terminalDelete(id), new RequestObserver<JsonT>(this) {
+            @Override
+            protected void onSuccess(JsonT data) {
+                if (data.isSuccess()) {
+                    view.showDeleteIntent();
+                }else {
+
+                }
+            }
+
+            @Override
+            protected void onFail2(JsonT userInfoJsonT) {
+                super.onFail2(userInfoJsonT);
+                view.showToast(userInfoJsonT.getMessage());
+            }
+        },mDialog);
+    }
 }

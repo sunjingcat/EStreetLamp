@@ -25,14 +25,18 @@ public class Contract {
 
     public interface IsetTerminalAddPresenter extends BasePresenter {
         void postTerminal(Map<String, Object> params);
+        void getTerminalDetail(String id);
         void checkTerminalAddr(Map<String, Object> params);
         void checkTerminalName(Map<String, Object> params);
+        void deleteTerminal(String id);
     }
 
     public interface IGetTerminalAddView extends BaseView {
         void showIntent();
         void showCheckAddrIntent(JsonT jsonT);
         void showCheckNameIntent(JsonT jsonT);
+        void showTerminalDetail(ConcentratorBean concentratorBean);
+        void showDeleteIntent();
 
     }
 
@@ -110,5 +114,17 @@ public class Contract {
         void showUsableCode(String[] list);
 
         void showPostIntent();
+    }
+
+    public interface IsetLampDetailPresenter extends BasePresenter {
+        void getLightDetail(String id);
+
+        void deleteLight(String id);
+    }
+
+    public interface IGeLampDetailView extends BaseView {
+        void showDeleteIntent();
+
+        void showLightDetail(LightDevice concentratorBean);
     }
 }

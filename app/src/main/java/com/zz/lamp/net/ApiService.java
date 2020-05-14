@@ -167,8 +167,20 @@ public interface ApiService {
     @GET("/app/light/area/checkDelete/{id}")
     Observable<JsonT> checkDelete(@Path("id") String id);
 
-    @DELETE("/app/light/area/{id}  ")
+    @DELETE("/app/light/area/{id}")
     Observable<JsonT> areaDelete(@Path("id") String id);
+
+    @GET("/app/light/terminal/checkDelete")
+    Observable<JsonT> checkDeleteTerminal(@Query("ids") String ids);
+
+    @DELETE("app/light/terminal")
+    Observable<JsonT> terminalDelete(@Query("ids") String ids);
+
+    @GET("/app/light/lightDevice/checkDelete")
+    Observable<JsonT> checkDeleteLight(@Query("ids") String ids);
+
+    @DELETE("app/light/lightDevice")
+    Observable<JsonT> lightDelete(@Query("ids") String ids);
 
 
     @POST( "/app/light/area/")

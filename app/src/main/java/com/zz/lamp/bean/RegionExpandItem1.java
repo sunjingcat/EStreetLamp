@@ -19,7 +19,7 @@ public class RegionExpandItem1 extends BaseExpandNode {
     private List<RegionExpandItem2> childrens = new ArrayList<>();
 
 
-    public RegionExpandItem1(List<RegionExpandItem2> childrens) {
+    public RegionExpandItem1() {
 
         setExpanded(true);
     }

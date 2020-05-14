@@ -147,6 +147,7 @@ public class HomeActivity extends MyBaseActivity {
         init();
 
         setTabs(mainTablayout, this.getLayoutInflater(), TAB_TITLES, TAB_IMGS);
+
         mainAdapter = new MainTabViewPagerAdapter(getSupportFragmentManager());
         mainViewpager.setOffscreenPageLimit(TAB_FRAGMENTS.length - 1);
         mainViewpager.setAdapter(mainAdapter);
@@ -193,6 +194,15 @@ public class HomeActivity extends MyBaseActivity {
 
             }
         });
+        int tab = getIntent().getIntExtra("tab",0);
+        if (tab==1) {
+            mainTablayout.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mainTablayout.getTabAt(1).select();
+                }
+            }, 200);
+        }
     }
 
     @Override

@@ -230,9 +230,10 @@ public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCo
                 LogUtils.v("sj--",AMapUtils.calculateLineDistance(latLng, lastLngLat)+"");
                 if (lastLngLat!=null&&AMapUtils.calculateLineDistance(latLng,lastLngLat)>5) {
                     double v = AMapUtils.calculateLineDistance(latLng, lastLngLat);
-//                geoCoder.reverseGeoCode(new ReverseGeoCodeOption().location(latLng));
+                    geoCoder.reverseGeoCode(new ReverseGeoCodeOption().location(latLng));
+                    LogUtils.v("sj--",latLng.toString());
                 }
-                LogUtils.v("sj--",latLng.toString());
+
                 //拿到经纬度之后，就可以反地理编码获取地址信息了
                 //initGeoCoder(latLng)
                 lastLngLat = latLng;

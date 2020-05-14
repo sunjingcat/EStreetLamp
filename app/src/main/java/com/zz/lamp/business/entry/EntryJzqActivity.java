@@ -1,6 +1,8 @@
 package com.zz.lamp.business.entry;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
@@ -11,16 +13,28 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 
 import com.baidu.mapapi.search.core.PoiInfo;
+import com.chad.library.adapter.base.entity.node.BaseNode;
+import com.google.gson.Gson;
+import com.troila.customealert.CustomDialog;
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseActivity;
-import com.zz.lamp.business.map.SelectLocationActivity;
+import com.zz.lamp.bean.ConcentratorBean;
+import com.zz.lamp.bean.RegionExpandItem;
+import com.zz.lamp.bean.RegionExpandItem1;
+import com.zz.lamp.bean.RegionExpandItem2;
+import com.zz.lamp.bean.RegionExpandItem3;
 import com.zz.lamp.business.entry.mvp.Contract;
 import com.zz.lamp.business.entry.mvp.presenter.TerminalAddPresenter;
+import com.zz.lamp.business.map.SelectLocationActivity;
 import com.zz.lamp.net.JsonT;
+import com.zz.lamp.utils.LogUtils;
+import com.zz.lamp.utils.SoftKeyboardUtils;
 import com.zz.lib.commonlib.utils.ToolBarUtils;
 import com.zz.lib.commonlib.widget.SelectPopupWindows;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -66,7 +80,9 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
 
     double lat = 0.0;
     double lon = 0.0;
-
+    @BindView(R.id.delete)
+    TextView delete;
+    String terminalId;
     @Override
     protected int getContentView() {
         return R.layout.activity_entry_jzq;
@@ -80,6 +96,13 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
     @Override
     protected void initView() {
         ButterKnife.bind(this);
+        terminalId = getIntent().getStringExtra("terminalId");
+        if (!TextUtils.isEmpty(terminalId)) {
+            delete.setVisibility(View.VISIBLE);
+            mPresenter.getTerminalDetail(terminalId);
+        }else {
+            delete.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -88,11 +111,14 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
     }
 
 
-    @OnClick({R.id.toolbar_subtitle, R.id.tv_area, R.id.terminalType, R.id.lat})
+    @OnClick({R.id.toolbar_subtitle, R.id.tv_area, R.id.terminalType, R.id.lat, R.id.delete})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.toolbar_subtitle:
                 postData(1);
+                break;
+            case R.id.delete:
+                showDeleteDialog();
                 break;
             case R.id.tv_area:
                 startActivityForResult(new Intent(EntryJzqActivity.this, RegionActivity.class), 1001);
@@ -144,6 +170,10 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
 
     void postData(int check) {
         Map<String, Object> params = new HashMap<>();
+        String terminalId = getIntent().getStringExtra("terminalId");
+        if (!TextUtils.isEmpty(terminalId)) {
+            params.put("id", terminalId);
+        }
         if (TextUtils.isEmpty(areaId) || TextUtils.isEmpty(areaName)) {
             showToast("请选择区域");
             return;
@@ -161,9 +191,9 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
             return;
         }
         params.put("terminalAddr", addr);
-        if (check ==1){
+        if (check == 1) {
             Map<String, Object> map = new HashMap<>();
-            map.put("terminalAddr",addr);
+            map.put("terminalAddr", addr);
             mPresenter.checkTerminalAddr(map);
             return;
         }
@@ -173,9 +203,9 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
             return;
         }
         params.put("terminalName", name);
-        if (check == 2){
+        if (check == 2) {
             Map<String, Object> map = new HashMap<>();
-            map.put("terminalName",name);
+            map.put("terminalName", name);
             mPresenter.checkTerminalName(map);
             return;
         }
@@ -245,10 +275,10 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
 
     @Override
     public void showCheckAddrIntent(JsonT jsonT) {
-        if (!jsonT.isSuccess()){
+        if (!jsonT.isSuccess()) {
             tv_terminalAddr.setTextColor(getResources().getColor(R.color.red_e8));
             showToast(jsonT.getMessage());
-        }else {
+        } else {
             tv_terminalAddr.setTextColor(getResources().getColor(R.color.colorTextBlack33));
             postData(2);
         }
@@ -256,15 +286,66 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
 
     @Override
     public void showCheckNameIntent(JsonT jsonT) {
-        if (!jsonT.isSuccess()){
+        if (!jsonT.isSuccess()) {
             tv_terminalName.setTextColor(getResources().getColor(R.color.red_e8));
             showToast(jsonT.getMessage());
-        }else {
+        } else {
             tv_terminalName.setTextColor(getResources().getColor(R.color.colorTextBlack33));
             postData(0);
         }
     }
 
-
-
+    @Override
+    public void showTerminalDetail(ConcentratorBean concentratorBean) {
+        if (concentratorBean == null) return;
+        LogUtils.v(concentratorBean.toString());
+        areaId = concentratorBean.getAreaId();
+        tvArea.setText(concentratorBean.getAreaName() + "");
+        terminalAddr.setText(concentratorBean.getTerminalAddr() + "");
+        terminalName.setText(concentratorBean.getTerminalName() + "");
+        loopCount.setText(concentratorBean.getLoopCount() + "");
+        lineCount.setText(concentratorBean.getLineCount() + "");
+        loopTransformerRatio.setText(concentratorBean.getLoopTransformerRatio() + "");
+        lineTransformerRatio.setText(concentratorBean.getLineTransformerRatio() + "");
+        alarmDelayedTime.setText(concentratorBean.getAlarmDelayedTime() + "");
+        relayOnDelayedTime.setText(concentratorBean.getRelayOnDelayedTime() + "");
+        lat = concentratorBean.getTerminalLat();
+        lon = concentratorBean.getTerminalLng();
+        tv_lat.setText(concentratorBean.getTerminalLat() + "," + concentratorBean.getTerminalLng());
+    }
+    private CustomDialog customDialog;
+    private void showDeleteDialog() {
+        CustomDialog.Builder builder = new com.troila.customealert.CustomDialog.Builder(this)
+                .setTitle("提示")
+                .setMessage("确定删除集中器")
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+//                        List<String> ids = new ArrayList<>();
+//                        ids.add(terminalId);
+//                        String s = new Gson().toJson(ids);
+                        mPresenter.deleteTerminal(terminalId);
+                    }
+                });
+        customDialog = builder.create();
+        customDialog.show();
+    }
+    @Override
+    public void showDeleteIntent() {
+        showToast("成功");
+        finish();
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (customDialog != null && customDialog.isShowing()) {
+            customDialog.dismiss();
+        }
+    }
 }

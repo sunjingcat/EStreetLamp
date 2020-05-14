@@ -269,8 +269,7 @@ public class RegionActivity extends MyBaseActivity<Contract.IsetRegionPresenter>
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        selectNode = null;
-                        SoftKeyboardUtils.closeInoutDecorView(RegionActivity.this);
+
                     }
                 })
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {

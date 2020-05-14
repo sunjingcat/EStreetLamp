@@ -41,7 +41,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
      >
 
         <LinearLayout
@@ -474,8 +475,19 @@
                     android:hint="请选择" />
 
             </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
-
+    <TextView
+        android:id="@+id/delete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorEF"
+        android:text="删除"
+        android:gravity="center"
+        android:padding="8dp"
+        android:textSize="14dp"
+        android:textColor="@color/red_e8"
+        />
 
 </LinearLayout>

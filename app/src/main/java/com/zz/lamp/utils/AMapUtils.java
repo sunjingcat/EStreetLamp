@@ -24,7 +24,7 @@ public class AMapUtils {
      */
     public static double calculateLineDistance(LatLng start, LatLng end) {
         if ((start == null) || (end == null)) {
-            throw new IllegalArgumentException("非法坐标值，不能为null");
+            return 0.0;
         }
         double d1 = 0.01745329251994329D;
         double d2 = start.longitude;

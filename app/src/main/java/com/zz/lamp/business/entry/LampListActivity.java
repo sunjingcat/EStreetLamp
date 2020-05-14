@@ -32,6 +32,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -98,13 +99,19 @@ public class LampListActivity extends MyBaseActivity<Contract.IsetLampPresenter>
         adapter = new LampAdapter(R.layout.item_entry_jzq, mlist);
         rv.setAdapter(adapter);
         refreshLayout.setOnLoadMoreListener(this);
-        getData();
+
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
                 startActivity(new Intent(LampListActivity.this, LightDetailActivity.class).putExtra("lightId", mlist.get(position).getId()));
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getData();
     }
 
     @Override
@@ -144,11 +151,14 @@ public class LampListActivity extends MyBaseActivity<Contract.IsetLampPresenter>
     }
 
 
-    @OnClick({R.id.entry_line, R.id.entry_lamp, R.id.ll_show})
+    @OnClick({R.id.entry_line, R.id.entry_lamp, R.id.ll_show, R.id.toolbar_subtitle})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.toolbar_subtitle:
+                startActivity(new Intent(this, EntryJzqActivity.class).putExtra("terminalId", terminalId));
+                break;
             case R.id.entry_line:
-                startActivity(new Intent(this, LineActivity.class).putExtra("terminalId", terminalId).putExtra("shouldBack",1));
+                startActivity(new Intent(this, LineActivity.class).putExtra("terminalId", terminalId).putExtra("shouldBack", 1));
                 break;
             case R.id.ll_show:
                 if (llGone.getVisibility() == View.VISIBLE) {

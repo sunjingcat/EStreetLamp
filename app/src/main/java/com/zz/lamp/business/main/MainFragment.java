@@ -305,7 +305,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
     @Override
     public void showUserInfo(UserBasicBean userInfo) {
         if (!TextUtils.isEmpty(userInfo.getAvatar())) {
-            GlideUtils.loadCircleImage(getActivity(), userInfo.getAvatar(), main_mine);
+            GlideUtils.loadCircleImage(getActivity(), CacheUtility.getURL()+userInfo.getAvatar(), main_mine);
         }
     }
 }
