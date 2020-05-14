@@ -23,6 +23,7 @@ import com.zz.lamp.business.mine.mvp.presenter.MineInfoPresenter;
 import com.zz.lamp.net.OutDateEvent;
 import com.zz.lamp.utils.GlideUtils;
 import com.zz.lib.commonlib.utils.CacheUtility;
+import com.zz.lib.commonlib.utils.ToolBarUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -69,7 +70,7 @@ public class MineActivity extends MyBaseActivity<Contract.IsetMineInfoPresenter>
 
     @Override
     protected void initToolBar() {
-
+        ToolBarUtils.getInstance().setNavigation(toolbar);
     }
 
 

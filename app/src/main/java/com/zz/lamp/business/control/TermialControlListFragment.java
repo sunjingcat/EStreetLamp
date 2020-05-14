@@ -101,11 +101,9 @@ public class TermialControlListFragment extends MyBaseFragment implements OnRefr
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    hideKeyboard(searchEdit);
                     //点击搜索的时候隐藏软键盘
                     searchValue = v.getText().toString();
-                    if (searchValue == null){
-                        searchValue = "";
-                    }
                     pageNum = 1;
                     getData();
                     // 在这里写搜索的操作,一般都是网络请求数据

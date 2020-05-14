@@ -43,6 +43,9 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseActivity;
 import com.zz.lamp.business.entry.adapter.SearchLocationAdapter;
+import com.zz.lamp.utils.AMapUtils;
+import com.zz.lamp.utils.LngLat;
+import com.zz.lamp.utils.LogUtils;
 import com.zz.lib.commonlib.utils.ToolBarUtils;
 import com.zz.lib.core.ui.mvp.BasePresenter;
 
@@ -75,7 +78,7 @@ public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCo
     SearchLocationAdapter adapter;
     PoiInfo locationInfo = new PoiInfo();
     String mCity = "天津";
-
+    LatLng lastLngLat = null;
 
     @Override
     protected int getContentView() {
@@ -157,7 +160,6 @@ public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCo
             } else {
                 List<PoiInfo> list = new ArrayList<>();
                 List<SuggestionResult.SuggestionInfo> resl = res.getAllSuggestions();
-
                 for (int i = 0; i < resl.size(); i++) {
                     Log.i("result: ", "city" + resl.get(i).city + " dis " + resl.get(i).district + "key " + resl.get(i).key);
                     PoiInfo info = new PoiInfo();
@@ -208,6 +210,7 @@ public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCo
         //图片点击事件，回到定位点
         mLocationClient.requestLocation();
         mBaiduMap.showMapPoi(false);
+
         mBaiduMap.setOnMapStatusChangeListener(new BaiduMap.OnMapStatusChangeListener() {
             //地图状态开始改变。
             public void onMapStatusChangeStart(MapStatus status) {
@@ -224,9 +227,15 @@ public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCo
                 //改变结束之后，获取地图可视范围的中心点坐标
                 LatLng latLng = status.target;
                 showLocation(latLng.latitude, latLng.longitude);
-                geoCoder.reverseGeoCode(new ReverseGeoCodeOption().location(latLng));
+                LogUtils.v("sj--",AMapUtils.calculateLineDistance(latLng, lastLngLat)+"");
+                if (lastLngLat!=null&&AMapUtils.calculateLineDistance(latLng,lastLngLat)>5) {
+                    double v = AMapUtils.calculateLineDistance(latLng, lastLngLat);
+//                geoCoder.reverseGeoCode(new ReverseGeoCodeOption().location(latLng));
+                }
+                LogUtils.v("sj--",latLng.toString());
                 //拿到经纬度之后，就可以反地理编码获取地址信息了
                 //initGeoCoder(latLng)
+                lastLngLat = latLng;
 
             }
 
@@ -280,7 +289,9 @@ public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCo
             mlist.clear();
             mlist.addAll(poiList);
             adapter.notifyDataSetChanged();
+            LogUtils.v("sj--onGetReverseGeoCodeResult",latLng.toString());
         }
+
     }
 
 

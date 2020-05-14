@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 
 import com.zz.lamp.net.OutDateEvent;
 import com.zz.lamp.utils.woolglass.FragmentClass;
@@ -47,7 +48,11 @@ public abstract class MyBaseFragment<P extends  com.zz.lib.core.ui.mvp.BasePrese
 
     protected abstract void initView(View view);
 
-
+    protected void hideKeyboard(View view) {
+        InputMethodManager manager = (InputMethodManager) view.getContext()
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        manager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
 
 
     @Override

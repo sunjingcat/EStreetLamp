@@ -135,6 +135,8 @@ public interface ApiService {
     @GET("/app/carame/device/getCameraDevicelist")
     Observable<JsonT<List<CameraBean>>> getCameraDevicelist(@QueryMap Map<String, Object> params);
 
+    @POST("/app/light/gtClientId")
+    Observable<JsonT> putClientId(@QueryMap Map<String, Object> params);
 
     @GET("/app/carame/device/getYsConfig")
     Observable<JsonT<YsConfig>> getYsConfig();
@@ -174,7 +176,7 @@ public interface ApiService {
     @GET("/app/light")
     Observable<JsonT<UserBasicBean>> getUserDetail();
 
-    @GET("/app/light/logout")
+    @POST("/app/light/logout")
     Observable<JsonT> logout();
 
     @POST( "/app/light/resetPwd")

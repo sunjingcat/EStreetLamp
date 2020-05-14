@@ -22,7 +22,7 @@ public class AMapUtils {
      * @param end   终点的坐标
      * @return
      */
-    public static double calculateLineDistance(LngLat start, LngLat end) {
+    public static double calculateLineDistance(LatLng start, LatLng end) {
         if ((start == null) || (end == null)) {
             throw new IllegalArgumentException("非法坐标值，不能为null");
         }

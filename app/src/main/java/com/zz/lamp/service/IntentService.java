@@ -1,12 +1,17 @@
 package com.zz.lamp.service;
 
 import android.content.Context;
+import android.content.Intent;
+import android.text.TextUtils;
 import android.util.Log;
 
+import com.google.gson.Gson;
 import com.igexin.sdk.GTIntentService;
 import com.igexin.sdk.message.GTCmdMessage;
 import com.igexin.sdk.message.GTNotificationMessage;
 import com.igexin.sdk.message.GTTransmitMessage;
+import com.zz.lamp.bean.PushBean;
+import com.zz.lib.commonlib.utils.CacheUtility;
 
 public class IntentService extends GTIntentService {
 
@@ -25,6 +30,7 @@ public class IntentService extends GTIntentService {
     @Override
     public void onReceiveClientId(Context context, String clientid) {
         Log.e(TAG, "onReceiveClientId -> " + "clientid = " + clientid);
+        CacheUtility.spSave("cId",clientid);
     }
 
     // cid 离线上线通知
@@ -43,6 +49,7 @@ public class IntentService extends GTIntentService {
     public void onNotificationMessageArrived(Context context, GTNotificationMessage msg) {
         Log.e(TAG, "onNotificationMessageArrived -> " + msg);
         String content = msg.getContent();
+        PushBean pushBean = new Gson().fromJson(content, PushBean.class);
         Log.e(TAG, "content -> " + content);
     }
 
@@ -51,6 +58,10 @@ public class IntentService extends GTIntentService {
     public void onNotificationMessageClicked(Context context, GTNotificationMessage msg) {
         Log.e(TAG, "onNotificationMessageClicked -> " + msg);
         String content = msg.getContent();
+        PushBean pushBean = new Gson().fromJson(content, PushBean.class);
+        if (pushBean.getModel().equals("alarm")){
+//            startActivity(new Intent());
+        }
         Log.e(TAG, "content -> " + content);
     }
 }

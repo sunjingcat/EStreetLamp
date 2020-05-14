@@ -102,10 +102,8 @@ public class VideoControlListFragment extends MyBaseFragment implements OnRefres
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     //点击搜索的时候隐藏软键盘
+                    hideKeyboard(searchEdit);
                     searchValue = v.getText().toString();
-                    if (searchValue == null){
-                        searchValue = "";
-                    }
                     pageNum = 1;
                     getData();
                     // 在这里写搜索的操作,一般都是网络请求数据

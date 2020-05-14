@@ -102,6 +102,9 @@ public class InfoActivity extends Activity {
         if (lightDevice == null) return;
         mlist.clear();
         List<LightDetailBean> list = new ArrayList<>();
+//        路灯开关灯状态，0-关灯，1-开灯
+
+        list.add(new LightDetailBean("开关灯状态", lightDevice.getStatus()==0? "关灯":"开灯"));
         list.add(new LightDetailBean("路灯控制器地址", lightDevice.getDeviceAddr() + ""));
         list.add(new LightDetailBean("支路", lightDevice.getLineName() + ""));
         list.add(new LightDetailBean("路灯控制器编号", lightDevice.getDeviceCode() + ""));
@@ -109,9 +112,9 @@ public class InfoActivity extends Activity {
         list.add(new LightDetailBean("安装时间", lightDevice.getLightInstallTime() + ""));
 
         list.add(new LightDetailBean("路杆编号", lightDevice.getLightPoleCode() + ""));
-        list.add(new LightDetailBean("路杆类型", lightDevice.getLightPoleType() + ""));
+        list.add(new LightDetailBean("路杆类型", lightDevice.getLightPoleTypeText() + ""));
         list.add(new LightDetailBean("路杆高度", lightDevice.getLightPoleHeight() + ""));
-        list.add(new LightDetailBean("灯头类型", lightDevice.getLightType() + ""));
+        list.add(new LightDetailBean("灯头类型", lightDevice.getLightTypeText() + ""));
 
         list.add(new LightDetailBean("路灯类型", lightDevice.getDeviceType() + ""));
         list.add(new LightDetailBean("主灯类型", lightDevice.getLightMainTypeName() + ""));

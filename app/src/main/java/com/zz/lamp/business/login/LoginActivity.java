@@ -113,6 +113,7 @@ public class LoginActivity extends MyBaseActivity<Contract.IsetLoginPresenter> i
         map.put("password",password);
         map.put("cId",code);
         mPresenter.setAccount(map);
+
     }
 
     @Override
