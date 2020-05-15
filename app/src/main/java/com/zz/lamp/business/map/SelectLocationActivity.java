@@ -307,7 +307,12 @@ public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCo
                 finish();
                 break;
             case R.id.my_site:
-                showLocation(latLng.latitude, latLng.longitude);
+                if (latLng!=null&&latLng.latitude!=0.0&&latLng.longitude!=0.0){
+                    showLocation(latLng.latitude, latLng.longitude);
+                }else {
+                    showToast("定位失败");
+                }
+
                 break;
         }
     }
