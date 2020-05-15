@@ -29,6 +29,7 @@ public class ControlJzqAdapter extends BaseQuickAdapter<RealTimeCtrlTerminal, Ba
     @Override
     protected void convert(BaseViewHolder holper, final RealTimeCtrlTerminal item) {
 //        GlideUtils.loadImage(mContext, item, (ImageView) holper.getView(R.id.item_approval_icon));
+//        0-拉闸，1-合闸，2-重启
         holper.setText(R.id.item_control_name,item.getName());
         holper.setText(R.id.item_control_num,item.getAddr());
         holper.setText(R.id.item_control_state,item.getStatus()==0?"拉闸":"合闸");

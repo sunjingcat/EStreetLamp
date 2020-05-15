@@ -120,7 +120,6 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
 
             }
         });
-        tabDevice.getTabAt(0).select();
         getData(0);
         mBaiduMap.showMapPoi(false);
         mBaiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
@@ -215,10 +214,13 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
     }
 
     void clearMarkers() {
-        if (overlays != null && !overlays.isEmpty()) {
-            overlays.clear();
-            bmapView.invalidate();
+        try {
 
+        }catch (Exception e) {
+            if (overlays != null && !overlays.isEmpty()) {
+                overlays.clear();
+                bmapView.invalidate();
+            }
         }
     }
 
@@ -332,7 +334,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
     @Override
     public void showUserInfo(UserBasicBean userInfo) {
         if (!TextUtils.isEmpty(userInfo.getAvatar())) {
-            GlideUtils.loadCircleImage(getActivity(), CacheUtility.getURL()+userInfo.getAvatar(), main_mine);
+            GlideUtils.loadCircleImage(getActivity(), userInfo.getAvatar(), main_mine);
         }
     }
 }

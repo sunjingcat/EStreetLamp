@@ -8,10 +8,6 @@
     android:fitsSystemWindows="true"
     tools:context=".business.entry.EntryLampActivity">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="33dp"
-        android:background="@color/white" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -38,7 +34,7 @@
             android:text="提交"
             android:textColor="@color/colorTextBlack33"
             android:textSize="16dp"
-            android:visibility="gone"/>
+            />
     </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
@@ -92,6 +88,33 @@
                 android:textColor="#ff444444"
                 android:textSize="14sp"></TextView>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorWhite"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="告警处理状态"
+                    android:textColor="#333333"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/tv_status"
+                    style="@style/textRightStyle"
+                    android:drawableRight="@drawable/image_arrow"
+                    android:drawablePadding="5dp"
+                    android:hint="请选择" />
+
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

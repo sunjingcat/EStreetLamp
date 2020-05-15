@@ -5,4 +5,9 @@
     <external-path
         name="images"
         path="Pictures" />
+    <external-path
+        name="dcim"
+        path="DCIM" />
+    <external-path path="Android/data/com.zz.lamp/" name="files_root" />
+    <external-path path="." name="external_storage_root" />
 </paths>

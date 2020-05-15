@@ -36,7 +36,8 @@
             android:singleLine="true"
             android:text="提交"
             android:textColor="@color/colorTextBlack33"
-            android:textSize="16dp" />
+            android:textSize="16dp"
+            android:visibility="gone"/>
     </androidx.appcompat.widget.Toolbar>
 
     <ScrollView

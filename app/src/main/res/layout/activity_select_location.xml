@@ -78,7 +78,7 @@
         android:singleLine="true"
         android:maxLines="1"
         android:gravity="left"
-        android:visibility="gone"/>
+        />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"
         android:layout_width="match_parent"

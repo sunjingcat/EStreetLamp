@@ -6,6 +6,7 @@ import android.view.KeyEvent;
 import android.view.View;
 
 import com.zz.lamp.base.MyBaseActivity;
+import com.zz.lamp.business.map.SelectLocationActivity;
 import com.zz.lamp.net.ApiService;
 import com.zz.lamp.net.JsonT;
 import com.zz.lamp.net.RequestObserver;
@@ -56,12 +57,12 @@ public class MainActivity extends MyBaseActivity {
             case R.id.main_group_1:
                 Intent intent = new Intent();
                 intent.setClass(this, HomeActivity.class);
-//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
-//                        Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                        Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 break;
             case R.id.main_group_2:
-                showToast("暂未开放，敬请期待");
+                startActivity(new Intent(this, SelectLocationActivity.class));
                 break;
             case R.id.main_group_3:
                 showToast("暂未开放，敬请期待");

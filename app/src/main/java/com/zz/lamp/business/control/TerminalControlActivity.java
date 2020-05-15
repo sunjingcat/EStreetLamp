@@ -164,14 +164,18 @@ public class TerminalControlActivity extends MyBaseActivity<Contract.IsetTermina
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.control_group:
-                if (concentratorBean != null && concentratorBean.getTerminalOnOff() == 1) {
+                if (concentratorBean != null && concentratorBean.getTerminalOnOff() == 0) {
                     startActivity(new Intent(TerminalControlActivity.this, GroupControlActivity.class).putExtra("terminalId", terminalId));
                 } else {
                     showToast("请先合闸");
                 }
                 break;
             case R.id.control_lamp:
-                startActivity(new Intent(TerminalControlActivity.this, LigitDeviceControlActivity.class).putExtra("terminalId", terminalId));
+                if (concentratorBean != null && concentratorBean.getTerminalOnOff() == 0) {
+                    startActivity(new Intent(TerminalControlActivity.this, GroupControlActivity.class).putExtra("terminalId", terminalId));
+                } else {
+                    startActivity(new Intent(TerminalControlActivity.this, LigitDeviceControlActivity.class).putExtra("terminalId", terminalId));
+                }
                 break;
             case R.id.control_close:
                 showTimeDialog(0, "拉闸");

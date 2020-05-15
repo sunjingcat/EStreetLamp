@@ -87,7 +87,6 @@ public class LigitDeviceControlActivity extends MyBaseActivity<Contract.IsetLigh
         adapter = new ControlLightAdapter(R.layout.item_line_control, mlist);
         rv.setAdapter(adapter);
         terminalId = getIntent().getStringExtra("terminalId");
-        terminalId="7";
         getData();
         refreshLayout.setOnLoadMoreListener(this);
         adapter.setOnItemClickListener(new OnItemClickListener() {

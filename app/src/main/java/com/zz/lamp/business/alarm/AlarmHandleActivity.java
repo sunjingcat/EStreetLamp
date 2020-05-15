@@ -1,6 +1,9 @@
 package com.zz.lamp.business.alarm;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -22,6 +25,7 @@ import com.zz.lamp.business.alarm.mvp.Contract;
 import com.zz.lamp.business.alarm.mvp.presenter.AlarmAddPresenter;
 import com.zz.lamp.utils.BASE64;
 import com.zz.lib.commonlib.utils.ToolBarUtils;
+import com.zz.lib.commonlib.widget.SelectPopupWindows;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,7 +57,9 @@ public class AlarmHandleActivity extends MyBaseActivity<Contract.IsetAlarmAddPre
     TextView alarm_address;
     @BindView(R.id.alarm_content)
     EditText alarmContent;
-
+    @BindView(R.id.tv_status)
+    TextView tvStatus;
+    int alarmStatus = -1;
     @Override
     protected int getContentView() {
         return R.layout.activity_alarm_handle;
@@ -118,11 +124,6 @@ public class AlarmHandleActivity extends MyBaseActivity<Contract.IsetAlarmAddPre
         }
     }
 
-    @OnClick(R.id.toolbar_subtitle)
-    public void onViewClicked() {
-        postData();
-    }
-
     @Override
     public void showResult() {
         showToast("提交成功");
@@ -132,7 +133,7 @@ public class AlarmHandleActivity extends MyBaseActivity<Contract.IsetAlarmAddPre
 
     @Override
     public void showDetailResult(AlarmBean alarmBean) {
-        alarmName.setText(alarmBean.getTerminalName()+""+alarmBean.getDeviceName());
+        alarmName.setText(alarmBean.getTerminalName() + "" + alarmBean.getDeviceName());
         alarmDes.setText(alarmBean.getDescription() + "");
         alarmTime.setText(alarmBean.getCreateTime() + "");
 
@@ -146,12 +147,52 @@ public class AlarmHandleActivity extends MyBaseActivity<Contract.IsetAlarmAddPre
     void postData() {
         String handleDescription = alarmContent.getText().toString();
         String id = getIntent().getStringExtra("id");
+        if (TextUtils.isEmpty(handleDescription)){
+            showToast("请填写备注");
+            return;
+        }
+        if (alarmStatus == -1){
+            showToast("请选择告警处理状态");
+            return;
+        }
         ArrayList<String> baseb4 = new ArrayList<>();
         for (String str : this.imagesAnnex) {
             baseb4.add("data:image/jpg;base64," + BASE64.imageToBase64(str));
         }
         String s = new Gson().toJson(baseb4);
-        mPresenter.submitData(id,"0",handleDescription,id,s);
+        mPresenter.submitData(id, alarmStatus+"", handleDescription+"", id, s);
 
+    }
+
+
+    @OnClick({R.id.toolbar_subtitle, R.id.tv_status})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.toolbar_subtitle:
+                postData();
+                break;
+            case R.id.tv_status:
+                String[] PLANETS2 = new String[]{"忽略 ", "已处理"};
+                final SelectPopupWindows selectPopupWindows = new SelectPopupWindows(this, PLANETS2);
+                selectPopupWindows.showAtLocation(findViewById(R.id.bg),
+                        Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+                selectPopupWindows.setOnItemClickListener(new SelectPopupWindows.OnItemClickListener() {
+                    @Override
+                    public void onSelected(int index, String msg) {
+                        if (index==1){
+                            alarmStatus= 2;
+                        }else {
+                            alarmStatus=0;
+                        }
+                        tvStatus.setText(msg);
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        selectPopupWindows.dismiss();
+                    }
+                });
+                break;
+        }
     }
 }

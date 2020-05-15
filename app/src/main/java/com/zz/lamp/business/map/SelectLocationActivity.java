@@ -167,6 +167,9 @@ public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCo
                     info.setAddress(resl.get(i).getKey());
                     list.add(info);
                 }
+                if (list.size()>0) {
+                    showLocation(list.get(0).getLocation().latitude, list.get(0).getLocation().longitude);
+                }
                 mlist.clear();
                 mlist.addAll(list);
                 adapter.notifyDataSetChanged();
@@ -186,9 +189,6 @@ public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCo
         //获取地图控件引用
         mBaiduMap = mMapView.getMap();
         //普通地图
-        mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
-
-        //默认显示普通地图
         mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
         //开启交通图
         //mBaiduMap.setTrafficEnabled(true);
@@ -226,11 +226,11 @@ public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCo
             public void onMapStatusChangeFinish(MapStatus status) {
                 //改变结束之后，获取地图可视范围的中心点坐标
                 LatLng latLng = status.target;
-                showLocation(latLng.latitude, latLng.longitude);
-                LogUtils.v("sj--",AMapUtils.calculateLineDistance(latLng, lastLngLat)+"");
+
                 if (lastLngLat!=null&&AMapUtils.calculateLineDistance(latLng,lastLngLat)>5) {
                     double v = AMapUtils.calculateLineDistance(latLng, lastLngLat);
                     geoCoder.reverseGeoCode(new ReverseGeoCodeOption().location(latLng));
+                    showLocation(latLng.latitude, latLng.longitude);
                     LogUtils.v("sj--",latLng.toString());
                 }
 
@@ -334,7 +334,7 @@ public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCo
                 ReverseGeoCodeOption reverseGeoCodeOption = new ReverseGeoCodeOption();
                 reverseGeoCodeOption.location(latLng);
                 geoCoder.reverseGeoCode(reverseGeoCodeOption);
-
+                isFirstLoc= false;
             }
             if (location.getLocType() == BDLocation.TypeServerError) {
                 Toast.makeText(SelectLocationActivity.this, "服务器错误，请检查", Toast.LENGTH_SHORT).show();
@@ -375,7 +375,8 @@ public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCo
         LatLng ll = new LatLng(latitude,
                 longitude);
         MapStatus.Builder builder = new MapStatus.Builder();
-        builder.target(ll).zoom(18.0f);
+
+        if (isFirstLoc){ builder.target(ll).zoom(18.0f);}
         mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
     }
 
