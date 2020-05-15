@@ -44,21 +44,21 @@ public class LinePresenter extends MyBasePresenterImpl<Contract.IGetLineView> im
 
     @Override
     public void getUsableCode(String id) {
-            RxNetUtils.request(getCApi(ApiService.class).getUsableCode(id), new RequestObserver<JsonT<String[]>>(this) {
-                @Override
-                protected void onSuccess(JsonT<String[]> data) {
-                    if (data.isSuccess()) {
-                        view.showUsableCode(data.getData());
-                    }else {
-                    }
+        RxNetUtils.request(getCApi(ApiService.class).getUsableCode(id), new RequestObserver<JsonT<String[]>>(this) {
+            @Override
+            protected void onSuccess(JsonT<String[]> data) {
+                if (data.isSuccess()) {
+                    view.showUsableCode(data.getData());
+                } else {
                 }
+            }
 
-                @Override
-                protected void onFail2(JsonT<String[]> userInfoJsonT) {
-                    super.onFail2(userInfoJsonT);
-                    view.showToast(userInfoJsonT.getMessage());
-                }
-            }, mDialog);
+            @Override
+            protected void onFail2(JsonT<String[]> userInfoJsonT) {
+                super.onFail2(userInfoJsonT);
+                view.showToast(userInfoJsonT.getMessage());
+            }
+        }, mDialog);
 
     }
 
@@ -69,6 +69,45 @@ public class LinePresenter extends MyBasePresenterImpl<Contract.IGetLineView> im
             protected void onSuccess(JsonT data) {
                 if (data.isSuccess()) {
                     view.showPostIntent();
+                } else {
+
+                }
+            }
+
+            @Override
+            protected void onFail2(JsonT userInfoJsonT) {
+                super.onFail2(userInfoJsonT);
+                view.showToast(userInfoJsonT.getMessage());
+            }
+        }, mDialog);
+    }
+
+    @Override
+    public void deleteLine(String ids) {
+        RxNetUtils.request(getCApi(ApiService.class).checkDeleteLine(ids), new RequestObserver<JsonT>(this) {
+            @Override
+            protected void onSuccess(JsonT data) {
+                if (data.isSuccess()) {
+                    delete(ids);
+                } else {
+
+                }
+            }
+
+            @Override
+            protected void onFail2(JsonT userInfoJsonT) {
+                super.onFail2(userInfoJsonT);
+                view.showToast(userInfoJsonT.getMessage());
+            }
+        }, mDialog);
+    }
+
+    public void delete(String id) {
+        RxNetUtils.request(getCApi(ApiService.class).lineDelete(id), new RequestObserver<JsonT>(this) {
+            @Override
+            protected void onSuccess(JsonT data) {
+                if (data.isSuccess()) {
+                    view.showDeleteIntent();
                 } else {
 
                 }

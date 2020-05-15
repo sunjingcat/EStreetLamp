@@ -37,11 +37,11 @@ public class FourthNodeProvider extends BaseNodeProvider implements Serializable
         baseViewHolder.setText(R.id.title, ((RegionExpandItem3) baseNode).getAreaName());
         baseViewHolder.getView(R.id.image_fold).setVisibility(View.GONE);
         if (isEdit == 1) {
-            baseViewHolder.getView(R.id.region_add).setVisibility(View.VISIBLE);
+//            baseViewHolder.getView(R.id.region_add).setVisibility(View.VISIBLE);
             baseViewHolder.getView(R.id.region_edit).setVisibility(View.VISIBLE);
             baseViewHolder.getView(R.id.region_delete).setVisibility(View.VISIBLE);
         } else {
-            baseViewHolder.getView(R.id.region_add).setVisibility(View.GONE);
+//            baseViewHolder.getView(R.id.region_add).setVisibility(View.GONE);
             baseViewHolder.getView(R.id.region_edit).setVisibility(View.GONE);
             baseViewHolder.getView(R.id.region_delete).setVisibility(View.GONE);
         }

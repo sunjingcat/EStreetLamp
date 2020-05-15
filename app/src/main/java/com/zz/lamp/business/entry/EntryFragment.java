@@ -192,4 +192,12 @@ public class EntryFragment  extends MyBaseFragment<Contract.IsetTerminalPresente
         }
         mPresenter.getTerminalList(map);
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode==-1) {
+            getData();
+        }
+    }
 }

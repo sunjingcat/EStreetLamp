@@ -290,7 +290,6 @@ public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCo
             mlist.clear();
             mlist.addAll(poiList);
             adapter.notifyDataSetChanged();
-            LogUtils.v("sj--onGetReverseGeoCodeResult",latLng.toString());
         }
 
     }

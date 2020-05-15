@@ -49,6 +49,7 @@ public class AddLineActivity extends Activity {
     @BindView(R.id.btn_OK)
     Button btnOK;
     String terminalId;
+    String lineId="";
     String type;
     String [] UsableCode;
 
@@ -59,7 +60,18 @@ public class AddLineActivity extends Activity {
         setContentView(R.layout.activity_add_line);
         ButterKnife.bind(this);
         terminalId = getIntent().getStringExtra("terminalId");
+        lineId = getIntent().getStringExtra("lineId");
         UsableCode = getIntent().getStringArrayExtra("UsableCode");
+        String code = getIntent().getStringExtra("code");
+        String lineName = getIntent().getStringExtra("lineName");
+        if (!TextUtils.isEmpty(code)) {
+            type = code;
+            lblDialogSelect.setText(code+"");
+        }
+        if (!TextUtils.isEmpty(lineName)) {
+            lblDialogMessage.setText(lineName+"");
+        }
+
     }
     
     @OnClick({R.id.close, R.id.lblDialogSelect, R.id.btn_cancel, R.id.btn_OK})
@@ -102,6 +114,9 @@ public class AddLineActivity extends Activity {
                 Intent intent = new Intent();
                 intent.putExtra("name",trim);
                 intent.putExtra("code",type);
+                if (!TextUtils.isEmpty(lineId)){
+                    intent.putExtra("lineId",lineId);
+                }
                 setResult(RESULT_OK,intent);
                 finish();
                 break;

@@ -339,6 +339,7 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
     @Override
     public void showDeleteIntent() {
         showToast("成功");
+        setResult(100);
         finish();
     }
     @Override

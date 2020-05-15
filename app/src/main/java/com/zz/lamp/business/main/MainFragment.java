@@ -281,9 +281,14 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
             super.handleMessage(msg);
             switch (msg.what) {
                 case 1:
-                    if (overlayOptions==null||overlayOptions.size()==0)return;
-                    overlays = mBaiduMap.addOverlays(overlayOptions);
-                    AMapUtils.setMapZoom(mapListList, mBaiduMap);
+                    try {
+                        if (overlayOptions==null||overlayOptions.size()==0)return;
+                        overlays = mBaiduMap.addOverlays(overlayOptions);
+                        AMapUtils.setMapZoom(mapListList, mBaiduMap);
+                    }catch (Exception e){
+
+                    }
+
                     break;
                 default:
                     break;

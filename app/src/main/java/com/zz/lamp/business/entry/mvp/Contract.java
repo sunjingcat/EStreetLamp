@@ -106,6 +106,8 @@ public class Contract {
         void getUsableCode(String id);
 
         void postLine(Map<String, Object> params);
+        void deleteLine(String id);
+
     }
 
     public interface IGetLineView extends BaseView {
@@ -114,6 +116,8 @@ public class Contract {
         void showUsableCode(String[] list);
 
         void showPostIntent();
+        void showDeleteIntent();
+
     }
 
     public interface IsetLampDetailPresenter extends BasePresenter {

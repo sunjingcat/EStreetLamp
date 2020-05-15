@@ -5,10 +5,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="33dp"
-        android:background="@color/title"></View>
+<!--    <View-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="33dp"-->
+<!--        android:background="@color/title"></View>-->
     <!--actionbar-->
     <RelativeLayout
         android:id="@+id/actionbar"

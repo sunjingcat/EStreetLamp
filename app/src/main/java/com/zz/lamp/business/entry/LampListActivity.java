@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -195,5 +196,14 @@ public class LampListActivity extends MyBaseActivity<Contract.IsetLampPresenter>
         pageNum++;
         getData();
         refreshLayout.finishLoadMore();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode==100){
+            setResult(RESULT_OK);
+            finish();
+        }
     }
 }

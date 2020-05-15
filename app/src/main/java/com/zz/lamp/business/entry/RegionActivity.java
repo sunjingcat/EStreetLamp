@@ -233,9 +233,26 @@ public class RegionActivity extends MyBaseActivity<Contract.IsetRegionPresenter>
     }
 
     private void showInputDialog(BaseNode node,int type) {
+
+        String name = "";
+        if (type==2) {
+            if (node instanceof RegionExpandItem) {
+                RegionExpandItem node1 = (RegionExpandItem) node;
+                name = node1.getAreaName();
+            } else if (node instanceof RegionExpandItem1) {
+                RegionExpandItem1 node1 = (RegionExpandItem1) node;
+                name = node1.getAreaName();
+            } else if (node instanceof RegionExpandItem2) {
+                RegionExpandItem2 node1 = (RegionExpandItem2) node;
+                name = node1.getAreaName();
+            } else if (node instanceof RegionExpandItem3) {
+                RegionExpandItem3 node1 = (RegionExpandItem3) node;
+                name = node1.getAreaName();
+            }
+        }
         InputDialog.Builder builder = new InputDialog.Builder(RegionActivity.this)
                 .setTitle("区域名")
-                .setMessage("")
+                .setMessage(name)
                 .setNegativeButton("取消", new InputDialog.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, String msg) {

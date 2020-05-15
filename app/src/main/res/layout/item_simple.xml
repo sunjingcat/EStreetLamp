@@ -25,10 +25,38 @@
         android:textColor="#999999"
         android:textSize="12dp"
         tools:text="52487963" />
+    <TextView
+        android:id="@+id/item_edit"
+        android:layout_width="42dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_5_yellow"
+        android:gravity="center"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="修改"
+        android:layout_marginLeft="8dp"
+        android:textColor="@color/color9C"
+        android:textSize="14dp"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/item_delete"
+        android:layout_width="42dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_5_yellow"
+        android:gravity="center"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_marginLeft="8dp"
+        android:text="删除"
+        android:textColor="@color/color9C"
+        android:visibility="gone"
+        android:textSize="14dp" />
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="5dp"
         android:src="@drawable/image_arrow"/>
+
 
 </LinearLayout>

@@ -173,8 +173,15 @@ public interface ApiService {
     @GET("/app/light/terminal/checkDelete")
     Observable<JsonT> checkDeleteTerminal(@Query("ids") String ids);
 
-    @DELETE("app/light/terminal")
+    @DELETE("/app/light/terminal")
     Observable<JsonT> terminalDelete(@Query("ids") String ids);
+
+
+    @GET("/app/light/line/checkDelete")
+    Observable<JsonT> checkDeleteLine(@Query("ids") String ids);
+
+    @DELETE("/app/light/line")
+    Observable<JsonT> lineDelete(@Query("ids") String ids);
 
     @GET("/app/light/lightDevice/checkDelete")
     Observable<JsonT> checkDeleteLight(@Query("ids") String ids);
