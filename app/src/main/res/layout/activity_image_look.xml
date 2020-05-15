@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="33dp"
+        android:layout_height="33px"
         android:background="@color/white" />
 
     <androidx.appcompat.widget.Toolbar
@@ -18,26 +17,30 @@
         android:background="@color/white">
 
         <TextView
+            android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="告警报警"
-            android:textColor="@color/colorTextBlack33"
+            android:text="图片"
+            android:textColor="#ffffff"
             android:textSize="18dp" />
 
     </androidx.appcompat.widget.Toolbar>
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/alarm_tab"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        app:elevation="0dp"
-        app:tabIndicatorHeight="0dp"
-        android:background="@color/white"/>
+        android:layout_height="match_parent"
+        android:background="@color/colorTextBlack33"
+        android:gravity="center">
+        <ImageView
+            android:id="@+id/intensify_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            
+            />
+    </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/main_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+
+
+
 
 </LinearLayout>

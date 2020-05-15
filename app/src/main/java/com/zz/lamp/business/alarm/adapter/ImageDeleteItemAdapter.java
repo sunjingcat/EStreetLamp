@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.zz.lamp.R;
 import com.zz.lamp.utils.GlideUtils;
+import com.zz.lamp.utils.ImagePreview;
 
 import java.util.List;
 
@@ -66,7 +67,7 @@ public class ImageDeleteItemAdapter extends RecyclerView.Adapter<ImageDeleteItem
                 if (holder.getAdapterPosition()==mDatas.size()) {
                     onclick.onclickAdd(v, holder.getAdapterPosition());
                 }else {
-//                    ImagePreview.preview(mContext, mDatas.get(i));
+                    ImagePreview.preview(mContext, mDatas.get(i));
                 }
             }
         });

@@ -279,7 +279,7 @@ public class GlideUtils {
         }
     public static Bitmap base64ToBitmap(String base64Data) {
         try {
-            byte[] bytes = Base64.decode(base64Data, Base64.DEFAULT);
+            byte[] bytes = Base64.decode(base64Data, Base64.NO_WRAP);
             return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         } catch (Exception e) {
             return null;

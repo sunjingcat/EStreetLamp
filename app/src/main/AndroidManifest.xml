@@ -158,6 +158,7 @@
             android:process=":pushservice"
             android:taskAffinity="com.igexin.sdk.PushActivityTask"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity android:name=".business.alarm.ImageLookActivity" />
 
         <service
             android:name=".service.PushService"
