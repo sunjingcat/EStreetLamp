@@ -108,14 +108,24 @@ public class VideoActivity extends MyBaseActivity<Contract.IsetVideoControlPrese
         dlRmv.setOnMenuTouchListener(new OnMenuTouchListener() {
             @Override
             public void OnTouch(MotionEvent event, int position) {
-                if (lastPosition == position) {
-                    return;
-                } else {
-                    control(position);
+                int realPosition=100;
+                if (position == -1) {
 
                 }
-                lastPosition = position;
-                LogUtils.v("sj--", position + "");
+                if (position == 0) {
+                    realPosition=0;
+                } else if (position == 1) {
+                    realPosition=3;
+                } else if (position == 2) {
+                    realPosition=1;
+                } else if (position == 3) {
+                    realPosition=2;
+                } else if (position == -2) {
+                    realPosition=-2;
+                }
+                control(realPosition);
+                lastPosition = realPosition;
+
             }
         });
         videoAdd.setOnTouchListener(new View.OnTouchListener() {
@@ -156,36 +166,21 @@ public class VideoActivity extends MyBaseActivity<Contract.IsetVideoControlPrese
         if (cameraBean == null) {
             return;
         }
+        if (lastPosition == position)return;
 //        操作命令：0-上，1-下，2-左，3-右，4-左上，5-左下，6-右上，7-右下，8-放大，9-缩小，10-近焦距，11-远焦距
         Map<String, Object> map = new HashMap<>();
         map.put("id", cameraBean.getId());
         map.put("channelNo", cameraBean.getChannelNo());
         map.put("deviceSerial", cameraBean.getSeriesNumber());
-        if (position == -1) {
-//            map.put("direction",0);
-//            mPresenter.startControl(map);
-        }
-        if (position == 0) {
-            map.put("direction", 0);
-            LogUtils.v("sj----上");
-        }
-        if (position == 1) {
-            LogUtils.v("sj----右");
-            map.put("direction", 3);
-            mPresenter.startControl(map);
-        }
-        if (position == 2) {
-            LogUtils.v("sj----下");
-            map.put("direction", 1);
-            mPresenter.startControl(map);
-        }
-        if (position == 3) {
-            LogUtils.v("sj----左");
-            map.put("direction", 2);
-            mPresenter.startControl(map);
-        } else if (position == -2) {
+        LogUtils.v("sj---",position+","+lastPosition);
+        if (position == -2) {
             map.put("direction", lastPosition);
+            LogUtils.v("sj---lastPosition",""+lastPosition);
             mPresenter.shopControl(map);
+        }else {
+            map.put("direction", position);
+            LogUtils.v("sj---position",""+position);
+            mPresenter.startControl(map);
         }
     }
 
