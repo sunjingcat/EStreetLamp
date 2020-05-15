@@ -34,7 +34,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends CommonActivi
         mLoadingDialog = LoadingUtils.build(this);
         mCompositeDisposable = new CompositeDisposable();
         mPresenter = initPresenter();
-        Con
     }
 
     @Override
