@@ -2,7 +2,9 @@ package com.zz.lamp.business.alarm;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -104,17 +106,38 @@ public class RightFragment extends MyBaseFragment implements OnRefreshListener, 
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     //点击搜索的时候隐藏软键盘
+                    hideKeyboard(searchEdit);
                     searchValue = v.getText().toString();
-                    if (searchValue == null) {
-                        searchValue = "";
+                    if (!TextUtils.isEmpty(searchValue)) {
+                        pageNum = 1;
+                        getData();
                     }
-                    pageNum = 1;
-                    getData();
+
                     // 在这里写搜索的操作,一般都是网络请求数据
                     return true;
                 }
 
                 return false;
+            }
+        });
+        searchEdit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(TextUtils.isEmpty(s)){
+                    searchValue = "";
+                    pageNum = 1;
+                    getData();
+                }
             }
         });
         adapter.setOnItemClickListener(new OnItemClickListener() {
