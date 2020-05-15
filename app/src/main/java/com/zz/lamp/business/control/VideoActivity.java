@@ -7,10 +7,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.dlong.rep.dlroundmenuview.DLRoundMenuView;
-import com.dlong.rep.dlroundmenuview.Interface.OnMenuClickListener;
-import com.dlong.rep.dlroundmenuview.Interface.OnMenuLongClickListener;
 import com.dlong.rep.dlroundmenuview.Interface.OnMenuTouchListener;
 import com.ezvizuikit.open.EZUIError;
 import com.ezvizuikit.open.EZUIKit;
@@ -18,27 +17,18 @@ import com.ezvizuikit.open.EZUIPlayer;
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseActivity;
 import com.zz.lamp.bean.CameraBean;
-import com.zz.lamp.bean.RealTimeCtrlGroup;
 import com.zz.lamp.bean.YsConfig;
 import com.zz.lamp.business.control.mvp.Contract;
 import com.zz.lamp.business.control.mvp.presenter.VideoControlPresenter;
-import com.zz.lamp.net.ApiService;
-import com.zz.lamp.net.JsonT;
-import com.zz.lamp.net.RequestObserver;
-import com.zz.lamp.net.RxNetUtils;
 import com.zz.lamp.utils.LogUtils;
-import com.zz.lib.core.ui.mvp.BasePresenter;
 
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static com.zz.lamp.net.RxNetUtils.getCApi;
 
 public class VideoActivity extends MyBaseActivity<Contract.IsetVideoControlPresenter> implements Contract.IGetVideoControlView {
 
@@ -52,6 +42,10 @@ public class VideoActivity extends MyBaseActivity<Contract.IsetVideoControlPrese
     @BindView(R.id.video_cut)
     ImageView videoCut;
     int lastPosition = 100;
+    @BindView(R.id.video_zoom)
+    TextView videoZoom;
+    @BindView(R.id.video_zoomOut)
+    TextView videoZoomOut;
 
     @Override
     protected int getContentView() {
@@ -238,4 +232,5 @@ public class VideoActivity extends MyBaseActivity<Contract.IsetVideoControlPrese
     public void showIntent() {
 
     }
+
 }

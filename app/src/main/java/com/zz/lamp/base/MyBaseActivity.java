@@ -47,6 +47,14 @@ public abstract class MyBaseActivity<P extends com.zz.lib.core.ui.mvp.BasePresen
         EventBus.getDefault().register(this);
         CommonApplication.activity = this;
         App.context=this;
+        App.context.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                while (true){
+                    String s = new String();
+                }
+            }
+        });
 
     }
 

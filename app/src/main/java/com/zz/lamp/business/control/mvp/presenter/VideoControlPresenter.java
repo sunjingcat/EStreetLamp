@@ -55,7 +55,7 @@ public class VideoControlPresenter extends MyBasePresenterImpl<Contract.IGetVide
             @Override
             protected void onFail2(JsonT userInfoJsonT) {
                 super.onFail2(userInfoJsonT);
-                view.showToast(userInfoJsonT.getMessage());
+//                view.showToast(userInfoJsonT.getMessage());
             }
         }, null);
     }
@@ -75,7 +75,7 @@ public class VideoControlPresenter extends MyBasePresenterImpl<Contract.IGetVide
             @Override
             protected void onFail2(JsonT userInfoJsonT) {
                 super.onFail2(userInfoJsonT);
-                view.showToast(userInfoJsonT.getMessage());
+//                view.showToast(userInfoJsonT.getMessage());
             }
         }, null);
 

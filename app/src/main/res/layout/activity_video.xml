@@ -47,6 +47,29 @@
             android:layout_height="wrap_content"
             android:src="@drawable/image_vedeo_cut"/>
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:visibility="gone"
+            android:orientation="horizontal">
+        <TextView
+            android:id="@+id/video_zoom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/image_vedeo_add"
+            android:text="放大"
+            android:textColor="@color/white"
+            android:layout_margin="10dp"/>
+        <TextView
+            android:id="@+id/video_zoomOut"
+            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+           android:text="缩小"/>
+        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>

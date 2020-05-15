@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.zz.lib.commonlib.ui.CommonActivity;
 import com.zz.lib.commonlib.utils.IToast;
+import com.zz.lib.core.BaseApplication;
 import com.zz.lib.core.ui.mvp.BasePresenter;
 import com.zz.lib.core.ui.mvp.BaseView;
 import com.zz.lib.core.ui.widget.CustomProgressDialog;
@@ -33,7 +34,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends CommonActivi
         mLoadingDialog = LoadingUtils.build(this);
         mCompositeDisposable = new CompositeDisposable();
         mPresenter = initPresenter();
-
+        Con
     }
 
     @Override
