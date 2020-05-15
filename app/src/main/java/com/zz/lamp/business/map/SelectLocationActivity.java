@@ -24,6 +24,7 @@ import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.MapStatus;
+import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationData;
@@ -107,6 +108,7 @@ public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCo
                 double latitude = mlist.get(position).getLocation().latitude;
                 double longitude = mlist.get(position).getLocation().longitude;
                 showLocation(latitude, longitude);
+                moveCenter(mlist.get(position).getLocation());
                 locationInfo = mlist.get(position);
 
             }
@@ -378,6 +380,11 @@ public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCo
 
         if (isFirstLoc){ builder.target(ll).zoom(18.0f);}
         mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
+    }
+
+    private void moveCenter(LatLng latLng){
+        MapStatusUpdate status1 = MapStatusUpdateFactory.newLatLng(latLng);
+        mBaiduMap.animateMapStatus(status1, 500);
     }
 
 }
