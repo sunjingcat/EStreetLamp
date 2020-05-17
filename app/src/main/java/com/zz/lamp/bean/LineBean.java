@@ -5,7 +5,7 @@ public class LineBean {
     private Integer lineCode;//integer	线路编码
     private String lineName;//	string	线路名称
     private String terminalId;//integer	集中器终端id
-    private boolean check;//integer	集中器终端id
+    private boolean check = true;//integer	集中器终端id
     private int status;//integer	集中器终端id
 
     public int getStatus() {

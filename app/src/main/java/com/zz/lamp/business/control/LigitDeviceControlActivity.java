@@ -199,6 +199,10 @@ public class LigitDeviceControlActivity extends MyBaseActivity<Contract.IsetLigh
                 list.add(new LightPost(lineBean.getId(),lineBean.getDeviceType()));
             }
         }
+        if (list.size()==0){
+            showToast("请先选中操作对象");
+            return;
+        }
         String s = new Gson().toJson(list);
         Map<String, Object> params = new HashMap<>();
         params.put("luminance", opt);

@@ -204,6 +204,10 @@ public class GroupControlActivity extends MyBaseActivity<Contract.IsetGroupContr
                 list.add(lineBean.getId());
             }
         }
+        if (list.size()==0){
+            showToast("请先选中操作对象");
+            return;
+        }
 //        主辅灯类型（0-全部，1-主灯，2-辅灯）
         int type=0;
         if (controlLightTypeAll.isChecked()){

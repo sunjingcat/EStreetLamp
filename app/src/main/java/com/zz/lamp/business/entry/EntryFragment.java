@@ -172,7 +172,7 @@ public class EntryFragment  extends MyBaseFragment<Contract.IsetTerminalPresente
     @Override
     public void showIntent(List<ConcentratorBean> list) {
         if (list==null)return;
-        if (pageNum ==0){
+        if (pageNum ==1){
             mlist.clear();
         }
         mlist.addAll(list);

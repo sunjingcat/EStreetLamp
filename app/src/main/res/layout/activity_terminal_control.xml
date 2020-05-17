@@ -203,7 +203,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:button="@drawable/check_real"
-                        android:text="  全选" />
+                        android:text="  全选"
+                        android:checked="true"/>
                 </LinearLayout>
 
                 <include layout="@layout/refresh_layout" />
