@@ -110,7 +110,6 @@ public class LineActivity extends MyBaseActivity<Contract.IsetLinePresenter> imp
     protected void onResume() {
         super.onResume();
         getData();
-        mPresenter.getUsableCode(terminalId);
     }
 
     @Override
@@ -164,6 +163,7 @@ public class LineActivity extends MyBaseActivity<Contract.IsetLinePresenter> imp
 
     void getData() {
         mPresenter.getLineList(terminalId);
+        mPresenter.getUsableCode(terminalId);
     }
 
     @Override
