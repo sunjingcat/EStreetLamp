@@ -145,7 +145,7 @@ public class EntryFragment  extends MyBaseFragment<Contract.IsetTerminalPresente
 
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {
-        pageNum = 0;
+        pageNum = 1;
         getData();
         refreshlayout.finishRefresh();
     }

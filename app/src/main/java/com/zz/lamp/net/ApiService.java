@@ -70,14 +70,26 @@ public interface ApiService {
     @GET( "/app/light/terminal/check/terminalAddr")
     Observable<JsonT> checkTerminalAddr(@QueryMap Map<String, Object> params);
 
+    @GET( "/app/light/terminal/check/terminalAddr/{id}")
+    Observable<JsonT> checkTerminalAddr(@Path("id") String id,@QueryMap Map<String, Object> params);
+
     @GET( "/app/light/terminal/check/terminalName")
     Observable<JsonT> checkTerminalName(@QueryMap Map<String, Object> params);
+
+    @GET( "/app/light/terminal/check/terminalName/{id}")
+    Observable<JsonT> checkTerminalName(@Path("id") String id,@QueryMap Map<String, Object> params);
 
     @GET( "/app/light/lightDevice/check/deviceAddr")
     Observable<JsonT> checkDeviceAddr(@QueryMap Map<String, Object> params);
 
+    @GET( "/app/light/lightDevice/check/deviceAddr/{id}")
+    Observable<JsonT> checkDeviceAddr(@Path("id") String id,@QueryMap Map<String, Object> params);
+
     @GET( "/app/light/lightDevice/check/deviceName")
     Observable<JsonT> checkDeviceName(@QueryMap Map<String, Object> params);
+
+  @GET( "/app/light/lightDevice/check/deviceName/{id}")
+    Observable<JsonT> checkDeviceName(@Path("id") String id,@QueryMap Map<String, Object> params);
 
     @GET( "/app/light/lightDevice/check/deviceCode")
     Observable<JsonT> checkDeviceCode(@QueryMap Map<String, Object> params);

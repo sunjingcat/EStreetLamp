@@ -36,7 +36,7 @@ public class GlideUtils {
             if (TextUtils.isEmpty(url)){
                 return;
             }
-            if (isBase64Img(url)){
+            if (!url.contains("http")){
                 Bitmap bitmap = base64ToBitmap(url);
                 if (bitmap == null) {
                     RequestOptions options = new RequestOptions()

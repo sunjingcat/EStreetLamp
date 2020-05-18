@@ -108,6 +108,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
     @BindView(R.id.tv_deviceName)
     TextView tvDeviceName;
 
+    String  id;
     @Override
     protected int getContentView() {
         return R.layout.activity_lamp;
@@ -118,6 +119,8 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
     protected void initView() {
         ButterKnife.bind(this);
         terminalId = getIntent().getStringExtra("terminalId");
+
+         id = getIntent().getStringExtra("id");
         showInfo();
         mPresenter.getLightDeviceType();
         mPresenter.getLightPoleType();
@@ -292,7 +295,9 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
 
     void postData(int check) {
         Map<String, Object> params = new HashMap<>();
-
+        if (!TextUtils.isEmpty(id)){
+            params.put("id", id);
+        }
         params.put("terminalId", terminalId);
 
         String deviceAddr_ = devicecAddr.getText().toString();
@@ -305,7 +310,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
             Map<String, Object> map = new HashMap<>();
             map.put("deviceAddr", deviceAddr_);
             map.put("terminalId", terminalId);
-            mPresenter.checkDeviceAddr(map);
+            mPresenter.checkDeviceAddr(!TextUtils.isEmpty(id)?id:"",map);
             return;
         }
         String deviceName_ = deviceName.getText().toString();
@@ -318,7 +323,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
             Map<String, Object> map = new HashMap<>();
             map.put("deviceName", deviceName_);
             map.put("terminalId", terminalId);
-            mPresenter.checkDeviceName(map);
+            mPresenter.checkDeviceName(!TextUtils.isEmpty(id)?id:"",map);
             return;
         }
         if (TextUtils.isEmpty(lineId)) {

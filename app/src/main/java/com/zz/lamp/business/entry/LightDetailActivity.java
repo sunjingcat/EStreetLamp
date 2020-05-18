@@ -88,7 +88,7 @@ public class LightDetailActivity extends MyBaseActivity<Contract.IsetLampDetailP
         switch (view.getId()) {
             case R.id.toolbar_subtitle:
                 if (lightDevice == null) return;
-                startActivity(new Intent(this, EntryLampActivity.class).putExtra("terminalId", lightDevice.getTerminalId()).putExtra("device", lightDevice));
+                startActivity(new Intent(this, EntryLampActivity.class).putExtra("terminalId", lightDevice.getTerminalId()).putExtra("device", lightDevice).putExtra("id",lightDevice.getId()));
                 break;
             case R.id.delete:
                 showDeleteDialog();

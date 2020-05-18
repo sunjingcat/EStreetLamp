@@ -1,4 +1,6 @@
 package com.zz.lamp.business.entry.mvp.presenter;
+import android.text.TextUtils;
+
 import com.zz.lamp.bean.ConcentratorBean;
 import com.zz.lamp.business.entry.mvp.Contract;
 import com.zz.lamp.net.ApiService;
@@ -57,43 +59,82 @@ public class TerminalAddPresenter extends MyBasePresenterImpl<Contract.IGetTermi
     }
 
     @Override
-    public void checkTerminalAddr(Map<String, Object> params) {
-        RxNetUtils.request(getCApi(ApiService.class).checkTerminalAddr(params), new RequestObserver<JsonT>(this) {
-            @Override
-            protected void onSuccess(JsonT data) {
-                if (data.isSuccess()) {
-                    view.showCheckAddrIntent(data);
-                }else {
+    public void checkTerminalAddr(String id,Map<String, Object> params) {
+        if (TextUtils.isEmpty(id)) {
+            RxNetUtils.request(getCApi(ApiService.class).checkTerminalAddr(params), new RequestObserver<JsonT>(this) {
+                @Override
+                protected void onSuccess(JsonT data) {
+                    if (data.isSuccess()) {
+                        view.showCheckAddrIntent(data);
+                    } else {
 
+                    }
                 }
-            }
 
-            @Override
-            protected void onFail2(JsonT userInfoJsonT) {
-                super.onFail2(userInfoJsonT);
-                view.showCheckAddrIntent(userInfoJsonT);
-            }
-        },mDialog);
+                @Override
+                protected void onFail2(JsonT userInfoJsonT) {
+                    super.onFail2(userInfoJsonT);
+                    view.showCheckAddrIntent(userInfoJsonT);
+                }
+            }, mDialog);
+        }else {
+
+            RxNetUtils.request(getCApi(ApiService.class).checkTerminalAddr(id,params), new RequestObserver<JsonT>(this) {
+                @Override
+                protected void onSuccess(JsonT data) {
+                    if (data.isSuccess()) {
+                        view.showCheckAddrIntent(data);
+                    } else {
+
+                    }
+                }
+
+                @Override
+                protected void onFail2(JsonT userInfoJsonT) {
+                    super.onFail2(userInfoJsonT);
+                    view.showCheckAddrIntent(userInfoJsonT);
+                }
+            }, mDialog);
+        }
     }
 
     @Override
-    public void checkTerminalName(Map<String, Object> params) {
-        RxNetUtils.request(getCApi(ApiService.class).checkTerminalName(params), new RequestObserver<JsonT>(this) {
-            @Override
-            protected void onSuccess(JsonT data) {
-                if (data.isSuccess()) {
-                    view.showCheckNameIntent(data);
-                }else {
+    public void checkTerminalName(String id,Map<String, Object> params) {
+        if (TextUtils.isEmpty(id)) {
+            RxNetUtils.request(getCApi(ApiService.class).checkTerminalName(params), new RequestObserver<JsonT>(this) {
+                @Override
+                protected void onSuccess(JsonT data) {
+                    if (data.isSuccess()) {
+                        view.showCheckNameIntent(data);
+                    } else {
 
+                    }
                 }
-            }
 
-            @Override
-            protected void onFail2(JsonT userInfoJsonT) {
-                super.onFail2(userInfoJsonT);
-                view.showCheckNameIntent(userInfoJsonT);
-            }
-        },mDialog);
+                @Override
+                protected void onFail2(JsonT userInfoJsonT) {
+                    super.onFail2(userInfoJsonT);
+                    view.showCheckNameIntent(userInfoJsonT);
+                }
+            }, mDialog);
+        }else {
+            RxNetUtils.request(getCApi(ApiService.class).checkTerminalName(id,params), new RequestObserver<JsonT>(this) {
+                @Override
+                protected void onSuccess(JsonT data) {
+                    if (data.isSuccess()) {
+                        view.showCheckNameIntent(data);
+                    } else {
+
+                    }
+                }
+
+                @Override
+                protected void onFail2(JsonT userInfoJsonT) {
+                    super.onFail2(userInfoJsonT);
+                    view.showCheckNameIntent(userInfoJsonT);
+                }
+            }, mDialog);
+        }
     }
 
     @Override

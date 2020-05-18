@@ -194,7 +194,7 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
         if (check == 1) {
             Map<String, Object> map = new HashMap<>();
             map.put("terminalAddr", addr);
-            mPresenter.checkTerminalAddr(map);
+            mPresenter.checkTerminalAddr(!TextUtils.isEmpty(terminalId)?terminalId:"",map);
             return;
         }
         String name = terminalName.getText().toString();
@@ -206,7 +206,7 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
         if (check == 2) {
             Map<String, Object> map = new HashMap<>();
             map.put("terminalName", name);
-            mPresenter.checkTerminalName(map);
+            mPresenter.checkTerminalName(!TextUtils.isEmpty(terminalId)?terminalId:"",map);
             return;
         }
 
