@@ -302,6 +302,7 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
         areaId = concentratorBean.getAreaId();
         tvArea.setText(concentratorBean.getAreaName() + "");
         terminalAddr.setText(concentratorBean.getTerminalAddr() + "");
+        terminalAddr.setEnabled(false);
         terminalName.setText(concentratorBean.getTerminalName() + "");
         loopCount.setText(concentratorBean.getLoopCount() + "");
         lineCount.setText(concentratorBean.getLineCount() + "");

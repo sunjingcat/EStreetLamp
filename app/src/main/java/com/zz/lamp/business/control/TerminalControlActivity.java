@@ -78,7 +78,7 @@ public class TerminalControlActivity extends MyBaseActivity<Contract.IsetTermina
     List<LightDetailBean> detailBeanList = new ArrayList<>();
     List<LightDetailBean> detailBeanListALL = new ArrayList<>();
     DetailAdapter detailAdapter;
-    boolean isVisble=true;
+    boolean isVisble = true;
 
 
     @Override
@@ -160,7 +160,7 @@ public class TerminalControlActivity extends MyBaseActivity<Contract.IsetTermina
     private CustomDialog customDialog;
     CustomDialog.Builder builder;
 
-    @OnClick({R.id.control_group, R.id.control_lamp, R.id.ll_show, R.id.control_open, R.id.control_close, R.id.control_reStart})
+    @OnClick({R.id.control_group, R.id.control_lamp, R.id.ll_show, R.id.control_open, R.id.control_close, R.id.control_reStart, R.id.control_refresh})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.control_group:
@@ -186,27 +186,30 @@ public class TerminalControlActivity extends MyBaseActivity<Contract.IsetTermina
             case R.id.control_reStart:
                 showTimeDialog(2, "重启");
                 break;
+            case R.id.control_refresh:
+                mPresenter.getTerminalDetail(terminalId);
+
+                mPresenter.getLineList(terminalId);
+                break;
             case R.id.ll_show:
                 if (isVisble) {
-                    if (detailBeanListALL.size()>8){
+                    if (detailBeanListALL.size() > 8) {
                         List<LightDetailBean> list = detailBeanListALL.subList(0, 7);
                         detailBeanList.clear();
                         detailBeanList.addAll(list);
                         detailAdapter.notifyDataSetChanged();
                     }
-                    isVisble=false;
+                    isVisble = false;
                     ivShow.setImageResource(R.drawable.image_open);
                     tvShow.setText("打开");
                 } else {
                     detailBeanList.clear();
                     detailBeanList.addAll(detailBeanListALL);
                     detailAdapter.notifyDataSetChanged();
-                    isVisble=true;
+                    isVisble = true;
                     ivShow.setImageResource(R.drawable.image_close_tab);
                     tvShow.setText("收起");
                 }
-
-
 
 
                 break;
@@ -231,7 +234,9 @@ public class TerminalControlActivity extends MyBaseActivity<Contract.IsetTermina
                         postData(opt);
                     }
                 });
-        setTimer();
+        if (opt>0) {
+            setTimer();
+        }
         customDialog = builder.create();
         customDialog.show();
     }

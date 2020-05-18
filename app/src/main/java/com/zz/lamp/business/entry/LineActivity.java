@@ -187,7 +187,6 @@ public class LineActivity extends MyBaseActivity<Contract.IsetLinePresenter> imp
     }
 
     void postData(String lineName, String lineCode, String lineId) {
-        //TODO 接口错误
         Map<String, Object> map = new HashMap<>();
         map.put("lineCode", lineCode + "");
         map.put("lineName", lineName + "");
