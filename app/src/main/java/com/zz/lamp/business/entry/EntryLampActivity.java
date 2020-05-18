@@ -55,8 +55,6 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
     TextView devicecAddr;
     @BindView(R.id.deviceName)
     EditText deviceName;
-    @BindView(R.id.devicecCode)
-    EditText devicecCode;
     @BindView(R.id.lightInstallTime)
     TextView lightInstallTime;
     @BindView(R.id.lightPoleCode)
@@ -109,8 +107,6 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
     TextView tvDevicecAddr;
     @BindView(R.id.tv_deviceName)
     TextView tvDeviceName;
-    @BindView(R.id.tv_devicecCode)
-    TextView tvDevicecCode;
 
     @Override
     protected int getContentView() {
@@ -194,16 +190,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
         }
     }
 
-    @Override
-    public void showCheckCodeIntent(JsonT jsonT) {
-        if (!jsonT.isSuccess()) {
-            tvDevicecCode.setTextColor(getResources().getColor(R.color.red_e8));
-            showToast(jsonT.getMessage());
-        } else {
-            tvDevicecCode.setTextColor(getResources().getColor(R.color.colorTextBlack33));
-            postData(0);
-        }
-    }
+
 
     @OnClick({R.id.lineName, R.id.toolbar_subtitle, R.id.devicecAddr, R.id.lightInstallTime, R.id.devicecType, R.id.lightMainType, R.id.lightAuxiliaryType, R.id.lat, R.id.lightPoleType, R.id.lightType})
     public void onViewClicked(View view) {
@@ -332,20 +319,6 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
             map.put("deviceName", deviceName_);
             map.put("terminalId", terminalId);
             mPresenter.checkDeviceName(map);
-            return;
-        }
-        String devicecCode_ = devicecCode.getText().toString();
-        if (TextUtils.isEmpty(devicecCode_)) {
-            showToast("请输入路灯控制器别名");
-            return;
-        }
-        params.put("deviceCode", devicecCode_);
-
-        if (check == 3) {
-            Map<String, Object> map = new HashMap<>();
-            map.put("deviceCode", devicecCode_);
-            map.put("terminalId", terminalId);
-            mPresenter.checkDeviceCode(map);
             return;
         }
         if (TextUtils.isEmpty(lineId)) {
@@ -519,15 +492,14 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
     void showInfo() {
         LightDevice device = (LightDevice) getIntent().getSerializableExtra("device");
         if (device == null) return;
-        devicecCode.setText(device.getDeviceCode() + "");
         lightInstallTime.setText(device.getLightInstallTime()+"");
         lightInstallTime_ = TimeUtils.parseTime(device.getLightInstallTime(), TimeUtils.DATE_FORMAT_DATE).getTime();
         lightPoleCode.setText(device.getLightPoleCode() + "");
         lightPoleHeight.setText(device.getLightPoleHeight() + "");
-        lightPoleType.setText(device.getLightPoleType() + "");
-        lightPoleType_ = device.getLightPoleType();//TODO
-        lightType.setText(device.getLightType() + "");
-        lightType_ = device.getLightType();//TODO
+        lightPoleType.setText(device.getLightPoleTypeText() + "");
+        lightPoleType_ = device.getLightPoleType();
+        lightType.setText(device.getLightTypeText() + "");
+        lightType_ = device.getLightType();
         if (device.getDeviceType() == 1) {
             devicecType.setText("单灯");
             llAuxiliary.setVisibility(View.GONE);
@@ -544,6 +516,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
         lightMainPowerLimit.setText(device.getLightMainPowerLimit() + "");
         lineName.setText(device.getLineName() + "");
         lineId = device.getLineId();
+        llAuxiliary.setVisibility(devicecType_ == 2 ? View.VISIBLE : View.GONE);
         if (devicecType_== 2) {
             lightAuxiliaryType.setText(device.getLightAuxiliaryTypeName() + "");
             lightAuxiliaryType_ = device.getLightAuxiliaryType();

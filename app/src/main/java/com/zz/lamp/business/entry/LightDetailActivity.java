@@ -97,6 +97,7 @@ public class LightDetailActivity extends MyBaseActivity<Contract.IsetLampDetailP
     }
     private CustomDialog customDialog;
     private void showDeleteDialog() {
+        if (lightDevice == null) return;
         CustomDialog.Builder builder = new com.troila.customealert.CustomDialog.Builder(this)
                 .setTitle("提示")
                 .setMessage("确定删除设备")

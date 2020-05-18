@@ -164,14 +164,14 @@ public class TerminalControlActivity extends MyBaseActivity<Contract.IsetTermina
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.control_group:
-                if (concentratorBean != null && concentratorBean.getTerminalOnOff() == 0) {
+                if (concentratorBean != null && concentratorBean.getTerminalOnOff() == 1) {
                     startActivity(new Intent(TerminalControlActivity.this, GroupControlActivity.class).putExtra("terminalId", terminalId));
                 } else {
                     showToast("请先合闸");
                 }
                 break;
             case R.id.control_lamp:
-                if (concentratorBean != null && concentratorBean.getTerminalOnOff() == 0) {
+                if (concentratorBean != null && concentratorBean.getTerminalOnOff() == 1) {
                     startActivity(new Intent(TerminalControlActivity.this, LigitDeviceControlActivity.class).putExtra("terminalId", terminalId));
                 } else {
                     showToast("请先合闸");
@@ -242,10 +242,6 @@ public class TerminalControlActivity extends MyBaseActivity<Contract.IsetTermina
             if (lineBean.isCheck()) {
                 list.add(lineBean.getLineCode());
             }
-        }
-        if (list.size()==0){
-            showToast("请先选中操作对象");
-            return;
         }
         Integer[] arr = (Integer[]) list.toArray(new Integer[list.size()]);
         Map<String, Object> params = new HashMap<>();

@@ -39,6 +39,8 @@ public class ImageItemAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
                     str = item.replace("data:image/png;base64,","");
                 }if (item.contains("data:image/jpg;base64,")){
                     str = item.replace("data:image/jpg;base64,","");
+                }if (item.contains("data:image/jpeg;base64,")){
+                    str = item.replace("data:image/jpeg;base64,","");
                 }
                 Bitmap s1 = GlideUtils.base64ToBitmap(str);
                 String s = BASE64.saveBitmap(s1);

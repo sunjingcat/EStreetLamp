@@ -51,7 +51,7 @@ public class Contract {
 
         void checkDeviceAddr(Map<String, Object> params);
         void checkDeviceName(Map<String, Object> params);
-        void checkDeviceCode(Map<String, Object> params);
+
 
 
 
@@ -68,7 +68,6 @@ public class Contract {
 
         void showCheckAddrIntent(JsonT jsonT);
         void showCheckNameIntent(JsonT jsonT);
-        void showCheckCodeIntent(JsonT jsonT);
 
 
 

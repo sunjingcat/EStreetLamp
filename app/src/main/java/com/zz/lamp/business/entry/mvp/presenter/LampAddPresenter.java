@@ -142,25 +142,5 @@ public class LampAddPresenter extends MyBasePresenterImpl<Contract.IGetLampAddVi
         },mDialog);
     }
 
-    @Override
-    public void checkDeviceCode(Map<String, Object> params) {
-        RxNetUtils.request(getCApi(ApiService.class).checkDeviceCode(params), new RequestObserver<JsonT>(this) {
-            @Override
-            protected void onSuccess(JsonT data) {
-                if (data.isSuccess()) {
-                    view.showCheckCodeIntent(data);
-                }else {
-
-                }
-            }
-
-            @Override
-            protected void onFail2(JsonT userInfoJsonT) {
-                super.onFail2(userInfoJsonT);
-                view.showCheckCodeIntent(userInfoJsonT);
-            }
-        },mDialog);
-    }
-
 
 }
