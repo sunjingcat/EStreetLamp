@@ -162,6 +162,7 @@ dependencies {
     implementation project(path: ':dlroundmenuview')
     implementation 'homhomlin.lib:frescoimageview:1.3.0'
     implementation 'com.facebook.fresco:fresco:0.10.0'
+    implementation 'top.zibin:Luban:1.1.3'
 //    implementation 'com.github.D10NGYANG:DL10RoundMenuView:1.0.5'
 }
 

@@ -173,12 +173,9 @@ public class LampListActivity extends MyBaseActivity<Contract.IsetLampPresenter>
                 }
                 break;
             case R.id.entry_lamp:
-                if (mlist.size() > 0) {
-                    LightDevice lightDevice = mlist.get(mlist.size() - 1);
-                    startActivity(new Intent(this, EntryLampActivity.class).putExtra("terminalId", terminalId).putExtra("device", lightDevice));
-                } else {
-                    startActivity(new Intent(this, EntryLampActivity.class).putExtra("terminalId", terminalId));
-                }
+
+                startActivity(new Intent(this, EntryLampActivity.class).putExtra("terminalId", terminalId));
+
                 break;
         }
     }
@@ -201,7 +198,7 @@ public class LampListActivity extends MyBaseActivity<Contract.IsetLampPresenter>
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode==100){
+        if (resultCode == 100) {
             setResult(RESULT_OK);
             finish();
         }

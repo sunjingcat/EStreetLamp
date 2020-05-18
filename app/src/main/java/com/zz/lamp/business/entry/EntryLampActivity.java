@@ -52,7 +52,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.devicecAddr)
-    TextView devicecAddr;
+    EditText devicecAddr;
     @BindView(R.id.deviceName)
     EditText deviceName;
     @BindView(R.id.lightInstallTime)
@@ -107,8 +107,11 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
     TextView tvDevicecAddr;
     @BindView(R.id.tv_deviceName)
     TextView tvDeviceName;
+    @BindView(R.id.btn_next)
+    TextView btnNext;
 
-    String  id;
+    String id;
+
     @Override
     protected int getContentView() {
         return R.layout.activity_lamp;
@@ -120,7 +123,10 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
         ButterKnife.bind(this);
         terminalId = getIntent().getStringExtra("terminalId");
 
-         id = getIntent().getStringExtra("id");
+        id = getIntent().getStringExtra("id");
+        if (!TextUtils.isEmpty(id)){
+            btnNext.setVisibility(View.GONE);
+        }
         showInfo();
         mPresenter.getLightDeviceType();
         mPresenter.getLightPoleType();
@@ -135,8 +141,12 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
 
     @Override
     public void showIntent() {
-        devicecAddr.setText("");
-        showToast("提交成功");
+        if (back){
+            finish();
+        }else {
+            devicecAddr.setText("");
+            showToast("提交成功");
+        }
     }
 
     @Override
@@ -193,15 +203,20 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
         }
     }
 
+    private boolean back;
 
-
-    @OnClick({R.id.lineName, R.id.toolbar_subtitle, R.id.devicecAddr, R.id.lightInstallTime, R.id.devicecType, R.id.lightMainType, R.id.lightAuxiliaryType, R.id.lat, R.id.lightPoleType, R.id.lightType})
+    @OnClick({R.id.lineName,R.id.devicecAddr_code, R.id.btn_save, R.id.btn_next,  R.id.lightInstallTime, R.id.devicecType, R.id.lightMainType, R.id.lightAuxiliaryType, R.id.lat, R.id.lightPoleType, R.id.lightType})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.toolbar_subtitle:
+            case R.id.btn_save:
+                back = true;
                 postData(1);
                 break;
-            case R.id.devicecAddr:
+            case R.id.btn_next:
+                back = false;
+                postData(1);
+                break;
+            case R.id.devicecAddr_code:
                 startQrCode();
                 break;
             case R.id.lineName:
@@ -295,7 +310,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
 
     void postData(int check) {
         Map<String, Object> params = new HashMap<>();
-        if (!TextUtils.isEmpty(id)){
+        if (!TextUtils.isEmpty(id)) {
             params.put("id", id);
         }
         params.put("terminalId", terminalId);
@@ -310,7 +325,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
             Map<String, Object> map = new HashMap<>();
             map.put("deviceAddr", deviceAddr_);
             map.put("terminalId", terminalId);
-            mPresenter.checkDeviceAddr(!TextUtils.isEmpty(id)?id:"",map);
+            mPresenter.checkDeviceAddr(!TextUtils.isEmpty(id) ? id : "", map);
             return;
         }
         String deviceName_ = deviceName.getText().toString();
@@ -323,7 +338,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
             Map<String, Object> map = new HashMap<>();
             map.put("deviceName", deviceName_);
             map.put("terminalId", terminalId);
-            mPresenter.checkDeviceName(!TextUtils.isEmpty(id)?id:"",map);
+            mPresenter.checkDeviceName(!TextUtils.isEmpty(id) ? id : "", map);
             return;
         }
         if (TextUtils.isEmpty(lineId)) {
@@ -337,7 +352,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
             showToast("请选择安装时间");
             return;
         }
-        params.put("lightInstallTime", TimeUtils.getTime(lightInstallTime_,TimeUtils.DATE_FORMAT_DATE) );
+        params.put("lightInstallTime", TimeUtils.getTime(lightInstallTime_, TimeUtils.DATE_FORMAT_DATE));
 
         String lightPoleCode_ = lightPoleCode.getText().toString();
         if (TextUtils.isEmpty(lightPoleCode_)) {
@@ -432,7 +447,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
             }
         }
         if (requestCode == 1001 && resultCode == RESULT_OK) {
-            lineId = data.getStringExtra("lineId" )+"";
+            lineId = data.getStringExtra("lineId") + "";
             lineName.setText(data.getStringExtra("lineName") + "");
         }
         if (requestCode == 1002 && resultCode == RESULT_OK) {
@@ -497,7 +512,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
     void showInfo() {
         LightDevice device = (LightDevice) getIntent().getSerializableExtra("device");
         if (device == null) return;
-        lightInstallTime.setText(device.getLightInstallTime()+"");
+        lightInstallTime.setText(device.getLightInstallTime() + "");
         lightInstallTime_ = TimeUtils.parseTime(device.getLightInstallTime(), TimeUtils.DATE_FORMAT_DATE).getTime();
         lightPoleCode.setText(device.getLightPoleCode() + "");
         lightPoleHeight.setText(device.getLightPoleHeight() + "");
@@ -522,7 +537,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
         lineName.setText(device.getLineName() + "");
         lineId = device.getLineId();
         llAuxiliary.setVisibility(devicecType_ == 2 ? View.VISIBLE : View.GONE);
-        if (devicecType_== 2) {
+        if (devicecType_ == 2) {
             lightAuxiliaryType.setText(device.getLightAuxiliaryTypeName() + "");
             lightAuxiliaryType_ = device.getLightAuxiliaryType();
             lightAuxiliaryPower.setText(device.getLightAuxiliaryPower() + "");

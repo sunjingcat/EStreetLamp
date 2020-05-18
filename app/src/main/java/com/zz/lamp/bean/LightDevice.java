@@ -9,12 +9,12 @@ public class LightDevice implements Serializable {
     private  Double  deviceLat;//	string	纬度
     private  Double  deviceLng	;//string	经度
     private  Integer   deviceType;//	integer	路灯类型
-    private  Integer   status;//	integer	路灯类型
+    private  Integer   status;//	integer	开关灯状态
     private  String   id	;//integer	主键id
     private  String lightAuxiliaryPower;//	number	辅灯额定功率(W)
     private  String  lightAuxiliaryPowerLimit;//	number	辅灯功率阈值(W)
     private  Integer  lightAuxiliaryType;//	integer	辅灯类型
-    private  Integer  lightAuxiliaryTypeText;//	integer	辅灯类型
+    private  String  lightAuxiliaryTypeText;//	integer	辅灯类型
     private  String  lightInstallTime;//	string	安装时间
     private  String   lightMainPower	;//number	主灯额定功率(W)
     private  String  lightMainPowerLimit	;//number	主灯功率阈值(W)
@@ -47,7 +47,7 @@ public class LightDevice implements Serializable {
         return lightMainTypeText;
     }
 
-    public Integer getLightAuxiliaryTypeName() {
+    public String getLightAuxiliaryTypeName() {
         return lightAuxiliaryTypeText;
     }
 

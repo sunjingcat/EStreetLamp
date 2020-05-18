@@ -1,6 +1,7 @@
 package com.zz.lamp.business.alarm;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -9,7 +10,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.donkingliang.imageselector.utils.ImageSelector;
 import com.donkingliang.imageselector.utils.ImageSelectorUtils;
 import com.google.gson.Gson;
+import com.zz.lamp.MainActivity;
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseActivity;
 import com.zz.lamp.bean.AlarmBean;
@@ -24,17 +28,25 @@ import com.zz.lamp.business.alarm.adapter.ImageDeleteItemAdapter;
 import com.zz.lamp.business.alarm.mvp.Contract;
 import com.zz.lamp.business.alarm.mvp.presenter.AlarmAddPresenter;
 import com.zz.lamp.utils.BASE64;
+import com.zz.lamp.utils.LogUtils;
 import com.zz.lib.commonlib.utils.ToolBarUtils;
 import com.zz.lib.commonlib.widget.SelectPopupWindows;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Flowable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 public class AlarmHandleActivity extends MyBaseActivity<Contract.IsetAlarmAddPresenter> implements Contract.IGetAlarmAddView {
     ArrayList<String> imagesAnnex = new ArrayList<>();
@@ -155,12 +167,38 @@ public class AlarmHandleActivity extends MyBaseActivity<Contract.IsetAlarmAddPre
             showToast("请选择告警处理状态");
             return;
         }
+
         ArrayList<String> baseb4 = new ArrayList<>();
-        for (String str : this.imagesAnnex) {
-            baseb4.add("data:image/jpg;base64," + BASE64.imageToBase64(str));
-        }
-        String s = new Gson().toJson(baseb4);
-        mPresenter.submitData(id, alarmStatus+"", handleDescription+"", id, s);
+        Luban.with(this)
+                .load(this.imagesAnnex)
+                .ignoreBy(100)
+                .setCompressListener(new OnCompressListener() {
+                    @Override
+                    public void onStart() {
+                        // TODO 压缩开始前调用，可以在方法内启动 loading UI
+                    }
+
+                    @Override
+                    public void onSuccess(File file) {
+                        baseb4.add("data:image/jpg;base64," + BASE64.imageToBase64(file.getPath()));
+                        if (baseb4.size()==imagesAnnex.size()){
+                            String s = new Gson().toJson(baseb4);
+                            mPresenter.submitData(id, alarmStatus+"", handleDescription+"", id, s);
+
+                        }
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        // TODO 当压缩过程出现问题时调用
+                    }
+                }).launch();
+
+//        ArrayList<String> baseb4 = new ArrayList<>();
+//        for (String str : this.imagesAnnex) {
+//            baseb4.add("data:image/jpg;base64," + BASE64.imageToBase64(str));
+//        }
+//        String s = new Gson().toJson(baseb4);
+//        mPresenter.submitData(id, alarmStatus+"", handleDescription+"", id, s);
 
     }
 
