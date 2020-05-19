@@ -20,6 +20,7 @@ import com.zz.lamp.base.MyBaseActivity;
 import com.zz.lamp.bean.IpAdress;
 import com.zz.lamp.business.login.mvp.Contract;
 import com.zz.lamp.business.login.mvp.presenter.LoginPresenter;
+import com.zz.lib.commonlib.utils.CacheUtility;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -58,6 +59,8 @@ public class LoginActivity extends MyBaseActivity<Contract.IsetLoginPresenter> i
     @Override
     protected void initView() {
         ButterKnife.bind(this);
+        String code = CacheUtility.spGetOut("code", "600001");
+        logCode.setText(code+"");
     }
 
     @Override

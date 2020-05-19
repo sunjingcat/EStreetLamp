@@ -74,6 +74,7 @@ public class ChangeCodeActivity extends MyBaseActivity {
             @Override
             protected void onSuccess(JsonT<IpAdress> jsonT) {
                 if (jsonT.isSuccess()) {
+                    CacheUtility.spSave("code",trim);
                     startActivity(new Intent(ChangeCodeActivity.this, LoginActivity.class));
                     finish();
                 } else {
