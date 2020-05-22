@@ -122,22 +122,26 @@
                         android:text="基础信息"
                         android:textColor="#444444"
                         android:textSize="18dp" />
-
-                    <TextView
-                        android:id="@+id/control_refresh"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:text="刷新"
-                        android:textColor="@color/red_e8" />
                     <TextView
                         android:id="@+id/control_reStart"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="5dp"
                         android:text="重启"
+                        android:drawableLeft="@drawable/icon_close"
+                        android:drawablePadding="5dp"
                         android:layout_marginLeft="8dp"
                         android:textColor="@color/red_e8" />
+                    <TextView
+                        android:id="@+id/control_refresh"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="刷新"
+                        android:drawableLeft="@drawable/icon_refresh"
+                        android:drawablePadding="5dp"
+                        android:textColor="@color/color9C" />
+
                 </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView

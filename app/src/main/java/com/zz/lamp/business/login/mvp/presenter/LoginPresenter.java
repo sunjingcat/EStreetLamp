@@ -40,7 +40,7 @@ public class LoginPresenter extends MyBasePresenterImpl<Contract.IGetLoginView> 
             @Override
             protected void onFail2(JsonT<IpAdress> ipAdressJsonT) {
                 super.onFail2(ipAdressJsonT);
-                view.showToast("获取IP失败");
+                view.showToast(ipAdressJsonT.getMessage()+"");
             }
         },mDialog);
 

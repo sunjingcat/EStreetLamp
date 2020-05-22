@@ -512,6 +512,8 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
     void showInfo() {
         LightDevice device = (LightDevice) getIntent().getSerializableExtra("device");
         if (device == null) return;
+        devicecAddr.setText(device.getDeviceAddr()+"");
+        deviceName.setText(device.getDeviceName()+"");
         lightInstallTime.setText(device.getLightInstallTime() + "");
         lightInstallTime_ = TimeUtils.parseTime(device.getLightInstallTime(), TimeUtils.DATE_FORMAT_DATE).getTime();
         lightPoleCode.setText(device.getLightPoleCode() + "");

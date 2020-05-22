@@ -93,4 +93,8 @@ public class ControlFragment extends MyBaseFragment {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 }

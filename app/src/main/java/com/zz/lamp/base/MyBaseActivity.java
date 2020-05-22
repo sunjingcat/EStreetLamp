@@ -16,6 +16,7 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.zz.lamp.App;
 import com.zz.lamp.HomeActivity;
 import com.zz.lamp.R;
+import com.zz.lamp.business.login.LoginActivity;
 import com.zz.lamp.net.OutDateEvent;
 import com.zz.lamp.utils.woolglass.FragmentClass;
 import com.zz.lib.commonlib.CommonApplication;
@@ -98,12 +99,12 @@ public abstract class MyBaseActivity<P extends com.zz.lib.core.ui.mvp.BasePresen
     public void onOutDate(OutDateEvent event) {
         onOutDatePreExcuted();
         CacheUtility.saveToken("");
-//        Intent intent = new Intent();
-//        intent.setClass(this, LoginActivity.class);
-////        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
-////                Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//        intent.putExtra("drawback", true);
-//        startActivity(intent);
+        Intent intent = new Intent();
+        intent.setClass(this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.putExtra("drawback", true);
+        startActivity(intent);
 //        IToast.show(this,"跳登录");
     }
 

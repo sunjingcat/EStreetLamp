@@ -37,7 +37,7 @@ public abstract class CompactModel extends GsonModel {
     }
 
     public boolean isOutdate() {
-        if (is_auth != null&&is_auth == 0) return true;
+        if (code != null&&code .equals("401") ) return true;
         return false;
     }
 

@@ -15,18 +15,24 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:orientation="vertical">
-
+        <View
+            android:layout_width="5dp"
+            android:layout_height="20dp"
+            android:background="@color/colorThemeYellowLight"
+            android:layout_margin="5dp"
+            android:layout_centerVertical="true"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical">
 
+
             <TextView
                 android:id="@+id/lblDialogTitle"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:layout_marginLeft="15dp"
                 android:text="软件更新"
                 android:textColor="#333"
                 android:textSize="16sp" />
@@ -51,7 +57,8 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:padding="10dp"
-            android:src="@drawable/image_close" />
+            android:src="@drawable/image_close"
+            />
 
     </RelativeLayout>
 
@@ -70,7 +77,7 @@
             android:layout_height="wrap_content"
             android:gravity="left"
             android:lineSpacingMultiplier="1.5"
-            android:paddingLeft="15dp"
+
             android:paddingRight="15dp"
             tools:text="更新内容"
             android:textColor="#333"
@@ -79,7 +86,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:scrollbars="none">
 
             <TextView
@@ -88,13 +95,17 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:lineSpacingMultiplier="1.5"
-                android:paddingLeft="15dp"
+                tools:text="更新内容"
                 android:paddingRight="15dp"
                 android:textColor="#333"
                 android:textSize="14sp" />
         </ScrollView>
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/tab_indicator"/>
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -119,9 +130,10 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_marginBottom="8dp"
-            android:layout_weight="1"
 
+            android:layout_weight="1"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
             android:gravity="center"
             android:padding="10dp"
             android:text="立即更新"

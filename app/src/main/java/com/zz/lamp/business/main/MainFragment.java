@@ -215,7 +215,11 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
 
     void clearMarkers() {
         try {
-
+            if (overlays != null && !overlays.isEmpty()) {
+                overlays.clear();
+                bmapView.invalidate();
+                overlayOptions.clear();
+            }
         }catch (Exception e) {
             if (overlays != null && !overlays.isEmpty()) {
                 overlays.clear();

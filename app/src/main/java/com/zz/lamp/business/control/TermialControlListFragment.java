@@ -95,7 +95,7 @@ public class TermialControlListFragment extends MyBaseFragment implements OnRefr
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-                startActivity(new Intent(getActivity(),TerminalControlActivity.class).putExtra("terminalId",mlist.get(position).getId()));
+                startActivityForResult(new Intent(getActivity(),TerminalControlActivity.class).putExtra("terminalId",mlist.get(position).getId()),1001);
             }
         });
         getData();
@@ -201,11 +201,19 @@ public class TermialControlListFragment extends MyBaseFragment implements OnRefr
         }, null);
     }
 
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (resultCode==-1) {
+//            pageNum = 1;
+//            getData();
+//        }
+//    }
+
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode==-1) {
+    public void onResume() {
+        super.onResume();
+        pageNum = 1;
             getData();
-        }
     }
 }

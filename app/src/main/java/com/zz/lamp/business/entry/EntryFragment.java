@@ -165,7 +165,7 @@ public class EntryFragment  extends MyBaseFragment<Contract.IsetTerminalPresente
                 getActivity().startActivity(new Intent(getActivity(),RegionActivity.class).putExtra("shouldBack",1));
                 break;
             case R.id.entry_jzq:
-                getActivity().startActivity(new Intent(getActivity(),EntryJzqActivity.class));
+                getActivity().startActivityForResult(new Intent(getActivity(),EntryJzqActivity.class),1001);
                 break;
         }
     }
@@ -197,6 +197,7 @@ public class EntryFragment  extends MyBaseFragment<Contract.IsetTerminalPresente
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode==-1) {
+            pageNum = 1;
             getData();
         }
     }

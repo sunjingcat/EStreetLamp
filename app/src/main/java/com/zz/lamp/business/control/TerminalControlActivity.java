@@ -155,6 +155,10 @@ public class TerminalControlActivity extends MyBaseActivity<Contract.IsetTermina
     @Override
     public void showIntent() {
         showToast("请求成功");
+        mPresenter.getTerminalDetail(terminalId);
+
+        mPresenter.getLineList(terminalId);
+
     }
 
     private CustomDialog customDialog;

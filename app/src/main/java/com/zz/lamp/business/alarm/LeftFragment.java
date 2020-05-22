@@ -101,7 +101,7 @@ public class LeftFragment extends MyBaseFragment implements OnRefreshListener, O
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-                startActivity(new Intent(getActivity(),AlarmHandleActivity.class).putExtra("id",mlist.get(position).getId()));
+                startActivityForResult(new Intent(getActivity(),AlarmHandleActivity.class).putExtra("id",mlist.get(position).getId()),1001);
             }
         });
         refreshLayout.setOnRefreshListener(this);
@@ -232,7 +232,7 @@ public class LeftFragment extends MyBaseFragment implements OnRefreshListener, O
             }
         }, null);
     }
-
+//
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
