@@ -207,6 +207,7 @@ public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCo
         // tv=(TextView) findViewById(R.id.editText1);
         mSuggestionSearch.setOnGetSuggestionResultListener(listener);
         mLocationClient.registerLocationListener(myListener);    //注册监听函数
+
         //开启定位
         mLocationClient.start();
         //图片点击事件，回到定位点
@@ -308,7 +309,7 @@ public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCo
                 break;
             case R.id.my_site:
                 if (latLng!=null&&latLng.latitude!=0.0&&latLng.longitude!=0.0){
-                    showLocation(latLng.latitude, latLng.longitude);
+                    moveCenter(latLng);
                 }else {
                     showToast("定位失败");
                 }
@@ -332,16 +333,26 @@ public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCo
                         .direction(100).latitude(location.getLatitude())
                         .longitude(location.getLongitude()).build();
                 // 设置定位数据
-                mBaiduMap.setMyLocationData(locData);
-                showLocation(location.getLatitude(), location.getLongitude());
-                tv_name.setText(location.getAddrStr() + "");
+//                mBaiduMap.setMyLocationData(locData);
+                double lat = getIntent().getDoubleExtra("lat", 0.0);
+                double lon = getIntent().getDoubleExtra("lon", 0.0);
+                if (lat>0.0&&lon>0.0){
+                    showLocation(lat, lon);
+                    moveCenter(new LatLng(lat,lon));
+                }else {
+                    showLocation(location.getLatitude(), location.getLongitude());
+                    tv_name.setText(location.getAddrStr() + "");
+                    ReverseGeoCodeOption reverseGeoCodeOption = new ReverseGeoCodeOption();
+                    reverseGeoCodeOption.location(latLng);
+                    geoCoder.reverseGeoCode(reverseGeoCodeOption);
+                    isFirstLoc= false;
+                }
+
+
                 locationInfo = new PoiInfo();
                 locationInfo.setAddress(location.getAddrStr());
                 locationInfo.setLocation(latLng);
-                ReverseGeoCodeOption reverseGeoCodeOption = new ReverseGeoCodeOption();
-                reverseGeoCodeOption.location(latLng);
-                geoCoder.reverseGeoCode(reverseGeoCodeOption);
-                isFirstLoc= false;
+
             }
             if (location.getLocType() == BDLocation.TypeServerError) {
                 Toast.makeText(SelectLocationActivity.this, "服务器错误，请检查", Toast.LENGTH_SHORT).show();

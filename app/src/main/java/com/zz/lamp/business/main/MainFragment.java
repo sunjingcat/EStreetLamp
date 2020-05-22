@@ -217,14 +217,12 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
         try {
             if (overlays != null && !overlays.isEmpty()) {
                 overlays.clear();
-                bmapView.invalidate();
                 overlayOptions.clear();
+                mBaiduMap.clear();
+                bmapView.invalidate();
+
             }
         }catch (Exception e) {
-            if (overlays != null && !overlays.isEmpty()) {
-                overlays.clear();
-                bmapView.invalidate();
-            }
         }
     }
 
@@ -264,7 +262,9 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
         if (list == null || list.size() == 0) {
             return;
         }
+        overlayOptions.clear();
         mapListList = list;
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -288,9 +288,9 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
                                 .position(point)
                                 .icon(bitmap);
                         overlayOptions.add(option);
-                        if (overlayOptions.size()>0){
-                            mHandler.sendEmptyMessage(1);
-                        }
+                    }
+                    if (overlayOptions.size()>0){
+                        mHandler.sendEmptyMessage(1);
                     }
 
                 } catch (Exception e) {

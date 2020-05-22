@@ -142,7 +142,7 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
                 });
                 break;
             case R.id.lat:
-                startActivityForResult(new Intent(EntryJzqActivity.this, SelectLocationActivity.class), 1002);
+                startActivityForResult(new Intent(EntryJzqActivity.this, SelectLocationActivity.class).putExtra("lat",lat).putExtra("lon",lon), 1002);
                 break;
         }
     }
@@ -163,7 +163,7 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
                 PoiInfo poiInfo = data.getParcelableExtra("location");
                 lat = poiInfo.location.latitude;
                 lon = poiInfo.location.longitude;
-                tv_lat.setText(poiInfo.address + "");
+                tv_lat.setText(lat + ","+lon);
                 break;
         }
     }

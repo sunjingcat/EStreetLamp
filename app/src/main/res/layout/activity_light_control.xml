@@ -87,7 +87,7 @@
                     android:layout_marginLeft="12dp"
                     android:layout_weight="1"
                     android:background="@drawable/border_radius_5_ffc750"
-                    android:text="拉闸"
+                    android:text="关灯"
                     android:textColor="@color/white"
                     android:textSize="14dp" />
 
@@ -98,7 +98,7 @@
                     android:layout_marginLeft="12dp"
                     android:layout_weight="1"
                     android:background="@drawable/border_radius_5_4480d6"
-                    android:text="合闸"
+                    android:text="开灯"
                     android:textColor="@color/white"
                     android:textSize="14dp" />
                 <Button
