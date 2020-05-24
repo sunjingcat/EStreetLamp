@@ -453,9 +453,11 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
         if (requestCode == 1002 && resultCode == RESULT_OK) {
             if (data == null) return;
             PoiInfo poiInfo = data.getParcelableExtra("location");
-            lat = poiInfo.location.latitude;
-            lon = poiInfo.location.longitude;
-            lat_tv.setText(lat + ","+lon);
+            if (poiInfo!=null&&poiInfo.location!=null) {
+                lat = poiInfo.location.latitude;
+                lon = poiInfo.location.longitude;
+                lat_tv.setText(lat + "," + lon);
+            }
         }
     }
 

@@ -3,6 +3,7 @@ package com.zz.lamp.business.main;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -85,10 +86,10 @@ public class InfoActivity extends Activity {
                 }
                 break;
             case R.id.btn_control:
-                if (deviceInfo != null) {
+                if (deviceInfo != null&& !TextUtils.isEmpty(deviceInfo.getTerminalId())) {
                     startActivity(new Intent(this, LigitDeviceControlActivity.class).putExtra("terminalId", deviceInfo.getTerminalId()));
                 }
-                if (terminalInfo != null) {
+                if (terminalInfo != null&& !TextUtils.isEmpty(deviceInfo.getId())) {
                     startActivity(new Intent(this, TerminalControlActivity.class).putExtra("terminalId",terminalInfo.getId()));
                 }
                 break;

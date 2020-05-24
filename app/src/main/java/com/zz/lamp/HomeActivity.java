@@ -194,12 +194,12 @@ public class HomeActivity extends MyBaseActivity {
 
             }
         });
-        int tab = getIntent().getIntExtra("tab",0);
-        if (tab==1) {
+        int tab = getIntent().getIntExtra("tab", 0);
+        if (tab > 0) {
             mainTablayout.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    mainTablayout.getTabAt(1).select();
+                    mainTablayout.getTabAt(tab).select();
                 }
             }, 200);
         }

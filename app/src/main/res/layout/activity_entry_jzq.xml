@@ -471,7 +471,24 @@
                     android:hint="请选择" />
 
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="12dp">
 
+                <TextView
+                    style="@style/textLeftStyle"
+                    android:text="上传照片" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_images_annex"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
     <TextView

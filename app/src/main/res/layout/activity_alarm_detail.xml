@@ -90,11 +90,35 @@
                 tools:text="告警内容告警内容告警内容告警内容告警内容告警内 告警内容告警内容告警内容告警内容告警内容告警内 告警内容告警内容告警内容告警内容告警内容告警内 告警内容告警内容告警内容告警内容告警内容告警内 告警内容告警内容告警内容告警内容告警内容告警内 告警内容告警内容告警内容告警内容告警内容告警内"
                 android:textColor="#ff444444"
                 android:textSize="14sp"></TextView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorWhite"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
 
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="告警处理状态"
+                    android:textColor="#333333"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/tv_status"
+                    style="@style/textRightStyle"
+                    />
+
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="1dp"
                 android:background="@color/white"
                 android:orientation="vertical"
                 android:padding="12dp">

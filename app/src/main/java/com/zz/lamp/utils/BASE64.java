@@ -107,7 +107,7 @@ public class BASE64 {
     public static String saveBitmap(Bitmap bmp) {
         if (bmp==null)return "";
         FileOutputStream out;
-        String bitmapName = "myphoto.jpg";
+        String bitmapName = new Date().getTime()+".jpg";
         try { // 获取SDCard指定目录下
             String sdCardDir = Environment.getExternalStorageDirectory() + "/zhongzhi/";
             File dirFile = new File(sdCardDir);  //目录转化成文件夹

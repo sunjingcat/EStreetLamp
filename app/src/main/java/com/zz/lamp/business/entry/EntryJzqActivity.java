@@ -2,48 +2,53 @@ package com.zz.lamp.business.entry;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
-
 import com.baidu.mapapi.search.core.PoiInfo;
-import com.chad.library.adapter.base.entity.node.BaseNode;
+import com.donkingliang.imageselector.utils.ImageSelector;
+import com.donkingliang.imageselector.utils.ImageSelectorUtils;
 import com.google.gson.Gson;
 import com.troila.customealert.CustomDialog;
+import com.zz.lamp.HomeActivity;
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseActivity;
 import com.zz.lamp.bean.ConcentratorBean;
-import com.zz.lamp.bean.RegionExpandItem;
-import com.zz.lamp.bean.RegionExpandItem1;
-import com.zz.lamp.bean.RegionExpandItem2;
-import com.zz.lamp.bean.RegionExpandItem3;
+import com.zz.lamp.business.alarm.adapter.ImageDeleteItemAdapter;
 import com.zz.lamp.business.entry.mvp.Contract;
 import com.zz.lamp.business.entry.mvp.presenter.TerminalAddPresenter;
 import com.zz.lamp.business.map.SelectLocationActivity;
 import com.zz.lamp.net.JsonT;
+import com.zz.lamp.utils.BASE64;
 import com.zz.lamp.utils.LogUtils;
-import com.zz.lamp.utils.SoftKeyboardUtils;
 import com.zz.lib.commonlib.utils.ToolBarUtils;
 import com.zz.lib.commonlib.widget.SelectPopupWindows;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 
 public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPresenter> implements Contract.IGetTerminalAddView {
-
+    ArrayList<String> imagesAnnex = new ArrayList<>();
+    ImageDeleteItemAdapter adapterAnnex;
+    @BindView(R.id.rv_images_annex)
+    RecyclerView rvImagesAnnex;
     @BindView(R.id.toolbar_subtitle)
     TextView toolbarSubtitle;
     @BindView(R.id.tv_terminalAddr)
@@ -83,6 +88,7 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
     @BindView(R.id.delete)
     TextView delete;
     String terminalId;
+
     @Override
     protected int getContentView() {
         return R.layout.activity_entry_jzq;
@@ -100,9 +106,32 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
         if (!TextUtils.isEmpty(terminalId)) {
             delete.setVisibility(View.VISIBLE);
             mPresenter.getTerminalDetail(terminalId);
-        }else {
+        } else {
             delete.setVisibility(View.GONE);
         }
+        rvImagesAnnex.setLayoutManager(new GridLayoutManager(this, 3));
+        adapterAnnex = new ImageDeleteItemAdapter(this, imagesAnnex);
+        rvImagesAnnex.setAdapter(adapterAnnex);
+        adapterAnnex.setOnclick(new ImageDeleteItemAdapter.Onclick() {
+            @Override
+            public void onclickAdd(View v, int option) {
+
+                ImageSelector.builder()
+                        .useCamera(true) // 设置是否使用拍照
+                        .setSingle(false)  //设置是否单选
+                        .setMaxSelectCount(9) // 图片的最大选择数量，小于等于0时，不限数量。
+                        .setSelected(imagesAnnex) // 把已选的图片传入默认选中。
+                        .setViewImage(true) //是否点击放大图片查看,，默认为true
+                        .start(EntryJzqActivity.this, 1102); // 打开相册
+
+            }
+
+            @Override
+            public void onclickDelete(View v, int option) {
+                imagesAnnex.remove(option);
+                adapterAnnex.notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
@@ -142,7 +171,7 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
                 });
                 break;
             case R.id.lat:
-                startActivityForResult(new Intent(EntryJzqActivity.this, SelectLocationActivity.class).putExtra("lat",lat).putExtra("lon",lon), 1002);
+                startActivityForResult(new Intent(EntryJzqActivity.this, SelectLocationActivity.class).putExtra("lat", lat).putExtra("lon", lon), 1002);
                 break;
         }
     }
@@ -163,8 +192,21 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
                 PoiInfo poiInfo = data.getParcelableExtra("location");
                 lat = poiInfo.location.latitude;
                 lon = poiInfo.location.longitude;
-                tv_lat.setText(lat + ","+lon);
+                tv_lat.setText(lat + "," + lon);
                 break;
+            case 1102:
+                if (data == null) return;
+                //获取选择器返回的数据
+                ArrayList<String> images = data.getStringArrayListExtra(
+                        ImageSelectorUtils.SELECT_RESULT);
+                if (images.size() > 0) {
+                    this.imagesAnnex.clear();
+                }
+                this.imagesAnnex.addAll(images);
+
+                adapterAnnex.notifyDataSetChanged();
+                break;
+
         }
     }
 
@@ -174,7 +216,7 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
         if (!TextUtils.isEmpty(terminalId)) {
             params.put("id", terminalId);
         }
-        if (TextUtils.isEmpty(areaId) ) {
+        if (TextUtils.isEmpty(areaId)) {
             showToast("请选择区域");
             return;
         }
@@ -194,7 +236,7 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
         if (check == 1) {
             Map<String, Object> map = new HashMap<>();
             map.put("terminalAddr", addr);
-            mPresenter.checkTerminalAddr(!TextUtils.isEmpty(terminalId)?terminalId:"",map);
+            mPresenter.checkTerminalAddr(!TextUtils.isEmpty(terminalId) ? terminalId : "", map);
             return;
         }
         String name = terminalName.getText().toString();
@@ -206,7 +248,7 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
         if (check == 2) {
             Map<String, Object> map = new HashMap<>();
             map.put("terminalName", name);
-            mPresenter.checkTerminalName(!TextUtils.isEmpty(terminalId)?terminalId:"",map);
+            mPresenter.checkTerminalName(!TextUtils.isEmpty(terminalId) ? terminalId : "", map);
             return;
         }
 
@@ -261,8 +303,32 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
         }
         params.put("terminalLat", lat);
         params.put("terminalLng", lon);
+        ArrayList<String> baseb4 = new ArrayList<>();
+        Luban.with(this)
+                .load(this.imagesAnnex)
+                .ignoreBy(100)
+                .setCompressListener(new OnCompressListener() {
+                    @Override
+                    public void onStart() {
+                        // TODO 压缩开始前调用，可以在方法内启动 loading UI
+                    }
 
-        mPresenter.postTerminal(params);
+                    @Override
+                    public void onSuccess(File file) {
+                        baseb4.add("data:image/jpg;base64," + BASE64.imageToBase64(file.getPath()));
+                        if (baseb4.size()==imagesAnnex.size()){
+                            String s = new Gson().toJson(baseb4);
+                            params.put("file",s);
+                            mPresenter.postTerminal(params);
+
+                        }
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        // TODO 当压缩过程出现问题时调用
+                    }
+                }).launch();
+
 
     }
 
@@ -313,8 +379,11 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
         lat = concentratorBean.getTerminalLat();
         lon = concentratorBean.getTerminalLng();
         tv_lat.setText(concentratorBean.getTerminalLat() + "," + concentratorBean.getTerminalLng());
+        mPresenter.getImage("terminal",concentratorBean.getId());
     }
+
     private CustomDialog customDialog;
+
     private void showDeleteDialog() {
         CustomDialog.Builder builder = new com.troila.customealert.CustomDialog.Builder(this)
                 .setTitle("提示")
@@ -337,12 +406,23 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
         customDialog = builder.create();
         customDialog.show();
     }
+
     @Override
     public void showDeleteIntent() {
-        showToast("成功");
-        setResult(100);
+        startActivity(new Intent(this, HomeActivity.class));
         finish();
     }
+
+    @Override
+    public void showImage(List<String> list) {
+        if (list == null) return;
+        imagesAnnex.clear();
+
+        imagesAnnex.addAll(list);
+
+        adapterAnnex.notifyDataSetChanged();
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

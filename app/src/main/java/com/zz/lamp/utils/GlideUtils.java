@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
-import androidx.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -22,104 +21,122 @@ import com.zz.lamp.R;
 
 import java.io.File;
 
+import androidx.annotation.Nullable;
+
 //https://blog.csdn.net/a2012s/article/details/80988439
 public class GlideUtils {
     public static final int placeholderSoWhite = R.color.colorWhite;
 
-        public static final int errorSoWhite = R.color.colorWhite;
-        // public static final int soWhite = R.color.white;
+    public static final int errorSoWhite = R.color.colorWhite;
+    // public static final int soWhite = R.color.white;
 
-        /*
-         *加载图片(默认)
-         */
-        public static void loadImage(Context context, String url, ImageView imageView) {
-            if (TextUtils.isEmpty(url)){
-                return;
-            }
-            if (!url.contains("http")){
-                Bitmap bitmap = base64ToBitmap(url);
-                if (bitmap == null) {
-                    RequestOptions options = new RequestOptions()
-                            .centerCrop()
-                            .placeholder(placeholderSoWhite)
-                            .error(errorSoWhite)
-                            //.priority(Priority.HIGH)
-                            .diskCacheStrategy(DiskCacheStrategy.ALL);
-                    Glide.with(context).load(url).apply(options).into(imageView);
-                } else {
-
-                    imageView.setImageBitmap(bitmap);
-                }
-            }else {
+    /*
+     *加载图片(默认)
+     */
+    public static void loadImage(Context context, String url, ImageView imageView) {
+        if (TextUtils.isEmpty(url)) {
+            return;
+        }
+        if (!url.contains("http")) {
+            Bitmap bitmap = base64ToBitmap(url);
+            if (bitmap == null) {
                 RequestOptions options = new RequestOptions()
                         .centerCrop()
-                        .placeholder(placeholderSoWhite) //占位图
-                        .error(R.color.colorWhite)       //错误图
-                        // .priority(Priority.HIGH)
+                        .placeholder(placeholderSoWhite)
+                        .error(errorSoWhite)
+                        //.priority(Priority.HIGH)
                         .diskCacheStrategy(DiskCacheStrategy.ALL);
                 Glide.with(context).load(url).apply(options).into(imageView);
+            } else {
+
+                imageView.setImageBitmap(bitmap);
             }
-
-        }
-
-        /**
-         * 指定图片大小;使用override()方法指定了一个图片的尺寸。
-         * Glide现在只会将图片加载成width*height像素的尺寸，而不会管你的ImageView的大小是多少了。
-         * 如果你想加载一张图片的原始尺寸的话，可以使用Target.SIZE_ORIGINAL关键字----override(Target.SIZE_ORIGINAL)
-         *
-         * @param context
-         * @param url
-         * @param imageView
-         * @param width
-         * @param height
-         */
-        public static void loadImageSize(Context context, String url, ImageView imageView, int width, int height) {
+        } else {
             RequestOptions options = new RequestOptions()
                     .centerCrop()
                     .placeholder(placeholderSoWhite) //占位图
                     .error(R.color.colorWhite)       //错误图
-                    .override(width, height)
                     // .priority(Priority.HIGH)
                     .diskCacheStrategy(DiskCacheStrategy.ALL);
             Glide.with(context).load(url).apply(options).into(imageView);
-
         }
 
+    }
 
-        /**
-         * 禁用内存缓存功能
-         * diskCacheStrategy()方法基本上就是Glide硬盘缓存功能的一切，它可以接收五种参数：
-         * <p>
-         * DiskCacheStrategy.NONE： 表示不缓存任何内容。
-         * DiskCacheStrategy.DATA： 表示只缓存原始图片。
-         * DiskCacheStrategy.RESOURCE： 表示只缓存转换过后的图片。
-         * DiskCacheStrategy.ALL ： 表示既缓存原始图片，也缓存转换过后的图片。
-         * DiskCacheStrategy.AUTOMATIC： 表示让Glide根据图片资源智能地选择使用哪一种缓存策略（默认选项）。
-         */
+    /**
+     * 指定图片大小;使用override()方法指定了一个图片的尺寸。
+     * Glide现在只会将图片加载成width*height像素的尺寸，而不会管你的ImageView的大小是多少了。
+     * 如果你想加载一张图片的原始尺寸的话，可以使用Target.SIZE_ORIGINAL关键字----override(Target.SIZE_ORIGINAL)
+     *
+     * @param context
+     * @param url
+     * @param imageView
+     * @param width
+     * @param height
+     */
+    public static void loadImageSize(Context context, String url, ImageView imageView, int width, int height) {
+        RequestOptions options = new RequestOptions()
+                .centerCrop()
+                .placeholder(placeholderSoWhite) //占位图
+                .error(R.color.colorWhite)       //错误图
+                .override(width, height)
+                // .priority(Priority.HIGH)
+                .diskCacheStrategy(DiskCacheStrategy.ALL);
+        Glide.with(context).load(url).apply(options).into(imageView);
 
-        public static void loadImageSizekipMemoryCache(Context context, String url, ImageView imageView) {
-            RequestOptions options = new RequestOptions()
-                    .placeholder(placeholderSoWhite) //占位图
-                    .error(R.color.colorWhite)       //错误图S
-                    .skipMemoryCache(true)//禁用掉Glide的内存缓存功能
-                    .diskCacheStrategy(DiskCacheStrategy.ALL);
-            Glide.with(context).load(url).apply(options).into(imageView);
+    }
 
-        }
 
-    public static boolean isBase64Img(String imgurl){
-        if(!TextUtils.isEmpty(imgurl)&&(imgurl.startsWith("data:image/png;base64,")
-                ||imgurl.startsWith("data:image/*;base64,")||imgurl.startsWith("data:image/jpg;base64,")
-        ))
-        {
+    /**
+     * 禁用内存缓存功能
+     * diskCacheStrategy()方法基本上就是Glide硬盘缓存功能的一切，它可以接收五种参数：
+     * <p>
+     * DiskCacheStrategy.NONE： 表示不缓存任何内容。
+     * DiskCacheStrategy.DATA： 表示只缓存原始图片。
+     * DiskCacheStrategy.RESOURCE： 表示只缓存转换过后的图片。
+     * DiskCacheStrategy.ALL ： 表示既缓存原始图片，也缓存转换过后的图片。
+     * DiskCacheStrategy.AUTOMATIC： 表示让Glide根据图片资源智能地选择使用哪一种缓存策略（默认选项）。
+     */
+
+    public static void loadImageSizekipMemoryCache(Context context, String url, ImageView imageView) {
+        RequestOptions options = new RequestOptions()
+                .placeholder(placeholderSoWhite) //占位图
+                .error(R.color.colorWhite)       //错误图S
+                .skipMemoryCache(true)//禁用掉Glide的内存缓存功能
+                .diskCacheStrategy(DiskCacheStrategy.ALL);
+        Glide.with(context).load(url).apply(options).into(imageView);
+
+    }
+
+    public static boolean isBase64Img(String imgurl) {
+        if (!TextUtils.isEmpty(imgurl) && (imgurl.startsWith("data:image/png;base64,")
+                || imgurl.startsWith("data:image/*;base64,") || imgurl.startsWith("data:image/jpg;base64,")
+        )) {
             return true;
         }
         return false;
     }
-        /**
-         * 加载圆形图片
-         */
-        public static void loadCircleImage(Context context, String url, ImageView imageView) {
+
+    /**
+     * 加载圆形图片
+     */
+    public static void loadCircleImage(Context context, String url, ImageView imageView) {
+        if (!url.contains("http")) {
+            Bitmap bitmap = base64ToBitmap(url);
+            if (bitmap == null) {
+                RequestOptions options = new RequestOptions()
+                        .centerCrop()
+                        .circleCrop()//设置圆形
+                        .placeholder(placeholderSoWhite)
+                        .error(errorSoWhite)
+                        //.priority(Priority.HIGH)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL);
+                Glide.with(context).load(url).apply(options).into(imageView);
+            } else {
+
+                imageView.setImageBitmap(bitmap);
+            }
+        }else {
             RequestOptions options = new RequestOptions()
                     .centerCrop()
                     .circleCrop()//设置圆形
@@ -129,13 +146,14 @@ public class GlideUtils {
                     .diskCacheStrategy(DiskCacheStrategy.ALL);
             Glide.with(context).load(url).apply(options).into(imageView);
         }
+    }
 
         /**
          * 预先加载图片
          * 在使用图片之前，预先把图片加载到缓存，调用了预加载之后，我们以后想再去加载这张图片就会非常快了，
          * 因为Glide会直接从缓存当中去读取图片并显示出来
          */
-        public static void preloadImage(Context context, String url) {
+        public static void preloadImage (Context context, String url){
             Glide.with(context)
                     .load(url)
                     .preload();
@@ -223,7 +241,7 @@ public class GlideUtils {
          * @param url       例如：https://image.niwoxuexi.com/blog/content/5c0d4b1972-loading.gif
          * @param imageView
          */
-        private void loadGif(Context context, String url, ImageView imageView) {
+        private void loadGif (Context context, String url, ImageView imageView){
             RequestOptions options = new RequestOptions()
                     .placeholder(placeholderSoWhite)
                     .error(errorSoWhite);
@@ -246,12 +264,12 @@ public class GlideUtils {
         }
 
 
-        public static int dip2px(Context context, float dp) {
+        public static int dip2px (Context context,float dp){
             float scale = context.getResources().getDisplayMetrics().density;
             return (int) (dp * scale + 0.5f);
         }
 
-        public void downloadImage(final Context context, final String url) {
+        public void downloadImage ( final Context context, final String url){
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -262,7 +280,7 @@ public class GlideUtils {
                                 .load(url)
                                 .submit();
                         final File imageFile = target.get();
-                        Log.d("logcat", "下载好的图片文件路径="+imageFile.getPath());
+                        Log.d("logcat", "下载好的图片文件路径=" + imageFile.getPath());
 //                    runOnUiThread(new Runnable() {
 //                        @Override
 //                        public void run() {
@@ -277,14 +295,14 @@ public class GlideUtils {
 
 
         }
-    public static Bitmap base64ToBitmap(String base64Data) {
-        try {
-            byte[] bytes = Base64.decode(base64Data, Base64.NO_WRAP);
-            return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-        } catch (Exception e) {
-            return null;
+        public static Bitmap base64ToBitmap (String base64Data){
+            try {
+                byte[] bytes = Base64.decode(base64Data, Base64.NO_WRAP);
+                return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+            } catch (Exception e) {
+                return null;
+            }
+
         }
 
     }
-
-}

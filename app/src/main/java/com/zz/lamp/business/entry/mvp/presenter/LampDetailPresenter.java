@@ -43,24 +43,6 @@ public class LampDetailPresenter extends MyBasePresenterImpl<Contract.IGeLampDet
 
     @Override
     public void deleteLight(String id) {
-        RxNetUtils.request(getCApi(ApiService.class).checkDeleteLight(id), new RequestObserver<JsonT>(this) {
-            @Override
-            protected void onSuccess(JsonT data) {
-                if (data.isSuccess()) {
-                    delete(id);
-                }else {
-
-                }
-            }
-
-            @Override
-            protected void onFail2(JsonT userInfoJsonT) {
-                super.onFail2(userInfoJsonT);
-                view.showToast(userInfoJsonT.getMessage());
-            }
-        },mDialog);
-    }
-    public void delete(String id) {
         RxNetUtils.request(getCApi(ApiService.class).lightDelete(id), new RequestObserver<JsonT>(this) {
             @Override
             protected void onSuccess(JsonT data) {

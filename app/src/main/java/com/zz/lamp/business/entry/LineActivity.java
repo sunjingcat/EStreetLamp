@@ -154,7 +154,7 @@ public class LineActivity extends MyBaseActivity<Contract.IsetLinePresenter> imp
                 if (shouldBack==1) {
                     startActivityForResult(new Intent(this, AddLineActivity.class).putExtra("UsableCode", UsableCode), 1003);
                 }else {
-                    startActivity(new Intent(this,LineActivity.class).putExtra("shouldBack",1));
+                    startActivity(new Intent(this,LineActivity.class).putExtra("shouldBack",1).putExtra("terminalId",terminalId));
                 }
 
                 break;

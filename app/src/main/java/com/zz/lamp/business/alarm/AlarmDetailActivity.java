@@ -63,6 +63,8 @@ public class AlarmDetailActivity extends MyBaseActivity<Contract.IsetAlarmAddPre
     TextView alarm_address;
     @BindView(R.id.alarm_content)
     TextView alarmContent;
+    @BindView(R.id.tv_status)
+    TextView tvStatus;
 
     @Override
     protected int getContentView() {
@@ -109,6 +111,7 @@ public class AlarmDetailActivity extends MyBaseActivity<Contract.IsetAlarmAddPre
         alarmDes.setText(alarmBean.getDescription() + "");
         alarmTime.setText(alarmBean.getCreateTime() + "");
         alarmContent.setText(alarmBean.getHandleDescription() + "");
+        tvStatus.setText(alarmBean.getAlarmStatus()==0?"忽略":"已处理");
         mPresenter.getImage("alarm", alarmBean.getId());
     }
 

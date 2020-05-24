@@ -29,6 +29,7 @@ public class Contract {
         void checkTerminalAddr(String id,Map<String, Object> params);
         void checkTerminalName(String id,Map<String, Object> params);
         void deleteTerminal(String id);
+        void getImage(String type,String modelId);
     }
 
     public interface IGetTerminalAddView extends BaseView {
@@ -37,7 +38,7 @@ public class Contract {
         void showCheckNameIntent(JsonT jsonT);
         void showTerminalDetail(ConcentratorBean concentratorBean);
         void showDeleteIntent();
-
+        void showImage(List<String> list);
     }
 
     public interface IsetLampAddPresenter extends BasePresenter {
