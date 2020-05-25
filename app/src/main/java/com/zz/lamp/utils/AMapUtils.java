@@ -102,7 +102,7 @@ public class AMapUtils {
         for (int i = 0; i < zoom.length; i++) {
             int zoomNow = zoom[i];
             if (zoomNow - distance * 1000 > 0) {
-                level = 18 - i + 6;
+                level = 18 - i + 5;
                 //设置地图显示级别为计算所得level
                 mBaiduMap.setMapStatus(MapStatusUpdateFactory.newMapStatus(new MapStatus.Builder().zoom(level).build()));
                 break;

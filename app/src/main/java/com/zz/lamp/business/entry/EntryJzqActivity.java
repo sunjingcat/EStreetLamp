@@ -303,6 +303,15 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
         }
         params.put("terminalLat", lat);
         params.put("terminalLng", lon);
+
+        mPresenter.postTerminal(params);
+
+
+
+    }
+
+    @Override
+    public void showIntent(String id) {
         ArrayList<String> baseb4 = new ArrayList<>();
         Luban.with(this)
                 .load(this.imagesAnnex)
@@ -318,9 +327,7 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
                         baseb4.add("data:image/jpg;base64," + BASE64.imageToBase64(file.getPath()));
                         if (baseb4.size()==imagesAnnex.size()){
                             String s = new Gson().toJson(baseb4);
-                            params.put("file",s);
-                            mPresenter.postTerminal(params);
-
+                            mPresenter.postImage(id,s);
                         }
                     }
                     @Override
@@ -329,14 +336,6 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
                     }
                 }).launch();
 
-
-    }
-
-    @Override
-    public void showIntent() {
-        showToast("成功");
-        setResult(RESULT_OK);
-        finish();
     }
 
     @Override
@@ -410,6 +409,13 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
     @Override
     public void showDeleteIntent() {
         startActivity(new Intent(this, HomeActivity.class));
+        finish();
+    }
+
+    @Override
+    public void showPostImage() {
+        showToast("成功");
+        setResult(RESULT_OK);
         finish();
     }
 

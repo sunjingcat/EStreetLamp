@@ -13,28 +13,36 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.baidu.mapapi.search.core.PoiInfo;
 import com.codbking.widget.DatePickDialog;
 import com.codbking.widget.OnChangeLisener;
 import com.codbking.widget.OnSureLisener;
 import com.codbking.widget.bean.DateType;
+import com.donkingliang.imageselector.utils.ImageSelector;
+import com.donkingliang.imageselector.utils.ImageSelectorUtils;
 import com.ebo.medialib.qrcode.google.zxing.activity.CaptureActivity;
 import com.ebo.medialib.qrcode.util.Constant;
+import com.google.gson.Gson;
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseActivity;
 import com.zz.lamp.bean.DeviceType;
 import com.zz.lamp.bean.DictBean;
 import com.zz.lamp.bean.LightDevice;
+import com.zz.lamp.business.alarm.adapter.ImageDeleteItemAdapter;
 import com.zz.lamp.business.map.SelectLocationActivity;
 import com.zz.lamp.business.entry.mvp.Contract;
 import com.zz.lamp.business.entry.mvp.presenter.LampAddPresenter;
 import com.zz.lamp.net.JsonT;
+import com.zz.lamp.utils.BASE64;
 import com.zz.lamp.utils.TimeUtils;
 import com.zz.lib.commonlib.utils.PermissionUtils;
 import com.zz.lib.commonlib.utils.ToolBarUtils;
 import com.zz.lib.commonlib.widget.SelectPopupWindows;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -44,6 +52,8 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresenter> implements Contract.IGetLampAddView {
 
@@ -111,6 +121,10 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
     TextView btnNext;
 
     String id;
+    ArrayList<String> imagesAnnex = new ArrayList<>();
+    ImageDeleteItemAdapter adapterAnnex;
+    @BindView(R.id.rv_images_annex)
+    RecyclerView rvImagesAnnex;
 
     @Override
     protected int getContentView() {
@@ -124,13 +138,36 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
         terminalId = getIntent().getStringExtra("terminalId");
 
         id = getIntent().getStringExtra("id");
-        if (!TextUtils.isEmpty(id)){
+        if (!TextUtils.isEmpty(id)) {
             btnNext.setVisibility(View.GONE);
         }
         showInfo();
         mPresenter.getLightDeviceType();
         mPresenter.getLightPoleType();
         mPresenter.getLightType();
+        rvImagesAnnex.setLayoutManager(new GridLayoutManager(this, 3));
+        adapterAnnex = new ImageDeleteItemAdapter(this, imagesAnnex);
+        rvImagesAnnex.setAdapter(adapterAnnex);
+        adapterAnnex.setOnclick(new ImageDeleteItemAdapter.Onclick() {
+            @Override
+            public void onclickAdd(View v, int option) {
+
+                ImageSelector.builder()
+                        .useCamera(true) // 设置是否使用拍照
+                        .setSingle(false)  //设置是否单选
+                        .setMaxSelectCount(9) // 图片的最大选择数量，小于等于0时，不限数量。
+                        .setSelected(imagesAnnex) // 把已选的图片传入默认选中。
+                        .setViewImage(true) //是否点击放大图片查看,，默认为true
+                        .start(EntryLampActivity.this, 1102); // 打开相册
+
+            }
+
+            @Override
+            public void onclickDelete(View v, int option) {
+                imagesAnnex.remove(option);
+                adapterAnnex.notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
@@ -140,13 +177,32 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
     }
 
     @Override
-    public void showIntent() {
-        if (back){
-            finish();
-        }else {
-            devicecAddr.setText("");
-            showToast("提交成功");
-        }
+    public void showIntent(String id) {
+        ArrayList<String> baseb4 = new ArrayList<>();
+        Luban.with(this)
+                .load(this.imagesAnnex)
+                .ignoreBy(100)
+                .setCompressListener(new OnCompressListener() {
+                    @Override
+                    public void onStart() {
+                        // TODO 压缩开始前调用，可以在方法内启动 loading UI
+                    }
+
+                    @Override
+                    public void onSuccess(File file) {
+                        baseb4.add("data:image/jpg;base64," + BASE64.imageToBase64(file.getPath()));
+                        if (baseb4.size() == imagesAnnex.size()) {
+                            String s = new Gson().toJson(baseb4);
+                            mPresenter.postImage(id, s);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        // TODO 当压缩过程出现问题时调用
+                    }
+                }).launch();
+
     }
 
     @Override
@@ -203,9 +259,29 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
         }
     }
 
+    @Override
+    public void showPostImage() {
+        if (back) {
+            finish();
+        } else {
+            devicecAddr.setText("");
+            showToast("提交成功");
+        }
+    }
+
+    @Override
+    public void showImage(List<String> list) {
+        if (list == null) return;
+        imagesAnnex.clear();
+
+        imagesAnnex.addAll(list);
+
+        adapterAnnex.notifyDataSetChanged();
+    }
+
     private boolean back;
 
-    @OnClick({R.id.lineName,R.id.devicecAddr_code, R.id.btn_save, R.id.btn_next,  R.id.lightInstallTime, R.id.devicecType, R.id.lightMainType, R.id.lightAuxiliaryType, R.id.lat, R.id.lightPoleType, R.id.lightType})
+    @OnClick({R.id.lineName, R.id.devicecAddr_code, R.id.btn_save, R.id.btn_next, R.id.lightInstallTime, R.id.devicecType, R.id.lightMainType, R.id.lightAuxiliaryType, R.id.lat, R.id.lightPoleType, R.id.lightType})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_save:
@@ -453,11 +529,23 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
         if (requestCode == 1002 && resultCode == RESULT_OK) {
             if (data == null) return;
             PoiInfo poiInfo = data.getParcelableExtra("location");
-            if (poiInfo!=null&&poiInfo.location!=null) {
+            if (poiInfo != null && poiInfo.location != null) {
                 lat = poiInfo.location.latitude;
                 lon = poiInfo.location.longitude;
                 lat_tv.setText(lat + "," + lon);
             }
+        }
+        if (requestCode == 1102 && resultCode == RESULT_OK) {
+            if (data == null) return;
+            //获取选择器返回的数据
+            ArrayList<String> images = data.getStringArrayListExtra(
+                    ImageSelectorUtils.SELECT_RESULT);
+            if (images.size() > 0) {
+                this.imagesAnnex.clear();
+            }
+            this.imagesAnnex.addAll(images);
+
+            adapterAnnex.notifyDataSetChanged();
         }
     }
 
@@ -514,8 +602,8 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
     void showInfo() {
         LightDevice device = (LightDevice) getIntent().getSerializableExtra("device");
         if (device == null) return;
-        devicecAddr.setText(device.getDeviceAddr()+"");
-        deviceName.setText(device.getDeviceName()+"");
+        devicecAddr.setText(device.getDeviceAddr() + "");
+        deviceName.setText(device.getDeviceName() + "");
         lightInstallTime.setText(device.getLightInstallTime() + "");
         lightInstallTime_ = TimeUtils.parseTime(device.getLightInstallTime(), TimeUtils.DATE_FORMAT_DATE).getTime();
         lightPoleCode.setText(device.getLightPoleCode() + "");
@@ -550,6 +638,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
         lat_tv.setText(device.getDeviceLat() + "," + device.getDeviceLng());
         lat = device.getDeviceLat();
         lon = device.getDeviceLng();
+        mPresenter.getImage("lightDevice",device.getId());
     }
 
 }

@@ -65,7 +65,15 @@ public interface ApiService {
     Observable<JsonT<LightDevice>> getLampDetail(@Path("id") String id);
 
     @POST( "/app/light/terminal/")
-    Observable<JsonT> postTerminal(@QueryMap Map<String, Object> params);
+    Observable<JsonT<String>> postTerminal(@QueryMap Map<String, Object> params);
+
+    @POST("/app/light/terminal/uploadImgs/{id}")
+    @FormUrlEncoded
+    Observable<JsonT> uploadTerminalImgs(@Path("id") String id, @Field("filebase64s") String handleFile);
+
+    @POST("/app/light/lightDevice/uploadImgs/{id}  ")
+    @FormUrlEncoded
+    Observable<JsonT> uploadLightDeviceImgs(@Path("id") String id, @Field("filebase64s") String handleFile);
 
     @GET( "/app/light/terminal/check/terminalAddr")
     Observable<JsonT> checkTerminalAddr(@QueryMap Map<String, Object> params);
@@ -105,7 +113,7 @@ public interface ApiService {
     Observable<JsonT> realTimeCtrlLightDevice(@Path("terminalId") String terminalId,@QueryMap Map<String, Object> params);
 
     @POST( "/app/light/lightDevice")
-    Observable<JsonT> postLamp(@QueryMap Map<String, Object> params);
+    Observable<JsonT<String>> postLamp(@QueryMap Map<String, Object> params);
 
     @GET( "/app/light/line/check/lineName")
     Observable<JsonT> checkLamp(@QueryMap Map<String, Object> params);

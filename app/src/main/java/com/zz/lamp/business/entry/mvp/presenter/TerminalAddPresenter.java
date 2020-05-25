@@ -20,18 +20,18 @@ public class TerminalAddPresenter extends MyBasePresenterImpl<Contract.IGetTermi
 
     @Override
     public void postTerminal(Map<String, Object> params) {
-        RxNetUtils.request(getCApi(ApiService.class).postTerminal(params), new RequestObserver<JsonT>(this) {
+        RxNetUtils.request(getCApi(ApiService.class).postTerminal(params), new RequestObserver<JsonT<String>>(this) {
             @Override
-            protected void onSuccess(JsonT data) {
+            protected void onSuccess(JsonT<String> data) {
                 if (data.isSuccess()) {
-                    view.showIntent();
+                    view.showIntent(data.getData());
                 }else {
 
                 }
             }
 
             @Override
-            protected void onFail2(JsonT userInfoJsonT) {
+            protected void onFail2(JsonT<String> userInfoJsonT) {
                 super.onFail2(userInfoJsonT);
                 view.showToast(userInfoJsonT.getMessage());
             }
@@ -144,6 +144,26 @@ public class TerminalAddPresenter extends MyBasePresenterImpl<Contract.IGetTermi
             protected void onSuccess(JsonT data) {
                 if (data.isSuccess()) {
                     delete(ids);
+                }else {
+
+                }
+            }
+
+            @Override
+            protected void onFail2(JsonT userInfoJsonT) {
+                super.onFail2(userInfoJsonT);
+                view.showToast(userInfoJsonT.getMessage());
+            }
+        },mDialog);
+    }
+
+    @Override
+    public void postImage(String id, String files) {
+        RxNetUtils.request(getCApi(ApiService.class).uploadTerminalImgs(id,files), new RequestObserver<JsonT>(this) {
+            @Override
+            protected void onSuccess(JsonT data) {
+                if (data.isSuccess()) {
+                    view.showPostImage();
                 }else {
 
                 }

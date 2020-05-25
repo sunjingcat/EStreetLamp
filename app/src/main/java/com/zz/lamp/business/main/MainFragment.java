@@ -135,6 +135,9 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
                     case 2:
                         mPresenter.getLightDeviceData(id);
                         break;
+//                    case 3:
+//                        mPresenter.getLightDeviceData(id);
+//                        break;
                 }
 
                 return false;
@@ -171,7 +174,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(TextUtils.isEmpty(s)){
+                if (TextUtils.isEmpty(s)) {
                     searchValue = "";
                     clearMarkers();
                     getData(tabDevice.getSelectedTabPosition());
@@ -179,11 +182,13 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
             }
         });
     }
+
     public void hideKeyboard(View view) {
         InputMethodManager manager = (InputMethodManager) view.getContext()
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
         manager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
+
     @Override
     public MapPresenter initPresenter() {
         return new MapPresenter(this);
@@ -222,7 +227,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
                 bmapView.invalidate();
 
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
         }
     }
 
@@ -243,7 +248,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
     void getData(int deviceKind) {
         Map<String, Object> map = new HashMap<>();
         map.put("deviceKind", deviceKind);
-        if (!TextUtils.isEmpty(searchValue)){
+        if (!TextUtils.isEmpty(searchValue)) {
             map.put("searchValue", searchValue);
         }
         mPresenter.getData(map);
@@ -258,6 +263,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
     List<Overlay> overlays;
     List<OverlayOptions> overlayOptions = new ArrayList<>();
     List<MapListBean> mapListList = new ArrayList<>();
+
     void addMarkers(List<MapListBean> list) {
         if (list == null || list.size() == 0) {
             return;
@@ -289,7 +295,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
                                 .icon(bitmap);
                         overlayOptions.add(option);
                     }
-                    if (overlayOptions.size()>0){
+                    if (overlayOptions.size() > 0) {
                         mHandler.sendEmptyMessage(1);
                     }
 
@@ -298,7 +304,6 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
                 }
             }
         }).start();
-
 
 
     }
@@ -310,10 +315,10 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
             switch (msg.what) {
                 case 1:
                     try {
-                        if (overlayOptions==null||overlayOptions.size()==0)return;
+                        if (overlayOptions == null || overlayOptions.size() == 0) return;
                         overlays = mBaiduMap.addOverlays(overlayOptions);
                         AMapUtils.setMapZoom(mapListList, mBaiduMap);
-                    }catch (Exception e){
+                    } catch (Exception e) {
 
                     }
 

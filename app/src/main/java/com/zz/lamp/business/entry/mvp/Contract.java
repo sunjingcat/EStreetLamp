@@ -29,15 +29,17 @@ public class Contract {
         void checkTerminalAddr(String id,Map<String, Object> params);
         void checkTerminalName(String id,Map<String, Object> params);
         void deleteTerminal(String id);
+        void postImage(String id,String files);
         void getImage(String type,String modelId);
     }
 
     public interface IGetTerminalAddView extends BaseView {
-        void showIntent();
+        void showIntent(String id);
         void showCheckAddrIntent(JsonT jsonT);
         void showCheckNameIntent(JsonT jsonT);
         void showTerminalDetail(ConcentratorBean concentratorBean);
         void showDeleteIntent();
+        void showPostImage();
         void showImage(List<String> list);
     }
 
@@ -53,13 +55,14 @@ public class Contract {
         void checkDeviceAddr(String id,Map<String, Object> params);
         void checkDeviceName(String id,Map<String, Object> params);
 
-
+        void postImage(String id,String files);
+        void getImage(String type,String modelId);
 
 
     }
 
     public interface IGetLampAddView extends BaseView {
-        void showIntent();
+        void showIntent(String id);
 
         void showLightDeviceType(List<DeviceType> list);
 
@@ -70,7 +73,8 @@ public class Contract {
         void showCheckAddrIntent(JsonT jsonT);
         void showCheckNameIntent(JsonT jsonT);
 
-
+        void showPostImage();
+        void showImage(List<String> list);
 
     }
 
