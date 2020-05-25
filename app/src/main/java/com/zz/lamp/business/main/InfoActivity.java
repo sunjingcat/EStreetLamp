@@ -86,10 +86,10 @@ public class InfoActivity extends Activity {
                 }
                 break;
             case R.id.btn_control:
-                if (deviceInfo != null&& !TextUtils.isEmpty(deviceInfo.getTerminalId())) {
+                if (deviceInfo != null&& !TextUtils.isEmpty(deviceInfo.getTerminalId())&&deviceInfo.getCanCtrl()==1) {
                     startActivity(new Intent(this, LigitDeviceControlActivity.class).putExtra("terminalId", deviceInfo.getTerminalId()));
                 }
-                if (terminalInfo != null&& !TextUtils.isEmpty(deviceInfo.getId())) {
+                if (terminalInfo != null&& !TextUtils.isEmpty(terminalInfo.getId())&&terminalInfo.getCanCtrl()==1) {
                     startActivity(new Intent(this, TerminalControlActivity.class).putExtra("terminalId",terminalInfo.getId()));
                 }
                 break;

@@ -231,8 +231,8 @@ public interface ApiService {
     @POST(URLs.VERSION + "/buildings/supervise/safety/item")
     Observable<JsonT> submitSafetyFeedback(@QueryMap Map<String, Object> params);
 
-    @GET("/app/version/{version}")
-    Observable<JsonT<Version>> getVersion(@Query("version") String version);
+    @GET("/app/version/latest")
+    Observable<JsonT<Version>> getVersion();
 
     @Multipart
     @POST(URLs.VERSION + "/upload/image")

@@ -40,7 +40,7 @@ public class ConcentratorBean implements Serializable {
 
     private String   simCode;// 89860422021980117827,
 
-
+    private  Integer   canCtrl;//	1-可以，0-不可以
     private String   signalStrength;// 10,
 
     private String   signalStrengthText;// 弱,
@@ -78,6 +78,10 @@ public class ConcentratorBean implements Serializable {
     private String  lightDeviceSucceedCount;// 0
     public int getTerminalOnOff() {
         return terminalOnOff;
+    }
+
+    public Integer getCanCtrl() {
+        return canCtrl;
     }
 
     public int getIsOnline() {

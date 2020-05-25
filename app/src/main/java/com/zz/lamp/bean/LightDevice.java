@@ -29,6 +29,7 @@ public class LightDevice implements Serializable {
     private  String   lineName	;//string	支路名称
     private  String  terminalId	;//integer	集中控制器id
     private  String   lightTypeText;//	integer	路灯类型
+    private  Integer   canCtrl;//	1-可以，0-不可以
 
     public String getLightTypeText() {
         return lightTypeText;
@@ -37,6 +38,10 @@ public class LightDevice implements Serializable {
     public Integer getStatus() {
         if (status == null) return 0;
         return status;
+    }
+
+    public Integer getCanCtrl() {
+        return canCtrl;
     }
 
     public String getLightPoleTypeText() {

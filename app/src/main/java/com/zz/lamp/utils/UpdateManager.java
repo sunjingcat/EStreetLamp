@@ -146,7 +146,7 @@ public class UpdateManager {
 
     private void updateVersion() {
         //网络请求
-        RxNetUtils.request(getCApi(ApiService.class).getVersion(getVersionCode()+""), new RequestObserver<JsonT<Version>>() {
+        RxNetUtils.request(getCApi(ApiService.class).getVersion(), new RequestObserver<JsonT<Version>>() {
             @Override
             protected void onSuccess(JsonT<Version> json) {
                 if (json.isSuccess()&&json.getData()!=null) {
