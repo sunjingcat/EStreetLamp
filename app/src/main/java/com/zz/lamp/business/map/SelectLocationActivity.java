@@ -1,5 +1,6 @@
 package com.zz.lamp.business.map;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
@@ -47,6 +48,7 @@ import com.zz.lamp.business.entry.adapter.SearchLocationAdapter;
 import com.zz.lamp.utils.AMapUtils;
 import com.zz.lamp.utils.LngLat;
 import com.zz.lamp.utils.LogUtils;
+import com.zz.lib.commonlib.utils.PermissionUtils;
 import com.zz.lib.commonlib.utils.ToolBarUtils;
 import com.zz.lib.core.ui.mvp.BasePresenter;
 
@@ -97,6 +99,17 @@ public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCo
     @Override
     protected void initView() {
         ButterKnife.bind(this);
+        PermissionUtils.getInstance().checkPermission(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION}, new PermissionUtils.OnPermissionChangedListener() {
+            @Override
+            public void onGranted() {
+            }
+
+            @Override
+            public void onDenied() {
+
+            }
+        });
         rv.setLayoutManager(new LinearLayoutManager(this));
         adapter = new SearchLocationAdapter(R.layout.item_simple, mlist);
         rv.setAdapter(adapter);

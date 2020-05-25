@@ -82,7 +82,11 @@ public class InfoActivity extends Activity {
                     ToastUtils.showToast("未安装百度地图");
                     return;
                 } else {
-                    NavUtils.invokeNavi(this, null, "中智.智慧路灯", lat + "," + lon);
+                    if (lat>0.0&&lon>0.0) {
+                        NavUtils.invokeNavi(this, null, "中智.智慧路灯", lat + "," + lon);
+                    }else {
+                        ToastUtils.showToast("坐标错误");
+                    }
                 }
                 break;
             case R.id.btn_control:
