@@ -154,7 +154,7 @@ public class LigitDeviceControlActivity extends MyBaseActivity<Contract.IsetLigh
                         if (luminance==0){
                             showTimeDialog(0,"关灯");
                         }else if (luminance==100){
-                            showTimeDialog(0,"开灯");
+                            showTimeDialog(100,"开灯");
                         } else {
                             showTimeDialog(luminance,"调光");
                         }
