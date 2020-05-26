@@ -179,6 +179,9 @@ public class UpdateManager {
             }
         });
         CustomDialog dia = builder.create();//.show();
+        if (content.getNecessary()==1){
+            dia.setCancelable(false);
+        }
         dia.setOnKeyListener(keylistener);
         dia.show();
     }
