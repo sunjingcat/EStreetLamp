@@ -111,6 +111,7 @@ public class LampListActivity extends MyBaseActivity<Contract.IsetLampPresenter>
     @Override
     protected void onResume() {
         super.onResume();
+        pageNum = 1;
         mPresenter.getTerminalDetail(terminalId);
         getData();
     }

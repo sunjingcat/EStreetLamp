@@ -178,30 +178,40 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
 
     @Override
     public void showIntent(String id) {
-        ArrayList<String> baseb4 = new ArrayList<>();
-        Luban.with(this)
-                .load(this.imagesAnnex)
-                .ignoreBy(100)
-                .setCompressListener(new OnCompressListener() {
-                    @Override
-                    public void onStart() {
-                        // TODO 压缩开始前调用，可以在方法内启动 loading UI
-                    }
-
-                    @Override
-                    public void onSuccess(File file) {
-                        baseb4.add("data:image/jpg;base64," + BASE64.imageToBase64(file.getPath()));
-                        if (baseb4.size() == imagesAnnex.size()) {
-                            String s = new Gson().toJson(baseb4);
-                            mPresenter.postImage(id, s);
+        if (this.imagesAnnex.size()>0) {
+            ArrayList<String> baseb4 = new ArrayList<>();
+            Luban.with(this)
+                    .load(this.imagesAnnex)
+                    .ignoreBy(100)
+                    .setCompressListener(new OnCompressListener() {
+                        @Override
+                        public void onStart() {
+                            // TODO 压缩开始前调用，可以在方法内启动 loading UI
                         }
-                    }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        // TODO 当压缩过程出现问题时调用
-                    }
-                }).launch();
+                        @Override
+                        public void onSuccess(File file) {
+                            baseb4.add("data:image/jpg;base64," + BASE64.imageToBase64(file.getPath()));
+                            if (baseb4.size() == imagesAnnex.size()) {
+                                String s = new Gson().toJson(baseb4);
+                                mPresenter.postImage(id, s);
+                            }
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            // TODO 当压缩过程出现问题时调用
+                        }
+                    }).launch();
+        }else {
+            if (back) {
+                finish();
+            } else {
+                devicecAddr.setText("");
+
+            }
+            showToast("提交成功");
+        }
 
     }
 
@@ -265,8 +275,9 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
             finish();
         } else {
             devicecAddr.setText("");
-            showToast("提交成功");
+
         }
+        showToast("提交成功");
     }
 
     @Override
@@ -506,8 +517,8 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
             showToast("请选择经纬度");
             return;
         }
-        params.put("lat", lat);
-        params.put("lon", lon);
+        params.put("deviceLat", lat);
+        params.put("deviceLng", lon);
 
         mPresenter.postTerminal(params);
     }

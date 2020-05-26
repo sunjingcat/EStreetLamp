@@ -46,6 +46,7 @@ import com.zz.lamp.business.main.mvp.presenter.MapPresenter;
 import com.zz.lamp.business.mine.MineActivity;
 import com.zz.lamp.utils.AMapUtils;
 import com.zz.lamp.utils.GlideUtils;
+import com.zz.lamp.utils.LogUtils;
 import com.zz.lamp.utils.TabUtils;
 import com.zz.lib.commonlib.utils.CacheUtility;
 
@@ -301,6 +302,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
 
                 } catch (Exception e) {
                     clearMarkers();
+                    LogUtils.v("sj--",e.getMessage().toString());
                 }
             }
         }).start();
