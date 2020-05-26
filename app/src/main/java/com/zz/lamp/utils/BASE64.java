@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Pattern;
 
 
 public class BASE64 {
@@ -50,6 +51,10 @@ public class BASE64 {
         return result;
     }
 
+    public static boolean isBase64(String str) {
+        String base64Pattern = "^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$";
+        return Pattern.matches(base64Pattern, str);
+    }
     public static String generateImage(String imgStr){
         if (imgStr == null) {
             return "";

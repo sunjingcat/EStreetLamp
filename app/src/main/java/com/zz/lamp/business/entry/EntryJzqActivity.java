@@ -314,29 +314,43 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
     public void showIntent(String id) {
         if (this.imagesAnnex.size()>0) {
             ArrayList<String> baseb4 = new ArrayList<>();
-            Luban.with(this)
-                    .load(this.imagesAnnex)
-                    .ignoreBy(100)
-                    .setCompressListener(new OnCompressListener() {
-                        @Override
-                        public void onStart() {
-                            // TODO 压缩开始前调用，可以在方法内启动 loading UI
-                        }
-
-                        @Override
-                        public void onSuccess(File file) {
-                            baseb4.add("data:image/jpg;base64," + BASE64.imageToBase64(file.getPath()));
-                            if (baseb4.size() == imagesAnnex.size()) {
-                                String s = new Gson().toJson(baseb4);
-                                mPresenter.postImage(id, s);
+            ArrayList<String> needUpload = new ArrayList<>();
+            for (String path:this.imagesAnnex){
+                if (BASE64.isBase64(path)){
+                    baseb4.add(path);
+                }else {
+                    needUpload.add(path);
+                }
+            }
+            if (needUpload.size()>0) {
+                Luban.with(this)
+                        .load(this.imagesAnnex)
+                        .ignoreBy(100)
+                        .setCompressListener(new OnCompressListener() {
+                            @Override
+                            public void onStart() {
+                                // TODO 压缩开始前调用，可以在方法内启动 loading UI
                             }
-                        }
 
-                        @Override
-                        public void onError(Throwable e) {
-                            // TODO 当压缩过程出现问题时调用
-                        }
-                    }).launch();
+                            @Override
+                            public void onSuccess(File file) {
+                                baseb4.add("data:image/jpg;base64," + BASE64.imageToBase64(file.getPath()));
+                                if (baseb4.size() == imagesAnnex.size()) {
+                                    String s = new Gson().toJson(baseb4);
+                                    mPresenter.postImage(id, s);
+                                }
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                // TODO 当压缩过程出现问题时调用
+                            }
+                        }).launch();
+            }else {
+                showToast("成功");
+                setResult(RESULT_OK);
+                finish();
+            }
         }else {
             showToast("成功");
             setResult(RESULT_OK);
