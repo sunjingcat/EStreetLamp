@@ -38,7 +38,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".business.mine.PasswordActivity"></activity>
+        <activity android:name=".Main2Activity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".business.mine.PasswordActivity" />
         <activity android:name=".business.mine.ChangeCodeActivity" />
         <activity android:name=".business.mine.AboutActivity" />
         <activity android:name=".business.map.NavActivity" />
@@ -73,11 +80,7 @@
             android:launchMode="singleTask" />
         <activity android:name=".MainActivity" />
         <activity android:name=".StartpageActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".business.entry.AddLineActivity"
