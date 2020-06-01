@@ -38,7 +38,6 @@ public class ImageLookActivity extends MyBaseActivity {
         ButterKnife.bind(this);
         try {
             String url = getIntent().getStringExtra("url");
-            String s = BASE64.imageToBase64(url);
             GlideUtils.loadImage(this, url, intensify_image);
 
         }catch (Exception e){
