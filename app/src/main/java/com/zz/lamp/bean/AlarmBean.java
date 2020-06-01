@@ -23,7 +23,7 @@ public class AlarmBean implements MultiItemEntity {
     private Integer   alarmType;// 2,
     private String  alarmValue;// 0,
     private Integer   alarmStatus;// 1,
-    private String    alarmDeviceType;// 1,
+    private Integer    alarmDeviceType;// 1,
     private String   lightDeviceAddr;// 202004200047,
     private String   handleDescription;// null,
     private List<String> handleFile;// null,
@@ -114,7 +114,7 @@ public class AlarmBean implements MultiItemEntity {
         return alarmStatus;
     }
 
-    public String getAlarmDeviceType() {
+    public Integer getAlarmDeviceType() {
         return alarmDeviceType;
     }
 

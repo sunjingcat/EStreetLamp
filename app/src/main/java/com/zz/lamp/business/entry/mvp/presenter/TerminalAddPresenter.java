@@ -165,7 +165,8 @@ public class TerminalAddPresenter extends MyBasePresenterImpl<Contract.IGetTermi
             @Override
             protected void onSuccess(JsonT<List<Integer>> data) {
                 if (data.isSuccess()) {
-                    postImageIDs(id,new Gson().toJson(ids.addAll(data.getData())));
+                    ids.addAll(data.getData());
+                    postImageIDs(id,new Gson().toJson(ids));
                 }else {
 
                 }
