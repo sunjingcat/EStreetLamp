@@ -208,9 +208,7 @@ public class AlarmHandleActivity extends MyBaseActivity<Contract.IsetAlarmAddPre
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.toolbar_subtitle:
-                showToast("提交成功");
-                setResult(RESULT_OK);
-                finish();
+                postData();
                 break;
             case R.id.tv_status:
                 String[] PLANETS2 = new String[]{"忽略 ", "已处理"};
