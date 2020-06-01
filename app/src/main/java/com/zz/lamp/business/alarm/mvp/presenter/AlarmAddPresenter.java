@@ -2,6 +2,7 @@ package com.zz.lamp.business.alarm.mvp.presenter;
 
 import com.google.gson.Gson;
 import com.zz.lamp.bean.AlarmBean;
+import com.zz.lamp.bean.ImageBack;
 import com.zz.lamp.bean.ImageBean;
 import com.zz.lamp.business.alarm.mvp.Contract;
 import com.zz.lamp.net.ApiService;
@@ -89,9 +90,9 @@ public class AlarmAddPresenter extends MyBasePresenterImpl<Contract.IGetAlarmAdd
 
     @Override
     public void getImage(String type,String modelId) {
-        RxNetUtils.request(getCApi(ApiService.class).getImageBase64(type,modelId), new RequestObserver<JsonT<List<String>>>(this) {
+        RxNetUtils.request(getCApi(ApiService.class).getImageBase64(type,modelId), new RequestObserver<JsonT<List<ImageBack>>>(this) {
             @Override
-            protected void onSuccess(JsonT<List<String>> data) {
+            protected void onSuccess(JsonT<List<ImageBack>> data) {
                 if (data.isSuccess()) {
                     view.showImage(data.getData());
                 }else {
@@ -100,7 +101,7 @@ public class AlarmAddPresenter extends MyBasePresenterImpl<Contract.IGetAlarmAdd
             }
 
             @Override
-            protected void onFail2(JsonT<List<String>> userInfoJsonT) {
+            protected void onFail2(JsonT<List<ImageBack>> userInfoJsonT) {
                 super.onFail2(userInfoJsonT);
                 view.showToast(userInfoJsonT.getMessage());
             }

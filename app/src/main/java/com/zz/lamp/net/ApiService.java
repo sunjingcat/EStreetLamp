@@ -8,6 +8,7 @@ import com.zz.lamp.bean.CameraBean;
 import com.zz.lamp.bean.ConcentratorBean;
 import com.zz.lamp.bean.DeviceType;
 import com.zz.lamp.bean.DictBean;
+import com.zz.lamp.bean.ImageBack;
 import com.zz.lamp.bean.ImageBean;
 import com.zz.lamp.bean.LightDevice;
 import com.zz.lamp.bean.LightDeviceConBean;
@@ -177,7 +178,7 @@ public interface ApiService {
     Observable<JsonT> stopControl(@QueryMap Map<String, Object> params);
 
     @GET("/app/light/enclosure/base64/{type}/{modelId}")
-    Observable<JsonT<List<String>>> getImageBase64(@Path("type") String type,@Path("modelId") String modelId);
+    Observable<JsonT<List<ImageBack>>> getImageBase64(@Path("type") String type, @Path("modelId") String modelId);
 
     @GET("/app/light/map/list")
     Observable<JsonT<List<MapListBean>>> getMapList(@QueryMap Map<String, Object> params);

@@ -4,6 +4,7 @@ package com.zz.lamp.business.entry.mvp;
 import com.zz.lamp.bean.ConcentratorBean;
 import com.zz.lamp.bean.DeviceType;
 import com.zz.lamp.bean.DictBean;
+import com.zz.lamp.bean.ImageBack;
 import com.zz.lamp.bean.LightDevice;
 import com.zz.lamp.bean.LineBean;
 import com.zz.lamp.bean.RegionExpandItem;
@@ -29,7 +30,7 @@ public class Contract {
         void checkTerminalAddr(String id,Map<String, Object> params);
         void checkTerminalName(String id,Map<String, Object> params);
         void deleteTerminal(String id);
-        void postImage(String id,String files);
+        void postImage(String id,String files,List<Integer> ids);
         void getImage(String type,String modelId);
     }
 
@@ -40,7 +41,7 @@ public class Contract {
         void showTerminalDetail(ConcentratorBean concentratorBean);
         void showDeleteIntent();
         void showPostImage();
-        void showImage(List<String> list);
+        void showImage(List<ImageBack> list);
     }
 
     public interface IsetLampAddPresenter extends BasePresenter {
@@ -74,7 +75,7 @@ public class Contract {
         void showCheckNameIntent(JsonT jsonT);
 
         void showPostImage();
-        void showImage(List<String> list);
+        void showImage(List<ImageBack> list);
 
     }
 

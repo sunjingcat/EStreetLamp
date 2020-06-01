@@ -1,6 +1,7 @@
 package com.zz.lamp.business.alarm.mvp;
 
 import com.zz.lamp.bean.AlarmBean;
+import com.zz.lamp.bean.ImageBack;
 import com.zz.lib.core.ui.mvp.BasePresenter;
 import com.zz.lib.core.ui.mvp.BaseView;
 
@@ -20,7 +21,7 @@ public class Contract {
     public interface IGetAlarmAddView extends BaseView {
         void showResult();
         void showDetailResult(AlarmBean alarmBean);
-        void showImage(List<String> list);
+        void showImage(List<ImageBack> list);
 
     }
 }

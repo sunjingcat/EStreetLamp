@@ -24,6 +24,7 @@ import com.zz.lamp.MainActivity;
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseActivity;
 import com.zz.lamp.bean.AlarmBean;
+import com.zz.lamp.bean.ImageBack;
 import com.zz.lamp.business.alarm.adapter.ImageDeleteItemAdapter;
 import com.zz.lamp.business.alarm.mvp.Contract;
 import com.zz.lamp.business.alarm.mvp.presenter.AlarmAddPresenter;
@@ -152,7 +153,7 @@ public class AlarmHandleActivity extends MyBaseActivity<Contract.IsetAlarmAddPre
     }
 
     @Override
-    public void showImage(List<String> list) {
+    public void showImage(List<ImageBack> list) {
 
     }
 

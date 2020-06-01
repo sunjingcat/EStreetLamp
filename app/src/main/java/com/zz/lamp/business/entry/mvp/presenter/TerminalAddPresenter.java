@@ -3,6 +3,7 @@ import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.zz.lamp.bean.ConcentratorBean;
+import com.zz.lamp.bean.ImageBack;
 import com.zz.lamp.business.entry.mvp.Contract;
 import com.zz.lamp.net.ApiService;
 import com.zz.lamp.net.JsonT;
@@ -159,12 +160,12 @@ public class TerminalAddPresenter extends MyBasePresenterImpl<Contract.IGetTermi
     }
 
     @Override
-    public void postImage(String id,String files) {
+    public void postImage(String id,String files,List<Integer> ids) {
         RxNetUtils.request(getCApi(ApiService.class).uploadImgs(files), new RequestObserver<JsonT<List<Integer>>>(this) {
             @Override
             protected void onSuccess(JsonT<List<Integer>> data) {
                 if (data.isSuccess()) {
-                    postImageIDs(id,new Gson().toJson(data.getData()));
+                    postImageIDs(id,new Gson().toJson(ids.addAll(data.getData())));
                 }else {
 
                 }
@@ -198,9 +199,9 @@ public class TerminalAddPresenter extends MyBasePresenterImpl<Contract.IGetTermi
 
     @Override
     public void getImage(String type, String modelId) {
-        RxNetUtils.request(getCApi(ApiService.class).getImageBase64(type,modelId), new RequestObserver<JsonT<List<String>>>(this) {
+        RxNetUtils.request(getCApi(ApiService.class).getImageBase64(type,modelId), new RequestObserver<JsonT<List<ImageBack>>>(this) {
             @Override
-            protected void onSuccess(JsonT<List<String>> data) {
+            protected void onSuccess(JsonT<List<ImageBack>> data) {
                 if (data.isSuccess()) {
                     view.showImage(data.getData());
                 }else {
@@ -209,7 +210,7 @@ public class TerminalAddPresenter extends MyBasePresenterImpl<Contract.IGetTermi
             }
 
             @Override
-            protected void onFail2(JsonT<List<String>> userInfoJsonT) {
+            protected void onFail2(JsonT<List<ImageBack>> userInfoJsonT) {
                 super.onFail2(userInfoJsonT);
                 view.showToast(userInfoJsonT.getMessage());
             }

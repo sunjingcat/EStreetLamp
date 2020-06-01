@@ -19,6 +19,7 @@ import com.google.gson.Gson;
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseActivity;
 import com.zz.lamp.bean.AlarmBean;
+import com.zz.lamp.bean.ImageBack;
 import com.zz.lamp.bean.TestPost;
 import com.zz.lamp.business.alarm.adapter.ImageDeleteItemAdapter;
 import com.zz.lamp.business.alarm.adapter.ImageItemAdapter;
@@ -114,13 +115,20 @@ public class AlarmDetailActivity extends MyBaseActivity<Contract.IsetAlarmAddPre
         tvStatus.setText(alarmBean.getAlarmStatus()==0?"忽略":"已处理");
         mPresenter.getImage("alarm", alarmBean.getId());
     }
-
+    List<ImageBack> imageBacks = new ArrayList<>();
     @Override
-    public void showImage(List<String> list) {
+    public void showImage(List<ImageBack> list) {
         if (list == null) return;
+        imageBacks.clear();
+        imageBacks.addAll(list);
+
+        List<String> showList = new ArrayList<>();
+        for (ImageBack imageBack:list){
+            showList.add(imageBack.getBase64());
+        }
         images.clear();
 
-        images.addAll(list);
+        images.addAll(showList);
 
         adapter.notifyDataSetChanged();
     }

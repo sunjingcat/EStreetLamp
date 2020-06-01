@@ -17,6 +17,7 @@ import com.zz.lamp.HomeActivity;
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseActivity;
 import com.zz.lamp.bean.ConcentratorBean;
+import com.zz.lamp.bean.ImageBack;
 import com.zz.lamp.business.alarm.adapter.ImageDeleteItemAdapter;
 import com.zz.lamp.business.entry.mvp.Contract;
 import com.zz.lamp.business.entry.mvp.presenter.TerminalAddPresenter;
@@ -89,7 +90,7 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
     @BindView(R.id.delete)
     TextView delete;
     String terminalId;
-    ArrayList<String> base64Array = new ArrayList<>();
+    List<ImageBack> imageBacks = new ArrayList<>();
     @Override
     protected int getContentView() {
         return R.layout.activity_entry_jzq;
@@ -116,16 +117,10 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
         adapterAnnex.setOnclick(new ImageDeleteItemAdapter.Onclick() {
             @Override
             public void onclickAdd(View v, int option) {
-                base64Array.clear();
-                for (String s :imagesAnnex){
-                    if (BASE64.isBase64(s)){
-                        base64Array.add(s);
-                    }
-                }
                 ImageSelector.builder()
                         .useCamera(true) // 设置是否使用拍照
                         .setSingle(false)  //设置是否单选
-                        .setMaxSelectCount(9-base64Array.size()) // 图片的最大选择数量，小于等于0时，不限数量。
+                        .setMaxSelectCount(9-imageBacks.size()) // 图片的最大选择数量，小于等于0时，不限数量。
                         .setSelected(imagesAnnex) // 把已选的图片传入默认选中。
                         .setViewImage(true) //是否点击放大图片查看,，默认为true
                         .start(EntryJzqActivity.this, 1102); // 打开相册
@@ -134,6 +129,9 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
 
             @Override
             public void onclickDelete(View v, int option) {
+                if (option<imageBacks.size()-1){
+                    imageBacks.remove(option);
+                }
                 imagesAnnex.remove(option);
                 adapterAnnex.notifyDataSetChanged();
             }
@@ -208,8 +206,12 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
                 if (images.size() > 0) {
                     this.imagesAnnex.clear();
                 }
-                base64Array.addAll(images);
-                this.imagesAnnex.addAll(base64Array);
+                List<String> showList = new ArrayList<>();
+                for (ImageBack imageBack:imageBacks){
+                    showList.add(imageBack.getBase64());
+                }
+                imagesAnnex.addAll(showList);
+                this.imagesAnnex.addAll(images);
                 adapterAnnex.notifyDataSetChanged();
                 break;
 
@@ -327,18 +329,19 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
     @Override
     public void showIntent(String id) {
         if (this.imagesAnnex.size()>0) {
-            ArrayList<String> baseb4 = new ArrayList<>();
+            ArrayList<Integer> ids = new ArrayList<>();
             ArrayList<String> needUpload = new ArrayList<>();
-            for (String path:this.imagesAnnex){
-                if (BASE64.isBase64(path)){
-                    baseb4.add(path);
+            ArrayList<String> base64 = new ArrayList<>();
+            for (int i=0;i<imagesAnnex.size();i++){
+                if (BASE64.isBase64(imagesAnnex.get(i))){
+                    ids.add(imageBacks.get(i).getId());
                 }else {
-                    needUpload.add(path);
+                    needUpload.add(imagesAnnex.get(i));
                 }
             }
             if (needUpload.size()>0) {
                 Luban.with(this)
-                        .load(this.imagesAnnex)
+                        .load(needUpload)
                         .ignoreBy(100)
                         .setCompressListener(new OnCompressListener() {
                             @Override
@@ -348,10 +351,10 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
 
                             @Override
                             public void onSuccess(File file) {
-                                baseb4.add("data:image/jpg;base64," + BASE64.imageToBase64(file.getPath()));
-                                if (baseb4.size() == imagesAnnex.size()) {
-                                    String s = new Gson().toJson(baseb4);
-                                    mPresenter.postImage(id, s);
+                                base64.add("data:image/jpg;base64," + BASE64.imageToBase64(file.getPath()));
+                                if (base64.size() == needUpload.size()) {
+                                    String s = new Gson().toJson(base64);
+                                    mPresenter.postImage(id, s,ids);
                                 }
                             }
 
@@ -454,13 +457,19 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
         finish();
     }
 
+
     @Override
-    public void showImage(List<String> list) {
+    public void showImage(List<ImageBack> list) {
         if (list == null) return;
+        imageBacks.clear();
+        imageBacks.addAll(list);
+
+        List<String> showList = new ArrayList<>();
+        for (ImageBack imageBack:list){
+            showList.add(imageBack.getBase64());
+        }
         imagesAnnex.clear();
-
-        imagesAnnex.addAll(list);
-
+        imagesAnnex.addAll(showList);
         adapterAnnex.notifyDataSetChanged();
     }
 

@@ -30,6 +30,7 @@ import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseActivity;
 import com.zz.lamp.bean.DeviceType;
 import com.zz.lamp.bean.DictBean;
+import com.zz.lamp.bean.ImageBack;
 import com.zz.lamp.bean.LightDevice;
 import com.zz.lamp.business.alarm.adapter.ImageDeleteItemAdapter;
 import com.zz.lamp.business.map.SelectLocationActivity;
@@ -298,12 +299,20 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
         showToast("提交成功");
     }
 
+    List<ImageBack> imageBacks = new ArrayList<>();
     @Override
-    public void showImage(List<String> list) {
+    public void showImage(List<ImageBack> list) {
         if (list == null) return;
+        imageBacks.clear();
+        imageBacks.addAll(list);
+
+        List<String> showList = new ArrayList<>();
+        for (ImageBack imageBack:list){
+            showList.add(imageBack.getBase64());
+        }
         imagesAnnex.clear();
 
-        imagesAnnex.addAll(list);
+        imagesAnnex.addAll(showList);
 
         adapterAnnex.notifyDataSetChanged();
     }
