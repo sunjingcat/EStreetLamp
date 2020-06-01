@@ -129,7 +129,7 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
 
             @Override
             public void onclickDelete(View v, int option) {
-                if (option<imageBacks.size()-1){
+                if (option<imageBacks.size()){
                     imageBacks.remove(option);
                 }
                 imagesAnnex.remove(option);

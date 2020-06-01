@@ -126,7 +126,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
     ImageDeleteItemAdapter adapterAnnex;
     @BindView(R.id.rv_images_annex)
     RecyclerView rvImagesAnnex;
-
+    List<ImageBack> imageBacks = new ArrayList<>();
     @Override
     protected int getContentView() {
         return R.layout.activity_lamp;
@@ -156,7 +156,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
                 ImageSelector.builder()
                         .useCamera(true) // 设置是否使用拍照
                         .setSingle(false)  //设置是否单选
-                        .setMaxSelectCount(9) // 图片的最大选择数量，小于等于0时，不限数量。
+                        .setMaxSelectCount(9-imageBacks.size()) // 图片的最大选择数量，小于等于0时，不限数量。
                         .setSelected(imagesAnnex) // 把已选的图片传入默认选中。
                         .setViewImage(true) //是否点击放大图片查看,，默认为true
                         .start(EntryLampActivity.this, 1102); // 打开相册
@@ -165,6 +165,9 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
 
             @Override
             public void onclickDelete(View v, int option) {
+                if (option<imageBacks.size()){
+                    imageBacks.remove(option);
+                }
                 imagesAnnex.remove(option);
                 adapterAnnex.notifyDataSetChanged();
             }
@@ -180,13 +183,14 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
     @Override
     public void showIntent(String id) {
         if (this.imagesAnnex.size()>0) {
-            ArrayList<String> baseb4 = new ArrayList<>();
+            ArrayList<Integer> ids = new ArrayList<>();
             ArrayList<String> needUpload = new ArrayList<>();
-            for (String path:this.imagesAnnex){
-                if (BASE64.isBase64(path)){
-                    baseb4.add(path);
+            ArrayList<String> base64 = new ArrayList<>();
+            for (int i=0;i<imagesAnnex.size();i++){
+                if (BASE64.isBase64(imagesAnnex.get(i))){
+                    ids.add(imageBacks.get(i).getId());
                 }else {
-                    needUpload.add(path);
+                    needUpload.add(imagesAnnex.get(i));
                 }
             }
             if (needUpload.size()>0) {
@@ -201,10 +205,10 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
 
                             @Override
                             public void onSuccess(File file) {
-                                baseb4.add("data:image/jpg;base64," + BASE64.imageToBase64(file.getPath()));
-                                if (baseb4.size() == imagesAnnex.size()) {
-                                    String s = new Gson().toJson(baseb4);
-                                    mPresenter.postImage(id, s);
+                                base64.add("data:image/jpg;base64," + BASE64.imageToBase64(file.getPath()));
+                                if (base64.size() == needUpload.size()) {
+                                    String s = new Gson().toJson(base64);
+                                    mPresenter.postImage(id, s,ids);
                                 }
                             }
 
@@ -299,7 +303,6 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
         showToast("提交成功");
     }
 
-    List<ImageBack> imageBacks = new ArrayList<>();
     @Override
     public void showImage(List<ImageBack> list) {
         if (list == null) return;
@@ -585,6 +588,11 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
             if (images.size() > 0) {
                 this.imagesAnnex.clear();
             }
+            List<String> showList = new ArrayList<>();
+            for (ImageBack imageBack:imageBacks){
+                showList.add(imageBack.getBase64());
+            }
+            imagesAnnex.addAll(showList);
             this.imagesAnnex.addAll(images);
 
             adapterAnnex.notifyDataSetChanged();

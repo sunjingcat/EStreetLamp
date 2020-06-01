@@ -186,12 +186,13 @@ public class LampAddPresenter extends MyBasePresenterImpl<Contract.IGetLampAddVi
     }
 
     @Override
-    public void postImage(String id, String files) {
+    public void postImage(String id, String files,List<Integer> ids) {
         RxNetUtils.request(getCApi(ApiService.class).uploadImgs(files), new RequestObserver<JsonT<List<Integer>>>(this) {
             @Override
             protected void onSuccess(JsonT<List<Integer>> data) {
                 if (data.isSuccess()) {
-                    postImageIDs(id, new Gson().toJson(data.getData()));
+                    ids.addAll(data.getData());
+                    postImageIDs(id, new Gson().toJson(ids));
                 } else {
 
                 }

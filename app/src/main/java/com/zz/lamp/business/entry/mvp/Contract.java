@@ -56,7 +56,7 @@ public class Contract {
         void checkDeviceAddr(String id,Map<String, Object> params);
         void checkDeviceName(String id,Map<String, Object> params);
 
-        void postImage(String id,String files);
+        void postImage(String id,String files,List<Integer> ids);
         void getImage(String type,String modelId);
 
 
