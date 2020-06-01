@@ -90,7 +90,6 @@ public class GroupControlActivity extends MyBaseActivity<Contract.IsetGroupContr
         adapter = new ControlGroupAdapter(R.layout.item_line_control, mlist);
         rv.setAdapter(adapter);
         terminalId = getIntent().getStringExtra("terminalId");
-        terminalId = "7";
         mPresenter.getGroupList(terminalId);
         refreshLayout.setEnableLoadMore(false);
         adapter.setOnItemClickListener(new OnItemClickListener() {

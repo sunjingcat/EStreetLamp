@@ -67,13 +67,17 @@ public interface ApiService {
     @POST( "/app/light/terminal/")
     Observable<JsonT<String>> postTerminal(@QueryMap Map<String, Object> params);
 
+    @POST("/app/light/enclosure/upload")
+    @FormUrlEncoded
+    Observable<JsonT<List<Integer>>> uploadImgs( @Field("filebase64s") String handleFile);
+
     @POST("/app/light/terminal/uploadImgs/{id}")
     @FormUrlEncoded
-    Observable<JsonT> uploadTerminalImgs(@Path("id") String id, @Field("filebase64s") String handleFile);
+    Observable<JsonT> uploadTerminalImgs(@Path("id") String id, @Field("enclosureIds") String handleFile);
 
-    @POST("/app/light/lightDevice/uploadImgs/{id}  ")
+    @POST("/app/light/lightDevice/uploadImgs/{id}")
     @FormUrlEncoded
-    Observable<JsonT> uploadLightDeviceImgs(@Path("id") String id, @Field("filebase64s") String handleFile);
+    Observable<JsonT> uploadLightDeviceImgs(@Path("id") String id,@Field("enclosureIds") String handleFile);
 
     @GET( "/app/light/terminal/check/terminalAddr")
     Observable<JsonT> checkTerminalAddr(@QueryMap Map<String, Object> params);
@@ -151,7 +155,7 @@ public interface ApiService {
 
     @POST("/app/light/alarm/handleLightAlarm/{id}")
     @FormUrlEncoded
-    Observable<JsonT> handleLightAlarm(@Path("id") String id,@Field("alarmStatus") String alarmStatus, @Field("handleDescription") String handleDescription, @Field("id") String ID, @Field("handleFile") String handleFile);
+    Observable<JsonT> handleLightAlarm(@Path("id") String id,@Field("alarmStatus") String alarmStatus, @Field("handleDescription") String handleDescription, @Field("enclosureIds") String handleFile);
 
     @GET("/app/carame/device/getCameraDevicelist")
     Observable<JsonT<List<CameraBean>>> getCameraDevicelist(@QueryMap Map<String, Object> params);

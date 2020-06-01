@@ -29,6 +29,7 @@ import com.zz.lib.commonlib.widget.SelectPopupWindows;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -88,7 +89,7 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
     @BindView(R.id.delete)
     TextView delete;
     String terminalId;
-
+    ArrayList<String> base64Array = new ArrayList<>();
     @Override
     protected int getContentView() {
         return R.layout.activity_entry_jzq;
@@ -115,11 +116,16 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
         adapterAnnex.setOnclick(new ImageDeleteItemAdapter.Onclick() {
             @Override
             public void onclickAdd(View v, int option) {
-
+                base64Array.clear();
+                for (String s :imagesAnnex){
+                    if (BASE64.isBase64(s)){
+                        base64Array.add(s);
+                    }
+                }
                 ImageSelector.builder()
                         .useCamera(true) // 设置是否使用拍照
                         .setSingle(false)  //设置是否单选
-                        .setMaxSelectCount(9) // 图片的最大选择数量，小于等于0时，不限数量。
+                        .setMaxSelectCount(9-base64Array.size()) // 图片的最大选择数量，小于等于0时，不限数量。
                         .setSelected(imagesAnnex) // 把已选的图片传入默认选中。
                         .setViewImage(true) //是否点击放大图片查看,，默认为true
                         .start(EntryJzqActivity.this, 1102); // 打开相册
@@ -202,8 +208,8 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
                 if (images.size() > 0) {
                     this.imagesAnnex.clear();
                 }
-                this.imagesAnnex.addAll(images);
-
+                base64Array.addAll(images);
+                this.imagesAnnex.addAll(base64Array);
                 adapterAnnex.notifyDataSetChanged();
                 break;
 
@@ -271,11 +277,19 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
             showToast("请输入回路互感器变比");
             return;
         }
+        if (Integer.parseInt(transformerRatio)>100){
+            showToast("回路互感器变比：范围0~100");
+            return;
+        }
         params.put("loopTransformerRatio", transformerRatio);
 
         String line_transformerRatio = lineTransformerRatio.getText().toString();
         if (TextUtils.isEmpty(line_transformerRatio)) {
             showToast("请输入相线互感器变比");
+            return;
+        }
+        if (Integer.parseInt(line_transformerRatio)>100){
+            showToast("相线互感器变比：范围0~100");
             return;
         }
         params.put("lineTransformerRatio", line_transformerRatio);

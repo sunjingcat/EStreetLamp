@@ -108,7 +108,7 @@ public class MainActivity extends MyBaseActivity {
             protected void onFail2(JsonT userInfoJsonT) {
                 super.onFail2(userInfoJsonT);
             }
-        }, LoadingUtils.build(this));
+        }, null);
     }
 
 }

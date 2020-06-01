@@ -425,6 +425,10 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
             showToast("请输入路灯控制器地址");
             return;
         }
+        if (deviceAddr_.length()<12) {
+            showToast("请输入正确的路灯控制器地址");
+            return;
+        }
         params.put("deviceAddr", deviceAddr_);
         if (check == 1) {
             Map<String, Object> map = new HashMap<>();

@@ -48,6 +48,7 @@
         android:hint="请输入别名"
         android:background="#F7F8FF"
         android:lines="1"
+        android:maxLength="10"
         android:textColor="#333333"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"

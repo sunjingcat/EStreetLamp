@@ -152,7 +152,9 @@
                     android:background="@color/white"
                     android:gravity="center_vertical|right"
                     android:hint="请输入"
+                    android:maxLength="20"
                     android:lines="1"
+                    android:maxLines="1"
                     android:textColor="#333333"
                     android:textSize="14dp" />
 
@@ -212,7 +214,8 @@
                     android:layout_gravity="center"
                     android:text="回路数量"
                     android:textColor="#333333"
-                    android:textSize="14dp" />
+                    android:textSize="14dp"
+                    />
 
                 <EditText
                     android:id="@+id/loopCount"
@@ -225,6 +228,7 @@
                     android:hint="请输入"
                     android:inputType="number"
                     android:lines="1"
+                    android:maxLength="2"
                     android:textColor="#333333"
                     android:textSize="14dp" />
 
@@ -262,6 +266,7 @@
                     android:background="@color/white"
                     android:gravity="center_vertical|right"
                     android:hint="请输入"
+                    android:maxLength="2"
                     android:inputType="number"
                     android:lines="1"
                     android:textColor="#333333"
@@ -303,6 +308,7 @@
                     android:hint="请输入"
                     android:inputType="number"
                     android:lines="1"
+                    android:maxLength="3"
                     android:textColor="#333333"
                     android:textSize="14dp" />
 
@@ -342,6 +348,7 @@
                     android:hint="请输入"
                     android:inputType="number"
                     android:lines="1"
+                    android:maxLength="3"
                     android:textColor="#333333"
                     android:textSize="14dp" />
 
@@ -381,6 +388,7 @@
                     android:hint="请输入"
                     android:inputType="number"
                     android:lines="1"
+                    android:maxLength="3"
                     android:textColor="#333333"
                     android:textSize="14dp" />
                 <TextView
@@ -427,7 +435,7 @@
                     android:hint="请输入"
                     android:inputType="number"
                     android:lines="1"
-
+                    android:maxLength="3"
                     android:textColor="#333333"
                     android:textSize="14dp" />
                 <TextView

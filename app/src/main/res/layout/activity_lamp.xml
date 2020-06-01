@@ -76,6 +76,8 @@
                     android:id="@+id/devicecAddr"
                     style="@style/textRightStyle"
                     android:drawablePadding="5dp"
+                    android:maxLength="12"
+                    android:digits="0123456789abcdefghijklmnopqrstuvwxyz"
                     android:hint="扫一扫" />
                 <TextView
                     android:id="@+id/devicecAddr_code"
@@ -123,6 +125,7 @@
                     android:gravity="center_vertical|right"
                     android:hint="请输入"
                     android:lines="1"
+                    android:maxLength="20"
                     android:textColor="#333333"
                     android:textSize="14dp" />
             </LinearLayout>
@@ -264,6 +267,7 @@
                     android:gravity="center_vertical|right"
                     android:hint="请输入"
                     android:lines="1"
+                    android:maxLength="20"
                     android:textColor="#333333"
                     android:textSize="14dp" />
             </LinearLayout>
@@ -332,6 +336,7 @@
                     android:gravity="center_vertical|right"
                     android:hint="请输入"
                     android:lines="1"
+                    android:maxLength="3"
                     android:inputType="number"
                     android:textColor="#333333"
                     android:textSize="14dp" />
@@ -472,6 +477,7 @@
                     android:hint="请输入"
                     android:inputType="number"
                     android:lines="1"
+                    android:maxLength="3"
                     android:textColor="#333333"
                     android:textSize="14dp" />
             </LinearLayout>
@@ -510,6 +516,7 @@
                     android:hint="请输入"
                     android:inputType="number"
                     android:lines="1"
+                    android:maxLength="3"
                     android:textColor="#333333"
                     android:textSize="14dp" />
             </LinearLayout>
@@ -586,6 +593,7 @@
                         android:hint="请输入"
                         android:inputType="number"
                         android:lines="1"
+                        android:maxLength="3"
                         android:textColor="#333333"
                         android:textSize="14dp" />
                 </LinearLayout>
@@ -624,6 +632,7 @@
                         android:hint="请输入"
                         android:inputType="number"
                         android:lines="1"
+                        android:maxLength="3"
                         android:textColor="#333333"
                         android:textSize="14dp" />
                 </LinearLayout>

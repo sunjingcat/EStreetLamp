@@ -183,7 +183,7 @@ public class AlarmHandleActivity extends MyBaseActivity<Contract.IsetAlarmAddPre
                         baseb4.add("data:image/jpg;base64," + BASE64.imageToBase64(file.getPath()));
                         if (baseb4.size()==imagesAnnex.size()){
                             String s = new Gson().toJson(baseb4);
-                            mPresenter.submitData(id, alarmStatus+"", handleDescription+"", id, s);
+                            mPresenter.submitData(id, alarmStatus+"", handleDescription+"",  s);
 
                         }
                     }

@@ -42,7 +42,7 @@ public class LoginPresenter extends MyBasePresenterImpl<Contract.IGetLoginView> 
                 super.onFail2(ipAdressJsonT);
                 view.showToast(ipAdressJsonT.getMessage()+"");
             }
-        },mDialog);
+        },null);
 
     }
 

@@ -11,7 +11,7 @@ import okhttp3.MultipartBody;
 
 public class Contract {
     public interface IsetAlarmAddPresenter extends BasePresenter {
-        void submitData(String id, String alarmStatus, String handleDescription, String ID, String handleFile);
+        void submitData(String id, String alarmStatus, String handleDescription, String handleFile);
         void getData(Map<String, Object> map);
         void getImage(String type,String modelId);
 

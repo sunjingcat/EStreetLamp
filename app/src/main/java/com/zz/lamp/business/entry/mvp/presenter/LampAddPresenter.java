@@ -2,6 +2,7 @@ package com.zz.lamp.business.entry.mvp.presenter;
 
 import android.text.TextUtils;
 
+import com.google.gson.Gson;
 import com.zz.lamp.bean.DeviceType;
 import com.zz.lamp.bean.DictBean;
 import com.zz.lamp.business.entry.mvp.Contract;
@@ -184,7 +185,25 @@ public class LampAddPresenter extends MyBasePresenterImpl<Contract.IGetLampAddVi
     }
 
     @Override
-    public void postImage(String id, String files) {
+    public void postImage(String id,String files) {
+        RxNetUtils.request(getCApi(ApiService.class).uploadImgs(files), new RequestObserver<JsonT<List<Integer>>>(this) {
+            @Override
+            protected void onSuccess(JsonT<List<Integer>> data) {
+                if (data.isSuccess()) {
+                    postImageIDs(id,new Gson().toJson(data.getData()));
+                }else {
+
+                }
+            }
+
+            @Override
+            protected void onFail2(JsonT<List<Integer>> userInfoJsonT) {
+                super.onFail2(userInfoJsonT);
+                view.showToast(userInfoJsonT.getMessage());
+            }
+        },mDialog);
+    }
+    public void postImageIDs(String id,String files) {
         RxNetUtils.request(getCApi(ApiService.class).uploadLightDeviceImgs(id,files), new RequestObserver<JsonT>(this) {
             @Override
             protected void onSuccess(JsonT data) {
@@ -202,7 +221,6 @@ public class LampAddPresenter extends MyBasePresenterImpl<Contract.IGetLampAddVi
             }
         },mDialog);
     }
-
     @Override
     public void getImage(String type, String modelId) {
         RxNetUtils.request(getCApi(ApiService.class).getImageBase64(type,modelId), new RequestObserver<JsonT<List<String>>>(this) {

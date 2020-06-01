@@ -1,6 +1,7 @@
 package com.zz.lamp.business.entry.mvp.presenter;
 import android.text.TextUtils;
 
+import com.google.gson.Gson;
 import com.zz.lamp.bean.ConcentratorBean;
 import com.zz.lamp.business.entry.mvp.Contract;
 import com.zz.lamp.net.ApiService;
@@ -158,7 +159,25 @@ public class TerminalAddPresenter extends MyBasePresenterImpl<Contract.IGetTermi
     }
 
     @Override
-    public void postImage(String id, String files) {
+    public void postImage(String id,String files) {
+        RxNetUtils.request(getCApi(ApiService.class).uploadImgs(files), new RequestObserver<JsonT<List<Integer>>>(this) {
+            @Override
+            protected void onSuccess(JsonT<List<Integer>> data) {
+                if (data.isSuccess()) {
+                    postImageIDs(id,new Gson().toJson(data.getData()));
+                }else {
+
+                }
+            }
+
+            @Override
+            protected void onFail2(JsonT<List<Integer>> userInfoJsonT) {
+                super.onFail2(userInfoJsonT);
+                view.showToast(userInfoJsonT.getMessage());
+            }
+        },mDialog);
+    }
+    public void postImageIDs(String id,String files) {
         RxNetUtils.request(getCApi(ApiService.class).uploadTerminalImgs(id,files), new RequestObserver<JsonT>(this) {
             @Override
             protected void onSuccess(JsonT data) {
