@@ -9,8 +9,8 @@ android {
         applicationId "com.zz.lamp"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 14
-        versionName "1.4"
+        versionCode 15
+        versionName "1.5"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         packagingOptions {
             exclude 'META-INF/proguard/androidx-annotations.pro'
