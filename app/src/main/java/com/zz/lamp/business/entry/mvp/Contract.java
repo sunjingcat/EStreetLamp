@@ -95,13 +95,13 @@ public class Contract {
 
     public interface IsetLampPresenter extends BasePresenter {
         void getLampList(Map<String, Object> params, String id);
-
+        void getImage(String type,String modelId);
         void getTerminalDetail(String id);
     }
 
     public interface IGetLampView extends BaseView {
         void showIntent(List<LightDevice> list);
-
+        void showImage(List<ImageBack> list);
         void showTerminalDetail(ConcentratorBean concentratorBean);
     }
 
@@ -127,13 +127,13 @@ public class Contract {
 
     public interface IsetLampDetailPresenter extends BasePresenter {
         void getLightDetail(String id);
-
+        void getImage(String type,String modelId);
         void deleteLight(String id);
     }
 
     public interface IGeLampDetailView extends BaseView {
         void showDeleteIntent();
-
+        void showImage(List<ImageBack> list);
         void showLightDetail(LightDevice concentratorBean);
     }
 }

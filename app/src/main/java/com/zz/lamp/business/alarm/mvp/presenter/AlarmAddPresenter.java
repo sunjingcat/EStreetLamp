@@ -1,5 +1,7 @@
 package com.zz.lamp.business.alarm.mvp.presenter;
 
+import android.text.TextUtils;
+
 import com.google.gson.Gson;
 import com.zz.lamp.bean.AlarmBean;
 import com.zz.lamp.bean.ImageBack;
@@ -30,22 +32,26 @@ public class AlarmAddPresenter extends MyBasePresenterImpl<Contract.IGetAlarmAdd
 
     @Override
     public void submitData(String id, String alarmStatus, String handleDescription,  String handleFile) {
-        RxNetUtils.request(getCApi(ApiService.class).uploadImgs(handleFile), new RequestObserver<JsonT<List<Integer>>>(this) {
-            @Override
-            protected void onSuccess(JsonT<List<Integer>> data) {
-                if (data.isSuccess()) {
-                    submit(id,alarmStatus,handleDescription,new Gson().toJson(data.getData()));
-                }else {
+        if (TextUtils.isEmpty(handleFile)){
+            submit(id,alarmStatus,handleDescription,"");
+        }else {
+            RxNetUtils.request(getCApi(ApiService.class).uploadImgs(handleFile), new RequestObserver<JsonT<List<Integer>>>(this) {
+                @Override
+                protected void onSuccess(JsonT<List<Integer>> data) {
+                    if (data.isSuccess()) {
+                        submit(id, alarmStatus, handleDescription, new Gson().toJson(data.getData()));
+                    } else {
 
+                    }
                 }
-            }
 
-            @Override
-            protected void onFail2(JsonT<List<Integer>> userInfoJsonT) {
-                super.onFail2(userInfoJsonT);
-                view.showToast(userInfoJsonT.getMessage());
-            }
-        },mDialog);
+                @Override
+                protected void onFail2(JsonT<List<Integer>> userInfoJsonT) {
+                    super.onFail2(userInfoJsonT);
+                    view.showToast(userInfoJsonT.getMessage());
+                }
+            }, mDialog);
+        }
     }
     public void submit(String id, String alarmStatus, String handleDescription,  String handleFile) {
 

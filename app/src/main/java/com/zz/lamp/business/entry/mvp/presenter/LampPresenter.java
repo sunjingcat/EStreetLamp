@@ -1,5 +1,6 @@
 package com.zz.lamp.business.entry.mvp.presenter;
 import com.zz.lamp.bean.ConcentratorBean;
+import com.zz.lamp.bean.ImageBack;
 import com.zz.lamp.bean.LightDevice;
 import com.zz.lamp.bean.RegionExpandItem;
 import com.zz.lamp.business.entry.mvp.Contract;
@@ -51,6 +52,25 @@ public class LampPresenter extends MyBasePresenterImpl<Contract.IGetLampView> im
 
             @Override
             protected void onFail2(JsonT<ConcentratorBean> userInfoJsonT) {
+                super.onFail2(userInfoJsonT);
+                view.showToast(userInfoJsonT.getMessage());
+            }
+        },mDialog);
+    }
+    @Override
+    public void getImage(String type, String modelId) {
+        RxNetUtils.request(getCApi(ApiService.class).getImageBase64(type,modelId), new RequestObserver<JsonT<List<ImageBack>>>(this) {
+            @Override
+            protected void onSuccess(JsonT<List<ImageBack>> data) {
+                if (data.isSuccess()) {
+                    view.showImage(data.getData());
+                }else {
+
+                }
+            }
+
+            @Override
+            protected void onFail2(JsonT<List<ImageBack>> userInfoJsonT) {
                 super.onFail2(userInfoJsonT);
                 view.showToast(userInfoJsonT.getMessage());
             }

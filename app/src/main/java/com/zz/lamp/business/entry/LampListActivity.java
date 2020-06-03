@@ -15,7 +15,9 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseActivity;
 import com.zz.lamp.bean.ConcentratorBean;
+import com.zz.lamp.bean.ImageBack;
 import com.zz.lamp.bean.LightDevice;
+import com.zz.lamp.business.alarm.adapter.ImageItemAdapter;
 import com.zz.lamp.business.entry.adapter.LampAdapter;
 import com.zz.lamp.business.entry.mvp.Contract;
 import com.zz.lamp.business.entry.mvp.presenter.LampPresenter;
@@ -31,6 +33,7 @@ import java.util.Map;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -79,7 +82,10 @@ public class LampListActivity extends MyBaseActivity<Contract.IsetLampPresenter>
     ImageView ivShow;
     @BindView(R.id.tv_show)
     TextView tvShow;
-
+    ArrayList<String> images = new ArrayList<>();
+    ImageItemAdapter imageItemAdapter;
+    @BindView(R.id.rv_images_annex)
+    RecyclerView rvImagesAnnex;
     @Override
     protected int getContentView() {
         return R.layout.activity_lamp_list;
@@ -106,6 +112,9 @@ public class LampListActivity extends MyBaseActivity<Contract.IsetLampPresenter>
                 startActivity(new Intent(LampListActivity.this, LightDetailActivity.class).putExtra("lightId", mlist.get(position).getId()));
             }
         });
+        rvImagesAnnex.setLayoutManager(new GridLayoutManager(this, 3));
+        imageItemAdapter = new ImageItemAdapter(R.layout.item_image, images);
+        rvImagesAnnex.setAdapter(imageItemAdapter);
     }
 
     @Override
@@ -137,6 +146,21 @@ public class LampListActivity extends MyBaseActivity<Contract.IsetLampPresenter>
     }
 
     @Override
+    public void showImage(List<ImageBack> list) {
+        if (list == null) return;
+
+        List<String> showList = new ArrayList<>();
+        for (ImageBack imageBack:list){
+            showList.add(imageBack.getBase64());
+        }
+        images.clear();
+
+        images.addAll(showList);
+
+        imageItemAdapter.notifyDataSetChanged();
+    }
+
+    @Override
     public void showTerminalDetail(ConcentratorBean concentratorBean) {
         if (concentratorBean == null) return;
         LogUtils.v(concentratorBean.toString());
@@ -150,6 +174,7 @@ public class LampListActivity extends MyBaseActivity<Contract.IsetLampPresenter>
         alarmDelayedTime.setText(concentratorBean.getAlarmDelayedTime() + "");
         relayOnDelayedTime.setText(concentratorBean.getRelayOnDelayedTime() + "");
 //        terminalLat.setText(concentratorBean.getTerminalLat() + "," + concentratorBean.getTerminalLng());
+        mPresenter.getImage("terminal",concentratorBean.getId());
     }
 
 

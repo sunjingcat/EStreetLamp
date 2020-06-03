@@ -3,6 +3,7 @@ package com.zz.lamp.net;
 import android.text.TextUtils;
 
 import com.zz.lib.core.http.observer.UploadObserver;
+import com.zz.lib.core.http.utils.ToastUtils;
 import com.zz.lib.core.ui.BaseActivity;
 import com.zz.lib.core.ui.BaseFragment;
 import com.zz.lib.core.ui.mvp.BasePresenter;
@@ -44,8 +45,12 @@ public abstract class RequestObserver<T extends CompactModel> extends UploadObse
      * @param errorMsg
      */
     protected void onError(String errorMsg) {
+
         if (!TextUtils.isEmpty(errorMsg))
             Logger.d(errorMsg);
+        if (errorMsg.contains("超时")){
+            ToastUtils.showToast("加载超时，请重试");
+        }
     }
 
     /**

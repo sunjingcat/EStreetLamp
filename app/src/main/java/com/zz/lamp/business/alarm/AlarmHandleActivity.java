@@ -168,31 +168,36 @@ public class AlarmHandleActivity extends MyBaseActivity<Contract.IsetAlarmAddPre
             showToast("请选择告警处理状态");
             return;
         }
+        if (this.imagesAnnex.size()>0) {
 
-        ArrayList<String> baseb4 = new ArrayList<>();
-        Luban.with(this)
-                .load(this.imagesAnnex)
-                .ignoreBy(100)
-                .setCompressListener(new OnCompressListener() {
-                    @Override
-                    public void onStart() {
-                        // TODO 压缩开始前调用，可以在方法内启动 loading UI
-                    }
-
-                    @Override
-                    public void onSuccess(File file) {
-                        baseb4.add("data:image/jpg;base64," + BASE64.imageToBase64(file.getPath()));
-                        if (baseb4.size()==imagesAnnex.size()){
-                            String s = new Gson().toJson(baseb4);
-                            mPresenter.submitData(id, alarmStatus+"", handleDescription+"",  s);
-
+            ArrayList<String> baseb4 = new ArrayList<>();
+            Luban.with(this)
+                    .load(this.imagesAnnex)
+                    .ignoreBy(100)
+                    .setCompressListener(new OnCompressListener() {
+                        @Override
+                        public void onStart() {
+                            // TODO 压缩开始前调用，可以在方法内启动 loading UI
                         }
-                    }
-                    @Override
-                    public void onError(Throwable e) {
-                        // TODO 当压缩过程出现问题时调用
-                    }
-                }).launch();
+
+                        @Override
+                        public void onSuccess(File file) {
+                            baseb4.add("data:image/jpg;base64," + BASE64.imageToBase64(file.getPath()));
+                            if (baseb4.size() == imagesAnnex.size()) {
+                                String s = new Gson().toJson(baseb4);
+                                mPresenter.submitData(id, alarmStatus + "", handleDescription + "", s);
+
+                            }
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            // TODO 当压缩过程出现问题时调用
+                        }
+                    }).launch();
+        }else {
+            mPresenter.submitData(id, alarmStatus + "", handleDescription + "", "");
+        }
 
 //        ArrayList<String> baseb4 = new ArrayList<>();
 //        for (String str : this.imagesAnnex) {

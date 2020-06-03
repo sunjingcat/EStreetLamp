@@ -312,7 +312,11 @@
                             tools:text="当前状态" />
                     </LinearLayout>
 
-
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_images_annex"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp" />
                 </LinearLayout>
 
             </LinearLayout>

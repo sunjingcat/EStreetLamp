@@ -16,8 +16,10 @@ import com.troila.customealert.CustomDialog;
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseActivity;
 import com.zz.lamp.bean.ConcentratorBean;
+import com.zz.lamp.bean.ImageBack;
 import com.zz.lamp.bean.LightDetailBean;
 import com.zz.lamp.bean.LightDevice;
+import com.zz.lamp.business.alarm.adapter.ImageItemAdapter;
 import com.zz.lamp.business.entry.adapter.LightDetailAdapter;
 import com.zz.lamp.business.entry.mvp.Contract;
 import com.zz.lamp.business.entry.mvp.presenter.LampDetailPresenter;
@@ -39,7 +41,10 @@ import butterknife.OnClick;
 import static com.zz.lamp.net.RxNetUtils.getCApi;
 
 public class LightDetailActivity extends MyBaseActivity<Contract.IsetLampDetailPresenter> implements Contract.IGeLampDetailView {
-
+    ArrayList<String> images = new ArrayList<>();
+    ImageItemAdapter imageItemAdapter;
+    @BindView(R.id.rv_images_annex)
+    RecyclerView rvImagesAnnex;
     @BindView(R.id.toolbar_subtitle)
     TextView toolbarSubtitle;
     @BindView(R.id.toolbar)
@@ -68,7 +73,9 @@ public class LightDetailActivity extends MyBaseActivity<Contract.IsetLampDetailP
         adapter = new LightDetailAdapter(R.layout.item_detail_light, mlist);
         rv.setAdapter(adapter);
          lightId = getIntent().getStringExtra("lightId");
-
+        rvImagesAnnex.setLayoutManager(new GridLayoutManager(this, 3));
+        imageItemAdapter = new ImageItemAdapter(R.layout.item_image, images);
+        rvImagesAnnex.setAdapter(imageItemAdapter);
     }
 
     @Override
@@ -130,6 +137,20 @@ public class LightDetailActivity extends MyBaseActivity<Contract.IsetLampDetailP
     }
 
     @Override
+    public void showImage(List<ImageBack> list) {
+        if (list == null) return;
+        List<String> showList = new ArrayList<>();
+        for (ImageBack imageBack:list){
+            showList.add(imageBack.getBase64());
+        }
+        images.clear();
+
+        images.addAll(showList);
+
+        imageItemAdapter.notifyDataSetChanged();
+    }
+
+    @Override
     public void showLightDetail(LightDevice lightDevice) {
         if (lightDevice == null) return;
         this.lightDevice  = lightDevice;
@@ -156,6 +177,7 @@ public class LightDetailActivity extends MyBaseActivity<Contract.IsetLampDetailP
             mlist.add(new LightDetailBean("辅灯功率阈值(W)", lightDevice.getLightAuxiliaryPowerLimit() + ""));
         }
         adapter.notifyDataSetChanged();
+        mPresenter.getImage("lightDevice",lightDevice.getId());
     }
 
 }
