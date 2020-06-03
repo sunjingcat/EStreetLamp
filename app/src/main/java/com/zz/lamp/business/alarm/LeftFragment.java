@@ -106,7 +106,6 @@ public class LeftFragment extends MyBaseFragment implements OnRefreshListener, O
         });
         refreshLayout.setOnRefreshListener(this);
         refreshLayout.setOnLoadMoreListener(this);
-        getData();
         searchEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -232,14 +231,22 @@ public class LeftFragment extends MyBaseFragment implements OnRefreshListener, O
             }
         }, null);
     }
-//
+
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode==-1){
-            pageNum = 1;
-            getData();
-            refreshLayout.finishRefresh();
-        }
+    public void onResume() {
+        super.onResume();
+        pageNum = 1;
+        getData();
+        refreshLayout.finishRefresh();
     }
+
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode==-1){
+//            pageNum = 1;
+//            getData();
+//            refreshLayout.finishRefresh();
+//        }
+//    }
 }

@@ -33,8 +33,8 @@ public class ControlLineAdapter extends BaseQuickAdapter<LineBean, BaseViewHolde
         checkBox.setEnabled(false);
         checkBox.setChecked(item.isCheck());
         holper.setText(R.id.item_control_title,item.getLineName());
-        holper.setText(R.id.item_control_state,item.getStatus()==0?"开":"关");
-        holper.setTextColor(R.id.item_control_state,item.getStatus()==0? Color.parseColor("#2EAE73") :Color.parseColor("#E84444"));
+        holper.setText(R.id.item_control_state,item.getStatus()==1?"开":"关");
+        holper.setTextColor(R.id.item_control_state,item.getStatus()==1? Color.parseColor("#2EAE73") :Color.parseColor("#E84444"));
 
     }
 

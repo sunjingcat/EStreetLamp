@@ -30,6 +30,7 @@ import com.zz.lamp.business.alarm.AlarmFragment;
 import com.zz.lamp.business.control.ControlFragment;
 import com.zz.lamp.business.entry.EntryFragment;
 import com.zz.lamp.business.main.MainFragment;
+import com.zz.lamp.utils.CustomViewPager;
 import com.zz.lamp.utils.SystemUtils;
 import com.zz.lib.commonlib.utils.PermissionUtils;
 import com.zz.lib.core.http.utils.ToastUtils;
@@ -41,7 +42,7 @@ import org.greenrobot.eventbus.ThreadMode;
 public class HomeActivity extends MyBaseActivity {
 
     private static final String TAG = "MainActivity";
-    ViewPager mainViewpager;
+    CustomViewPager mainViewpager;
     TabLayout mainTablayout;
 
     //Tab 文字
@@ -143,7 +144,7 @@ public class HomeActivity extends MyBaseActivity {
                 .init();
         mainTablayout = findViewById(R.id.main_tablayout);
         mainViewpager = findViewById(R.id.main_viewpager);
-
+        mainViewpager.setScanScroll(false);
         init();
 
         setTabs(mainTablayout, this.getLayoutInflater(), TAB_TITLES, TAB_IMGS);

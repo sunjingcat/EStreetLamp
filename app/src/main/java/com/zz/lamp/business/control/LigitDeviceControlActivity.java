@@ -21,6 +21,7 @@ import com.google.gson.Gson;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseActivity;
 import com.zz.lamp.bean.LightDeviceConBean;
@@ -46,7 +47,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class LigitDeviceControlActivity extends MyBaseActivity<Contract.IsetLightControlPresenter> implements Contract.IGetLightControlView, OnLoadMoreListener {
+public class LigitDeviceControlActivity extends MyBaseActivity<Contract.IsetLightControlPresenter> implements Contract.IGetLightControlView, OnLoadMoreListener, OnRefreshListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -88,6 +89,7 @@ public class LigitDeviceControlActivity extends MyBaseActivity<Contract.IsetLigh
         rv.setAdapter(adapter);
         terminalId = getIntent().getStringExtra("terminalId");
         getData();
+        refreshLayout.setOnRefreshListener(this);
         refreshLayout.setOnLoadMoreListener(this);
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -266,5 +268,13 @@ public class LigitDeviceControlActivity extends MyBaseActivity<Contract.IsetLigh
     public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
         pageNum++;
         getData();
+        refreshLayout.finishLoadMore();
+    }
+
+    @Override
+    public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+        pageNum=1;
+        getData();
+        refreshLayout.finishRefresh();
     }
 }

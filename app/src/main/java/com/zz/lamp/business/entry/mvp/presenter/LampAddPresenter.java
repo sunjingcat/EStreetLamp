@@ -187,23 +187,31 @@ public class LampAddPresenter extends MyBasePresenterImpl<Contract.IGetLampAddVi
 
     @Override
     public void postImage(String id, String files,List<Integer> ids) {
-        RxNetUtils.request(getCApi(ApiService.class).uploadImgs(files), new RequestObserver<JsonT<List<Integer>>>(this) {
-            @Override
-            protected void onSuccess(JsonT<List<Integer>> data) {
-                if (data.isSuccess()) {
-                    ids.addAll(data.getData());
-                    postImageIDs(id, new Gson().toJson(ids));
-                } else {
+        if (TextUtils.isEmpty(files)){
+            if (ids.size()==0){
+                view.showPostImage();
+            }else {
+                postImageIDs(id, new Gson().toJson(ids));
+            }
+        }else {
+            RxNetUtils.request(getCApi(ApiService.class).uploadImgs(files), new RequestObserver<JsonT<List<Integer>>>(this) {
+                @Override
+                protected void onSuccess(JsonT<List<Integer>> data) {
+                    if (data.isSuccess()) {
+                        ids.addAll(data.getData());
+                        postImageIDs(id, new Gson().toJson(ids));
+                    } else {
 
+                    }
                 }
-            }
 
-            @Override
-            protected void onFail2(JsonT<List<Integer>> userInfoJsonT) {
-                super.onFail2(userInfoJsonT);
-                view.showToast(userInfoJsonT.getMessage());
-            }
-        }, mDialog);
+                @Override
+                protected void onFail2(JsonT<List<Integer>> userInfoJsonT) {
+                    super.onFail2(userInfoJsonT);
+                    view.showToast(userInfoJsonT.getMessage());
+                }
+            }, mDialog);
+        }
     }
 
     public void postImageIDs(String id, String files) {

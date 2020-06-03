@@ -146,7 +146,7 @@ public class AlarmHandleActivity extends MyBaseActivity<Contract.IsetAlarmAddPre
 
     @Override
     public void showDetailResult(AlarmBean alarmBean) {
-        alarmName.setText(alarmBean.getTerminalName() + "" + alarmBean.getDeviceName());
+        alarmName.setText( alarmBean.getTerminalName() + "" +(alarmBean.getAlarmDeviceType()==1? "("+alarmBean.getDeviceName()+")":""));
         alarmDes.setText(alarmBean.getDescription() + "");
         alarmTime.setText(alarmBean.getCreateTime() + "");
 

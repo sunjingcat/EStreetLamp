@@ -17,13 +17,14 @@ import com.zz.lib.core.ui.mvp.BasePresenter;
  */
 public class StartpageActivity extends MyBaseActivity implements View.OnClickListener{
     private TextView skip;
+    CountDownTimer timer;
     @Override
     protected int getContentView() {
         return R.layout.activity_startpage;
     }
     private void initSeconds() {
         /** 倒计时60秒，一次1秒 */
-        CountDownTimer timer = new CountDownTimer(3*1000, 1000) {
+        timer = new CountDownTimer(3*1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 // TODO Auto-generated method stub
@@ -56,15 +57,27 @@ public class StartpageActivity extends MyBaseActivity implements View.OnClickLis
     protected void initToolBar() {
 
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        timer.cancel();
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.skip:
+
                 if (TextUtils.isEmpty(CacheUtility.getToken())){
                     startActivity(new Intent(StartpageActivity.this,LoginActivity.class));
                 }else {
                     startActivity(new Intent(StartpageActivity.this,MainActivity.class));
                 }
+                if (timer!=null){
+                    timer.cancel();
+                }
+
                 finish();
                 break;
         }

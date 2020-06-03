@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -136,11 +137,18 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
                 adapterAnnex.notifyDataSetChanged();
             }
         });
+
     }
 
     @Override
     protected void initToolBar() {
         ToolBarUtils.getInstance().setNavigation(toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog();
+            }
+        });
     }
 
 
@@ -364,9 +372,7 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
                             }
                         }).launch();
             }else {
-                showToast("成功");
-                setResult(RESULT_OK);
-                finish();
+                mPresenter.postImage(id, null,ids);
             }
         }else {
             showToast("成功");
@@ -479,5 +485,40 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
         if (customDialog != null && customDialog.isShowing()) {
             customDialog.dismiss();
         }
+        if (customDialog1 != null && customDialog1.isShowing()) {
+            customDialog1.dismiss();
+        }
     }
+    private CustomDialog customDialog1;
+    CustomDialog.Builder builder1;
+    void showDialog() {
+
+        builder1 = new CustomDialog.Builder(this)
+                .setTitle("提示")
+                .setMessage("确定退出编辑？" )
+                .setCancelOutSide(false)
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
+        customDialog1 = builder1.create();
+        customDialog1.show();
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            showDialog();
+            return false;
+        }else {
+            return super.onKeyDown(keyCode, event);
+        }
+    }
+
 }

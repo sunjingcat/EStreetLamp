@@ -141,11 +141,11 @@ public class LightDetailActivity extends MyBaseActivity<Contract.IsetLampDetailP
         mlist.add(new LightDetailBean("安装时间", lightDevice.getLightInstallTime() + ""));
 
         mlist.add(new LightDetailBean("路杆编号", lightDevice.getLightPoleCode() + ""));
-        mlist.add(new LightDetailBean("路杆类型", lightDevice.getLightPoleType() + ""));
+        mlist.add(new LightDetailBean("路杆类型", lightDevice.getLightPoleTypeText() + ""));
         mlist.add(new LightDetailBean("路杆高度", lightDevice.getLightPoleHeight() + ""));
-        mlist.add(new LightDetailBean("灯头类型", lightDevice.getLightType() + ""));
+        mlist.add(new LightDetailBean("灯头类型", lightDevice.getLightTypeText() + ""));
 
-        mlist.add(new LightDetailBean("路灯类型", lightDevice.getDeviceType() + ""));
+        mlist.add(new LightDetailBean("路灯类型", lightDevice.getDeviceTypeText() + ""));
         mlist.add(new LightDetailBean("主灯类型", lightDevice.getLightMainTypeName() + ""));
         mlist.add(new LightDetailBean("主灯额定功率(W)", lightDevice.getLightMainPower() + ""));
         mlist.add(new LightDetailBean("主灯功率阈值(W)", lightDevice.getLightMainPowerLimit() + ""));

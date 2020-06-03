@@ -149,6 +149,15 @@ public class RightFragment extends MyBaseFragment implements OnRefreshListener, 
     }
 
     @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden){
+            pageNum = 1;
+            getData();
+        }
+    }
+
+    @Override
     public void onError() {
 
     }

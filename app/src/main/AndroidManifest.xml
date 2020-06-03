@@ -38,7 +38,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".business.mine.PasswordActivity"></activity>
+        <activity android:name=".business.mine.PasswordActivity" />
         <activity android:name=".business.mine.ChangeCodeActivity" />
         <activity android:name=".business.mine.AboutActivity" />
         <activity android:name=".business.map.NavActivity" />

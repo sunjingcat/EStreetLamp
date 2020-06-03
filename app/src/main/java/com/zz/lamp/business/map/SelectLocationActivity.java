@@ -358,9 +358,9 @@ public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCo
                     ReverseGeoCodeOption reverseGeoCodeOption = new ReverseGeoCodeOption();
                     reverseGeoCodeOption.location(latLng);
                     geoCoder.reverseGeoCode(reverseGeoCodeOption);
-                    isFirstLoc= false;
+//
                 }
-
+                isFirstLoc= false;
 
                 locationInfo = new PoiInfo();
                 locationInfo.setAddress(location.getAddrStr());

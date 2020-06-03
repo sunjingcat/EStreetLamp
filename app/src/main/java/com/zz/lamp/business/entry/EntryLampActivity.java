@@ -1,11 +1,13 @@
 package com.zz.lamp.business.entry;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -33,12 +35,15 @@ import com.zz.lamp.bean.DictBean;
 import com.zz.lamp.bean.ImageBack;
 import com.zz.lamp.bean.LightDevice;
 import com.zz.lamp.business.alarm.adapter.ImageDeleteItemAdapter;
+import com.zz.lamp.business.control.GroupControlActivity;
 import com.zz.lamp.business.map.SelectLocationActivity;
 import com.zz.lamp.business.entry.mvp.Contract;
 import com.zz.lamp.business.entry.mvp.presenter.LampAddPresenter;
 import com.zz.lamp.net.JsonT;
 import com.zz.lamp.utils.BASE64;
 import com.zz.lamp.utils.TimeUtils;
+import com.zz.lamp.widget.CustomDialog;
+import com.zz.lib.commonlib.CommonApplication;
 import com.zz.lib.commonlib.utils.PermissionUtils;
 import com.zz.lib.commonlib.utils.ToolBarUtils;
 import com.zz.lib.commonlib.widget.SelectPopupWindows;
@@ -172,12 +177,20 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
                 adapterAnnex.notifyDataSetChanged();
             }
         });
+
+
     }
 
     @Override
     protected void initToolBar() {
 
         ToolBarUtils.getInstance().setNavigation(toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog();
+            }
+        });
     }
 
     @Override
@@ -218,13 +231,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
                             }
                         }).launch();
             }else {
-                if (back) {
-                    finish();
-                } else {
-                    devicecAddr.setText("");
-
-                }
-                showToast("提交成功");
+                mPresenter.postImage(id, null,ids);
             }
         }else {
             if (back) {
@@ -392,7 +399,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
                 selectDeviceType(2);
                 break;
             case R.id.lat:
-                startActivityForResult(new Intent(this, SelectLocationActivity.class), 1002);
+                startActivityForResult(new Intent(this, SelectLocationActivity.class).putExtra("lat", lat).putExtra("lon", lon), 1002);
                 break;
             case R.id.lightPoleType:
                 selectLightType(2, light_pole_type_array);
@@ -574,7 +581,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
         if (requestCode == 1002 && resultCode == RESULT_OK) {
             if (data == null) return;
             PoiInfo poiInfo = data.getParcelableExtra("location");
-            if (poiInfo != null && poiInfo.location != null) {
+            if (poiInfo != null ) {
                 lat = poiInfo.location.latitude;
                 lon = poiInfo.location.longitude;
                 lat_tv.setText(lat + "," + lon);
@@ -691,4 +698,42 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
         mPresenter.getImage("lightDevice",device.getId());
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            showDialog();
+            return false;
+        }else {
+            return super.onKeyDown(keyCode, event);
+        }
+    }
+    private CustomDialog customDialog;
+    CustomDialog.Builder builder;
+    void showDialog() {
+
+        builder = new CustomDialog.Builder(this)
+                .setTitle("提示")
+                .setMessage("确定退出编辑？" )
+                .setCancelOutSide(false)
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .setPositiveButton("确定", new CustomDialog.Builder.OnPClickListener() {
+                    @Override
+                    public void onClick(CustomDialog v, String msg) {
+                        finish();
+                    }
+                });
+        customDialog = builder.create();
+        customDialog.show();
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (customDialog != null && customDialog.isShowing()) {
+            customDialog.dismiss();
+        }
+    }
 }
