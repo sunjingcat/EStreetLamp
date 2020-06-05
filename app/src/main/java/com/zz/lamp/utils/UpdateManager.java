@@ -24,6 +24,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.zz.lamp.business.mine.AboutActivity;
 import com.zz.lib.commonlib.utils.PermissionUtils;
 import com.zz.lamp.R;
 import com.zz.lamp.bean.Version;
@@ -33,6 +34,7 @@ import com.zz.lamp.net.RequestObserver;
 import com.zz.lamp.net.RxNetUtils;
 import com.zz.lamp.widget.CustomDialog;
 import com.zz.lamp.widget.UploadDialog;
+import com.zz.lib.core.http.utils.ToastUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -154,6 +156,10 @@ public class UpdateManager {
                         if (!TextUtils.isEmpty(json.getData().getDownload())) {
                             apkURL = json.getData().getDownload();
                             showNoticeDialog(json.getData());
+                        }
+                    }else {
+                        if (((Activity)mContext) instanceof AboutActivity){
+                            ToastUtils.showToast("当前版本是最新版本");
                         }
                     }
                 } else {

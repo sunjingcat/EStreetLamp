@@ -3,6 +3,7 @@ package com.zz.lamp.business.control;
 import android.content.DialogInterface;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -69,7 +70,7 @@ public class LigitDeviceControlActivity extends MyBaseActivity<Contract.IsetLigh
     int pageNum = 1;
     int pageSize = 20;
     int luminance ;
-
+    String  selectId="";
     @Override
     protected int getContentView() {
         return R.layout.activity_light_control;
@@ -88,6 +89,7 @@ public class LigitDeviceControlActivity extends MyBaseActivity<Contract.IsetLigh
         adapter = new ControlLightAdapter(R.layout.item_line_control, mlist);
         rv.setAdapter(adapter);
         terminalId = getIntent().getStringExtra("terminalId");
+        selectId = getIntent().getStringExtra("selectId");
         getData();
         refreshLayout.setOnRefreshListener(this);
         refreshLayout.setOnLoadMoreListener(this);
@@ -121,6 +123,14 @@ public class LigitDeviceControlActivity extends MyBaseActivity<Contract.IsetLigh
             mlist.clear();
         }
         mlist.addAll(list);
+        if (!TextUtils.isEmpty(selectId)) {
+            for (LightDeviceConBean lightDeviceConBean : mlist) {
+                if (lightDeviceConBean.getId().equals(selectId)) {
+                    lightDeviceConBean.setCheck(true);
+                    break;
+                }
+            }
+        }
         adapter.notifyDataSetChanged();
         if (mlist.size()>0){
             llNull.setVisibility(View.GONE);

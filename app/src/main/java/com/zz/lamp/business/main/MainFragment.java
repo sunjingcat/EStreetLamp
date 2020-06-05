@@ -201,7 +201,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
     }
 
 
-    @OnClick({R.id.main_mine, R.id.search_click})
+    @OnClick({R.id.main_mine, R.id.search_click, R.id.refresh})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.main_mine:
@@ -209,6 +209,10 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
                 break;
             case R.id.search_click:
 
+                break;
+            case R.id.refresh:
+                clearMarkers();
+                getData(tabDevice.getSelectedTabPosition());
                 break;
         }
     }
@@ -302,7 +306,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
 
                 } catch (Exception e) {
                     clearMarkers();
-                    LogUtils.v("sj--",e.getMessage().toString());
+                    LogUtils.v("sj--", e.getMessage().toString());
                 }
             }
         }).start();

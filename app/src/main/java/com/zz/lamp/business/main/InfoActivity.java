@@ -91,7 +91,7 @@ public class InfoActivity extends Activity {
                 break;
             case R.id.btn_control:
                 if (deviceInfo != null&& !TextUtils.isEmpty(deviceInfo.getTerminalId())&&deviceInfo.getCanCtrl()==1) {
-                    startActivity(new Intent(this, LigitDeviceControlActivity.class).putExtra("terminalId", deviceInfo.getTerminalId()));
+                    startActivity(new Intent(this, LigitDeviceControlActivity.class).putExtra("terminalId", deviceInfo.getTerminalId()).putExtra("selectId", deviceInfo.getId()));
                 }
                 if (terminalInfo != null&& !TextUtils.isEmpty(terminalInfo.getId())&&terminalInfo.getCanCtrl()==1) {
                     startActivity(new Intent(this, TerminalControlActivity.class).putExtra("terminalId",terminalInfo.getId()));
@@ -142,11 +142,12 @@ public class InfoActivity extends Activity {
         List<LightDetailBean> list = new ArrayList<>();
         list.add(new LightDetailBean("集中器地址", concentratorBean.getTerminalAddr() + ""));
         list.add(new LightDetailBean("集中器别名", concentratorBean.getTerminalName() + ""));
+        list.add(new LightDetailBean("集中器状态", concentratorBean.getTerminalOnOffText() + ""));
         list.add(new LightDetailBean("当前状态", concentratorBean.getIsOnlineText() + ""));
         list.add(new LightDetailBean("运行模式", concentratorBean.getMaintenanceModeText() + ""));
         list.add(new LightDetailBean("开灯时间", concentratorBean.getLightOnTime() + ""));
         list.add(new LightDetailBean("关灯时间", concentratorBean.getLightOffTime() + ""));
-        list.add(new LightDetailBean("灯控器数", concentratorBean.getLightDeviceCount() + ""));
+        list.add(new LightDetailBean("灯控器数", concentratorBean.getLightDeviceSucceedCount()+"/"+concentratorBean.getLightDeviceCount()+"/"+concentratorBean.getLightDeviceActualSum() + ""));
         list.add(new LightDetailBean("箱门状态", concentratorBean.getDoorStateText() + ""));
         list.add(new LightDetailBean("上电时间", concentratorBean.getPowerOnTime() + ""));
         list.add(new LightDetailBean("掉电时间", concentratorBean.getPowerOffTime() + ""));

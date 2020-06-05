@@ -76,8 +76,13 @@ public class ConcentratorBean implements Serializable {
     private String   nowStateText;// 定时上报,
     private Integer   lightDeviceCount;// 2,
     private String  lightDeviceSucceedCount;// 0
+    private String  lightDeviceActualSum;// 0
     public int getTerminalOnOff() {
         return terminalOnOff;
+    }
+
+    public String getLightDeviceActualSum() {
+        return lightDeviceActualSum;
     }
 
     public Integer getCanCtrl() {

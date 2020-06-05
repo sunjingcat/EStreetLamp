@@ -55,7 +55,7 @@
                 android:id="@+id/my_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="张三的简介"
+                android:text=""
                 android:textColor="@color/white"
                 android:textSize="18dp" />
 
@@ -64,7 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="张三"
+                android:text="未登录"
                 android:textColor="@color/white"
                 android:textSize="14dp" />
 

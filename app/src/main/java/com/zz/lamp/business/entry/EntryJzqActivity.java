@@ -118,11 +118,19 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
         adapterAnnex.setOnclick(new ImageDeleteItemAdapter.Onclick() {
             @Override
             public void onclickAdd(View v, int option) {
+                ArrayList<String> localPath = new ArrayList<>();
+                for (int i=0;i<imagesAnnex.size();i++){
+                    if (!BASE64.isBase64(imagesAnnex.get(i))){
+                        localPath.add(imagesAnnex.get(i));
+                    }else {
+
+                    }
+                }
                 ImageSelector.builder()
                         .useCamera(true) // 设置是否使用拍照
                         .setSingle(false)  //设置是否单选
                         .setMaxSelectCount(9-imageBacks.size()) // 图片的最大选择数量，小于等于0时，不限数量。
-                        .setSelected(imagesAnnex) // 把已选的图片传入默认选中。
+                        .setSelected(localPath) // 把已选的图片传入默认选中。
                         .setViewImage(true) //是否点击放大图片查看,，默认为true
                         .start(EntryJzqActivity.this, 1102); // 打开相册
 

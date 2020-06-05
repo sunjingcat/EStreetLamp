@@ -86,7 +86,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
                     android:layout_weight="1"
-                    android:background="@drawable/border_radius_5_ffc750"
+                    android:background="#1ab394"
                     android:text="关灯"
                     android:textColor="@color/white"
                     android:textSize="14dp" />
@@ -97,20 +97,23 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
                     android:layout_weight="1"
-                    android:background="@drawable/border_radius_5_4480d6"
+                    android:background="#ed5565"
                     android:text="开灯"
                     android:textColor="@color/white"
                     android:textSize="14dp" />
+
+
                 <Button
                     android:id="@+id/control_adjust"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
                     android:layout_weight="1"
-                    android:background="@drawable/border_radius_5_bd7a70"
+                    android:background="#f8ac59"
                     android:text="调光"
                     android:textColor="@color/white"
-                    android:textSize="14dp" />
+                    android:textSize="14dp"
+                    android:layout_marginRight="12dp"/>
             </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

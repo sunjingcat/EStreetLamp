@@ -171,14 +171,14 @@ public class TerminalControlActivity extends MyBaseActivity<Contract.IsetTermina
                 if (concentratorBean != null && concentratorBean.getTerminalOnOff() == 1) {
                     startActivity(new Intent(TerminalControlActivity.this, GroupControlActivity.class).putExtra("terminalId", terminalId));
                 } else {
-                    showToast("请先合闸");
+                    showToast("集中器未合闸");
                 }
                 break;
             case R.id.control_lamp:
                 if (concentratorBean != null && concentratorBean.getTerminalOnOff() == 1) {
                     startActivity(new Intent(TerminalControlActivity.this, LigitDeviceControlActivity.class).putExtra("terminalId", terminalId));
                 } else {
-                    showToast("请先合闸");
+                    showToast("集中器未合闸");
                 }
                 break;
             case R.id.control_close:
@@ -317,7 +317,7 @@ public class TerminalControlActivity extends MyBaseActivity<Contract.IsetTermina
         list.add(new LightDetailBean("运行模式", concentratorBean.getMaintenanceModeText() + ""));
         list.add(new LightDetailBean("开灯时间", concentratorBean.getLightOnTime() + ""));
         list.add(new LightDetailBean("关灯时间", concentratorBean.getLightOffTime() + ""));
-        list.add(new LightDetailBean("灯控器数", concentratorBean.getLightDeviceCount() + ""));
+        list.add(new LightDetailBean("灯控器数", concentratorBean.getLightDeviceSucceedCount()+"/"+concentratorBean.getLightDeviceCount()+"/"+concentratorBean.getLightDeviceActualSum() + ""));
         list.add(new LightDetailBean("箱门状态", concentratorBean.getDoorStateText() + ""));
         list.add(new LightDetailBean("上电时间", concentratorBean.getPowerOnTime() + ""));
         list.add(new LightDetailBean("掉电时间", concentratorBean.getPowerOffTime() + ""));
