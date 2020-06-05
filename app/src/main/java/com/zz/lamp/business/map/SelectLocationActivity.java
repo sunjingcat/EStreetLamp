@@ -354,6 +354,10 @@ public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCo
                     moveCenter(new LatLng(lat,lon));
                 }else {
                     showLocation(location.getLatitude(), location.getLongitude());
+                    // 设置定位数据
+                    mBaiduMap.setMyLocationData(locData);
+                    // 当不需要定位图层时关闭定位图层
+                    mBaiduMap.setMyLocationEnabled(false);
                     tv_name.setText(location.getAddrStr() + "");
                     ReverseGeoCodeOption reverseGeoCodeOption = new ReverseGeoCodeOption();
                     reverseGeoCodeOption.location(latLng);

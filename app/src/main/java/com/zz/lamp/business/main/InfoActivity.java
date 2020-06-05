@@ -71,7 +71,6 @@ public class InfoActivity extends Activity {
             lat = terminalInfo.getTerminalLat();
             lon = terminalInfo.getTerminalLng();
         }
-
     }
 
     @OnClick({R.id.btn_nav, R.id.btn_control, R.id.close})
