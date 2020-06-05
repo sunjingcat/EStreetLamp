@@ -122,7 +122,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
             }
         });
         getData(0);
-        mBaiduMap.showMapPoi(false);
+//        mBaiduMap.showMapPoi(false);
         mBaiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {

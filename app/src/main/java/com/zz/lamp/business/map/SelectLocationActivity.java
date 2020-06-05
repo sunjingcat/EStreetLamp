@@ -225,7 +225,7 @@ public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCo
         mLocationClient.start();
         //图片点击事件，回到定位点
         mLocationClient.requestLocation();
-        mBaiduMap.showMapPoi(false);
+//        mBaiduMap.showMapPoi(false);
 
         mBaiduMap.setOnMapStatusChangeListener(new BaiduMap.OnMapStatusChangeListener() {
             //地图状态开始改变。
