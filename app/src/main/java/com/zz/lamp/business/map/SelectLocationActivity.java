@@ -46,6 +46,7 @@ import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseActivity;
 import com.zz.lamp.business.entry.adapter.SearchLocationAdapter;
 import com.zz.lamp.utils.AMapUtils;
+import com.zz.lamp.utils.FileUtils;
 import com.zz.lamp.utils.LngLat;
 import com.zz.lamp.utils.LogUtils;
 import com.zz.lib.commonlib.utils.PermissionUtils;
@@ -199,7 +200,7 @@ public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCo
     }
 
     GeoCoder geoCoder;
-
+    private static final String CUSTOM_FILE_NAME_CX = "custom_map_config_CX.sty";
     private void initMap() {
         //获取地图控件引用
         mBaiduMap = mMapView.getMap();
@@ -211,6 +212,12 @@ public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCo
         //mBaiduMap.setBaiduHeatMapEnabled(true);
         // 开启定位图层
         mBaiduMap.setMyLocationEnabled(true);
+        String customStyleFilePath = FileUtils.getAssetsCacheFile(this, CUSTOM_FILE_NAME_CX);
+
+        // 设置个性化地图样式文件的路径和加载方式
+        mMapView.setMapCustomStylePath(customStyleFilePath);
+        // 动态设置个性化地图样式是否生效
+        mMapView.setMapCustomStyleEnable(true);
         mLocationClient = new LocationClient(getApplicationContext());     //声明LocationClient类
         //配置定位SDK参数
         initLocation();
