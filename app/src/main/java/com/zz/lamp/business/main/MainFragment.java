@@ -25,6 +25,8 @@ import androidx.appcompat.widget.Toolbar;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.CustomMapStyleCallBack;
+import com.baidu.mapapi.map.MapCustomStyleOptions;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
@@ -45,12 +47,12 @@ import com.zz.lamp.business.main.mvp.Contract;
 import com.zz.lamp.business.main.mvp.presenter.MapPresenter;
 import com.zz.lamp.business.mine.MineActivity;
 import com.zz.lamp.utils.AMapUtils;
+import com.zz.lamp.utils.FileUtils;
 import com.zz.lamp.utils.GlideUtils;
 import com.zz.lamp.utils.LogUtils;
 import com.zz.lamp.utils.TabUtils;
 import com.zz.lib.commonlib.utils.CacheUtility;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -80,6 +82,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
     private BaiduMap mBaiduMap;
     private String searchValue;
 
+    private static final String CUSTOM_FILE_NAME_CX = "custom_map_config_CX.sty";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO: inflate a fragment view
@@ -182,6 +185,13 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
                 }
             }
         });
+
+        String customStyleFilePath = FileUtils.getAssetsCacheFile(getActivity(), CUSTOM_FILE_NAME_CX);
+
+        // 设置个性化地图样式文件的路径和加载方式
+        bmapView.setMapCustomStylePath(customStyleFilePath);
+        // 动态设置个性化地图样式是否生效
+        bmapView.setMapCustomStyleEnable(true);
     }
 
     public void hideKeyboard(View view) {
