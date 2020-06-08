@@ -249,6 +249,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
             android:layout_weight="1"
             android:background="#ed5565"
             android:text="拉闸"

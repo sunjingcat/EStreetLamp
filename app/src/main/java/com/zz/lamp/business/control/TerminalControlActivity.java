@@ -313,6 +313,8 @@ public class TerminalControlActivity extends MyBaseActivity<Contract.IsetTermina
         detailBeanList.clear();
         detailBeanListALL.clear();
         List<LightDetailBean> list = new ArrayList<>();
+        list.add(new LightDetailBean("集中器地址", concentratorBean.getTerminalAddr() + ""));
+        list.add(new LightDetailBean("集中器别名", concentratorBean.getTerminalName() + ""));
         list.add(new LightDetailBean("当前状态", concentratorBean.getIsOnlineText() + ""));
         list.add(new LightDetailBean("运行模式", concentratorBean.getMaintenanceModeText() + ""));
         list.add(new LightDetailBean("开灯时间", concentratorBean.getLightOnTime() + ""));
