@@ -10,6 +10,7 @@ public class LightDeviceConBean {
     private String      devicecAddr;// 202004050004,
     private String       lightPoleCode;// 001,
     private Integer       deviceType;// 1,
+    private Integer       deviceMainAuxi;// 1,
     private String       voltage;// 228.4,
     private String       ampere;// 0.024,
     private String      power;// 0.0306,
@@ -18,6 +19,10 @@ public class LightDeviceConBean {
     private String    luminance;// null,
     private String     createTime;// 2020-05-06 09;//07;//23
     boolean check ;
+
+    public Integer getDeviceMainAuxi() {
+        return deviceMainAuxi;
+    }
 
     public void setCheck(boolean check) {
         this.check = check;
