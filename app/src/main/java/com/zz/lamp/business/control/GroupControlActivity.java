@@ -155,13 +155,9 @@ public class GroupControlActivity extends MyBaseActivity<Contract.IsetGroupContr
                     @Override
                     public void onSelected(int index, String msg) {
                         luminance = index * 10;
-                        if (luminance == 0) {
-                            showTimeDialog(0, "关灯");
-                        } else if (luminance == 100) {
-                            showTimeDialog(100, "开灯");
-                        } else {
+
                             showTimeDialog(luminance, "调光");
-                        }
+
                     }
 
                     @Override

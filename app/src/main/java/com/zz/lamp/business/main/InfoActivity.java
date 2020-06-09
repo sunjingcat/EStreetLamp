@@ -51,6 +51,7 @@ public class InfoActivity extends Activity {
     Double lon;
     ConcentratorBean terminalInfo;
     LightDevice deviceInfo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,8 +60,8 @@ public class InfoActivity extends Activity {
         infoRv.setLayoutManager(new LinearLayoutManager(this));
         adapter = new DetailAdapter(R.layout.item_detail, mlist);
         infoRv.setAdapter(adapter);
-         terminalInfo = (ConcentratorBean) getIntent().getSerializableExtra("TerminalInfo");
-         deviceInfo = (LightDevice) getIntent().getSerializableExtra("DeviceInfo");
+        terminalInfo = (ConcentratorBean) getIntent().getSerializableExtra("TerminalInfo");
+        deviceInfo = (LightDevice) getIntent().getSerializableExtra("DeviceInfo");
         if (deviceInfo != null) {
             showIntent(deviceInfo);
             lat = deviceInfo.getDeviceLat();
@@ -81,19 +82,23 @@ public class InfoActivity extends Activity {
                     ToastUtils.showToast("未安装百度地图");
                     return;
                 } else {
-                    if (lat>0.0&&lon>0.0) {
+                    if (lat > 0.0 && lon > 0.0) {
                         NavUtils.invokeNavi(this, null, "中智.智慧路灯", lat + "," + lon);
-                    }else {
+                    } else {
                         ToastUtils.showToast("坐标错误");
                     }
                 }
                 break;
             case R.id.btn_control:
-                if (deviceInfo != null&& !TextUtils.isEmpty(deviceInfo.getTerminalId())&&deviceInfo.getCanCtrl()==1) {
-                    startActivity(new Intent(this, LigitDeviceControlActivity.class).putExtra("terminalId", deviceInfo.getTerminalId()).putExtra("selectId", deviceInfo.getId()));
+                if (deviceInfo != null && !TextUtils.isEmpty(deviceInfo.getTerminalId())) {
+                    if (deviceInfo.getCanCtrl() == 1) {
+                        startActivity(new Intent(this, LigitDeviceControlActivity.class).putExtra("terminalId", deviceInfo.getTerminalId()).putExtra("selectId", deviceInfo.getId()));
+                    }else {
+                        ToastUtils.showToast("集中器未合闸");
+                    }
                 }
-                if (terminalInfo != null&& !TextUtils.isEmpty(terminalInfo.getId())&&terminalInfo.getCanCtrl()==1) {
-                    startActivity(new Intent(this, TerminalControlActivity.class).putExtra("terminalId",terminalInfo.getId()));
+                if (terminalInfo != null && !TextUtils.isEmpty(terminalInfo.getId()) && terminalInfo.getCanCtrl() == 1) {
+                    startActivity(new Intent(this, TerminalControlActivity.class).putExtra("terminalId", terminalInfo.getId()));
                 }
                 break;
             case R.id.close:
@@ -108,7 +113,7 @@ public class InfoActivity extends Activity {
         List<LightDetailBean> list = new ArrayList<>();
 //        路灯开关灯状态，0-关灯，1-开灯
 
-        list.add(new LightDetailBean("开关灯状态", lightDevice.getStatus()==0? "关灯":"开灯"));
+        list.add(new LightDetailBean("开关灯状态", lightDevice.getStatus() == 0 ? "关灯" : "开灯"));
         list.add(new LightDetailBean("路灯控制器地址", lightDevice.getDeviceAddr() + ""));
         list.add(new LightDetailBean("支路", lightDevice.getLineName() + ""));
         list.add(new LightDetailBean("路灯控制器编号", lightDevice.getDeviceCode() + ""));
@@ -146,7 +151,7 @@ public class InfoActivity extends Activity {
         list.add(new LightDetailBean("运行模式", concentratorBean.getMaintenanceModeText() + ""));
         list.add(new LightDetailBean("开灯时间", concentratorBean.getLightOnTime() + ""));
         list.add(new LightDetailBean("关灯时间", concentratorBean.getLightOffTime() + ""));
-        list.add(new LightDetailBean("灯控器数", concentratorBean.getLightDeviceSucceedCount()+"/"+concentratorBean.getLightDeviceCount()+"/"+concentratorBean.getLightDeviceActualSum() + ""));
+        list.add(new LightDetailBean("灯控器数", concentratorBean.getLightDeviceSucceedCount() + "/" + concentratorBean.getLightDeviceCount() + "/" + concentratorBean.getLightDeviceActualSum() + ""));
         list.add(new LightDetailBean("箱门状态", concentratorBean.getDoorStateText() + ""));
         list.add(new LightDetailBean("上电时间", concentratorBean.getPowerOnTime() + ""));
         list.add(new LightDetailBean("掉电时间", concentratorBean.getPowerOffTime() + ""));

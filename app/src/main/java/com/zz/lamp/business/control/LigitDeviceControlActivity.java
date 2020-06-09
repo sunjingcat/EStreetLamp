@@ -69,8 +69,9 @@ public class LigitDeviceControlActivity extends MyBaseActivity<Contract.IsetLigh
     ControlLightAdapter adapter;
     int pageNum = 1;
     int pageSize = 20;
-    int luminance ;
-    String  selectId="";
+    int luminance;
+    String selectId = "";
+
     @Override
     protected int getContentView() {
         return R.layout.activity_light_control;
@@ -119,22 +120,21 @@ public class LigitDeviceControlActivity extends MyBaseActivity<Contract.IsetLigh
     @Override
     public void showLightList(List<LightDeviceConBean> list) {
         if (list == null) return;
-        if (pageNum==1) {
+        if (pageNum == 1) {
             mlist.clear();
         }
         mlist.addAll(list);
         if (!TextUtils.isEmpty(selectId)) {
             for (LightDeviceConBean lightDeviceConBean : mlist) {
-                if (lightDeviceConBean.getId().equals(selectId)) {
+                if ((lightDeviceConBean.getId()+"").equals(selectId)) {
                     lightDeviceConBean.setCheck(true);
-                    break;
                 }
             }
         }
         adapter.notifyDataSetChanged();
-        if (mlist.size()>0){
+        if (mlist.size() > 0) {
             llNull.setVisibility(View.GONE);
-        }else {
+        } else {
             llNull.setVisibility(View.VISIBLE);
         }
     }
@@ -143,33 +143,30 @@ public class LigitDeviceControlActivity extends MyBaseActivity<Contract.IsetLigh
     public void showIntent() {
         showToast("请求成功");
     }
+
     private CustomDialog customDialog;
     CustomDialog.Builder builder;
+
     @OnClick({R.id.control_close, R.id.control_open, R.id.control_adjust})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.control_close:
-                showTimeDialog(0,"关灯");
+                showTimeDialog(0, "关灯");
                 break;
             case R.id.control_open:
-                showTimeDialog(100,"开灯");
+                showTimeDialog(100, "开灯");
                 break;
             case R.id.control_adjust:
-                String[] PLANETS2 = new String[]{"0%","10%", "20%", "30%", "40%", "50%", "60%", "70%", "80%", "90%", "100%"};
+                String[] PLANETS2 = new String[]{"0%", "10%", "20%", "30%", "40%", "50%", "60%", "70%", "80%", "90%", "100%"};
                 final SelectPopupWindows selectPopupWindows2 = new SelectPopupWindows(this, PLANETS2);
                 selectPopupWindows2.showAtLocation(findViewById(R.id.bg),
                         Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
                 selectPopupWindows2.setOnItemClickListener(new SelectPopupWindows.OnItemClickListener() {
                     @Override
                     public void onSelected(int index, String msg) {
-                        luminance = index*10;
-                        if (luminance==0){
-                            showTimeDialog(0,"关灯");
-                        }else if (luminance==100){
-                            showTimeDialog(100,"开灯");
-                        } else {
-                            showTimeDialog(luminance,"调光");
-                        }
+                        luminance = index * 10;
+                        showTimeDialog(luminance, "调光");
+
                     }
 
                     @Override
@@ -179,13 +176,13 @@ public class LigitDeviceControlActivity extends MyBaseActivity<Contract.IsetLigh
                 });
                 break;
         }
-        }
+    }
 
-    void showTimeDialog(int opt,String title) {
+    void showTimeDialog(int opt, String title) {
         stopTimer();
         builder = new CustomDialog.Builder(LigitDeviceControlActivity.this)
                 .setTitle("提示")
-                .setMessage("确定"+title+"？")
+                .setMessage("确定" + title + "？")
                 .setCancelOutSide(false)
                 .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
@@ -208,10 +205,10 @@ public class LigitDeviceControlActivity extends MyBaseActivity<Contract.IsetLigh
         List<LightPost> list = new ArrayList<>();
         for (LightDeviceConBean lineBean : mlist) {
             if (lineBean.isCheck()) {
-                list.add(new LightPost(lineBean.getId(),lineBean.getDeviceType()));
+                list.add(new LightPost(lineBean.getId(), lineBean.getDeviceType()));
             }
         }
-        if (list.size()==0){
+        if (list.size() == 0) {
             showToast("请先选中操作对象");
             return;
         }
@@ -220,14 +217,16 @@ public class LigitDeviceControlActivity extends MyBaseActivity<Contract.IsetLigh
         params.put("luminance", opt);
         params.put("lightDevices", s);
         params.put("terminalId", terminalId);
-        mPresenter.realTimeCtrLight(terminalId,params);
+        mPresenter.realTimeCtrLight(terminalId, params);
     }
-    void getData(){
+
+    void getData() {
         Map<String, Object> map = new HashMap<>();
-        map.put("pageNum",pageNum);
-        map.put("pageSize",pageSize);
-        mPresenter.getLightList(terminalId,map);
+        map.put("pageNum", pageNum);
+        map.put("pageSize", pageSize);
+        mPresenter.getLightList(terminalId, map);
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -236,10 +235,12 @@ public class LigitDeviceControlActivity extends MyBaseActivity<Contract.IsetLigh
         }
         stopTimer();
     }
-    private   int TIMER = 5;
+
+    private int TIMER = 5;
     private MyTimeTask task;
-    private void setTimer(){
-        task =new MyTimeTask(1000, new TimerTask() {
+
+    private void setTimer() {
+        task = new MyTimeTask(1000, new TimerTask() {
             @Override
             public void run() {
                 mHandler.sendEmptyMessage(0);
@@ -249,15 +250,15 @@ public class LigitDeviceControlActivity extends MyBaseActivity<Contract.IsetLigh
         task.start();
     }
 
-    private Handler mHandler = new Handler(){
+    private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
+            switch (msg.what) {
                 case 0:
                     TIMER--;
-                    builder.setPositiveButton(TIMER+"");
-                    if (TIMER==0){
+                    builder.setPositiveButton(TIMER + "");
+                    if (TIMER == 0) {
                         stopTimer();
                         builder.setPositiveButton("确定");
                     }
@@ -267,8 +268,9 @@ public class LigitDeviceControlActivity extends MyBaseActivity<Contract.IsetLigh
             }
         }
     };
-    private void stopTimer(){
-        if (task!=null) {
+
+    private void stopTimer() {
+        if (task != null) {
             task.stop();
         }
         TIMER = 5;
@@ -283,7 +285,7 @@ public class LigitDeviceControlActivity extends MyBaseActivity<Contract.IsetLigh
 
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-        pageNum=1;
+        pageNum = 1;
         getData();
         refreshLayout.finishRefresh();
     }

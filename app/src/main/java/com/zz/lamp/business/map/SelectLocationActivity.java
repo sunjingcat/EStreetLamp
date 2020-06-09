@@ -198,7 +198,6 @@ public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCo
     protected void initToolBar() {
         ToolBarUtils.getInstance().setNavigation(toolbar);
     }
-
     GeoCoder geoCoder;
     private static final String CUSTOM_FILE_NAME_CX = "custom_map_config_CX.sty";
     private void initMap() {

@@ -23,6 +23,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.gyf.barlibrary.ImmersionBar;
+import com.previewlibrary.ZoomMediaLoader;
 import com.zz.lamp.base.BasePresenter;
 import com.zz.lamp.base.MyBaseActivity;
 import com.zz.lamp.bean.EventBusSimpleInfo;
@@ -31,6 +32,7 @@ import com.zz.lamp.business.control.ControlFragment;
 import com.zz.lamp.business.entry.EntryFragment;
 import com.zz.lamp.business.main.MainFragment;
 import com.zz.lamp.utils.CustomViewPager;
+import com.zz.lamp.utils.ImageLoader;
 import com.zz.lamp.utils.SystemUtils;
 import com.zz.lib.commonlib.utils.PermissionUtils;
 import com.zz.lib.core.http.utils.ToastUtils;
@@ -80,6 +82,7 @@ public class HomeActivity extends MyBaseActivity {
         });
 //        new UpdateManager(this).checkUpdate();
 
+        ZoomMediaLoader.getInstance().init(new ImageLoader());
     }
 
     @Override
