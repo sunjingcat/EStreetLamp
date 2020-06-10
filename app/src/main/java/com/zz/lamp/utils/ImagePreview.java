@@ -22,7 +22,7 @@ public class ImagePreview {
                 .setCurrentIndex(0)
                 .setSingleFling(true)//是否在黑屏区域点击返回
                 .setDrag(true)//是否禁用图片拖拽返回
-                .setType(GPreviewBuilder.IndicatorType.Number).start();//指示器类型
+                .setType(GPreviewBuilder.IndicatorType.Dot).start();//指示器类型
 
     }
 }

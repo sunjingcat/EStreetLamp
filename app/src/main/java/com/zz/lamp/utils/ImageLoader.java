@@ -24,7 +24,17 @@ import com.previewlibrary.loader.MySimpleTarget;
 public class ImageLoader implements IZoomMediaLoader {
     @Override
     public void displayImage(@NonNull Fragment context, @NonNull String path, final ImageView imageView, @NonNull final MySimpleTarget simpleTarget) {
-        GlideUtils.loadImage(context.getContext(),path,imageView);
+        Glide.with(context)
+                .asBitmap()
+                .load(path)
+                .apply(new RequestOptions().fitCenter())
+                .into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                        simpleTarget.onResourceReady();
+                        imageView.setImageBitmap(resource);
+                    }
+                });
     }
 
     @Override
