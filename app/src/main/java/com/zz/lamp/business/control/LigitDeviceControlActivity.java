@@ -205,7 +205,7 @@ public class LigitDeviceControlActivity extends MyBaseActivity<Contract.IsetLigh
         List<LightPost> list = new ArrayList<>();
         for (LightDeviceConBean lineBean : mlist) {
             if (lineBean.isCheck()) {
-                list.add(new LightPost(lineBean.getId(), lineBean.getDeviceType()));
+                list.add(new LightPost(lineBean.getId(), lineBean.getDeviceMainAuxi()));
             }
         }
         if (list.size() == 0) {
