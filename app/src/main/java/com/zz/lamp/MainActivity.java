@@ -2,11 +2,13 @@ package com.zz.lamp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 
 import com.zz.lamp.base.MyBaseActivity;
 import com.zz.lamp.business.map.SelectLocationActivity;
+import com.zz.lamp.emen.TestProvider;
 import com.zz.lamp.net.ApiService;
 import com.zz.lamp.net.JsonT;
 import com.zz.lamp.net.RequestObserver;
@@ -17,6 +19,7 @@ import com.zz.lib.core.http.utils.ToastUtils;
 import com.zz.lib.core.ui.mvp.BasePresenter;
 import com.zz.lib.core.utils.LoadingUtils;
 
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,6 +27,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.zz.lamp.net.RxNetUtils.getCApi;
+//https://blog.csdn.net/Panda_Program/article/details/80018323
 
 public class MainActivity extends MyBaseActivity {
 
@@ -44,6 +48,21 @@ public class MainActivity extends MyBaseActivity {
         ButterKnife.bind(this);
         new UpdateManager(this).checkUpdate();
        putClientId();
+        try {
+            Class cls = Class.forName("com.zz.lamp.emen.TestProvider");
+            for (Method method : cls.getMethods()) {
+                TestProvider jsonT =
+                        method.getAnnotation(TestProvider.class);
+                if (jsonT != null) {
+                    Log.e("UserAnnotation", jsonT.type());
+                    Log.e("UserAnnotation", jsonT.id()+"");
+                    Log.e("UserAnnotation", jsonT.json().getName() + "");
+
+                }
+            }
+        }catch (Exception e){
+
+        }
     }
 
     @Override
