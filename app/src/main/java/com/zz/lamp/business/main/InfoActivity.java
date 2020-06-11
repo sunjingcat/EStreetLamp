@@ -125,7 +125,7 @@ public class InfoActivity extends Activity {
         list.add(new LightDetailBean("路杆高度", lightDevice.getLightPoleHeight() + ""));
         list.add(new LightDetailBean("灯头类型", lightDevice.getLightTypeText() + ""));
 
-        list.add(new LightDetailBean("路灯类型", lightDevice.getDeviceType() + ""));
+        list.add(new LightDetailBean("路灯类型", lightDevice.getDeviceTypeText() + ""));
         list.add(new LightDetailBean("主灯类型", lightDevice.getLightMainTypeName() + ""));
         list.add(new LightDetailBean("主灯额定功率(W)", lightDevice.getLightMainPower() + ""));
         list.add(new LightDetailBean("主灯功率阈值(W)", lightDevice.getLightMainPowerLimit() + ""));

@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.zz.lamp.base.MyBaseActivity;
 import com.zz.lamp.business.map.SelectLocationActivity;
+import com.zz.lamp.business.map.TestLocationActivity;
 import com.zz.lamp.net.ApiService;
 import com.zz.lamp.net.JsonT;
 import com.zz.lamp.net.RequestObserver;
@@ -62,7 +63,7 @@ public class MainActivity extends MyBaseActivity {
                 startActivity(intent);
                 break;
             case R.id.main_group_2:
-                showToast("暂未开放，敬请期待");
+                startActivity(new Intent(this, TestLocationActivity.class));
                 break;
             case R.id.main_group_3:
                 showToast("暂未开放，敬请期待");

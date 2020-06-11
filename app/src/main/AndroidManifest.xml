@@ -96,6 +96,10 @@
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="WpcSzZmbGm2suikRU1TZKKXPCrwNNXek" />
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote"></service>
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
@@ -158,6 +162,7 @@
             android:taskAffinity="com.igexin.sdk.PushActivityTask"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity android:name=".business.alarm.ImageLookActivity" />
+        <activity android:name=".business.map.TestLocationActivity" />
 
         <service
             android:name=".service.PushService"

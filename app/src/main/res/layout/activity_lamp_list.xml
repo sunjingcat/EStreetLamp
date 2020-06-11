@@ -263,7 +263,7 @@
                     <TextView
                         style="@style/textInfoTitleStyle"
                         android:width="120dp"
-                        android:text="报警延时" />
+                        android:text="报警延时(秒)" />
 
                     <TextView
                         android:id="@+id/alarmDelayedTime"
@@ -286,7 +286,7 @@
                         <TextView
                             style="@style/textInfoTitleStyle"
                             android:width="120dp"
-                            android:text="上电合闸延时" />
+                            android:text="上电合闸延时(秒)" />
 
                         <TextView
                             android:id="@+id/relayOnDelayedTime"

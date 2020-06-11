@@ -226,11 +226,18 @@ public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCo
         // tv=(TextView) findViewById(R.id.editText1);
         mSuggestionSearch.setOnGetSuggestionResultListener(listener);
         mLocationClient.registerLocationListener(myListener);    //注册监听函数
+        double lat = getIntent().getDoubleExtra("lat", 0.0);
+        double lon = getIntent().getDoubleExtra("lon", 0.0);
+        if (lat>0.0&&lon>0.0) {
+            showLocation(lat, lon);
+            moveCenter(new LatLng(lat,lon));
 
-        //开启定位
-        mLocationClient.start();
-        //图片点击事件，回到定位点
-        mLocationClient.requestLocation();
+        }else {
+            //开启定位
+            mLocationClient.start();
+            //图片点击事件，回到定位点
+            mLocationClient.requestLocation();
+        }
 //        mBaiduMap.showMapPoi(false);
 
         mBaiduMap.setOnMapStatusChangeListener(new BaiduMap.OnMapStatusChangeListener() {
@@ -327,12 +334,11 @@ public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCo
                 finish();
                 break;
             case R.id.my_site:
-                if (latLng!=null&&latLng.latitude!=0.0&&latLng.longitude!=0.0){
-                    moveCenter(latLng);
-                }else {
-                    showToast("定位失败");
-                }
-
+                isFirstLoc= true;
+                //开启定位
+                mLocationClient.start();
+                //图片点击事件，回到定位点
+                mLocationClient.requestLocation();
                 break;
         }
     }
@@ -352,25 +358,26 @@ public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCo
                         .direction(100).latitude(location.getLatitude())
                         .longitude(location.getLongitude()).build();
                 // 设置定位数据
-//                mBaiduMap.setMyLocationData(locData);
-                double lat = getIntent().getDoubleExtra("lat", 0.0);
-                double lon = getIntent().getDoubleExtra("lon", 0.0);
-                if (lat>0.0&&lon>0.0){
-                    showLocation(lat, lon);
-                    moveCenter(new LatLng(lat,lon));
-                }else {
+                mBaiduMap.setMyLocationData(locData);
+                // 当不需要定位图层时关闭定位图层
+                //mBaiduMap.setMyLocationEnabled(false);
+                if (isFirstLoc) {
+
                     showLocation(location.getLatitude(), location.getLongitude());
+                    isFirstLoc = false;
                     // 设置定位数据
                     mBaiduMap.setMyLocationData(locData);
-                    // 当不需要定位图层时关闭定位图层
-                    mBaiduMap.setMyLocationEnabled(false);
                     tv_name.setText(location.getAddrStr() + "");
                     ReverseGeoCodeOption reverseGeoCodeOption = new ReverseGeoCodeOption();
                     reverseGeoCodeOption.location(latLng);
                     geoCoder.reverseGeoCode(reverseGeoCodeOption);
-//
+
+//                    LatLng ll = new LatLng(location.getLatitude(),
+//                            location.getLongitude());
+//                    MapStatus.Builder builder = new MapStatus.Builder();
+//                    builder.target(ll).zoom(18.0f);
+//                    mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
                 }
-                isFirstLoc= false;
 
                 locationInfo = new PoiInfo();
                 locationInfo.setAddress(location.getAddrStr());
@@ -384,6 +391,9 @@ public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCo
             } else if (location.getLocType() == BDLocation.TypeCriteriaException) {
                 Toast.makeText(SelectLocationActivity.this, "手机模式错误，请检查是否飞行", Toast.LENGTH_SHORT).show();
             }
+
+
+
         }
 
     }

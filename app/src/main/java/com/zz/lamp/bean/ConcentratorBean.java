@@ -74,7 +74,7 @@ public class ConcentratorBean implements Serializable {
     private String   energy;// 60.66 KWH,
     private Integer   nowState;// 3,
     private String   nowStateText;// 定时上报,
-    private Integer   lightDeviceCount;// 2,
+    private String   lightDeviceCount;// 2,
     private String  lightDeviceSucceedCount;// 0
     private String  lightDeviceActualSum;// 0
     public int getTerminalOnOff() {
@@ -343,7 +343,7 @@ public class ConcentratorBean implements Serializable {
         return nowStateText;
     }
 
-    public Integer getLightDeviceCount() {
+    public String getLightDeviceCount() {
         return lightDeviceCount;
     }
 

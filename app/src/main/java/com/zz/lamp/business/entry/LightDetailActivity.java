@@ -163,7 +163,7 @@ public class LightDetailActivity extends MyBaseActivity<Contract.IsetLampDetailP
 
         mlist.add(new LightDetailBean("路杆编号", lightDevice.getLightPoleCode() + ""));
         mlist.add(new LightDetailBean("路杆类型", lightDevice.getLightPoleTypeText() + ""));
-        mlist.add(new LightDetailBean("路杆高度", lightDevice.getLightPoleHeight() + ""));
+        mlist.add(new LightDetailBean("路杆高度(米)", lightDevice.getLightPoleHeight() + ""));
         mlist.add(new LightDetailBean("灯头类型", lightDevice.getLightTypeText() + ""));
 
         mlist.add(new LightDetailBean("路灯类型", lightDevice.getDeviceTypeText() + ""));

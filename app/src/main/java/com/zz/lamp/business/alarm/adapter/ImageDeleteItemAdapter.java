@@ -2,6 +2,7 @@ package com.zz.lamp.business.alarm.adapter;
 
 import android.content.Context;
 
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 
 
 import com.zz.lamp.R;
+import com.zz.lamp.utils.BASE64;
 import com.zz.lamp.utils.GlideUtils;
 import com.zz.lamp.utils.ImagePreview;
 
@@ -67,7 +69,12 @@ public class ImageDeleteItemAdapter extends RecyclerView.Adapter<ImageDeleteItem
                 if (holder.getAdapterPosition()==mDatas.size()) {
                     onclick.onclickAdd(v, holder.getAdapterPosition());
                 }else {
-                    ImagePreview.preview(mContext, mDatas.get(i));
+                    String str = mDatas.get(i);
+                    if (BASE64.isBase64(str)) {
+                        Bitmap s1 = GlideUtils.base64ToBitmap(str);
+                        str = BASE64.saveBitmap(s1);
+                    }
+                    ImagePreview.preview(mContext, str);
                 }
             }
         });

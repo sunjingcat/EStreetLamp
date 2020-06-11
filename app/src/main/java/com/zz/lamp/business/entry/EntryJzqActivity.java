@@ -28,6 +28,7 @@ import com.zz.lamp.utils.BASE64;
 import com.zz.lamp.utils.LogUtils;
 import com.zz.lib.commonlib.utils.ToolBarUtils;
 import com.zz.lib.commonlib.widget.SelectPopupWindows;
+import com.zz.lib.core.http.utils.ToastUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -466,7 +467,7 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
 
     @Override
     public void showPostImage() {
-        showToast("成功");
+        ToastUtils.showToast("操作成功");
         setResult(RESULT_OK);
         finish();
     }
