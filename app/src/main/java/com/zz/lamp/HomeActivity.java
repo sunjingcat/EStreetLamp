@@ -5,6 +5,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -198,15 +199,19 @@ public class HomeActivity extends MyBaseActivity {
 
             }
         });
-        int tab = getIntent().getIntExtra("tab", 0);
-        if (tab > 0) {
-            mainTablayout.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mainTablayout.getTabAt(tab).select();
-                }
-            }, 200);
+        String tabStr = getIntent().getStringExtra("tab");
+        if (!TextUtils.isEmpty(tabStr)){
+            int tab = Integer.parseInt(tabStr);
+            if (tab > 0) {
+                mainTablayout.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mainTablayout.getTabAt(tab).select();
+                    }
+                }, 200);
+            }
         }
+
     }
 
     @Override

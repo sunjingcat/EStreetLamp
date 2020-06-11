@@ -57,11 +57,5 @@ public class IntentService extends GTIntentService {
     @Override
     public void onNotificationMessageClicked(Context context, GTNotificationMessage msg) {
         Log.e(TAG, "onNotificationMessageClicked -> " + msg);
-        String content = msg.getContent();
-        PushBean pushBean = new Gson().fromJson(content, PushBean.class);
-        if (pushBean.getModel().equals("alarm")){
-//            startActivity(new Intent());
-        }
-        Log.e(TAG, "content -> " + content);
     }
 }
