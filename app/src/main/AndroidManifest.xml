@@ -172,6 +172,10 @@
         <service
             android:name=".service.IntentService"
             android:permission="android.permission.BIND_JOB_SERVICE" />
+        <activity
+            android:name=".CaptureActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/CaptureTheme"/>
     </application>
 
 </manifest>

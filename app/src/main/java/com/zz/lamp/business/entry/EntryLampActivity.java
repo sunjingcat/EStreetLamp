@@ -25,9 +25,9 @@ import com.codbking.widget.OnSureLisener;
 import com.codbking.widget.bean.DateType;
 import com.donkingliang.imageselector.utils.ImageSelector;
 import com.donkingliang.imageselector.utils.ImageSelectorUtils;
-import com.ebo.medialib.qrcode.google.zxing.activity.CaptureActivity;
-import com.ebo.medialib.qrcode.util.Constant;
 import com.google.gson.Gson;
+
+import com.zz.lamp.CaptureActivity;
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseActivity;
 import com.zz.lamp.bean.DeviceType;
@@ -335,7 +335,10 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
     }
 
     private boolean back;
+    public static final int REQ_QR_CODE = 11002; // // 打开扫描界面请求码
+    public static final int REQ_PERM_CAMERA = 11003; // 打开摄像头
 
+    public static final String INTENT_EXTRA_KEY_QR_SCAN = "qr_scan_result";
     @OnClick({R.id.lineName, R.id.devicecAddr_code, R.id.btn_save, R.id.btn_next, R.id.lightInstallTime, R.id.devicecType, R.id.lightMainType, R.id.lightAuxiliaryType, R.id.lat, R.id.lightPoleType, R.id.lightType})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -416,7 +419,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
                 break;
         }
     }
-
+    int REQUEST_CODE = 5001;
     private void startQrCode() {
 
         PermissionUtils.getInstance().checkPermission(this, new String[]{Manifest.permission.CAMERA}, new PermissionUtils.OnPermissionChangedListener() {
@@ -424,7 +427,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
             public void onGranted() {
                 // 二维码扫码
                 Intent intent = new Intent(EntryLampActivity.this, CaptureActivity.class);
-                startActivityForResult(intent, Constant.REQ_QR_CODE);
+                startActivityForResult(intent, REQUEST_CODE);
             }
 
             @Override
@@ -574,9 +577,9 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == Constant.REQ_QR_CODE && resultCode == RESULT_OK) {
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
             Bundle bundle = data.getExtras();
-            String scanResult = bundle.getString(Constant.INTENT_EXTRA_KEY_QR_SCAN);
+            String scanResult = bundle.getString(INTENT_EXTRA_KEY_QR_SCAN);
             if (!TextUtils.isEmpty(scanResult)) {
                 devicecAddr.setText(scanResult);
             }

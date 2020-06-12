@@ -9,8 +9,8 @@ android {
         applicationId "com.zz.lamp"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 19
-        versionName "1.9"
+        versionCode 20
+        versionName "2.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         packagingOptions {
             exclude 'META-INF/proguard/androidx-annotations.pro'
@@ -129,7 +129,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
     implementation project(':corelib')
-    implementation project(':MediaLib')
+//    implementation project(':MediaLib')
     implementation 'androidx.multidex:multidex:2.0.0'
     //友盟推送
     //PushSDK必须依赖基础组件库，所以需要加入对应依赖
@@ -147,7 +147,7 @@ dependencies {
     implementation('com.github.bumptech.glide:glide:4.7.1') {
         exclude group: "com.android.support"
     }
-    implementation 'com.google.zxing:core:3.3.0'
+//    implementation 'com.google.zxing:core:3.3.0'
     implementation 'com.jakewharton:butterknife:10.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
     implementation files('libs/BaiduLBS_Android.jar')
@@ -165,6 +165,9 @@ dependencies {
     implementation 'top.zibin:Luban:1.1.3'
     implementation 'com.ycjiang:ImagePreview:2.3.5'
 //    implementation 'com.github.D10NGYANG:DL10RoundMenuView:1.0.5'
+    api 'com.google.zxing:core:3.3.3'
+
+    implementation 'com.king.zxing:zxing-lite:1.1.9'
 }
 
 def releaseTime() {

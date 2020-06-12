@@ -694,18 +694,20 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@color/white">
 
         <TextView
             android:id="@+id/btn_save"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/colorEF"
             android:gravity="center"
             android:padding="8dp"
             android:text="保存"
-            android:textColor="@color/color9C"
+            android:background="#1ab394"
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/white"
             android:textSize="14dp" />
 
         <TextView
@@ -713,11 +715,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/colorEF"
+            android:background="#f8ac59"
             android:gravity="center"
             android:padding="8dp"
             android:text="录入下一条"
-            android:textColor="@color/color9C"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:textColor="@color/white"
             android:textSize="14dp" />
     </LinearLayout>
 </LinearLayout>
