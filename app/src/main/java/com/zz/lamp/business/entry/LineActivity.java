@@ -19,6 +19,7 @@ import com.zz.lamp.business.entry.adapter.LineAdapter;
 import com.zz.lamp.business.entry.mvp.Contract;
 import com.zz.lamp.business.entry.mvp.presenter.LinePresenter;
 import com.zz.lib.commonlib.utils.ToolBarUtils;
+import com.zz.lib.core.http.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -137,13 +138,13 @@ public class LineActivity extends MyBaseActivity<Contract.IsetLinePresenter> imp
 
     @Override
     public void showPostIntent() {
-        showToast("成功");
+        ToastUtils.showToast("操作成功");
         getData();
     }
 
     @Override
     public void showDeleteIntent() {
-        showToast("成功");
+        ToastUtils.showToast("操作成功");
         getData();
     }
 

@@ -20,6 +20,7 @@ import com.zz.lamp.utils.SoftKeyboardUtils;
 
 import com.zz.lamp.widget.InputDialog;
 import com.zz.lib.commonlib.utils.ToolBarUtils;
+import com.zz.lib.core.http.utils.ToastUtils;
 import com.zz.lib.core.ui.widget.decorations.RecycleViewDivider;
 
 import java.util.HashMap;
@@ -149,13 +150,13 @@ public class RegionActivity extends MyBaseActivity<Contract.IsetRegionPresenter>
 
     @Override
     public void showPostIntent() {
-        showToast("成功");
+        ToastUtils.showToast("操作成功");
         getData();
     }
 
     @Override
     public void showDeleteIntent() {
-        showToast("成功");
+        ToastUtils.showToast("操作成功");
         getData();
     }
 

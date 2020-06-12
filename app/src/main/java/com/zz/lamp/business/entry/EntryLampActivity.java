@@ -579,7 +579,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
             Bundle bundle = data.getExtras();
-            String scanResult = bundle.getString(INTENT_EXTRA_KEY_QR_SCAN);
+            String scanResult = bundle.getString(CaptureActivity.KEY_RESULT);
             if (!TextUtils.isEmpty(scanResult)) {
                 devicecAddr.setText(scanResult);
             }
