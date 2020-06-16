@@ -101,6 +101,7 @@ public class LightDevice implements Serializable {
     }
 
     public Integer getLightAuxiliaryType() {
+        if (deviceType==null) return lightAuxiliaryType;
         return lightAuxiliaryType;
     }
 
@@ -117,6 +118,7 @@ public class LightDevice implements Serializable {
     }
 
     public Integer getLightMainType() {
+        if (lightMainType==null) return 0;
         return lightMainType;
     }
 
@@ -137,6 +139,7 @@ public class LightDevice implements Serializable {
     }
 
     public String getLineId() {
+        if (lineId==null) return "";
         return lineId;
     }
 

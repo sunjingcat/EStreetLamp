@@ -147,10 +147,14 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
         if (!TextUtils.isEmpty(id)) {
             btnNext.setVisibility(View.GONE);
         }
-        showInfo();
+        LightDevice device = (LightDevice) getIntent().getSerializableExtra("device");
+        showInfo(device,1);
         mPresenter.getLightDeviceType();
         mPresenter.getLightPoleType();
         mPresenter.getLightType();
+        if (device==null){
+            mPresenter.getLampEstimateForm(terminalId);
+        }
         rvImagesAnnex.setLayoutManager(new GridLayoutManager(this, 3));
         adapterAnnex = new ImageDeleteItemAdapter(this, imagesAnnex);
         rvImagesAnnex.setAdapter(adapterAnnex);
@@ -184,8 +188,6 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
                 adapterAnnex.notifyDataSetChanged();
             }
         });
-
-
     }
 
     @Override
@@ -245,6 +247,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
                 finish();
             } else {
                 devicecAddr.setText("");
+                mPresenter.getLampEstimateForm(terminalId);
 
             }
             showToast("提交成功");
@@ -312,7 +315,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
             finish();
         } else {
             devicecAddr.setText("");
-
+            mPresenter.getLampEstimateForm(terminalId);
         }
         showToast("提交成功");
     }
@@ -332,6 +335,11 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
         imagesAnnex.addAll(showList);
 
         adapterAnnex.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showLightDetail(LightDevice lightDevice) {
+        showInfo(lightDevice,0);
     }
 
     private boolean back;
@@ -666,10 +674,9 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
         });
     }
 
-    void showInfo() {
-        LightDevice device = (LightDevice) getIntent().getSerializableExtra("device");
+    void showInfo(LightDevice device,int type) {
         if (device == null) return;
-        devicecAddr.setText(device.getDeviceAddr() + "");
+        devicecAddr.setText(type>0?device.getDeviceAddr() + "":"");
         deviceName.setText(device.getDeviceName() + "");
         lightInstallTime.setText(device.getLightInstallTime() + "");
         lightInstallTime_ = TimeUtils.parseTime(device.getLightInstallTime(), TimeUtils.DATE_FORMAT_DATE).getTime();

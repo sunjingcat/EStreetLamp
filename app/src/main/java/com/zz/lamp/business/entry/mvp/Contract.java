@@ -47,6 +47,8 @@ public class Contract {
     public interface IsetLampAddPresenter extends BasePresenter {
         void postTerminal(Map<String, Object> params);
 
+        void getLampEstimateForm(String id);
+
         void getLightDeviceType();
 
         void getLightType();
@@ -76,6 +78,8 @@ public class Contract {
 
         void showPostImage();
         void showImage(List<ImageBack> list);
+
+        void showLightDetail(LightDevice concentratorBean);
 
     }
 

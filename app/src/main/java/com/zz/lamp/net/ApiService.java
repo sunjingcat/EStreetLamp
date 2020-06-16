@@ -65,6 +65,9 @@ public interface ApiService {
     @GET("/app/light/lightDevice/{id}")
     Observable<JsonT<LightDevice>> getLampDetail(@Path("id") String id);
 
+    @GET("/app/light/lightDevice/estimateForm/{terminalId}")
+    Observable<JsonT<LightDevice>> getLampEstimateForm(@Path("terminalId") String id);
+
     @POST( "/app/light/terminal/")
     Observable<JsonT<String>> postTerminal(@QueryMap Map<String, Object> params);
 

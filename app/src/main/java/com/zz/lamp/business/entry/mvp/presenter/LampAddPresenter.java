@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.zz.lamp.bean.DeviceType;
 import com.zz.lamp.bean.DictBean;
 import com.zz.lamp.bean.ImageBack;
+import com.zz.lamp.bean.LightDevice;
 import com.zz.lamp.business.entry.mvp.Contract;
 import com.zz.lamp.net.ApiService;
 import com.zz.lamp.net.JsonT;
@@ -37,6 +38,26 @@ public class LampAddPresenter extends MyBasePresenterImpl<Contract.IGetLampAddVi
 
             @Override
             protected void onFail2(JsonT<String> userInfoJsonT) {
+                super.onFail2(userInfoJsonT);
+                view.showToast(userInfoJsonT.getMessage());
+            }
+        }, mDialog);
+    }
+
+    @Override
+    public void getLampEstimateForm(String id) {
+        RxNetUtils.request(getCApi(ApiService.class).getLampEstimateForm(id), new RequestObserver<JsonT<LightDevice>>(this) {
+            @Override
+            protected void onSuccess(JsonT<LightDevice> data) {
+                if (data.isSuccess()) {
+                    view.showLightDetail(data.getData());
+                } else {
+
+                }
+            }
+
+            @Override
+            protected void onFail2(JsonT<LightDevice> userInfoJsonT) {
                 super.onFail2(userInfoJsonT);
                 view.showToast(userInfoJsonT.getMessage());
             }
