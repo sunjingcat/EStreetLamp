@@ -197,7 +197,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog();
+                showDialog("确定退出编辑？");
             }
         });
     }
@@ -253,6 +253,11 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
             showToast("提交成功");
         }
 
+    }
+
+    @Override
+    public void showError(String msg) {
+        showDialog(msg+"");
     }
 
     @Override
@@ -718,7 +723,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            showDialog();
+            showDialog("确定退出编辑？");
             return false;
         }else {
             return super.onKeyDown(keyCode, event);
@@ -726,11 +731,11 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
     }
     private CustomDialog customDialog;
     CustomDialog.Builder builder;
-    void showDialog() {
+    void showDialog(String msg) {
 
         builder = new CustomDialog.Builder(this)
                 .setTitle("提示")
-                .setMessage("确定退出编辑？" )
+                .setMessage(msg)
                 .setCancelOutSide(false)
                 .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override

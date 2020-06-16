@@ -10,8 +10,12 @@ import com.igexin.sdk.GTIntentService;
 import com.igexin.sdk.message.GTCmdMessage;
 import com.igexin.sdk.message.GTNotificationMessage;
 import com.igexin.sdk.message.GTTransmitMessage;
+import com.zz.lamp.bean.EventBusSimpleInfo;
 import com.zz.lamp.bean.PushBean;
+import com.zz.lamp.net.OutDateEvent;
 import com.zz.lib.commonlib.utils.CacheUtility;
+
+import org.greenrobot.eventbus.EventBus;
 
 public class IntentService extends GTIntentService {
 
@@ -31,6 +35,9 @@ public class IntentService extends GTIntentService {
     public void onReceiveClientId(Context context, String clientid) {
         Log.e(TAG, "onReceiveClientId -> " + "clientid = " + clientid);
         CacheUtility.spSave("cId",clientid);
+        EventBusSimpleInfo eventBusSimpleInfo = new EventBusSimpleInfo();
+        eventBusSimpleInfo.setStringData("putCid");
+        EventBus.getDefault().post(eventBusSimpleInfo);
     }
 
     // cid 离线上线通知
@@ -48,9 +55,6 @@ public class IntentService extends GTIntentService {
     @Override
     public void onNotificationMessageArrived(Context context, GTNotificationMessage msg) {
         Log.e(TAG, "onNotificationMessageArrived -> " + msg);
-        String content = msg.getContent();
-        PushBean pushBean = new Gson().fromJson(content, PushBean.class);
-        Log.e(TAG, "content -> " + content);
     }
 
     // 通知点击，只有个推通道下发的通知会回调此方法

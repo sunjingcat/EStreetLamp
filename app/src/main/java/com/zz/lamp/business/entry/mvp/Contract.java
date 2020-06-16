@@ -36,6 +36,7 @@ public class Contract {
 
     public interface IGetTerminalAddView extends BaseView {
         void showIntent(String id);
+        void showError(String msg);
         void showCheckAddrIntent(JsonT jsonT);
         void showCheckNameIntent(JsonT jsonT);
         void showTerminalDetail(ConcentratorBean concentratorBean);
@@ -66,6 +67,7 @@ public class Contract {
 
     public interface IGetLampAddView extends BaseView {
         void showIntent(String id);
+        void showError(String msg);
 
         void showLightDeviceType(List<DeviceType> list);
 
@@ -75,10 +77,8 @@ public class Contract {
 
         void showCheckAddrIntent(JsonT jsonT);
         void showCheckNameIntent(JsonT jsonT);
-
         void showPostImage();
         void showImage(List<ImageBack> list);
-
         void showLightDetail(LightDevice concentratorBean);
 
     }

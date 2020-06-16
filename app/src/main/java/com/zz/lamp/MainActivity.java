@@ -6,6 +6,7 @@ import android.view.KeyEvent;
 import android.view.View;
 
 import com.zz.lamp.base.MyBaseActivity;
+import com.zz.lamp.bean.EventBusSimpleInfo;
 import com.zz.lamp.business.map.SelectLocationActivity;
 import com.zz.lamp.business.map.TestLocationActivity;
 import com.zz.lamp.net.ApiService;
@@ -17,6 +18,9 @@ import com.zz.lib.commonlib.utils.CacheUtility;
 import com.zz.lib.core.http.utils.ToastUtils;
 import com.zz.lib.core.ui.mvp.BasePresenter;
 import com.zz.lib.core.utils.LoadingUtils;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,7 +48,6 @@ public class MainActivity extends MyBaseActivity {
     protected void initView() {
         ButterKnife.bind(this);
         new UpdateManager(this).checkUpdate();
-       putClientId();
     }
 
     @Override
@@ -93,6 +96,14 @@ public class MainActivity extends MyBaseActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventSuccessComment(EventBusSimpleInfo event) {
+
+        String info = event.getStringData();
+        if ("putCid".equals(info)) {
+            putClientId();
+        }
+    }
     public void putClientId() {
         Map<String,Object> map = new HashMap<>();
         map.put("cId", CacheUtility.spGetOut("cId",""));

@@ -31,6 +31,16 @@ public class LightDevice implements Serializable {
     private  String  terminalId	;//integer	集中控制器id
     private  String   lightTypeText;//	integer	路灯类型
     private  Integer   canCtrl;//	1-可以，0-不可以
+    private  Integer   warnStatus;//	1-可以，0-不可以
+    private  String   warnContent;//	1-可以，0-不可以
+
+    public Integer getWarnStatus() {
+        return warnStatus;
+    }
+
+    public String getWarnContent() {
+        return warnContent;
+    }
 
     public String getDeviceTypeText() {
         return deviceTypeText;

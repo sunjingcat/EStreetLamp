@@ -43,6 +43,8 @@ public class InfoActivity extends Activity {
     RecyclerView infoRv;
     @BindView(R.id.btn_nav)
     Button btnNav;
+    @BindView(R.id.info_warn)
+    TextView infoWarn;
     @BindView(R.id.btn_control)
     Button btnControl;
     List<LightDetailBean> mlist = new ArrayList<>();
@@ -112,7 +114,14 @@ public class InfoActivity extends Activity {
         mlist.clear();
         List<LightDetailBean> list = new ArrayList<>();
 //        路灯开关灯状态，0-关灯，1-开灯
+        itemTitle.setText("路灯控制器");
+        if (lightDevice.getWarnStatus()==1){
+            infoWarn.setVisibility(View.VISIBLE);
+            infoWarn.setText(lightDevice.getWarnContent()+"");
 
+        }else {
+            infoWarn.setVisibility(View.GONE);
+        }
         list.add(new LightDetailBean("开关灯状态", lightDevice.getStatus() == 0 ? "关灯" : "开灯"));
         list.add(new LightDetailBean("路灯控制器地址", lightDevice.getDeviceAddr() + ""));
         list.add(new LightDetailBean("支路", lightDevice.getLineName() + ""));
@@ -135,6 +144,7 @@ public class InfoActivity extends Activity {
             list.add(new LightDetailBean("辅灯额定功率(W)", lightDevice.getLightAuxiliaryPower() + ""));
             list.add(new LightDetailBean("辅灯功率阈值(W)", lightDevice.getLightAuxiliaryPowerLimit() + ""));
         }
+
         mlist.addAll(list);
         adapter.notifyDataSetChanged();
 
@@ -143,6 +153,13 @@ public class InfoActivity extends Activity {
     public void showIntent(ConcentratorBean concentratorBean) {
         if (concentratorBean == null) return;
         mlist.clear();
+        itemTitle.setText("集中器");
+        if (concentratorBean.getWarnStatus()==1){
+            infoWarn.setVisibility(View.VISIBLE);
+            infoWarn.setText(concentratorBean.getWarnContent()+"");
+        }else {
+            infoWarn.setVisibility(View.GONE);
+        }
         List<LightDetailBean> list = new ArrayList<>();
         list.add(new LightDetailBean("集中器地址", concentratorBean.getTerminalAddr() + ""));
         list.add(new LightDetailBean("集中器别名", concentratorBean.getTerminalName() + ""));
@@ -161,6 +178,7 @@ public class InfoActivity extends Activity {
         list.add(new LightDetailBean("电量", concentratorBean.getEnergy() + ""));
         list.add(new LightDetailBean("漏电电流", concentratorBean.getLeakCurrent() + ""));
         list.add(new LightDetailBean("信号", concentratorBean.getSignalStrengthText() + ""));
+
         mlist.addAll(list);
         adapter.notifyDataSetChanged();
     }

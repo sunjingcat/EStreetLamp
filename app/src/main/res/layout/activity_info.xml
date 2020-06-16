@@ -6,6 +6,9 @@
     android:background="@drawable/border_radius_10_white"
     android:orientation="vertical"
     android:padding="10dp"
+    android:focusableInTouchMode="true"
+    android:descendantFocusability="blocksDescendants"
+    android:fillViewport="true"
     tools:context=".business.main.InfoActivity">
 
     <LinearLayout
@@ -37,11 +40,34 @@
             android:src="@drawable/image_close_gray" />
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/info_rv"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1" />
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/info_warn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="3dp"
+                android:textColor="@color/red"
+                android:text="6月15日20时12分位于「公司展厅」区域下的「DCU测试(20020001)」集中器发生设备离线故障。告警详情" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/info_rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:layout_weight="1" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -57,9 +83,10 @@
             android:text="导航"
             android:textColor="#9C5F23"
             android:textSize="14sp" />
+
         <View
             android:layout_width="12dp"
-            android:layout_height="1dp"/>
+            android:layout_height="1dp" />
 
         <Button
             android:id="@+id/btn_control"

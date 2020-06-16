@@ -77,6 +77,17 @@ public class ConcentratorBean implements Serializable {
     private String   lightDeviceCount;// 2,
     private String  lightDeviceSucceedCount;// 0
     private String  lightDeviceActualSum;// 0
+    private  Integer   warnStatus;//	1-可以，0-不可以
+    private  String   warnContent;//	1-可以，0-不可以
+
+    public Integer getWarnStatus() {
+        return warnStatus;
+    }
+
+    public String getWarnContent() {
+        return warnContent;
+    }
+
     public int getTerminalOnOff() {
         return terminalOnOff;
     }

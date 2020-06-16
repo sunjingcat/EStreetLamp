@@ -124,7 +124,6 @@ public class LoginActivity extends MyBaseActivity<Contract.IsetLoginPresenter> i
         showToast("登录成功");
         String code = logCode.getText().toString();
         PushManager.getInstance().turnOnPush(this);
-        PushManager.getInstance().bindAlias(this,code);
         finish();
         Intent intent = new Intent();
         intent.setClass(this, MainActivity.class);

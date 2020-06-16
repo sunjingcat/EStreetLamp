@@ -32,7 +32,6 @@ public class LoginPresenter extends MyBasePresenterImpl<Contract.IGetLoginView> 
                     CacheUtility.saveURL(url);
                     CacheUtility.saveCode(jsonT.getData().getAuthcode());
                     view.setAuthCode(jsonT.getData());
-
                 }else {
 //                    view.showMessage(login_data.getMessage());
                 }

@@ -7,7 +7,6 @@
     tools:context=".business.alarm.LeftFragment">
 
     <include layout="@layout/layout_search"
-        android:visibility="gone"
         />
     <View
         android:layout_width="match_parent"

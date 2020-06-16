@@ -155,7 +155,7 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog();
+                showDialog("确定退出编辑？");
             }
         });
     }
@@ -277,19 +277,19 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
             return;
         }
 
-        String count = loopCount.getText().toString();
-        if (TextUtils.isEmpty(count)) {
-            showToast("请输入回路数量");
-            return;
-        }
-        params.put("loopCount", count);
-
-        String line_Count = lineCount.getText().toString();
-        if (TextUtils.isEmpty(line_Count)) {
-            showToast("请输入支路数量");
-            return;
-        }
-        params.put("lineCount", line_Count);
+//        String count = loopCount.getText().toString();
+//        if (TextUtils.isEmpty(count)) {
+//            showToast("请输入回路数量");
+//            return;
+//        }
+//        params.put("loopCount", count);
+//
+//        String line_Count = lineCount.getText().toString();
+//        if (TextUtils.isEmpty(line_Count)) {
+//            showToast("请输入支路数量");
+//            return;
+//        }
+//        params.put("lineCount", line_Count);
 
         String transformerRatio = loopTransformerRatio.getText().toString();
         if (TextUtils.isEmpty(transformerRatio)) {
@@ -389,6 +389,11 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
             finish();
         }
 
+    }
+
+    @Override
+    public void showError(String msg) {
+        showDialog(msg+"");
     }
 
     @Override
@@ -500,11 +505,11 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
     }
     private CustomDialog customDialog1;
     CustomDialog.Builder builder1;
-    void showDialog() {
+    void showDialog(String msg) {
 
         builder1 = new CustomDialog.Builder(this)
                 .setTitle("提示")
-                .setMessage("确定退出编辑？" )
+                .setMessage( msg)
                 .setCancelOutSide(false)
                 .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
@@ -523,7 +528,7 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            showDialog();
+            showDialog("确定退出编辑？");
             return false;
         }else {
             return super.onKeyDown(keyCode, event);

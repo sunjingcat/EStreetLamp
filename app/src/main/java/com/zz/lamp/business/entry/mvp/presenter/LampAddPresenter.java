@@ -39,7 +39,7 @@ public class LampAddPresenter extends MyBasePresenterImpl<Contract.IGetLampAddVi
             @Override
             protected void onFail2(JsonT<String> userInfoJsonT) {
                 super.onFail2(userInfoJsonT);
-                view.showToast(userInfoJsonT.getMessage());
+                view.showError(userInfoJsonT.getMessage());
             }
         }, mDialog);
     }

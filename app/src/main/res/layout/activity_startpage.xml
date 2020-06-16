@@ -27,6 +27,7 @@
             android:layout_margin="20dp"
             android:text="跳过"
             android:textColor="#333"
+            android:paddingTop="12dp"
             android:textSize="20sp" />
 
         <ImageView
