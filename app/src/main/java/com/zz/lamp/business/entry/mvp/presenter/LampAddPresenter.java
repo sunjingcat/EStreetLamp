@@ -49,7 +49,7 @@ public class LampAddPresenter extends MyBasePresenterImpl<Contract.IGetLampAddVi
         RxNetUtils.request(getCApi(ApiService.class).getLampEstimateForm(id), new RequestObserver<JsonT<LightDevice>>(this) {
             @Override
             protected void onSuccess(JsonT<LightDevice> data) {
-                if (data.isSuccess()) {
+                if (data.isSuccess()&&data!=null) {
                     view.showLightDetail(data.getData());
                 } else {
 

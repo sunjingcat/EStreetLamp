@@ -167,6 +167,9 @@ public interface ApiService {
     @POST("/app/light/gtClientId")
     Observable<JsonT> putClientId(@QueryMap Map<String, Object> params);
 
+     @GET("/app/light/alarm/getNoHandleCount")
+    Observable<JsonT<Integer>> getNoHandleCount();
+
     @GET("/app/carame/device/getYsConfig")
     Observable<JsonT<YsConfig>> getYsConfig();
 

@@ -27,19 +27,31 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.previewlibrary.ZoomMediaLoader;
 import com.zz.lamp.base.BasePresenter;
 import com.zz.lamp.base.MyBaseActivity;
+import com.zz.lamp.bean.CameraBean;
 import com.zz.lamp.bean.EventBusSimpleInfo;
 import com.zz.lamp.business.alarm.AlarmFragment;
 import com.zz.lamp.business.control.ControlFragment;
 import com.zz.lamp.business.entry.EntryFragment;
 import com.zz.lamp.business.main.MainFragment;
+import com.zz.lamp.net.ApiService;
+import com.zz.lamp.net.JsonT;
+import com.zz.lamp.net.RequestObserver;
+import com.zz.lamp.net.RxNetUtils;
 import com.zz.lamp.utils.CustomViewPager;
 import com.zz.lamp.utils.ImageLoader;
 import com.zz.lamp.utils.SystemUtils;
+import com.zz.lamp.widget.DragPointView;
 import com.zz.lib.commonlib.utils.PermissionUtils;
 import com.zz.lib.core.http.utils.ToastUtils;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static com.zz.lamp.net.RxNetUtils.getCApi;
 
 
 public class HomeActivity extends MyBaseActivity {
@@ -105,8 +117,7 @@ public class HomeActivity extends MyBaseActivity {
     @Override
     public void onResume() {
         super.onResume();
-
-
+        getData();
     }
 
     @Override
@@ -136,7 +147,7 @@ public class HomeActivity extends MyBaseActivity {
         alarmFragment = new AlarmFragment();
         mainFragment = new MainFragment();
         entryFragment = new EntryFragment();
-        TAB_FRAGMENTS = new Fragment[]{ mainFragment,controlFragment, alarmFragment, entryFragment};
+        TAB_FRAGMENTS = new Fragment[]{mainFragment, controlFragment, alarmFragment, entryFragment};
     }
 
 
@@ -167,6 +178,9 @@ public class HomeActivity extends MyBaseActivity {
                 } else {
                     SystemUtils.handleStatusBarColor(HomeActivity.this, R.color.colorPrimary, false);
 
+                }
+                if (tab.getPosition() == 2) {
+                    getData();
                 }
                 setStatusBarColor(tab.getPosition());
 
@@ -200,7 +214,7 @@ public class HomeActivity extends MyBaseActivity {
             }
         });
         String tabStr = getIntent().getStringExtra("tab");
-        if (!TextUtils.isEmpty(tabStr)){
+        if (!TextUtils.isEmpty(tabStr)) {
             int tab = Integer.parseInt(tabStr);
             if (tab > 0) {
                 mainTablayout.postDelayed(new Runnable() {
@@ -257,7 +271,7 @@ public class HomeActivity extends MyBaseActivity {
      * @param position
      * @param isShowBadge
      */
-    public void refreshTabBadge(int position, boolean isShowBadge) {
+    public void refreshTabBadge(int position, int isShowBadge) {
         TabLayout.Tab tab = mainTablayout.getTabAt(position);
         View customView = tab.getCustomView();
         if (customView != null) {
@@ -269,13 +283,18 @@ public class HomeActivity extends MyBaseActivity {
         tab.setCustomView(getBadgeTabItemView(position, isShowBadge));
     }
 
-    private View getBadgeTabItemView(int position, boolean isShowBadge) {
+    private View getBadgeTabItemView(int position, int isShowBadge) {
 
         View view = LayoutInflater.from(this).inflate(R.layout.view_tab_item, null);
         TextView tvTitle = view.findViewById(R.id.tab_item_tv);
         tvTitle.setText(TAB_TITLES[position]);
-        ImageView imgTab = view.findViewById(R.id.tab_item_img);
-        imgTab.setImageResource(TAB_IMGS[position]);
+        DragPointView imgTabNum = view.findViewById(R.id.rc_msg_num);
+        if (isShowBadge>0){
+            imgTabNum.setVisibility(View.VISIBLE);
+        }else {
+            imgTabNum.setVisibility(View.GONE);
+        }
+        imgTabNum.setText(isShowBadge+"");
         return view;
 
     }
@@ -298,16 +317,14 @@ public class HomeActivity extends MyBaseActivity {
     }
 
 
-
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventSuccessComment(EventBusSimpleInfo event) {
 
         String info = event.getStringData();
         if ("mineIsHaveNoHandleMsg".equals(info)) {
-            refreshTabBadge(3, event.isBooleanData());
+            refreshTabBadge(3, 0);
         } else if ("contactsIsHaveNoHandleMsg".equals(info)) {
-            refreshTabBadge(2, event.isBooleanData());
+            refreshTabBadge(2, 0);
         } else if ("refreshWork".equals(info)) {
             controlFragment.onRefresh();
         }
@@ -343,8 +360,26 @@ public class HomeActivity extends MyBaseActivity {
             /*然后在碎片中调用重写的onActivityResult方法*/
             Log.v("", "");
             fragment.onActivityResult(requestCode, resultCode, data);
+
         }
     }
 
+    void getData() {
+        RxNetUtils.request(getCApi(ApiService.class).getNoHandleCount(), new RequestObserver<JsonT<Integer>>(this) {
+            @Override
+            protected void onSuccess(JsonT data) {
+                if (data.isSuccess()) {
+                    refreshTabBadge(2, (int)data.getData());
+                } else {
 
+                }
+            }
+
+            @Override
+            protected void onFail2(JsonT<Integer> jsonT) {
+                super.onFail2(jsonT);
+                showToast(jsonT.getMessage());
+            }
+        }, null);
+    }
 }
