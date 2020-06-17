@@ -15,6 +15,7 @@ import com.zz.lamp.bean.LightDeviceConBean;
 import com.zz.lamp.bean.LightPost;
 import com.zz.lamp.bean.LineBean;
 import com.zz.lamp.bean.MapListBean;
+import com.zz.lamp.bean.OperLog;
 import com.zz.lamp.bean.RealTimeCtrlGroup;
 import com.zz.lamp.bean.RealTimeCtrlTerminal;
 import com.zz.lamp.bean.RegionExpandItem;
@@ -173,6 +174,9 @@ public interface ApiService {
     @GET("/app/carame/device/getYsConfig")
     Observable<JsonT<YsConfig>> getYsConfig();
 
+    @GET("/app/light/operLog/list")
+    Observable<JsonT<List<OperLog>>> getLoglist(@QueryMap Map<String, Object> params);
+
 
     @GET("/app/light/alarm/getLightAlarmById")
     Observable<JsonT<AlarmBean>> getLightAlarmById(@QueryMap Map<String, Object> params);
@@ -239,11 +243,10 @@ public interface ApiService {
     @POST( "/app/light/resetPwd")
     Observable<JsonT> resetPwd(@QueryMap Map<String, Object> params);
 
-    @POST(URLs.VERSION + "/buildings/supervise/safety/item")
-    Observable<JsonT> submitSafetyFeedback(@QueryMap Map<String, Object> params);
-
     @GET("/app/version/latest")
     Observable<JsonT<Version>> getVersion();
+   @GET("/app/version/versionCode/{versionCode}")
+    Observable<JsonT<Version>> getVersionInfo(@Path("versionCode") String terminalId);
 
     @Multipart
     @POST(URLs.VERSION + "/upload/image")

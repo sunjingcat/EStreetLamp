@@ -9,6 +9,11 @@ import android.widget.TextView;
 
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseActivity;
+import com.zz.lamp.bean.Version;
+import com.zz.lamp.net.ApiService;
+import com.zz.lamp.net.JsonT;
+import com.zz.lamp.net.RequestObserver;
+import com.zz.lamp.net.RxNetUtils;
 import com.zz.lamp.utils.UpdateManager;
 import com.zz.lib.commonlib.utils.ToolBarUtils;
 import com.zz.lib.core.ui.mvp.BasePresenter;
@@ -17,6 +22,8 @@ import androidx.appcompat.widget.Toolbar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.zz.lamp.net.RxNetUtils.getCApi;
 
 public class AboutActivity extends MyBaseActivity {
 
@@ -48,6 +55,7 @@ public class AboutActivity extends MyBaseActivity {
     protected void initView() {
         ButterKnife.bind(this);
         tvVersion.setText(getVersioName());
+        getData();
     }
 
     @Override
@@ -68,5 +76,31 @@ public class AboutActivity extends MyBaseActivity {
         }
         return "";
     }
+    void getData() {
+        RxNetUtils.request(getCApi(ApiService.class).getVersionInfo(getVersionCode()+""), new RequestObserver<JsonT<Version>>(this) {
+            @Override
+            protected void onSuccess(JsonT<Version> data) {
+                if (data.isSuccess()&&data.getData()!=null) {
+                    tvInfo.setText(data.getData().getChanges()+"");
+                } else {
 
+                }
+            }
+
+            @Override
+            protected void onFail2(JsonT<Version> jsonT) {
+                super.onFail2(jsonT);
+                showToast(jsonT.getMessage());
+            }
+        }, null);
+    }
+    //获取app版本
+    private int getVersionCode() {
+        try {
+            return getPackageManager().
+                    getPackageInfo(getPackageName(), 0).versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+        }
+        return 0;
+    }
 }

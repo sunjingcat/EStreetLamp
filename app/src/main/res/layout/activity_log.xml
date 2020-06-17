@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".business.mine.AboutActivity">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="33dp"
+        android:background="@color/white" />
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="操作日志"
+            android:textColor="@color/colorTextBlack33"
+            android:textSize="18dp" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <include
+        layout="@layout/refresh_layout"/>
+</LinearLayout>

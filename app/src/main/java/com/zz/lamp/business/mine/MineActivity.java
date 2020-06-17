@@ -77,8 +77,8 @@ public class MineActivity extends MyBaseActivity<Contract.IsetMineInfoPresenter>
     @Override
     public void showUserInfo(UserBasicBean userInfo) {
         this.userInfo = userInfo;
-        myName.setText(userInfo.getUserName()+"");
-        notContent.setText(userInfo.getPhonenumber()+"");
+        myName.setText(userInfo.getUserName() + "");
+        notContent.setText(userInfo.getPhonenumber() + "");
 
         if (!TextUtils.isEmpty(userInfo.getAvatar())) {
 
@@ -95,22 +95,28 @@ public class MineActivity extends MyBaseActivity<Contract.IsetMineInfoPresenter>
         PushManager.getInstance().turnOffPush(this);
         finish();
     }
+
     private CustomDialog customDialog;
-    @OnClick({R.id.my_password, R.id.my_code, R.id.my_about, R.id.my_logout})
+
+    @OnClick({R.id.my_password, R.id.my_code, R.id.my_about, R.id.my_logout, R.id.my_log})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.my_password:
-                if (userInfo==null||TextUtils.isEmpty(userInfo.getLoginName())){
-                    return;}
-                startActivity(new Intent(MineActivity.this,PasswordActivity.class).putExtra("userName",userInfo.getLoginName()));
+                if (userInfo == null || TextUtils.isEmpty(userInfo.getLoginName())) {
+                    return;
+                }
+                startActivity(new Intent(MineActivity.this, PasswordActivity.class).putExtra("userName", userInfo.getLoginName()));
 
                 break;
             case R.id.my_code:
-                startActivity(new Intent(MineActivity.this,ChangeCodeActivity.class));
+                startActivity(new Intent(MineActivity.this, ChangeCodeActivity.class));
 
                 break;
             case R.id.my_about:
-                startActivity(new Intent(MineActivity.this,AboutActivity.class));
+                startActivity(new Intent(MineActivity.this, AboutActivity.class));
+                break;
+            case R.id.my_log:
+                startActivity(new Intent(MineActivity.this, LogActivity.class));
                 break;
             case R.id.my_logout:
                 CustomDialog.Builder builder = new CustomDialog.Builder(MineActivity.this)
@@ -133,6 +139,7 @@ public class MineActivity extends MyBaseActivity<Contract.IsetMineInfoPresenter>
                 break;
         }
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

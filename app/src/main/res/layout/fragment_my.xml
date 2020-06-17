@@ -189,6 +189,43 @@
                 android:layout_height="wrap_content"
                 android:padding="8dp"
                 android:src="@drawable/image_arrow" />
+        </LinearLayout><View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="#EDEFF7" />
+
+
+        <LinearLayout
+            android:id="@+id/my_log"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="54px"
+                android:src="@drawable/image_mine_info" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:layout_weight="1"
+                android:text="操作日志"
+                android:textColor="#333"
+                android:textSize="14dp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:src="@drawable/image_arrow" />
         </LinearLayout>
     </LinearLayout>
 
