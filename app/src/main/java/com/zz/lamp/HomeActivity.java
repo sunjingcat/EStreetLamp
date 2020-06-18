@@ -288,6 +288,8 @@ public class HomeActivity extends MyBaseActivity {
         View view = LayoutInflater.from(this).inflate(R.layout.view_tab_item, null);
         TextView tvTitle = view.findViewById(R.id.tab_item_tv);
         tvTitle.setText(TAB_TITLES[position]);
+        ImageView imgTab = view.findViewById(R.id.tab_item_img);
+        imgTab.setImageResource(TAB_IMGS[position]);
         DragPointView imgTabNum = view.findViewById(R.id.rc_msg_num);
         if (isShowBadge>0){
             imgTabNum.setVisibility(View.VISIBLE);
