@@ -400,7 +400,7 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
     public void showCheckAddrIntent(JsonT jsonT) {
         if (!jsonT.isSuccess()) {
             tv_terminalAddr.setTextColor(getResources().getColor(R.color.red_e8));
-            showToast(jsonT.getMessage());
+            showDialog(jsonT.getMessage()+"");
         } else {
             tv_terminalAddr.setTextColor(getResources().getColor(R.color.colorTextBlack33));
             postData(2);
@@ -411,7 +411,7 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
     public void showCheckNameIntent(JsonT jsonT) {
         if (!jsonT.isSuccess()) {
             tv_terminalName.setTextColor(getResources().getColor(R.color.red_e8));
-            showToast(jsonT.getMessage());
+            showDialog(jsonT.getMessage()+"");
         } else {
             tv_terminalName.setTextColor(getResources().getColor(R.color.colorTextBlack33));
             postData(0);

@@ -296,7 +296,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
     public void showCheckAddrIntent(JsonT jsonT) {
         if (!jsonT.isSuccess()) {
             tvDevicecAddr.setTextColor(getResources().getColor(R.color.red_e8));
-            showToast(jsonT.getMessage());
+            showDialog(jsonT.getMessage()+"");
         } else {
             tvDevicecAddr.setTextColor(getResources().getColor(R.color.colorTextBlack33));
             postData(2);
@@ -307,7 +307,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
     public void showCheckNameIntent(JsonT jsonT) {
         if (!jsonT.isSuccess()) {
             tvDeviceName.setTextColor(getResources().getColor(R.color.red_e8));
-            showToast(jsonT.getMessage());
+            showDialog(jsonT.getMessage()+"");
         } else {
             tvDeviceName.setTextColor(getResources().getColor(R.color.colorTextBlack33));
             postData(3);
