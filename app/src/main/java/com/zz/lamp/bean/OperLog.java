@@ -2,32 +2,25 @@ package com.zz.lamp.bean;
 
 public class OperLog {
 String searchValue;// null,
-    String     createBy;// null,
-    String     createTime;// null,
-    String     updateBy;// null,
-    String   updateTime;// null,
-    String   remark;// null,
-    String  deptId;// 117,
-    String operId;// 4148,
-    String  title;// 支路合闸操作,
-    String  businessType;// 10,
-    String  businessTypeText;// 指令下发,
-    String  businessTypes;// null,
-    String  method;// com.jking.project.light.realTimeCtrl.controller.RealTimeTerminalCtrlController.lightOnCmdByLineCode(),
-    String  requestMethod;// POST,
-    String  operatorType;// 3,
-    String  operatorTypeText;// PC用户,
-    String  operName;// factoryuser001,
-    String  deptName;// 施维-工厂,
-    String  operUrl;// /light/realTimeTerminalCtrl/lightOnCmdByLineCode/9,
-    String  operIp;// 127.0.0.1,
-    String operLocation;// 内网IP,
-    String  operParam;// {},
-    String  jsonResult;// {\msg\;//\操作成功\,\code\;//0},
-    String  status;// 0,
-    String  statusText;// 正常,
-    String   errorMsg;// null,
-    String  operTime;// 2020-06-17 10;//01;//58
+    String        createBy;// null,
+    String     createTime;// 2020-06-22 16;//10;//10,
+    String     updateBy;// ,
+    String     updateTime;// null,
+    String     remark;// null,
+    String    deptId;// 123,
+    String    id;// 1150,
+    String    serialNumber;// 041016220620AF010000,
+    String   terminalAddr;// 37020001,
+    String    reportType;// 1,
+    String   reportTypeText;// 定时执行,
+    String   lineState;// 00000000,
+    String   switchState;// 0000000000000000,
+    String   terminalName;// 展厅集中器,
+    String    areaName;// 公司展厅,
+    String    lineStateText;// 【1】;//关 | 【2】;//关 | 【3】;//关 | 【4】;//关 | 【5】;//关 | 【6】;//关 | 【7】;//关 | 【8】;//关,
+    String     businessTypeText;// 拉闸,
+    String    operName;// 设备,
+    String    operTime;// 2020-06-22 16;//10;//10
 
     public String getSearchValue() {
         return searchValue;
@@ -57,80 +50,52 @@ String searchValue;// null,
         return deptId;
     }
 
-    public String getOperId() {
-        return operId;
+    public String getId() {
+        return id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getSerialNumber() {
+        return serialNumber;
     }
 
-    public String getBusinessType() {
-        return businessType;
+    public String getTerminalAddr() {
+        return terminalAddr;
+    }
+
+    public String getReportType() {
+        return reportType;
+    }
+
+    public String getReportTypeText() {
+        return reportTypeText;
+    }
+
+    public String getLineState() {
+        return lineState;
+    }
+
+    public String getSwitchState() {
+        return switchState;
+    }
+
+    public String getTerminalName() {
+        return terminalName;
+    }
+
+    public String getAreaName() {
+        return areaName;
+    }
+
+    public String getLineStateText() {
+        return lineStateText;
     }
 
     public String getBusinessTypeText() {
         return businessTypeText;
     }
 
-    public String getBusinessTypes() {
-        return businessTypes;
-    }
-
-    public String getMethod() {
-        return method;
-    }
-
-    public String getRequestMethod() {
-        return requestMethod;
-    }
-
-    public String getOperatorType() {
-        return operatorType;
-    }
-
-    public String getOperatorTypeText() {
-        return operatorTypeText;
-    }
-
     public String getOperName() {
         return operName;
-    }
-
-    public String getDeptName() {
-        return deptName;
-    }
-
-    public String getOperUrl() {
-        return operUrl;
-    }
-
-    public String getOperIp() {
-        return operIp;
-    }
-
-    public String getOperLocation() {
-        return operLocation;
-    }
-
-    public String getOperParam() {
-        return operParam;
-    }
-
-    public String getJsonResult() {
-        return jsonResult;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public String getStatusText() {
-        return statusText;
-    }
-
-    public String getErrorMsg() {
-        return errorMsg;
     }
 
     public String getOperTime() {

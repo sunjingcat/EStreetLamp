@@ -4,18 +4,43 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/line_radius_10_light"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:padding="15dp"
 
     android:gravity="center_vertical">
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        >
     <TextView
         android:id="@+id/item_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#444444"
         android:textSize="15dp"
-        tools:text="集中器1" />
-
+        tools:text="集中器1 12345678" />
+        <TextView
+            android:id="@+id/item_num"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColor="#999999"
+            android:textSize="12dp"
+            tools:text="52487963"
+            />
+        <TextView
+            android:id="@+id/item_line"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColor="#999999"
+            android:textSize="12dp"
+            tools:text="52487963"
+            />
     <TextView
         android:id="@+id/item_content"
         android:layout_width="wrap_content"
@@ -36,6 +61,15 @@
         tools:text="52487963"
        />
 
-
+        <TextView
+            android:id="@+id/item_time"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:textColor="#999999"
+            android:textSize="12dp"
+            tools:text="52487963"
+            />
+    </LinearLayout>
 
 </LinearLayout>
