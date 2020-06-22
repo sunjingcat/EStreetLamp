@@ -55,6 +55,15 @@
             android:drawablePadding="5dp"
             android:layout_alignParentRight="true"
             android:textColor="@color/color9C" />
+        <ImageView
+            android:id="@+id/my_site"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/image_location_now"/>
     </RelativeLayout>
 
 </LinearLayout>

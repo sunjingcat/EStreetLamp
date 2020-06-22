@@ -1,5 +1,6 @@
 package com.zz.lamp;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -15,6 +16,7 @@ import com.zz.lamp.net.RequestObserver;
 import com.zz.lamp.net.RxNetUtils;
 import com.zz.lamp.utils.UpdateManager;
 import com.zz.lib.commonlib.utils.CacheUtility;
+import com.zz.lib.commonlib.utils.PermissionUtils;
 import com.zz.lib.core.http.utils.ToastUtils;
 import com.zz.lib.core.ui.mvp.BasePresenter;
 import com.zz.lib.core.utils.LoadingUtils;
@@ -47,6 +49,17 @@ public class MainActivity extends MyBaseActivity {
     @Override
     protected void initView() {
         ButterKnife.bind(this);
+        PermissionUtils.getInstance().checkPermission(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION}, new PermissionUtils.OnPermissionChangedListener() {
+            @Override
+            public void onGranted() {
+            }
+
+            @Override
+            public void onDenied() {
+
+            }
+        });
         new UpdateManager(this).checkUpdate();
     }
 
@@ -59,11 +72,23 @@ public class MainActivity extends MyBaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.main_group_1:
-                Intent intent = new Intent();
-                intent.setClass(this, HomeActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
-                        Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
+                PermissionUtils.getInstance().checkPermission(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.ACCESS_FINE_LOCATION}, new PermissionUtils.OnPermissionChangedListener() {
+                    @Override
+                    public void onGranted() {
+                        Intent intent = new Intent();
+                        intent.setClass(MainActivity.this, HomeActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                                Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onDenied() {
+
+                    }
+                });
+
                 break;
             case R.id.main_group_2:
                 showToast("暂未开放，敬请期待");

@@ -82,17 +82,7 @@ public class HomeActivity extends MyBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        PermissionUtils.getInstance().checkPermission(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION}, new PermissionUtils.OnPermissionChangedListener() {
-            @Override
-            public void onGranted() {
-            }
 
-            @Override
-            public void onDenied() {
-
-            }
-        });
 //        new UpdateManager(this).checkUpdate();
 
         ZoomMediaLoader.getInstance().init(new ImageLoader());
