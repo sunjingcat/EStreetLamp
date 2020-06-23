@@ -91,10 +91,18 @@ public class AMapUtils {
         distance = GeoHasher.GetDistance(maxLatitude, maxLongitude, minLatitude, minLongitude);
     }
 
+
+    public static double calculateMyDistance(LatLng latLng) {
+        double v = GeoHasher.GetDistance(latLng.latitude, latLng.longitude, minLatitude, minLongitude);
+        double v1 = GeoHasher.GetDistance(latLng.latitude, latLng.longitude, maxLatitude, maxLongitude);
+        double max = Math.max(v, v1);
+        return max;
+    }
+
     /**
      * 根据距离判断地图级别
      */
-    private static float level;
+    public static float level = -0.8f;
     private static LatLng center;
 
     public static void getLevel(BaiduMap mBaiduMap) {
@@ -102,6 +110,18 @@ public class AMapUtils {
         for (int i = 0; i < zoom.length; i++) {
             int zoomNow = zoom[i];
             if (zoomNow - distance * 1000 > 0) {
+                level = 18 - i + 5;
+                //设置地图显示级别为计算所得level
+                mBaiduMap.setMapStatus(MapStatusUpdateFactory.newMapStatus(new MapStatus.Builder().zoom(level).build()));
+                break;
+            }
+        }
+    }
+    public static void getLevel(BaiduMap mBaiduMap,LatLng latLng) {
+        int zoom[] = {10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 1000, 2000, 25000, 50000, 100000, 200000, 500000, 1000000, 2000000};
+        for (int i = 0; i < zoom.length; i++) {
+            int zoomNow = zoom[i];
+            if (zoomNow - calculateMyDistance(latLng) * 1000 > 0) {
                 level = 18 - i + 5;
                 //设置地图显示级别为计算所得level
                 mBaiduMap.setMapStatus(MapStatusUpdateFactory.newMapStatus(new MapStatus.Builder().zoom(level).build()));
@@ -119,6 +139,11 @@ public class AMapUtils {
         mBaiduMap.animateMapStatus(status1, 500);
     }
 
+    public static void setCenter(BaiduMap mBaiduMap,LatLng latLng) {
+        MapStatusUpdate status1 = MapStatusUpdateFactory.newLatLng(latLng);
+        mBaiduMap.animateMapStatus(status1, 500);
+    }
+
     public static void setMapZoom(List<MapListBean> list, BaiduMap mBaiduMap) {
 
         //比较选出集合中最大经纬度
@@ -127,6 +152,15 @@ public class AMapUtils {
         calculateDistance();
         //根据距离判断地图级别
         getLevel(mBaiduMap);
+        //计算中心点经纬度，将其设为启动时地图中心
+        setCenter(mBaiduMap);
+    }
+    public static void setMyMapZoom(List<MapListBean> list, BaiduMap mBaiduMap,LatLng latLng) {
+
+        //比较选出集合中最大经纬度
+        getMax(list);
+        //根据距离判断地图级别
+        getLevel(mBaiduMap,latLng);
         //计算中心点经纬度，将其设为启动时地图中心
         setCenter(mBaiduMap);
     }

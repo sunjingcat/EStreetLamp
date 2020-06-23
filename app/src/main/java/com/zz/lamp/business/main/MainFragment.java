@@ -33,6 +33,7 @@ import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.CustomMapStyleCallBack;
 import com.baidu.mapapi.map.MapCustomStyleOptions;
 import com.baidu.mapapi.map.MapStatus;
+import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
@@ -41,6 +42,7 @@ import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.Overlay;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.model.LatLngBounds;
 import com.baidu.mapapi.search.core.PoiInfo;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
 import com.bumptech.glide.Glide;
@@ -300,6 +302,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
     List<Overlay> overlays;
     List<OverlayOptions> overlayOptions = new ArrayList<>();
     List<MapListBean> mapListList = new ArrayList<>();
+    List<LatLng> latLngs = new ArrayList<>();
 
     void addMarkers(List<MapListBean> list) {
         if (list == null || list.size() == 0) {
@@ -331,6 +334,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
                                 .position(point)
                                 .icon(bitmap);
                         overlayOptions.add(option);
+                        latLngs.add(new LatLng(mapListBean.getLat(),mapListBean.getLng()));
                     }
                     if (overlayOptions.size() > 0) {
                         mHandler.sendEmptyMessage(1);
@@ -406,16 +410,8 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
                     isFirstLoc = false;
                     // 设置定位数据
                     mBaiduMap.setMyLocationData(locData);
-                    LatLng ll = new LatLng(location.getLatitude(),
-                            location.getLongitude());
-                    MapStatus.Builder builder = new MapStatus.Builder();
-                    builder.target(ll).zoom(18.0f);
-                    mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
-                    mLocationClient.stop();
+                    AMapUtils.setMyMapZoom(mapListList, mBaiduMap,latLng);
                 }
-
-
-
 
             }
             if (location.getLocType() == BDLocation.TypeServerError) {

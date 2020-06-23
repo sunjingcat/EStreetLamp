@@ -257,7 +257,6 @@ public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCo
                 LatLng latLng = status.target;
 
                 if (lastLngLat!=null&&AMapUtils.calculateLineDistance(latLng,lastLngLat)>5) {
-                    double v = AMapUtils.calculateLineDistance(latLng, lastLngLat);
                     geoCoder.reverseGeoCode(new ReverseGeoCodeOption().location(latLng));
                     showLocation(latLng.latitude, latLng.longitude);
                     LogUtils.v("sj--",latLng.toString());
