@@ -190,17 +190,17 @@ public class RightFragment extends MyBaseFragment implements OnRefreshListener, 
         for (int i = 0; i < list.size(); i++) {
             if (i == 0) {
                 if (mlist.size() > 0) {
-                    if (!mlist.get(mlist.size() - 1).getCreateTime().equals(list.get(i).getCreateTime())) {
-                        timeList.add(new AlarmBean(1, list.get(i).getCreateTime()));
+                    if (!mlist.get(mlist.size() - 1).getUpdateTime().equals(list.get(i).getUpdateTime())) {
+                        timeList.add(new AlarmBean(1, list.get(i).getUpdateTime()));
                     }
                 } else {
-                    timeList.add(new AlarmBean(1, list.get(i).getCreateTime()));
+                    timeList.add(new AlarmBean(1, list.get(i).getUpdateTime()));
                 }
                 list.get(i).setItemType(2);
                 timeList.add(list.get(i));
             } else {
-                if (!list.get(i).getCreateTime().equals(list.get(i - 1).getCreateTime())) {
-                    timeList.add(new AlarmBean(1, list.get(i).getCreateTime()));
+                if (!list.get(i).getUpdateTime().equals(list.get(i - 1).getUpdateTime())) {
+                    timeList.add(new AlarmBean(1, list.get(i).getUpdateTime()));
                 }
                 list.get(i).setItemType(2);
                 timeList.add((list.get(i)));
