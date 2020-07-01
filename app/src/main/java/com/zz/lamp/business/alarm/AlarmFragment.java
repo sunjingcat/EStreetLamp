@@ -91,6 +91,7 @@ public class AlarmFragment extends MyBaseFragment {
         String tabStr = getActivity().getIntent().getStringExtra("tab");
         if (!TextUtils.isEmpty(tabStr)&&tabStr.equals("2")) {
             onChangeFragment(0);
+            alarmTab.getTabAt(0).select();
         }
     }
 
