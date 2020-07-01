@@ -155,7 +155,7 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog("确定退出编辑？");
+                showDialog("确定退出编辑？",0);
             }
         });
     }
@@ -393,14 +393,14 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
 
     @Override
     public void showError(String msg) {
-        showDialog(msg+"");
+        showDialog(msg+"",0);
     }
 
     @Override
     public void showCheckAddrIntent(JsonT jsonT) {
         if (!jsonT.isSuccess()) {
             tv_terminalAddr.setTextColor(getResources().getColor(R.color.red_e8));
-            showDialog(jsonT.getMessage()+"");
+            showDialog(jsonT.getMessage()+"",1);
         } else {
             tv_terminalAddr.setTextColor(getResources().getColor(R.color.colorTextBlack33));
             postData(2);
@@ -411,7 +411,7 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
     public void showCheckNameIntent(JsonT jsonT) {
         if (!jsonT.isSuccess()) {
             tv_terminalName.setTextColor(getResources().getColor(R.color.red_e8));
-            showDialog(jsonT.getMessage()+"");
+            showDialog(jsonT.getMessage()+"",1);
         } else {
             tv_terminalName.setTextColor(getResources().getColor(R.color.colorTextBlack33));
             postData(0);
@@ -505,7 +505,7 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
     }
     private CustomDialog customDialog1;
     CustomDialog.Builder builder1;
-    void showDialog(String msg) {
+    void showDialog(String msg,int back) {
 
         builder1 = new CustomDialog.Builder(this)
                 .setTitle("提示")
@@ -519,7 +519,9 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        finish();
+                       if (back==0) {
+                           finish();
+                       }
                     }
                 });
         customDialog1 = builder1.create();
@@ -528,7 +530,7 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            showDialog("确定退出编辑？");
+            showDialog("确定退出编辑？",0);
             return false;
         }else {
             return super.onKeyDown(keyCode, event);

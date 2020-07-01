@@ -86,7 +86,7 @@ public class EntryFragment  extends MyBaseFragment<Contract.IsetTerminalPresente
         rv.setAdapter(adapter);
         refreshLayout.setOnRefreshListener(this);
         refreshLayout.setOnLoadMoreListener(this);
-        getData();
+
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
@@ -131,6 +131,12 @@ public class EntryFragment  extends MyBaseFragment<Contract.IsetTerminalPresente
                 }
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getData();
     }
 
     @Override

@@ -110,7 +110,7 @@ public class AlarmDetailActivity extends MyBaseActivity<Contract.IsetAlarmAddPre
     public void showDetailResult(AlarmBean alarmBean) {
         alarmName.setText( alarmBean.getTerminalName() + "" +(alarmBean.getAlarmDeviceType()==1? "("+alarmBean.getDeviceName()+")":""));
         alarmDes.setText(alarmBean.getDescription() + "");
-        alarmTime.setText(alarmBean.getCreateTime() + "");
+        alarmTime.setText(alarmBean.getUpdateTime() + "");
         alarmContent.setText(alarmBean.getHandleDescription() + "");
         tvStatus.setText(alarmBean.getAlarmStatus()==0?"忽略":"已处理");
         mPresenter.getImage("alarm", alarmBean.getId());

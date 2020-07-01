@@ -197,7 +197,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog("确定退出编辑？");
+                showDialog("确定退出编辑？",0);
             }
         });
     }
@@ -257,7 +257,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
 
     @Override
     public void showError(String msg) {
-        showDialog(msg+"");
+        showDialog(msg+"",0);
     }
 
     @Override
@@ -296,7 +296,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
     public void showCheckAddrIntent(JsonT jsonT) {
         if (!jsonT.isSuccess()) {
             tvDevicecAddr.setTextColor(getResources().getColor(R.color.red_e8));
-            showDialog(jsonT.getMessage()+"");
+            showDialog(jsonT.getMessage()+"",1);
         } else {
             tvDevicecAddr.setTextColor(getResources().getColor(R.color.colorTextBlack33));
             postData(2);
@@ -307,7 +307,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
     public void showCheckNameIntent(JsonT jsonT) {
         if (!jsonT.isSuccess()) {
             tvDeviceName.setTextColor(getResources().getColor(R.color.red_e8));
-            showDialog(jsonT.getMessage()+"");
+            showDialog(jsonT.getMessage()+"",1);
         } else {
             tvDeviceName.setTextColor(getResources().getColor(R.color.colorTextBlack33));
             postData(3);
@@ -723,7 +723,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            showDialog("确定退出编辑？");
+            showDialog("确定退出编辑？",0);
             return false;
         }else {
             return super.onKeyDown(keyCode, event);
@@ -731,7 +731,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
     }
     private CustomDialog customDialog;
     CustomDialog.Builder builder;
-    void showDialog(String msg) {
+    void showDialog(String msg,int back) {
 
         builder = new CustomDialog.Builder(this)
                 .setTitle("提示")
@@ -745,7 +745,9 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
                 .setPositiveButton("确定", new CustomDialog.Builder.OnPClickListener() {
                     @Override
                     public void onClick(CustomDialog v, String msg) {
-                        finish();
+                        if (back==0) {
+                            finish();
+                        }
                     }
                 });
         customDialog = builder.create();

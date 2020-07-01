@@ -2,6 +2,7 @@ package com.zz.lamp.business.alarm;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,11 +76,21 @@ public class AlarmFragment extends MyBaseFragment {
         });
 
     }
+
     void onChangeFragment(int position){
         if (position == 0) {
             setContentView(getActivity(),LeftFragment.class,R.id.main_layout);
         }else {
             setContentView(getActivity(),RightFragment.class,R.id.main_layout);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        String tabStr = getActivity().getIntent().getStringExtra("tab");
+        if (!TextUtils.isEmpty(tabStr)&&tabStr.equals("2")) {
+            onChangeFragment(0);
         }
     }
 
