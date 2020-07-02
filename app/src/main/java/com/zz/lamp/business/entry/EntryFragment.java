@@ -136,6 +136,7 @@ public class EntryFragment  extends MyBaseFragment<Contract.IsetTerminalPresente
     @Override
     public void onResume() {
         super.onResume();
+        pageNum = 1;
         getData();
     }
 

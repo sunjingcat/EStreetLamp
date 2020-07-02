@@ -53,9 +53,9 @@ public class AlarmBean implements MultiItemEntity {
         return deviceName;
     }
 
-    public AlarmBean(int itemType, String createTime) {
+    public AlarmBean(int itemType, String updateTime) {
         this.itemType = itemType;
-        this.createTime = createTime;
+        this.updateTime = updateTime;
     }
 
     public String getSearchValue() {
