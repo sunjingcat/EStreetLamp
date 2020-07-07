@@ -78,8 +78,6 @@ public class MainActivity extends MyBaseActivity {
                     public void onGranted() {
                         Intent intent = new Intent();
                         intent.setClass(MainActivity.this, HomeActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
-                                Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                     }
 

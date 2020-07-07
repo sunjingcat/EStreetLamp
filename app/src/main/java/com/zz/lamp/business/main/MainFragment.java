@@ -385,7 +385,12 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
     @Override
     public void showUserInfo(UserBasicBean userInfo) {
         if (!TextUtils.isEmpty(userInfo.getAvatar())) {
-            GlideUtils.loadCircleImage(getActivity(), userInfo.getAvatar(), main_mine);
+            try {
+                GlideUtils.loadCircleImage(getActivity(), userInfo.getAvatar(), main_mine);
+            }catch (Exception e){
+
+            }
+
         }
     }
     //实现BDLocationListener接口,BDLocationListener为结果监听接口，异步获取定位结果

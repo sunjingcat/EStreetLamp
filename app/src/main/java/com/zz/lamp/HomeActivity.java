@@ -286,7 +286,11 @@ public class HomeActivity extends MyBaseActivity {
         }else {
             imgTabNum.setVisibility(View.GONE);
         }
-        imgTabNum.setText(isShowBadge+"");
+        if (isShowBadge>99){
+            imgTabNum.setText("99+");
+        }else {
+            imgTabNum.setText(isShowBadge + "");
+        }
         return view;
 
     }
