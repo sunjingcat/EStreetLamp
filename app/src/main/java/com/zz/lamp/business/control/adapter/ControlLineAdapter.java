@@ -2,7 +2,10 @@ package com.zz.lamp.business.control.adapter;
 
 
 import android.graphics.Color;
+import android.view.View;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
@@ -29,13 +32,15 @@ public class ControlLineAdapter extends BaseQuickAdapter<LineBean, BaseViewHolde
     @Override
     protected void convert(BaseViewHolder holper, final LineBean item) {
 
-        CheckBox checkBox = (CheckBox) holper.getView(R.id.item_control_check);
-        checkBox.setEnabled(false);
-        checkBox.setChecked(item.isCheck());
+        ImageView imageView =  holper.getView(R.id.item_control_check);
+        if (item.isCheck()){
+            imageView.setImageResource(R.drawable.image_real_check);
+        }else {
+            imageView.setImageResource(R.drawable.image_real_uncheck);
+        }
         holper.setText(R.id.item_control_title,item.getLineName());
         holper.setText(R.id.item_control_state,item.getStatus()==1?"开":"关");
         holper.setTextColor(R.id.item_control_state,item.getStatus()==1? Color.parseColor("#2EAE73") :Color.parseColor("#E84444"));
-
     }
 
 }

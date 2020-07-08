@@ -7,13 +7,12 @@
     android:orientation="horizontal"
     android:padding="15dp"
     android:gravity="center_vertical">
-    <CheckBox
+
+    <ImageView
         android:id="@+id/item_control_check"
-        android:enabled="false"
-        android:checked="false"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:button="@drawable/check_real"/>
+        android:src="@drawable/image_real_uncheck"/>
     <TextView
         android:id="@+id/item_control_title"
         android:layout_width="0dp"

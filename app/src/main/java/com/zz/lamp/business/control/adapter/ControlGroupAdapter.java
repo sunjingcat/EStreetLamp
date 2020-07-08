@@ -2,7 +2,9 @@ package com.zz.lamp.business.control.adapter;
 
 
 import android.graphics.Color;
+import android.view.View;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
@@ -29,9 +31,12 @@ public class ControlGroupAdapter extends BaseQuickAdapter<RealTimeCtrlGroup, Bas
     @Override
     protected void convert(BaseViewHolder holper, final RealTimeCtrlGroup item) {
 //        亮度值（0-关灯，100-开灯，2-99调光）
-        CheckBox checkBox = (CheckBox) holper.getView(R.id.item_control_check);
-        checkBox.setEnabled(false);
-        checkBox.setChecked(item.isCheck());
+        ImageView imageView =  holper.getView(R.id.item_control_check);
+        if (item.isCheck()){
+            imageView.setImageResource(R.drawable.image_real_check);
+        }else {
+            imageView.setImageResource(R.drawable.image_real_uncheck);
+        }
         holper.setText(R.id.item_control_title,item.getBaseGroupName());
         if (item.getLuminance()==0){
             holper.setText(R.id.item_control_state,"关灯");
@@ -42,7 +47,6 @@ public class ControlGroupAdapter extends BaseQuickAdapter<RealTimeCtrlGroup, Bas
         }else {
             holper.setText(R.id.item_control_state,item.getLuminance()+"%");
         }
-
 //        holper.setTextColor(R.id.item_control_state,item.getStatus()==0? Color.parseColor("#2EAE73") :Color.parseColor("#E84444"));
 
     }
