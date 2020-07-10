@@ -236,7 +236,7 @@ public class LigitDeviceControlActivity extends MyBaseActivity<Contract.IsetLigh
         stopTimer();
     }
 
-    private int TIMER = 5;
+    private int TIMER = 3;
     private MyTimeTask task;
 
     private void setTimer() {

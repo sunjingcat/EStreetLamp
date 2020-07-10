@@ -231,7 +231,7 @@ public class GroupControlActivity extends MyBaseActivity<Contract.IsetGroupContr
         stopTimer();
     }
 
-    private int TIMER = 5;
+    private int TIMER = 3;
     private MyTimeTask task;
 
     private void setTimer() {

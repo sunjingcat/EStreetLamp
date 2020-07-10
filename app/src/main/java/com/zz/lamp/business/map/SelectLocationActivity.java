@@ -47,7 +47,6 @@ import com.zz.lamp.base.MyBaseActivity;
 import com.zz.lamp.business.entry.adapter.SearchLocationAdapter;
 import com.zz.lamp.utils.AMapUtils;
 import com.zz.lamp.utils.FileUtils;
-import com.zz.lamp.utils.LngLat;
 import com.zz.lamp.utils.LogUtils;
 import com.zz.lib.commonlib.utils.PermissionUtils;
 import com.zz.lib.commonlib.utils.ToolBarUtils;
