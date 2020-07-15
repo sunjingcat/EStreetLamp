@@ -60,7 +60,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
-
+/**
+ * 录入灯控器
+ */
 public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresenter> implements Contract.IGetLampAddView {
 
     @BindView(R.id.toolbar_subtitle)

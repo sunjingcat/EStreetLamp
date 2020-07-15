@@ -29,6 +29,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * 登录
+ */
 public class LoginActivity extends MyBaseActivity<Contract.IsetLoginPresenter> implements Contract.IGetLoginView{
 
     @BindView(R.id.log_number)

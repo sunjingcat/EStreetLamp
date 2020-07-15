@@ -30,7 +30,9 @@ import org.greenrobot.eventbus.EventBus;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
+/**
+ * 我的
+ */
 public class MineActivity extends MyBaseActivity<Contract.IsetMineInfoPresenter> implements Contract.IMineInfoView {
 
     @BindView(R.id.my_head)

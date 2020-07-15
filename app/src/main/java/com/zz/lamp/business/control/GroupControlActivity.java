@@ -41,6 +41,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * 分组控制
+ */
 public class GroupControlActivity extends MyBaseActivity<Contract.IsetGroupControlPresenter> implements Contract.IGetGroupControlView {
 
     @BindView(R.id.toolbar)

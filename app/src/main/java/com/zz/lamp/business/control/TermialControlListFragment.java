@@ -45,7 +45,9 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 import static com.zz.lamp.net.RxNetUtils.getCApi;
-
+/**
+ * 集中器控制
+ */
 public class TermialControlListFragment extends MyBaseFragment implements OnRefreshListener, OnLoadMoreListener {
     List<RealTimeCtrlTerminal> mlist = new ArrayList<>();
     ControlJzqAdapter adapter;

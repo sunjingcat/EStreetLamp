@@ -33,6 +33,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * 首页详情
+ */
 public class InfoActivity extends Activity {
 
     @BindView(R.id.item_title)

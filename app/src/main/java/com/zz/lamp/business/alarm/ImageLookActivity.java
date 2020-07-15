@@ -18,7 +18,9 @@ import com.zz.lib.core.ui.mvp.BasePresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-
+/**
+ * 图片查看
+ */
 public class ImageLookActivity extends MyBaseActivity {
 
     @BindView(R.id.toolbar_title)

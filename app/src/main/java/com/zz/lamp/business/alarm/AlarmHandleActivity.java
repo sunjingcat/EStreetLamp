@@ -48,7 +48,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
-
+/**
+ * 告警操作
+ */
 public class AlarmHandleActivity extends MyBaseActivity<Contract.IsetAlarmAddPresenter> implements Contract.IGetAlarmAddView {
     ArrayList<String> imagesAnnex = new ArrayList<>();
     ImageDeleteItemAdapter adapterAnnex;

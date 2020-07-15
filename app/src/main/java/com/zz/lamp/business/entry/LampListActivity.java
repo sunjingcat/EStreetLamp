@@ -40,7 +40,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
+/**
+ * 集中器详情灯控器列表
+ */
 public class LampListActivity extends MyBaseActivity<Contract.IsetLampPresenter> implements Contract.IGetLampView, OnLoadMoreListener {
     @BindView(R.id.toolbar)
     Toolbar toolbar;

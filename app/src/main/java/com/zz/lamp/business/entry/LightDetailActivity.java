@@ -40,6 +40,9 @@ import butterknife.OnClick;
 
 import static com.zz.lamp.net.RxNetUtils.getCApi;
 
+/**
+ * 灯控器详情
+ */
 public class LightDetailActivity extends MyBaseActivity<Contract.IsetLampDetailPresenter> implements Contract.IGeLampDetailView {
     ArrayList<String> images = new ArrayList<>();
     ImageItemAdapter imageItemAdapter;

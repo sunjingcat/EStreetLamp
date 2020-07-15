@@ -42,6 +42,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
+/**
+ * 录入首页
+ */
 public class EntryFragment  extends MyBaseFragment<Contract.IsetTerminalPresenter> implements Contract.IGetTerminalView, OnRefreshListener, OnLoadMoreListener {
 
     @BindView(R.id.toolbar)

@@ -34,6 +34,9 @@ import butterknife.OnClick;
 import static com.zz.lamp.net.RxNetUtils.getCApi;
 import static com.zz.lib.core.http.utils.ToastUtils.showToast;
 
+/**
+ * 线路
+ */
 public class AddLineActivity extends Activity {
 
     @BindView(R.id.item_title)

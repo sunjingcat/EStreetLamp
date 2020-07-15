@@ -19,7 +19,9 @@ import androidx.fragment.app.FragmentTransaction;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-
+/**
+ * 控制首页
+ */
 public class ControlFragment extends MyBaseFragment {
     String[] tabs = {"集中器", "摄像头"};
     @BindView(R.id.toolbar)

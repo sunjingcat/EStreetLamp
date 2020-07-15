@@ -48,6 +48,9 @@ import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
 
 
+/**
+ * 录入集中器
+ */
 public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPresenter> implements Contract.IGetTerminalAddView {
     ArrayList<String> imagesAnnex = new ArrayList<>();
     ImageDeleteItemAdapter adapterAnnex;

@@ -23,7 +23,9 @@ import com.zz.lib.core.ui.mvp.BasePresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-
+/**
+ * 告警
+ */
 public class AlarmFragment extends MyBaseFragment {
     String[] tabs = {"未处理", "已处理"};
     @BindView(R.id.toolbar)

@@ -36,6 +36,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ *  线路
+ */
 public class LineActivity extends MyBaseActivity<Contract.IsetLinePresenter> implements Contract.IGetLineView {
 
     @BindView(R.id.toolbar_subtitle)

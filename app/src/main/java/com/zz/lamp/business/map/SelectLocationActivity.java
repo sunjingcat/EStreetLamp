@@ -59,6 +59,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * 选择地址
+ */
 public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCoderResultListener {
     @BindView(R.id.toolbar_subtitle)
     TextView toolbarSubtitle;

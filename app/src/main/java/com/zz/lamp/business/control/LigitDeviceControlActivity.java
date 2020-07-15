@@ -47,7 +47,9 @@ import java.util.TimerTask;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
+/**
+ * 单灯控制
+ */
 public class LigitDeviceControlActivity extends MyBaseActivity<Contract.IsetLightControlPresenter> implements Contract.IGetLightControlView, OnLoadMoreListener, OnRefreshListener {
 
     @BindView(R.id.toolbar)

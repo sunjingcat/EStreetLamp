@@ -44,7 +44,9 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 import static com.zz.lamp.net.RxNetUtils.getCApi;
-
+/**
+ * 监控首页
+ */
 public class VideoControlListFragment extends MyBaseFragment implements OnRefreshListener, OnLoadMoreListener {
     List<CameraBean> mlist = new ArrayList<>();
     ControlCameraAdapter adapter;

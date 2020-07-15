@@ -42,7 +42,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-
+/**
+ * 告警详情
+ */
 public class AlarmDetailActivity extends MyBaseActivity<Contract.IsetAlarmAddPresenter> implements Contract.IGetAlarmAddView {
     ArrayList<String> images = new ArrayList<>();
     ImageItemAdapter adapter;

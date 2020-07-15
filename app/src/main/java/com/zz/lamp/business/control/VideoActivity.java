@@ -29,7 +29,9 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
+/**
+ * 监控控制
+ */
 public class VideoActivity extends MyBaseActivity<Contract.IsetVideoControlPresenter> implements Contract.IGetVideoControlView {
 
     @BindView(R.id.player_ui)

@@ -36,6 +36,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * 区域
+ */
 public class RegionActivity extends MyBaseActivity<Contract.IsetRegionPresenter> implements Contract.IGetRegionlView {
 
     @BindView(R.id.toolbar_subtitle)

@@ -25,6 +25,9 @@ import butterknife.OnClick;
 
 import static com.zz.lamp.net.RxNetUtils.getCApi;
 
+/**
+ * 关于
+ */
 public class AboutActivity extends MyBaseActivity {
 
     @BindView(R.id.toolbar)

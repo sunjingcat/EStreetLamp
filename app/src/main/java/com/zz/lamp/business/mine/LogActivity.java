@@ -39,7 +39,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.zz.lamp.net.RxNetUtils.getCApi;
-
+/**
+ * Log
+ */
 public class LogActivity extends MyBaseActivity implements OnRefreshListener, OnLoadMoreListener {
 
     List<OperLog> mlist = new ArrayList<>();

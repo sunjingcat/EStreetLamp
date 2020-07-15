@@ -30,7 +30,9 @@ import butterknife.OnClick;
 
 import static com.zz.lamp.base.BasePresenter.getApi;
 import static com.zz.lamp.net.RxNetUtils.getCApi;
-
+/**
+ * 切换邀请码
+ */
 public class ChangeCodeActivity extends MyBaseActivity {
 
     @BindView(R.id.toolbar)

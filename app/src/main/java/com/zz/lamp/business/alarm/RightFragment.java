@@ -49,7 +49,9 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 import static com.zz.lamp.net.RxNetUtils.getCApi;
-
+/**
+ * 告警已处理
+ */
 public class RightFragment extends MyBaseFragment implements OnRefreshListener, OnLoadMoreListener {
     List<AlarmBean> mlist = new ArrayList<>();
     AlarmAdapter adapter;

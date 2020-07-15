@@ -31,7 +31,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.zz.lamp.net.RxNetUtils.getCApi;
-
+/**
+ * 密码
+ */
 public class PasswordActivity extends MyBaseActivity {
 
     @BindView(R.id.toolbar)
