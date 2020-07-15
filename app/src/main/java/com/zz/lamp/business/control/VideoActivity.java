@@ -46,6 +46,8 @@ public class VideoActivity extends MyBaseActivity<Contract.IsetVideoControlPrese
     TextView videoZoom;
     @BindView(R.id.video_zoomOut)
     TextView videoZoomOut;
+    @BindView(R.id.btn_back)
+    ImageView btn_back;
 
     @Override
     protected int getContentView() {
@@ -158,6 +160,12 @@ public class VideoActivity extends MyBaseActivity<Contract.IsetVideoControlPrese
                         break;
                 }
                 return true;
+            }
+        });
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
