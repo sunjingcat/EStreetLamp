@@ -57,6 +57,23 @@ public class LampPresenter extends MyBasePresenterImpl<Contract.IGetLampView> im
             }
         },mDialog);
     }
+
+    @Override
+    public void lightDbSet(String id) {
+        RxNetUtils.request(getCApi(ApiService.class).lightDbSet(id), new RequestObserver<JsonT>(this) {
+            @Override
+            protected void onSuccess(JsonT data) {
+                view.showToast(data.getMessage());
+            }
+
+            @Override
+            protected void onFail2(JsonT userInfoJsonT) {
+                super.onFail2(userInfoJsonT);
+                view.showToast(userInfoJsonT.getMessage());
+            }
+        },mDialog);
+    }
+
     @Override
     public void getImage(String type, String modelId) {
         RxNetUtils.request(getCApi(ApiService.class).getImageBase64(type,modelId), new RequestObserver<JsonT<List<ImageBack>>>(this) {

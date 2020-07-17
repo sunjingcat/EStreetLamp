@@ -23,6 +23,7 @@
             android:text="集中器详情"
             android:textColor="@color/colorTextBlack33"
             android:textSize="18dp" />
+
         <TextView
             android:id="@+id/toolbar_subtitle"
             android:layout_width="wrap_content"
@@ -132,6 +133,15 @@
                         android:textColor="#444444"
                         android:textSize="18dp" />
 
+                    <TextView
+                        android:id="@+id/dangan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:drawablePadding="5dp"
+                        android:padding="5dp"
+                        android:text="档案下发"
+                        android:textColor="@color/colorTextBlack99" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -314,6 +324,42 @@
                             tools:text="当前状态" />
                     </LinearLayout>
 
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="8dp"
+                       >
+
+                        <TextView
+                            style="@style/textInfoTitleStyle"
+                            android:width="120dp"
+                            android:text="是否同步" />
+
+                        <TextView
+                            android:id="@+id/terminalSync"
+                            style="@style/textInfoContentStyle"
+                            tools:text="当前状态" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="8dp"
+                       >
+
+                        <TextView
+                            style="@style/textInfoTitleStyle"
+                            android:width="120dp"
+                            android:text="同步时间" />
+
+                        <TextView
+                            android:id="@+id/terminalSyncTime"
+                            style="@style/textInfoContentStyle"
+                            tools:text="当前状态" />
+                    </LinearLayout>
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_images_annex"
                         android:layout_width="match_parent"
@@ -332,11 +378,11 @@
                 android:id="@+id/ll_show"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:background="@color/white"
                 android:gravity="center"
                 android:orientation="vertical"
                 android:paddingTop="10dp"
-                android:layout_marginBottom="10dp"
                 android:paddingBottom="10dp">
 
                 <ImageView

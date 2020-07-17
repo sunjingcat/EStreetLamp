@@ -17,7 +17,7 @@ public class Contract {
     public interface IGetLoginView extends BaseView{
 
         void setAuthCode(IpAdress params);
-        void showIntent();
+        void showIntent(int indexType);
     }
 
 }

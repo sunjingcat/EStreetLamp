@@ -30,11 +30,6 @@ import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
-import com.baidu.mapapi.map.CustomMapStyleCallBack;
-import com.baidu.mapapi.map.MapCustomStyleOptions;
-import com.baidu.mapapi.map.MapStatus;
-import com.baidu.mapapi.map.MapStatusUpdate;
-import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
@@ -42,9 +37,6 @@ import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.Overlay;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
-import com.baidu.mapapi.model.LatLngBounds;
-import com.baidu.mapapi.search.core.PoiInfo;
-import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.FutureTarget;
 import com.google.android.material.tabs.TabLayout;
@@ -52,6 +44,7 @@ import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseFragment;
 
 import com.zz.lamp.bean.ConcentratorBean;
+import com.zz.lamp.bean.DeviceKind;
 import com.zz.lamp.bean.LightDevice;
 import com.zz.lamp.bean.MapListBean;
 import com.zz.lamp.bean.UserBasicBean;
@@ -92,6 +85,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
     @BindView(R.id.tab_device)
     TabLayout tabDevice;
     String[] tabs = {"全部设备", "集中器", "灯控器", "智慧灯杆", "LED", "摄像头", "IP音柱"};
+    Integer[] tabsType = {0, 1, 2, 3, 4, 5, 6};
     Unbinder unbinder;
     @BindView(R.id.bmapView)
     MapView bmapView;
@@ -124,26 +118,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
     @Override
     protected void initView(View view) {
         mBaiduMap = bmapView.getMap();
-        TabUtils.setTabs(tabDevice, this.getLayoutInflater(), tabs);
-        tabDevice.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                TabUtils.setTabSize(tab, 16);
-                clearMarkers();
-                getData(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-                TabUtils.setTabSize(tab, 14);
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-        getData(0);
+        mPresenter.deviceKindList();
 //        mBaiduMap.showMapPoi(false);
         mBaiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
             @Override
@@ -176,7 +151,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
                     // 在这里写搜索的操作,一般都是网络请求数据
                     searchValue = v.getText().toString().trim();
                     clearMarkers();
-                    getData(tabDevice.getSelectedTabPosition());
+                    getData(tabsType[tabDevice.getSelectedTabPosition()]);
 
                     return true;
                 }
@@ -200,7 +175,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
                 if (TextUtils.isEmpty(s)) {
                     searchValue = "";
                     clearMarkers();
-                    getData(tabDevice.getSelectedTabPosition());
+                    getData(tabsType[tabDevice.getSelectedTabPosition()]);
                 }
             }
         });
@@ -230,6 +205,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
     @Override
     public void onError() {
 
+
     }
 
 
@@ -249,7 +225,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
                 break;
             case R.id.refresh:
                 clearMarkers();
-                getData(tabDevice.getSelectedTabPosition());
+                getData(tabsType[tabDevice.getSelectedTabPosition()]);
                 break;
         }
     }
@@ -300,6 +276,40 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
     @Override
     public void showResult(List<MapListBean> list) {
         addMarkers(list);
+    }
+
+    @Override
+    public void showDeviceKindList(List<DeviceKind> listBeans) {
+        if (listBeans!=null&&listBeans.size()>0) {
+            List<String> tabList = new ArrayList<>();
+            List<Integer> tabTypeList = new ArrayList<>();
+            for (int i = 0; i < listBeans.size(); i++) {
+                tabList.add(listBeans.get(i).getKindLabel());
+                tabTypeList.add(listBeans.get(i).getKindCode());
+            }
+            tabs =tabList.toArray(new String[tabList.size()]);
+            tabsType = tabTypeList.toArray(new Integer[tabTypeList.size()]);
+        }
+        TabUtils.setTabs(tabDevice, this.getLayoutInflater(), tabs);
+        tabDevice.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                TabUtils.setTabSize(tab, 16);
+                clearMarkers();
+                getData(tabsType[tab.getPosition()]);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                TabUtils.setTabSize(tab, 14);
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+        getData(0);
     }
 
     List<Overlay> overlays;

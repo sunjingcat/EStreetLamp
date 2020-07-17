@@ -111,7 +111,7 @@ public class LightDevice implements Serializable {
     }
 
     public Integer getLightAuxiliaryType() {
-        if (deviceType==null) return lightAuxiliaryType;
+        if (lightAuxiliaryType==null) return 0;
         return lightAuxiliaryType;
     }
 

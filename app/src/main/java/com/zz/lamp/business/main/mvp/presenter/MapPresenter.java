@@ -2,6 +2,7 @@ package com.zz.lamp.business.main.mvp.presenter;
 
 import com.zz.lamp.bean.AlarmBean;
 import com.zz.lamp.bean.ConcentratorBean;
+import com.zz.lamp.bean.DeviceKind;
 import com.zz.lamp.bean.LightDevice;
 import com.zz.lamp.bean.MapListBean;
 import com.zz.lamp.bean.UserBasicBean;
@@ -24,6 +25,28 @@ public class MapPresenter extends MyBasePresenterImpl<Contract.IGetMapView> impl
     public MapPresenter(Contract.IGetMapView view) {
         super(view);
     }
+
+
+    @Override
+    public void deviceKindList() {
+        RxNetUtils.request(getCApi(ApiService.class).getDeviceKindList(), new RequestObserver<JsonT<List<DeviceKind>>>(this) {
+            @Override
+            protected void onSuccess(JsonT<List<DeviceKind>> data) {
+                if (data.isSuccess()) {
+                    view.showDeviceKindList(data.getData());
+                }else {
+
+                }
+            }
+
+            @Override
+            protected void onFail2(JsonT<List<DeviceKind>> userInfoJsonT) {
+                super.onFail2(userInfoJsonT);
+                view.showToast(userInfoJsonT.getMessage());
+            }
+        },mDialog);
+    }
+
 
 
     @Override

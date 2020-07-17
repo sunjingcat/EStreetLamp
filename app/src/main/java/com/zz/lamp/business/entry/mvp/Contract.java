@@ -101,6 +101,7 @@ public class Contract {
         void getLampList(Map<String, Object> params, String id);
         void getImage(String type,String modelId);
         void getTerminalDetail(String id);
+        void lightDbSet(String id);
     }
 
     public interface IGetLampView extends BaseView {

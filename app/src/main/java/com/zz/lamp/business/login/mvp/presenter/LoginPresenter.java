@@ -53,7 +53,8 @@ public class LoginPresenter extends MyBasePresenterImpl<Contract.IGetLoginView> 
             protected void onSuccess(JsonT<UserInfo> login_data) {
                 if (login_data.isSuccess()) {
                     CacheUtility.saveToken(login_data.getData().getLoginToken());
-                    view.showIntent();
+                    CacheUtility.saveIndexType(login_data.getData().getIndexType());
+                    view.showIntent(login_data.getData().getIndexType());
                 }else {
 
                 }

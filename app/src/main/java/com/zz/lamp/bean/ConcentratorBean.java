@@ -12,6 +12,8 @@ public class ConcentratorBean implements Serializable {
     private String updateTime;// 2020-04-10 16;//15;//35,
     private String remark;// null,
     private String deptId;// 116,
+    private String isRecordSyncText;// 116,
+    private String recordSyncTime;// 116,
 
     private String area;// null,
     private String id;// 2,
@@ -360,6 +362,14 @@ public class ConcentratorBean implements Serializable {
 
     public String getLightDeviceSucceedCount() {
         return lightDeviceSucceedCount;
+    }
+
+    public String getIsRecordSyncText() {
+        return isRecordSyncText;
+    }
+
+    public String getRecordSyncTime() {
+        return recordSyncTime;
     }
 
     public String getAlarmDelayedTime() {

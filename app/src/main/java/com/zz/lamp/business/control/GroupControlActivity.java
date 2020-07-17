@@ -173,7 +173,7 @@ public class GroupControlActivity extends MyBaseActivity<Contract.IsetGroupContr
     }
 
     void showTimeDialog(int opt, String title) {
-        stopTimer();
+
         builder = new CustomDialog.Builder(GroupControlActivity.this)
                 .setTitle("提示")
                 .setMessage("确定" + title + "？")
@@ -181,7 +181,7 @@ public class GroupControlActivity extends MyBaseActivity<Contract.IsetGroupContr
                 .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        stopTimer();
+
                     }
                 })
                 .setPositiveButton("确定", new CustomDialog.Builder.OnPClickListener() {
@@ -190,7 +190,7 @@ public class GroupControlActivity extends MyBaseActivity<Contract.IsetGroupContr
                         postData(opt);
                     }
                 });
-        setTimer();
+
         customDialog = builder.create();
         customDialog.show();
     }
@@ -231,47 +231,5 @@ public class GroupControlActivity extends MyBaseActivity<Contract.IsetGroupContr
         if (customDialog != null && customDialog.isShowing()) {
             customDialog.dismiss();
         }
-        stopTimer();
-    }
-
-    private int TIMER = 3;
-    private MyTimeTask task;
-
-    private void setTimer() {
-        task = new MyTimeTask(1000, new TimerTask() {
-            @Override
-            public void run() {
-                mHandler.sendEmptyMessage(0);
-                //或者发广播，启动服务都是可以的
-            }
-        });
-        task.start();
-    }
-
-    private Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what) {
-                case 0:
-                    TIMER--;
-                    builder.setPositiveButton(TIMER + "");
-                    if (TIMER == 0) {
-                        stopTimer();
-                        builder.setPositiveButton("确定");
-
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
-    };
-
-    private void stopTimer() {
-        if (task != null) {
-            task.stop();
-        }
-        TIMER = 5;
     }
 }

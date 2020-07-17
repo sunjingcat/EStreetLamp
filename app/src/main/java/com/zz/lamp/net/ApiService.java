@@ -6,6 +6,7 @@ package com.zz.lamp.net;
 import com.zz.lamp.bean.AlarmBean;
 import com.zz.lamp.bean.CameraBean;
 import com.zz.lamp.bean.ConcentratorBean;
+import com.zz.lamp.bean.DeviceKind;
 import com.zz.lamp.bean.DeviceType;
 import com.zz.lamp.bean.DictBean;
 import com.zz.lamp.bean.ImageBack;
@@ -62,6 +63,9 @@ public interface ApiService {
 
     @GET("/app/light/terminal/{id}")
     Observable<JsonT<ConcentratorBean>> getTerminalDetail(@Path("id") String authCode);
+
+    @POST("/app/light/terminal/paramSet/{terminalId}")
+    Observable<JsonT> lightDbSet(@Path("terminalId") String id);
 
     @GET("/app/light/lightDevice/{id}")
     Observable<JsonT<LightDevice>> getLampDetail(@Path("id") String id);
@@ -192,6 +196,9 @@ public interface ApiService {
 
     @GET("/app/light/map/list")
     Observable<JsonT<List<MapListBean>>> getMapList(@QueryMap Map<String, Object> params);
+
+    @GET("/app/light/map/deviceKindList")
+    Observable<JsonT<List<DeviceKind>>> getDeviceKindList();
 
     @GET("/app/light/map/terminal/{id}")
     Observable<JsonT<ConcentratorBean>> getMapTerminalDetail(@Path("id") String id);

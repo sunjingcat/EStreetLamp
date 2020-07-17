@@ -7,6 +7,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -30,16 +37,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 /**
  * 集中器详情灯控器列表
  */
@@ -88,6 +89,11 @@ public class LampListActivity extends MyBaseActivity<Contract.IsetLampPresenter>
     ImageItemAdapter imageItemAdapter;
     @BindView(R.id.rv_images_annex)
     RecyclerView rvImagesAnnex;
+    @BindView(R.id.terminalSync)
+    TextView terminalSync;
+    @BindView(R.id.terminalSyncTime)
+    TextView terminalSyncTime;
+
     @Override
     protected int getContentView() {
         return R.layout.activity_lamp_list;
@@ -152,7 +158,7 @@ public class LampListActivity extends MyBaseActivity<Contract.IsetLampPresenter>
         if (list == null) return;
 
         List<String> showList = new ArrayList<>();
-        for (ImageBack imageBack:list){
+        for (ImageBack imageBack : list) {
             showList.add(imageBack.getBase64());
         }
         images.clear();
@@ -175,12 +181,14 @@ public class LampListActivity extends MyBaseActivity<Contract.IsetLampPresenter>
         lineTransformerRatio.setText(concentratorBean.getLineTransformerRatio() + "");
         alarmDelayedTime.setText(concentratorBean.getAlarmDelayedTime() + "");
         relayOnDelayedTime.setText(concentratorBean.getRelayOnDelayedTime() + "");
+        terminalSync.setText(concentratorBean.getIsRecordSyncText() + "");
+        terminalSyncTime.setText(concentratorBean.getRecordSyncTime() + "");
 //        terminalLat.setText(concentratorBean.getTerminalLat() + "," + concentratorBean.getTerminalLng());
-        mPresenter.getImage("terminal",concentratorBean.getId());
+        mPresenter.getImage("terminal", concentratorBean.getId());
     }
 
 
-    @OnClick({R.id.entry_line, R.id.entry_lamp, R.id.ll_show, R.id.toolbar_subtitle})
+    @OnClick({R.id.entry_line, R.id.entry_lamp, R.id.ll_show, R.id.toolbar_subtitle, R.id.dangan})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.toolbar_subtitle:
@@ -204,6 +212,9 @@ public class LampListActivity extends MyBaseActivity<Contract.IsetLampPresenter>
 
                 startActivity(new Intent(this, EntryLampActivity.class).putExtra("terminalId", terminalId));
 
+                break;
+            case R.id.dangan:
+                mPresenter.lightDbSet(terminalId);
                 break;
         }
     }
