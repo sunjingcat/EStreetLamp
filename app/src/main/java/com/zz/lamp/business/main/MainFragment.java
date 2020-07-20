@@ -53,6 +53,8 @@ import com.zz.lamp.business.main.mvp.Contract;
 import com.zz.lamp.business.main.mvp.presenter.MapPresenter;
 import com.zz.lamp.business.map.OverlayManager;
 import com.zz.lamp.business.map.SelectLocationActivity;
+import com.zz.lamp.business.map.clusterutil.MyItem;
+import com.zz.lamp.business.map.clusterutil.clustering.ClusterManager;
 import com.zz.lamp.business.mine.MineActivity;
 import com.zz.lamp.utils.AMapUtils;
 import com.zz.lamp.utils.FileUtils;
@@ -111,36 +113,32 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
         super.onDestroyView();
         unbinder.unbind();
     }
-
+    ClusterManager mClusterManager;
     @Override
     protected int getCreateView() {
         return R.layout.fragment_main;
     }
 
-    OverlayManager overlayManager;
+
     @Override
     protected void initView(View view) {
         mBaiduMap = bmapView.getMap();
         mPresenter.deviceKindList();
 //        mBaiduMap.showMapPoi(false);
-        mPresenter.getUserInfoData();
-         overlayManager = new OverlayManager(mBaiduMap) {
+        mClusterManager = new ClusterManager<MyItem>(getActivity(), mBaiduMap);
+        // 设置地图监听，当地图状态发生改变时，进行点聚合运算
+        mBaiduMap.setOnMapStatusChangeListener(mClusterManager);
+        // 设置maker点击时的响应
+        mBaiduMap.setOnMarkerClickListener(mClusterManager);
+        mClusterManager.setOnClusterItemClickListener(new ClusterManager.OnClusterItemClickListener<MyItem>() {
             @Override
-            public boolean onPolylineClick(Polyline polyline) {
-                return false;
-            }
-
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                Bundle extraInfo = marker.getExtraInfo();
-                String id = extraInfo.getString("id");
-                int deviceKind = extraInfo.getInt("deviceKind", 0);
-                switch (deviceKind) {
+            public boolean onClusterItemClick(MyItem item) {
+                switch (item.getDeviceKind()) {
                     case 1:
-                        mPresenter.getTerminalData(id);
+                        mPresenter.getTerminalData(item.getId());
                         break;
                     case 2:
-                        mPresenter.getLightDeviceData(id);
+                        mPresenter.getLightDeviceData(item.getId());
                         break;
 //                    case 3:
 //                        mPresenter.getLightDeviceData(id);
@@ -149,12 +147,8 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
 
                 return false;
             }
-
-            @Override
-            public List<OverlayOptions> getOverlayOptions() {
-                return overlayOptions;
-            }
-        };
+        });
+        mPresenter.getUserInfoData();
         searchEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -202,6 +196,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
         mLocationClient = new LocationClient(getActivity().getApplicationContext());
         initLocation();
         mLocationClient.registerLocationListener(myListener);    //注册监听函数
+
     }
 
     public void hideKeyboard(View view) {
@@ -250,17 +245,17 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
     }
 
     void clearMarkers() {
-//        try {
-//            if (overlays != null && !overlays.isEmpty()) {
-//                overlays.clear();
-//                overlayOptions.clear();
-//                mBaiduMap.clear();
-//                bmapView.invalidate();
-//
-//            }
-//        } catch (Exception e) {
-//        }
-        overlayManager.removeFromMap();
+        try {
+            if (myItems != null && !myItems.isEmpty()) {
+                myItems.clear();
+                mClusterManager.clearItems();
+                mBaiduMap.clear();
+                bmapView.invalidate();
+
+
+            }
+        } catch (Exception e) {
+        }
     }
 
     @Override
@@ -328,17 +323,17 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
 
     }
 
-    List<Overlay> overlays;
-    List<OverlayOptions> overlayOptions = new ArrayList<>();
     List<MapListBean> mapListList = new ArrayList<>();
-    List<LatLng> latLngs = new ArrayList<>();
+
+    List<MyItem> myItems = new ArrayList<>();
 
     void addMarkers(List<MapListBean> list) {
         if (list == null || list.size() == 0) {
             return;
         }
-        overlayOptions.clear();
-        mapListList = list;
+        mapListList.clear();
+        mapListList .addAll(list);
+        myItems.clear();
 
         new Thread(new Runnable() {
             @Override
@@ -355,18 +350,10 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
                         if (bitmap1 == null) return;
                         BitmapDescriptor bitmap = BitmapDescriptorFactory.fromBitmap(bitmap1);
                         LatLng point = new LatLng(mapListBean.getLat(), mapListBean.getLng());
-                        Bundle bundle = new Bundle();
-                        bundle.putString("id", mapListBean.getId());
-                        bundle.putInt("deviceKind", mapListBean.getDeviceKind());
-                        OverlayOptions option = new MarkerOptions()
-                                .extraInfo(bundle)
-                                .position(point)
-                                .icon(bitmap);
-                        overlayOptions.add(option);
-                        latLngs.add(new LatLng(mapListBean.getLat(),mapListBean.getLng()));
+                        myItems.add(new MyItem(mapListBean.getId(), mapListBean.getDeviceKind(),point,bitmap));
                     }
 
-                    if (overlayOptions.size() > 0) {
+                    if (myItems.size() > 0) {
                         mHandler.sendEmptyMessage(1);
                     }
 
@@ -387,11 +374,9 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
             switch (msg.what) {
                 case 1:
                     try {
-//                        if (overlayOptions == null || overlayOptions.size() == 0) return;
-//                        overlays = mBaiduMap.addOverlays(overlayOptions);
-//                        AMapUtils.setMapZoom(mapListList, mBaiduMap);
-                        overlayManager.addToMap();
-                        overlayManager.zoomToSpan();
+
+                        mClusterManager.addItems(myItems);
+                        AMapUtils.setMapZoom(mapListList, mBaiduMap);
                     } catch (Exception e) {
 
                     }

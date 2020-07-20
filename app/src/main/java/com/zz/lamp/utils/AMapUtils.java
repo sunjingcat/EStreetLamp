@@ -11,6 +11,7 @@ import com.zz.lamp.bean.MapListBean;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 //https://blog.csdn.net/shilidianshoumuren/article/details/54847692
@@ -154,14 +155,17 @@ public class AMapUtils {
         getLevel(mBaiduMap);
         //计算中心点经纬度，将其设为启动时地图中心
         setCenter(mBaiduMap);
+
     }
     public static void setMyMapZoom(List<MapListBean> list, BaiduMap mBaiduMap,LatLng latLng) {
 
+        LogUtils.v("sj---",new Date().toString());
         //比较选出集合中最大经纬度
         getMax(list);
         //根据距离判断地图级别
         getLevel(mBaiduMap,latLng);
         //计算中心点经纬度，将其设为启动时地图中心
         setCenter(mBaiduMap);
+        LogUtils.v("sj---",new Date().toString());
     }
 }

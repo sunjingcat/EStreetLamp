@@ -31,6 +31,7 @@ public class ImageItemAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
     protected void convert(BaseViewHolder holder, final String item) {
         GlideUtils.loadImage(getContext(), item, (ImageView) holder.getView(R.id.image));
 
+
         holder.getView(R.id.image).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

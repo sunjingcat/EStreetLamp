@@ -35,6 +35,7 @@ public class ThirdNodeProvider extends BaseNodeProvider implements Serializable 
     public void convert(@NotNull BaseViewHolder baseViewHolder, BaseNode baseNode) {
         baseViewHolder.setText(R.id.title,((RegionExpandItem2)baseNode).getAreaName());
         baseViewHolder.setImageResource(R.id.image_fold,((BaseExpandNode)baseNode).isExpanded()?R.drawable.image_down:R.drawable.image_right);
+        baseViewHolder.getView(R.id.image_fold).setVisibility(baseNode.getChildNode()!=null&&baseNode.getChildNode().size()>0?View.VISIBLE:View.GONE);
         baseViewHolder.getView(R.id.image_fold).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

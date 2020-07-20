@@ -90,6 +90,9 @@ public class MainActivity extends MyBaseActivity {
                 break;
             case R.id.main_group_2:
                 showToast("暂未开放，敬请期待");
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, TestLocationActivity.class);
+                startActivity(intent);
                 break;
             case R.id.main_group_3:
                 showToast("暂未开放，敬请期待");
