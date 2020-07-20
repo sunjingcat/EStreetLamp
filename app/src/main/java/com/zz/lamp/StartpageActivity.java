@@ -77,7 +77,12 @@ public class StartpageActivity extends MyBaseActivity implements View.OnClickLis
                 if (TextUtils.isEmpty(CacheUtility.getToken())){
                     startActivity(new Intent(StartpageActivity.this,LoginActivity.class));
                 }else {
-                    startActivity(new Intent(StartpageActivity.this,MainActivity.class));
+                    int indexType = CacheUtility.getIndexType();
+                    if (indexType==1) {
+                        startActivity(new Intent(StartpageActivity.this, HomeActivity.class));
+                    }else {
+                        startActivity(new Intent(StartpageActivity.this, MainActivity.class));
+                    }
                 }
                 if (timer!=null){
                     timer.cancel();
