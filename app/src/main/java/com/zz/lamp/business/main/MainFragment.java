@@ -36,6 +36,7 @@ import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.Overlay;
 import com.baidu.mapapi.map.OverlayOptions;
+import com.baidu.mapapi.map.Polyline;
 import com.baidu.mapapi.model.LatLng;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.FutureTarget;
@@ -50,6 +51,7 @@ import com.zz.lamp.bean.MapListBean;
 import com.zz.lamp.bean.UserBasicBean;
 import com.zz.lamp.business.main.mvp.Contract;
 import com.zz.lamp.business.main.mvp.presenter.MapPresenter;
+import com.zz.lamp.business.map.OverlayManager;
 import com.zz.lamp.business.map.SelectLocationActivity;
 import com.zz.lamp.business.mine.MineActivity;
 import com.zz.lamp.utils.AMapUtils;
@@ -115,12 +117,19 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
         return R.layout.fragment_main;
     }
 
+    OverlayManager overlayManager;
     @Override
     protected void initView(View view) {
         mBaiduMap = bmapView.getMap();
         mPresenter.deviceKindList();
 //        mBaiduMap.showMapPoi(false);
-        mBaiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
+        mPresenter.getUserInfoData();
+         overlayManager = new OverlayManager(mBaiduMap) {
+            @Override
+            public boolean onPolylineClick(Polyline polyline) {
+                return false;
+            }
+
             @Override
             public boolean onMarkerClick(Marker marker) {
                 Bundle extraInfo = marker.getExtraInfo();
@@ -140,8 +149,12 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
 
                 return false;
             }
-        });
-        mPresenter.getUserInfoData();
+
+            @Override
+            public List<OverlayOptions> getOverlayOptions() {
+                return overlayOptions;
+            }
+        };
         searchEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -237,16 +250,17 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
     }
 
     void clearMarkers() {
-        try {
-            if (overlays != null && !overlays.isEmpty()) {
-                overlays.clear();
-                overlayOptions.clear();
-                mBaiduMap.clear();
-                bmapView.invalidate();
-
-            }
-        } catch (Exception e) {
-        }
+//        try {
+//            if (overlays != null && !overlays.isEmpty()) {
+//                overlays.clear();
+//                overlayOptions.clear();
+//                mBaiduMap.clear();
+//                bmapView.invalidate();
+//
+//            }
+//        } catch (Exception e) {
+//        }
+        overlayManager.removeFromMap();
     }
 
     @Override
@@ -290,6 +304,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
             tabs =tabList.toArray(new String[tabList.size()]);
             tabsType = tabTypeList.toArray(new Integer[tabTypeList.size()]);
         }
+
         TabUtils.setTabs(tabDevice, this.getLayoutInflater(), tabs);
         tabDevice.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -309,7 +324,8 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
 
             }
         });
-        getData(0);
+        getData(tabsType[0]);
+
     }
 
     List<Overlay> overlays;
@@ -349,6 +365,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
                         overlayOptions.add(option);
                         latLngs.add(new LatLng(mapListBean.getLat(),mapListBean.getLng()));
                     }
+
                     if (overlayOptions.size() > 0) {
                         mHandler.sendEmptyMessage(1);
                     }
@@ -370,9 +387,11 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
             switch (msg.what) {
                 case 1:
                     try {
-                        if (overlayOptions == null || overlayOptions.size() == 0) return;
-                        overlays = mBaiduMap.addOverlays(overlayOptions);
-                        AMapUtils.setMapZoom(mapListList, mBaiduMap);
+//                        if (overlayOptions == null || overlayOptions.size() == 0) return;
+//                        overlays = mBaiduMap.addOverlays(overlayOptions);
+//                        AMapUtils.setMapZoom(mapListList, mBaiduMap);
+                        overlayManager.addToMap();
+                        overlayManager.zoomToSpan();
                     } catch (Exception e) {
 
                     }
@@ -406,6 +425,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
 
         }
     }
+
     //实现BDLocationListener接口,BDLocationListener为结果监听接口，异步获取定位结果
     public class MyLocationListener implements BDLocationListener {
 
