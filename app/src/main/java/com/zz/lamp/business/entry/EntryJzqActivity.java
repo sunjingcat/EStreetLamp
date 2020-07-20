@@ -299,7 +299,7 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
             showToast("请输入回路互感器变比");
             return;
         }
-        if (Integer.parseInt(transformerRatio)>100){
+        if (Double.parseDouble(transformerRatio)>100){
             showToast("回路互感器变比：范围0~100");
             return;
         }
@@ -310,7 +310,7 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
             showToast("请输入相线互感器变比");
             return;
         }
-        if (Integer.parseInt(line_transformerRatio)>100){
+        if (Double.parseDouble(line_transformerRatio)>100){
             showToast("相线互感器变比：范围0~100");
             return;
         }
@@ -321,11 +321,19 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
             showToast("请输入报警延时");
             return;
         }
+        if (Double.parseDouble(alarmDelayedTime_)>999){
+            showToast("报警延时：范围0~999");
+            return;
+        }
         params.put("alarmDelayedTime", alarmDelayedTime_);
 
         String relayOnDelayedTime_ = relayOnDelayedTime.getText().toString();
         if (TextUtils.isEmpty(relayOnDelayedTime_)) {
             showToast("请输入上电合闸延时");
+            return;
+        }
+        if (Double.parseDouble(relayOnDelayedTime_)>999){
+            showToast("上电合闸延时：范围0~999");
             return;
         }
         params.put("relayOnDelayedTime", relayOnDelayedTime_);

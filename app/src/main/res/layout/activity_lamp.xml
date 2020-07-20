@@ -335,9 +335,8 @@
                     android:background="@color/white"
                     android:gravity="center_vertical|right"
                     android:hint="请输入"
+                    android:inputType="numberDecimal"
                     android:lines="1"
-                    android:maxLength="3"
-                    android:inputType="number"
                     android:textColor="#333333"
                     android:textSize="14dp" />
                 <TextView
@@ -475,9 +474,8 @@
                     android:background="@color/white"
                     android:gravity="center_vertical|right"
                     android:hint="请输入"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:lines="1"
-                    android:maxLength="3"
                     android:textColor="#333333"
                     android:textSize="14dp" />
             </LinearLayout>
@@ -514,9 +512,8 @@
                     android:background="@color/white"
                     android:gravity="center_vertical|right"
                     android:hint="请输入"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:lines="1"
-                    android:maxLength="3"
                     android:textColor="#333333"
                     android:textSize="14dp" />
             </LinearLayout>
@@ -591,9 +588,8 @@
                         android:background="@color/white"
                         android:gravity="center_vertical|right"
                         android:hint="请输入"
-                        android:inputType="number"
+                        android:inputType="numberDecimal"
                         android:lines="1"
-                        android:maxLength="3"
                         android:textColor="#333333"
                         android:textSize="14dp" />
                 </LinearLayout>
@@ -630,9 +626,8 @@
                         android:background="@color/white"
                         android:gravity="center_vertical|right"
                         android:hint="请输入"
-                        android:inputType="number"
+                        android:inputType="numberDecimal"
                         android:lines="1"
-                        android:maxLength="3"
                         android:textColor="#333333"
                         android:textSize="14dp" />
                 </LinearLayout>

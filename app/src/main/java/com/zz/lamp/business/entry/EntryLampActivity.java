@@ -519,6 +519,10 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
             showToast("请输入灯杆高度");
             return;
         }
+        if (Double.parseDouble(lightPoleHeight_)>999){
+            showToast("灯杆高度：范围0~999");
+            return;
+        }
         params.put("lightPoleHeight", lightPoleHeight_);
 
 
@@ -550,11 +554,19 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
             showToast("请输入主灯额定功率(W)");
             return;
         }
+        if (Double.parseDouble(lightMainPower_)>999){
+            showToast("主灯额定功率(W)：范围0~999");
+            return;
+        }
         params.put("lightMainPower", lightMainPower_);
 
         String lightMainPowerLimit_ = lightMainPowerLimit.getText().toString();
         if (TextUtils.isEmpty(lightMainPowerLimit_)) {
             showToast("请输入主灯功率阈值(W)");
+            return;
+        }
+        if (Double.parseDouble(lightMainPowerLimit_)>999){
+            showToast("主灯功率阈值(W)：范围0~999");
             return;
         }
         params.put("lightMainPowerLimit", lightMainPowerLimit_);
@@ -569,11 +581,19 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
                 showToast("请输入辅灯额定功率(W)");
                 return;
             }
+            if (Double.parseDouble(lightAuxiliaryPower_)>999){
+                showToast("辅灯额定功率(W)：范围0~999");
+                return;
+            }
             params.put("lightAuxiliaryPower", lightAuxiliaryPower_);
 
             String lightAuxiliaryPowerLimit_ = lightAuxiliaryPowerLimit.getText().toString();
             if (TextUtils.isEmpty(lightAuxiliaryPowerLimit_)) {
-                showToast("辅灯功率阈值(W)");
+                showToast("请输入辅灯功率阈值(W)");
+                return;
+            }
+            if (Double.parseDouble(lightAuxiliaryPowerLimit_)>999){
+                showToast("辅灯功率阈值(W)：范围0~999");
                 return;
             }
             params.put("lightAuxiliaryPowerLimit", lightAuxiliaryPowerLimit_);
