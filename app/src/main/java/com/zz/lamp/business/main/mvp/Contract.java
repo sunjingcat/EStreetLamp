@@ -29,6 +29,7 @@ public class Contract {
         void showTerminalData(ConcentratorBean concentratorBean);
         void showLightDeviceData(LightDevice alarmBean);
         void showUserInfo(UserBasicBean userInfo);
+        void showError();
 
     }
 }

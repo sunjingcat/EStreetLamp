@@ -97,7 +97,7 @@ public class MapPresenter extends MyBasePresenterImpl<Contract.IGetMapView> impl
                 if (data.isSuccess()) {
                     view.showResult(data.getData());
                 }else {
-
+                    view.showError();
                 }
             }
 
@@ -105,6 +105,7 @@ public class MapPresenter extends MyBasePresenterImpl<Contract.IGetMapView> impl
             protected void onFail2(JsonT<List<MapListBean>> userInfoJsonT) {
                 super.onFail2(userInfoJsonT);
                 view.showToast(userInfoJsonT.getMessage());
+                view.showError();
             }
         },mDialog);
     }

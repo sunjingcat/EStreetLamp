@@ -62,6 +62,8 @@ import com.zz.lamp.utils.GlideUtils;
 import com.zz.lamp.utils.LogUtils;
 import com.zz.lamp.utils.TabUtils;
 import com.zz.lib.commonlib.utils.CacheUtility;
+import com.zz.lib.core.ui.widget.CustomProgressDialog;
+import com.zz.lib.core.utils.LoadingUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -196,7 +198,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
         mLocationClient = new LocationClient(getActivity().getApplicationContext());
         initLocation();
         mLocationClient.registerLocationListener(myListener);    //注册监听函数
-
+        showLoading("");
     }
 
     public void hideKeyboard(View view) {
@@ -270,6 +272,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
         if (bmapView != null) {
             bmapView.onDestroy();
         }
+        dismissLoading();
     }
 
     void getData(int deviceKind) {
@@ -334,7 +337,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
         mapListList.clear();
         mapListList .addAll(list);
         myItems.clear();
-
+        showLoading("");
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -377,6 +380,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
 
                         mClusterManager.addItems(myItems);
                         AMapUtils.setMapZoom(mapListList, mBaiduMap);
+                        dismissLoading();
                     } catch (Exception e) {
 
                     }
@@ -409,6 +413,11 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
             }
 
         }
+    }
+
+    @Override
+    public void showError() {
+        dismissLoading();
     }
 
     //实现BDLocationListener接口,BDLocationListener为结果监听接口，异步获取定位结果
@@ -450,6 +459,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
         }
 
     }
+
     private void initLocation() {
         LocationClientOption option = new LocationClientOption();
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy
