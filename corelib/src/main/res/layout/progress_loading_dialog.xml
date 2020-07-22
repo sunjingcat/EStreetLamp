@@ -12,14 +12,24 @@
         android:background="@drawable/animation_loading_running" />
 
     <TextView
-        android:visibility="gone"
         android:id="@+id/loadingTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/loadingIv"
-        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
         android:textColor="#fff"
         android:textSize="14sp"
+        android:text="数据加载中"
+         />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/loadingTv"
+        android:layout_centerHorizontal="true"
+        android:textColor="#fff"
+        android:textSize="14sp"
+        android:layout_marginTop="5dp"
+        android:text="请耐心等待"
          />
 
 </RelativeLayout>

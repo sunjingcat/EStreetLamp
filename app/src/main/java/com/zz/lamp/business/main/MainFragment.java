@@ -30,6 +30,8 @@ import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.MapStatusUpdate;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
@@ -199,8 +201,12 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
         initLocation();
         mLocationClient.registerLocationListener(myListener);    //注册监听函数
         showLoading("");
+        moveCenter(new LatLng(38.887980741687365,117.03488912013951));
     }
-
+    private void moveCenter(LatLng latLng){
+        MapStatusUpdate status1 = MapStatusUpdateFactory.newLatLng(latLng);
+        mBaiduMap.animateMapStatus(status1, 500);
+    }
     public void hideKeyboard(View view) {
         InputMethodManager manager = (InputMethodManager) view.getContext()
                 .getSystemService(Context.INPUT_METHOD_SERVICE);

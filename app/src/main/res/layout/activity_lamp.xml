@@ -690,7 +690,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
 
         <TextView
             android:id="@+id/btn_save"
@@ -704,7 +706,6 @@
             android:textColor="@color/white"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="20dp"
             android:textSize="14dp" />
 
         <TextView
@@ -719,7 +720,6 @@
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:textColor="@color/white"
             android:textSize="14dp" />
     </LinearLayout>
