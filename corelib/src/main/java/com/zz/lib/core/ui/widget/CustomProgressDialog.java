@@ -48,11 +48,11 @@ public class CustomProgressDialog  extends ProgressDialog {
 
             }
         });
-        mLoadingTv.setText(mLoadingTip);
+        mLoadingTv.setText("数据加载中\n请耐心等待");
     }
 
     public void setContent(String str) {
-        mLoadingTv.setText(str);
+//        mLoadingTv.setText("");
     }
 
     private void initView() {

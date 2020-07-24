@@ -29,9 +29,9 @@ public class MapPresenter extends MyBasePresenterImpl<Contract.IGetMapView> impl
 
     @Override
     public void deviceKindList() {
-        RxNetUtils.request(getCApi(ApiService.class).getDeviceKindList(), new RequestObserver<JsonT<List<DeviceKind>>>(this) {
+        RxNetUtils.request(getCApi(ApiService.class).getDeviceKindList(), new RequestObserver<JsonT<DeviceKind>>(this) {
             @Override
-            protected void onSuccess(JsonT<List<DeviceKind>> data) {
+            protected void onSuccess(JsonT<DeviceKind> data) {
                 if (data.isSuccess()) {
                     view.showDeviceKindList(data.getData());
                 }else {
@@ -40,7 +40,7 @@ public class MapPresenter extends MyBasePresenterImpl<Contract.IGetMapView> impl
             }
 
             @Override
-            protected void onFail2(JsonT<List<DeviceKind>> userInfoJsonT) {
+            protected void onFail2(JsonT<DeviceKind> userInfoJsonT) {
                 super.onFail2(userInfoJsonT);
                 view.showToast(userInfoJsonT.getMessage());
             }

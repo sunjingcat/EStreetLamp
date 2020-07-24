@@ -4,32 +4,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/loadingIv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:background="@drawable/animation_loading_running" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+        <ImageView
+            android:id="@+id/loadingIv"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/animation_loading_running" />
 
-    <TextView
-        android:id="@+id/loadingTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/loadingIv"
-        android:layout_centerHorizontal="true"
-        android:textColor="#fff"
-        android:textSize="14sp"
-        android:text="数据加载中"
-         />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/loadingTv"
-        android:layout_centerHorizontal="true"
-        android:textColor="#fff"
-        android:textSize="14sp"
-        android:layout_marginTop="5dp"
-        android:text="请耐心等待"
-         />
+        <TextView
+            android:id="@+id/loadingTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#fff"
+            android:textSize="14sp"
+            android:text=""
+            />
+
+    </LinearLayout>
+
 
 </RelativeLayout>

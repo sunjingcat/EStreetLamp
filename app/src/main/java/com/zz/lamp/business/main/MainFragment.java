@@ -104,6 +104,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
     private boolean isFirstLoc = true; // 是否首次定位
     public BDLocationListener myListener = new MyLocationListener();
     private static final String CUSTOM_FILE_NAME_CX = "custom_map_config_CX.sty";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO: inflate a fragment view
@@ -117,7 +118,9 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
         super.onDestroyView();
         unbinder.unbind();
     }
+
     ClusterManager mClusterManager;
+
     @Override
     protected int getCreateView() {
         return R.layout.fragment_main;
@@ -201,12 +204,14 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
         initLocation();
         mLocationClient.registerLocationListener(myListener);    //注册监听函数
         showLoading("");
-        moveCenter(new LatLng(38.887980741687365,117.03488912013951));
+
     }
-    private void moveCenter(LatLng latLng){
+
+    private void moveCenter(LatLng latLng) {
         MapStatusUpdate status1 = MapStatusUpdateFactory.newLatLng(latLng);
         mBaiduMap.animateMapStatus(status1, 500);
     }
+
     public void hideKeyboard(View view) {
         InputMethodManager manager = (InputMethodManager) view.getContext()
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -232,12 +237,12 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
                 getActivity().startActivity(new Intent(getActivity(), MineActivity.class));
                 break;
 
-                case R.id.my_site:
-                    isFirstLoc= true;
-                    //开启定位
-                    mLocationClient.start();
-                    //图片点击事件，回到定位点
-                    mLocationClient.requestLocation();
+            case R.id.my_site:
+                isFirstLoc = true;
+                //开启定位
+                mLocationClient.start();
+                //图片点击事件，回到定位点
+                mLocationClient.requestLocation();
                 break;
             case R.id.refresh:
                 clearMarkers();
@@ -297,15 +302,17 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
     }
 
     @Override
-    public void showDeviceKindList(List<DeviceKind> listBeans) {
-        if (listBeans!=null&&listBeans.size()>0) {
+    public void showDeviceKindList(DeviceKind listBean) {
+        if (listBean == null) return;
+        List<DeviceKind.DeviceKindItem> listBeans = listBean.getDeviceKinds();
+        if (listBeans != null && listBeans.size() > 0) {
             List<String> tabList = new ArrayList<>();
             List<Integer> tabTypeList = new ArrayList<>();
             for (int i = 0; i < listBeans.size(); i++) {
                 tabList.add(listBeans.get(i).getKindLabel());
                 tabTypeList.add(listBeans.get(i).getKindCode());
             }
-            tabs =tabList.toArray(new String[tabList.size()]);
+            tabs = tabList.toArray(new String[tabList.size()]);
             tabsType = tabTypeList.toArray(new Integer[tabTypeList.size()]);
         }
 
@@ -329,8 +336,11 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
             }
         });
         getData(tabsType[0]);
-
+        if (listBean.getCenter()!=null) {
+            moveCenter(new LatLng(listBean.getCenter().getLat(), listBean.getCenter().getLng()));
+        }
     }
+
 
     List<MapListBean> mapListList = new ArrayList<>();
 
@@ -341,7 +351,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
             return;
         }
         mapListList.clear();
-        mapListList .addAll(list);
+        mapListList.addAll(list);
         myItems.clear();
         showLoading("");
         new Thread(new Runnable() {
@@ -359,7 +369,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
                         if (bitmap1 == null) return;
                         BitmapDescriptor bitmap = BitmapDescriptorFactory.fromBitmap(bitmap1);
                         LatLng point = new LatLng(mapListBean.getLat(), mapListBean.getLng());
-                        myItems.add(new MyItem(mapListBean.getId(), mapListBean.getDeviceKind(),point,bitmap));
+                        myItems.add(new MyItem(mapListBean.getId(), mapListBean.getDeviceKind(), point, bitmap));
                     }
 
                     if (myItems.size() > 0) {
@@ -414,7 +424,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
         if (!TextUtils.isEmpty(userInfo.getAvatar())) {
             try {
                 GlideUtils.loadCircleImage(getActivity(), userInfo.getAvatar(), main_mine);
-            }catch (Exception e){
+            } catch (Exception e) {
 
             }
 
@@ -448,7 +458,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
                     isFirstLoc = false;
                     // 设置定位数据
                     mBaiduMap.setMyLocationData(locData);
-                    AMapUtils.setMyMapZoom(mapListList, mBaiduMap,latLng);
+                    AMapUtils.setMyMapZoom(mapListList, mBaiduMap, latLng);
                 }
 
             }
@@ -459,7 +469,6 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
             } else if (location.getLocType() == BDLocation.TypeCriteriaException) {
                 Toast.makeText(getActivity(), "手机模式错误，请检查是否飞行", Toast.LENGTH_SHORT).show();
             }
-
 
 
         }
