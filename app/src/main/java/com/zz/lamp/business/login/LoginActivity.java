@@ -128,7 +128,7 @@ public class LoginActivity extends MyBaseActivity<Contract.IsetLoginPresenter> i
         String code = logCode.getText().toString();
 
         PushManager.getInstance().turnOnPush(this);
-        finish();
+
         Intent intent = new Intent();
         if (indexType ==1){
             intent.setClass(this, HomeActivity.class);
@@ -136,5 +136,6 @@ public class LoginActivity extends MyBaseActivity<Contract.IsetLoginPresenter> i
             intent.setClass(this, MainActivity.class);
         }
         startActivity(intent);
+        finish();
     }
 }

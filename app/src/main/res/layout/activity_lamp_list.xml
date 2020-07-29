@@ -140,7 +140,7 @@
                         android:layout_marginLeft="8dp"
                         android:drawablePadding="5dp"
                         android:padding="5dp"
-                        android:text="档案下发"
+                        android:text=""
                         android:drawableLeft="@drawable/cloud_download"
                         android:textColor="@color/color9C" />
                 </LinearLayout>

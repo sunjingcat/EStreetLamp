@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.igexin.sdk.PushManager;
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseActivity;
 import com.zz.lamp.bean.AlarmBean;
@@ -13,6 +14,7 @@ import com.zz.lamp.bean.IpAdress;
 import com.zz.lamp.business.login.LoginActivity;
 import com.zz.lamp.net.ApiService;
 import com.zz.lamp.net.JsonT;
+import com.zz.lamp.net.OutDateEvent;
 import com.zz.lamp.net.RequestObserver;
 import com.zz.lamp.net.RxNetUtils;
 import com.zz.lib.commonlib.utils.CacheUtility;
@@ -24,6 +26,9 @@ import java.util.List;
 import java.util.Map;
 
 import androidx.appcompat.widget.Toolbar;
+
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -77,7 +82,9 @@ public class ChangeCodeActivity extends MyBaseActivity {
             protected void onSuccess(JsonT<IpAdress> jsonT) {
                 if (jsonT.isSuccess()) {
                     CacheUtility.spSave("code",trim);
-                    startActivity(new Intent(ChangeCodeActivity.this, LoginActivity.class));
+//                    startActivity(new Intent(ChangeCodeActivity.this, LoginActivity.class));
+                    EventBus.getDefault().post(new OutDateEvent());
+                    PushManager.getInstance().turnOffPush(ChangeCodeActivity.this);
                     finish();
                 } else {
 
