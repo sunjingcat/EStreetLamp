@@ -269,7 +269,7 @@ public class TerminalControlActivity extends MyBaseActivity<Contract.IsetTermina
         stopTimer();
     }
 
-    private int TIMER = 3;
+    private int TIMER = 2;
     private MyTimeTask task;
 
     private void setTimer() {
