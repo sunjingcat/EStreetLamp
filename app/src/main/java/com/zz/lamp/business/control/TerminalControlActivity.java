@@ -307,7 +307,7 @@ public class TerminalControlActivity extends MyBaseActivity<Contract.IsetTermina
         if (task != null) {
             task.stop();
         }
-        TIMER = 5;
+        TIMER = 2;
     }
 
     public void showIntent(ConcentratorBean concentratorBean) {
