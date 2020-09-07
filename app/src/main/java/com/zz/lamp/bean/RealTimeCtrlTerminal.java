@@ -8,12 +8,17 @@ public class RealTimeCtrlTerminal {
     private String      name;// 静心湖,
     private String      markerIconPath;// null,
     private int     status;// 1,
+    private int     isOnline;// 1,
     private String    warnStatus;// 0,
     private Double    lng;// 116.7916727236518,
     private Double   lat;// 38.290273307174054,
     private String    lightOnTime;// 2020-05-01 19;//19;//00,
     private String    lightOffTime;// 2020-05-01 23;//59;//00,
     private String     otherContent;// null
+
+    public int getIsOnline() {
+        return isOnline;
+    }
 
     public String getId() {
         return id;
