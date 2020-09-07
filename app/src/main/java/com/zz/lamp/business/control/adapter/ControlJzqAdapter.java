@@ -34,10 +34,12 @@ public class ControlJzqAdapter extends BaseQuickAdapter<RealTimeCtrlTerminal, Ba
         holper.setText(R.id.item_control_num,item.getAddr());
         if (item.getIsOnline()==1) {
             holper.setText(R.id.item_control_state, item.getStatus() == 0 ? "拉闸" : "合闸");
+            holper.setTextColor(R.id.item_control_state,item.getStatus()==1? Color.parseColor("#2EAE73") :Color.parseColor("#E84444"));
         }else {
             holper.setText(R.id.item_control_state, "离线");
+            holper.setTextColor(R.id.item_control_state,Color.GRAY);
         }
-        holper.setTextColor(R.id.item_control_state,item.getStatus()==1? Color.parseColor("#2EAE73") :Color.parseColor("#E84444"));
+
         holper.setText(R.id.item_control_open,"开灯时间："+(TextUtils.isEmpty(item.getLightOnTime())?"--":item.getLightOnTime()));
         holper.setText(R.id.item_control_close,"关灯时间："+(TextUtils.isEmpty(item.getLightOffTime())?"--":item.getLightOffTime()));
 
