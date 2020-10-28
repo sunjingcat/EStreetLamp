@@ -3,6 +3,7 @@ package com.zz.lamp.business.entry;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -41,6 +42,7 @@ import com.zz.lamp.business.entry.mvp.Contract;
 import com.zz.lamp.business.entry.mvp.presenter.LampAddPresenter;
 import com.zz.lamp.net.JsonT;
 import com.zz.lamp.utils.BASE64;
+import com.zz.lamp.utils.GlideUtils;
 import com.zz.lamp.utils.TimeUtils;
 import com.zz.lamp.widget.CustomDialog;
 import com.zz.lib.commonlib.CommonApplication;
@@ -129,11 +131,11 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
     TextView btnNext;
 
     String id;
-    ArrayList<String> imagesAnnex = new ArrayList<>();
+    ArrayList<ImageBack> imagesAnnex = new ArrayList<>();
     ImageDeleteItemAdapter adapterAnnex;
     @BindView(R.id.rv_images_annex)
     RecyclerView rvImagesAnnex;
-    List<ImageBack> imageBacks = new ArrayList<>();
+
     @Override
     protected int getContentView() {
         return R.layout.activity_lamp;
@@ -164,28 +166,25 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
             @Override
             public void onclickAdd(View v, int option) {
                 ArrayList<String> localPath = new ArrayList<>();
-                for (int i=0;i<imagesAnnex.size();i++){
-                    if (!BASE64.isBase64(imagesAnnex.get(i))){
-                        localPath.add(imagesAnnex.get(i));
-                    }else {
-
+                for (int i = 0; i < imagesAnnex.size(); i++) {
+                    if (!TextUtils.isEmpty(imagesAnnex.get(i).getPath())) {
+                        localPath.add(imagesAnnex.get(i).getPath());
+                    } else {
                     }
                 }
                 ImageSelector.builder()
                         .useCamera(true) // 设置是否使用拍照
                         .setSingle(false)  //设置是否单选
-                        .setMaxSelectCount(9-imageBacks.size()) // 图片的最大选择数量，小于等于0时，不限数量。
+                        .setMaxSelectCount(9 - imagesAnnex.size()) // 图片的最大选择数量，小于等于0时，不限数量。
                         .setSelected(localPath) // 把已选的图片传入默认选中。
                         .setViewImage(true) //是否点击放大图片查看,，默认为true
-                        .start(EntryLampActivity.this, 1102); // 打开相册
+                        .start(EntryLampActivity.this, 1101); // 打开相册
 
             }
 
             @Override
             public void onclickDelete(View v, int option) {
-                if (option<imageBacks.size()){
-                    imageBacks.remove(option);
-                }
+
                 imagesAnnex.remove(option);
                 adapterAnnex.notifyDataSetChanged();
             }
@@ -206,60 +205,27 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
 
     @Override
     public void showIntent(String id) {
-        if (this.imagesAnnex.size()>0) {
-            ArrayList<Integer> ids = new ArrayList<>();
-            ArrayList<String> needUpload = new ArrayList<>();
-            ArrayList<String> base64 = new ArrayList<>();
-            for (int i=0;i<imagesAnnex.size();i++){
-                if (BASE64.isBase64(imagesAnnex.get(i))){
-                    ids.add(imageBacks.get(i).getId());
-                }else {
-                    needUpload.add(imagesAnnex.get(i));
-                }
-            }
-            if (needUpload.size()>0) {
-                Luban.with(this)
-                        .load(needUpload)
-                        .ignoreBy(100)
-                        .setCompressListener(new OnCompressListener() {
-                            @Override
-                            public void onStart() {
-                                // TODO 压缩开始前调用，可以在方法内启动 loading UI
-                            }
-
-                            @Override
-                            public void onSuccess(File file) {
-                                base64.add("data:image/jpg;base64," + BASE64.imageToBase64(file.getPath()));
-                                if (base64.size() == needUpload.size()) {
-                                    String s = new Gson().toJson(base64);
-                                    mPresenter.postImage(id, s,ids);
-                                }
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                // TODO 当压缩过程出现问题时调用
-                            }
-                        }).launch();
-            }else {
-                mPresenter.postImage(id, null,ids);
-            }
-        }else {
-            if (back) {
-                finish();
-            } else {
-                devicecAddr.setText("");
-                mPresenter.getLampEstimateForm(terminalId);
-
-            }
-            showToast("提交成功");
+        ArrayList<String> ids = new ArrayList<>();
+        for (int i = 0; i < imagesAnnex.size(); i++) {
+            ids.add(imagesAnnex.get(i).getId());
         }
-
+        mPresenter.uploadImgs(id, new Gson().toJson(ids));
     }
 
     @Override
     public void showError(String msg) {
         showDialog(msg+"",0);
+    }
+
+    @Override
+    public void showResult() {
+        if (back) {
+            finish();
+        } else {
+            devicecAddr.setText("");
+            mPresenter.getLampEstimateForm(terminalId);
+        }
+        showToast("提交成功");
     }
 
     @Override
@@ -317,31 +283,33 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
     }
 
     @Override
-    public void showPostImage() {
-        if (back) {
-            finish();
-        } else {
-            devicecAddr.setText("");
-            mPresenter.getLampEstimateForm(terminalId);
+    public void showPostImage(int position, String id) {
+        if (!TextUtils.isEmpty(id)) {
+            imagesAnnex.get(position).setId(id);
         }
-        showToast("提交成功");
+        adapterAnnex.notifyDataSetChanged();
     }
 
     @Override
     public void showImage(List<ImageBack> list) {
         if (list == null) return;
-        imageBacks.clear();
-        imageBacks.addAll(list);
-
-        List<String> showList = new ArrayList<>();
-        for (ImageBack imageBack:list){
-            showList.add(imageBack.getBase64());
+        showLoading("");
+        for (ImageBack imageBack : list) {
+            String bitmapName = "termial_"+imageBack.getId()+".jpg";
+            String path = getCacheDir() + "/zhongzhi/light/" + bitmapName;
+            File file = new File(path);
+            if (file.exists()) {
+                imageBack.setPath(path);
+            } else {
+                Bitmap s1 = GlideUtils.base64ToBitmap(imageBack.getBase64());
+                String s = BASE64.saveBitmap(this, imageBack.getId(), s1);
+                imageBack.setPath(s);
+            }
         }
         imagesAnnex.clear();
-
-        imagesAnnex.addAll(showList);
-
+        imagesAnnex.addAll(list);
         adapterAnnex.notifyDataSetChanged();
+        dismissLoading();
     }
 
     @Override
@@ -635,19 +603,35 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
         if (requestCode == 1102 && resultCode == RESULT_OK) {
             if (data == null) return;
             //获取选择器返回的数据
-            ArrayList<String> images = data.getStringArrayListExtra(
+            ArrayList<String> selectImages = data.getStringArrayListExtra(
                     ImageSelectorUtils.SELECT_RESULT);
-            if (images.size() > 0) {
-                this.imagesAnnex.clear();
-            }
-            List<String> showList = new ArrayList<>();
-            for (ImageBack imageBack:imageBacks){
-                showList.add(imageBack.getBase64());
-            }
-            imagesAnnex.addAll(showList);
-            this.imagesAnnex.addAll(images);
+            for (String path : selectImages) {
+                Luban.with(this)
+                        .load(path)
+                        .ignoreBy(100)
+                        .setCompressListener(new OnCompressListener() {
+                            @Override
+                            public void onStart() {
+                                // TODO 压缩开始前调用，可以在方法内启动 loading UI
+                            }
 
-            adapterAnnex.notifyDataSetChanged();
+                            @Override
+                            public void onSuccess(File file) {
+                                String base = "data:image/jpg;base64," + BASE64.imageToBase64(file.getPath());
+                                ImageBack imageBack = new ImageBack();
+                                imageBack.setPath(file.getPath());
+                                imageBack.setBase64(base);
+                                imagesAnnex.add(imageBack);
+                                mPresenter.postImage(imagesAnnex.size() - 1, base);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                // TODO 当压缩过程出现问题时调用
+                            }
+                        }).launch();
+
+            }
         }
     }
 

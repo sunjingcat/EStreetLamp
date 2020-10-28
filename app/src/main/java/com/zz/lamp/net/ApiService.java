@@ -80,6 +80,10 @@ public interface ApiService {
     @FormUrlEncoded
     Observable<JsonT<List<Integer>>> uploadImgs( @Field("filebase64s") String handleFile);
 
+    @POST("/app/light/enclosure/singleUpload")
+    @FormUrlEncoded
+    Observable<JsonT<String>> uploadImg( @Field("base64") String handleFile);
+
     @POST("/app/light/terminal/uploadImgs/{id}")
     @FormUrlEncoded
     Observable<JsonT> uploadTerminalImgs(@Path("id") String id, @Field("enclosureIds") String handleFile);

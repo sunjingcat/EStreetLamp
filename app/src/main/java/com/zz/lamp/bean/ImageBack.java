@@ -1,12 +1,37 @@
 package com.zz.lamp.bean;
 
 public class ImageBack {
-    Integer id;
+    String id;
     String base64 ;
     String modelId;
     String type;
+    String path;
 
-    public Integer getId() {
+    public String getPath() {
+        return path;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setBase64(String base64) {
+        this.base64 = base64;
+    }
+
+    public void setModelId(String modelId) {
+        this.modelId = modelId;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public String getId() {
         return id;
     }
 

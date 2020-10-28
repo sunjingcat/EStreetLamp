@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.donkingliang.imageselector.utils.ImageSelector;
 import com.donkingliang.imageselector.utils.ImageSelectorUtils;
 import com.google.gson.Gson;
+import com.umeng.commonsdk.debug.I;
 import com.zz.lamp.MainActivity;
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseActivity;
@@ -52,7 +53,7 @@ import top.zibin.luban.OnCompressListener;
  * 告警操作
  */
 public class AlarmHandleActivity extends MyBaseActivity<Contract.IsetAlarmAddPresenter> implements Contract.IGetAlarmAddView {
-    ArrayList<String> imagesAnnex = new ArrayList<>();
+    ArrayList<ImageBack> imagesAnnex = new ArrayList<>();
     ImageDeleteItemAdapter adapterAnnex;
     @BindView(R.id.rv_images_annex)
     RecyclerView rvImagesAnnex;
@@ -95,12 +96,18 @@ public class AlarmHandleActivity extends MyBaseActivity<Contract.IsetAlarmAddPre
         adapterAnnex.setOnclick(new ImageDeleteItemAdapter.Onclick() {
             @Override
             public void onclickAdd(View v, int option) {
-
+                ArrayList<String> localPath = new ArrayList<>();
+                for (int i = 0; i < imagesAnnex.size(); i++) {
+                    if (!TextUtils.isEmpty(imagesAnnex.get(i).getPath())) {
+                        localPath.add(imagesAnnex.get(i).getPath());
+                    } else {
+                    }
+                }
                 ImageSelector.builder()
                         .useCamera(true) // 设置是否使用拍照
                         .setSingle(false)  //设置是否单选
                         .setMaxSelectCount(9) // 图片的最大选择数量，小于等于0时，不限数量。
-                        .setSelected(imagesAnnex) // 把已选的图片传入默认选中。
+                        .setSelected(localPath) // 把已选的图片传入默认选中。
                         .setViewImage(true) //是否点击放大图片查看,，默认为true
                         .start(AlarmHandleActivity.this, 1102); // 打开相册
 
@@ -127,15 +134,35 @@ public class AlarmHandleActivity extends MyBaseActivity<Contract.IsetAlarmAddPre
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1102 && data != null) {
-            //获取选择器返回的数据
-            ArrayList<String> images = data.getStringArrayListExtra(
+            ArrayList<String> selectImages = data.getStringArrayListExtra(
                     ImageSelectorUtils.SELECT_RESULT);
-            if (images.size() > 0) {
-                this.imagesAnnex.clear();
-            }
-            this.imagesAnnex.addAll(images);
+            for (String path : selectImages) {
+                Luban.with(this)
+                        .load(path)
+                        .ignoreBy(100)
+                        .setCompressListener(new OnCompressListener() {
+                            @Override
+                            public void onStart() {
+                                // TODO 压缩开始前调用，可以在方法内启动 loading UI
+                            }
 
-            adapterAnnex.notifyDataSetChanged();
+                            @Override
+                            public void onSuccess(File file) {
+                                String base = "data:image/jpg;base64," + BASE64.imageToBase64(file.getPath());
+                                ImageBack imageBack = new ImageBack();
+                                imageBack.setPath(file.getPath());
+                                imageBack.setBase64(base);
+                                imagesAnnex.add(imageBack);
+                                adapterAnnex.notifyDataSetChanged();
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                // TODO 当压缩过程出现问题时调用
+                            }
+                        }).launch();
+
+            }
         }
     }
 
@@ -173,40 +200,17 @@ public class AlarmHandleActivity extends MyBaseActivity<Contract.IsetAlarmAddPre
         if (this.imagesAnnex.size()>0) {
 
             ArrayList<String> baseb4 = new ArrayList<>();
-            Luban.with(this)
-                    .load(this.imagesAnnex)
-                    .ignoreBy(100)
-                    .setCompressListener(new OnCompressListener() {
-                        @Override
-                        public void onStart() {
-                            // TODO 压缩开始前调用，可以在方法内启动 loading UI
-                        }
-
-                        @Override
-                        public void onSuccess(File file) {
-                            baseb4.add("data:image/jpg;base64," + BASE64.imageToBase64(file.getPath()));
-                            if (baseb4.size() == imagesAnnex.size()) {
-                                String s = new Gson().toJson(baseb4);
-                                mPresenter.submitData(id, alarmStatus + "", handleDescription + "", s);
-
-                            }
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-                            // TODO 当压缩过程出现问题时调用
-                        }
-                    }).launch();
+            for (int i = 0; i < imagesAnnex.size(); i++) {
+                if (!TextUtils.isEmpty(imagesAnnex.get(i).getBase64())) {
+                    baseb4.add(imagesAnnex.get(i).getBase64());
+                } else {
+                }
+            }
+            String s = new Gson().toJson(baseb4);
+            mPresenter.submitData(id, alarmStatus + "", handleDescription + "", s);
         }else {
             mPresenter.submitData(id, alarmStatus + "", handleDescription + "", "");
         }
-
-//        ArrayList<String> baseb4 = new ArrayList<>();
-//        for (String str : this.imagesAnnex) {
-//            baseb4.add("data:image/jpg;base64," + BASE64.imageToBase64(str));
-//        }
-//        String s = new Gson().toJson(baseb4);
-//        mPresenter.submitData(id, alarmStatus+"", handleDescription+"", id, s);
 
     }
 

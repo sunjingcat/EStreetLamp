@@ -1,6 +1,7 @@
 package com.zz.lamp.business.entry;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -28,10 +29,13 @@ import com.zz.lamp.business.alarm.adapter.ImageItemAdapter;
 import com.zz.lamp.business.entry.adapter.LampAdapter;
 import com.zz.lamp.business.entry.mvp.Contract;
 import com.zz.lamp.business.entry.mvp.presenter.LampPresenter;
+import com.zz.lamp.utils.BASE64;
+import com.zz.lamp.utils.GlideUtils;
 import com.zz.lamp.utils.LogUtils;
 import com.zz.lib.commonlib.utils.ToolBarUtils;
 import com.zz.lib.core.ui.widget.decorations.RecycleViewDivider;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -117,20 +121,21 @@ public class LampListActivity extends MyBaseActivity<Contract.IsetLampPresenter>
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-                startActivity(new Intent(LampListActivity.this, LightDetailActivity.class).putExtra("lightId", mlist.get(position).getId()));
+                startActivityForResult(new Intent(LampListActivity.this, LightDetailActivity.class).putExtra("lightId", mlist.get(position).getId()),3001);
             }
         });
         rvImagesAnnex.setLayoutManager(new GridLayoutManager(this, 3));
         imageItemAdapter = new ImageItemAdapter(R.layout.item_image, images);
         rvImagesAnnex.setAdapter(imageItemAdapter);
+        pageNum = 1;
+        mPresenter.getTerminalDetail(terminalId);
+        getData();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        pageNum = 1;
-        mPresenter.getTerminalDetail(terminalId);
-        getData();
+
     }
 
     @Override
@@ -155,17 +160,30 @@ public class LampListActivity extends MyBaseActivity<Contract.IsetLampPresenter>
 
     @Override
     public void showImage(List<ImageBack> list) {
+
         if (list == null) return;
+        showLoading("");
+
 
         List<String> showList = new ArrayList<>();
         for (ImageBack imageBack : list) {
-            showList.add(imageBack.getBase64());
+            String bitmapName = "company_" + imageBack.getId() + ".png";
+            String path = getCacheDir() + "/zhongzhi/" + bitmapName;
+            File file = new File(path);
+            if (file.exists()) {
+                showList.add(path);
+            } else {
+                Bitmap s1 = GlideUtils.base64ToBitmap(imageBack.getBase64());
+                String s = BASE64.saveBitmap(this, imageBack.getId(), s1);
+                showList.add(s);
+            }
+
         }
         images.clear();
-
         images.addAll(showList);
 
-        imageItemAdapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();
+        dismissLoading();
     }
 
     @Override
@@ -185,6 +203,7 @@ public class LampListActivity extends MyBaseActivity<Contract.IsetLampPresenter>
         terminalSyncTime.setText(concentratorBean.getRecordSyncTime() + "");
 //        terminalLat.setText(concentratorBean.getTerminalLat() + "," + concentratorBean.getTerminalLng());
         mPresenter.getImage("terminal", concentratorBean.getId());
+        showLoading("");
     }
 
 
@@ -192,10 +211,10 @@ public class LampListActivity extends MyBaseActivity<Contract.IsetLampPresenter>
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.toolbar_subtitle:
-                startActivity(new Intent(this, EntryJzqActivity.class).putExtra("terminalId", terminalId));
+                startActivityForResult(new Intent(this, EntryJzqActivity.class).putExtra("terminalId", terminalId),3001);
                 break;
             case R.id.entry_line:
-                startActivity(new Intent(this, LineActivity.class).putExtra("terminalId", terminalId).putExtra("shouldBack", 1));
+                startActivityForResult(new Intent(this, LineActivity.class).putExtra("terminalId", terminalId).putExtra("shouldBack", 1),3001);
                 break;
             case R.id.ll_show:
                 if (llGone.getVisibility() == View.VISIBLE) {
@@ -210,7 +229,7 @@ public class LampListActivity extends MyBaseActivity<Contract.IsetLampPresenter>
                 break;
             case R.id.entry_lamp:
 
-                startActivity(new Intent(this, EntryLampActivity.class).putExtra("terminalId", terminalId));
+                startActivityForResult(new Intent(this, EntryLampActivity.class).putExtra("terminalId", terminalId),3001);
 
                 break;
             case R.id.dangan:
@@ -240,6 +259,11 @@ public class LampListActivity extends MyBaseActivity<Contract.IsetLampPresenter>
         if (resultCode == 100) {
             setResult(RESULT_OK);
             finish();
+        }
+        if (requestCode==3001){
+            pageNum = 1;
+            mPresenter.getTerminalDetail(terminalId);
+            getData();
         }
     }
 }

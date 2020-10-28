@@ -1,5 +1,7 @@
 package com.zz.lamp.business.main;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -33,12 +35,7 @@ import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
-import com.baidu.mapapi.map.Marker;
-import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationData;
-import com.baidu.mapapi.map.Overlay;
-import com.baidu.mapapi.map.OverlayOptions;
-import com.baidu.mapapi.map.Polyline;
 import com.baidu.mapapi.model.LatLng;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.FutureTarget;
@@ -53,8 +50,6 @@ import com.zz.lamp.bean.MapListBean;
 import com.zz.lamp.bean.UserBasicBean;
 import com.zz.lamp.business.main.mvp.Contract;
 import com.zz.lamp.business.main.mvp.presenter.MapPresenter;
-import com.zz.lamp.business.map.OverlayManager;
-import com.zz.lamp.business.map.SelectLocationActivity;
 import com.zz.lamp.business.map.clusterutil.MyItem;
 import com.zz.lamp.business.map.clusterutil.clustering.ClusterManager;
 import com.zz.lamp.business.mine.MineActivity;
@@ -64,8 +59,7 @@ import com.zz.lamp.utils.GlideUtils;
 import com.zz.lamp.utils.LogUtils;
 import com.zz.lamp.utils.TabUtils;
 import com.zz.lib.commonlib.utils.CacheUtility;
-import com.zz.lib.core.ui.widget.CustomProgressDialog;
-import com.zz.lib.core.utils.LoadingUtils;
+import com.zz.lib.commonlib.utils.PermissionUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -205,6 +199,8 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
         mLocationClient.registerLocationListener(myListener);    //注册监听函数
         showLoading("");
 
+
+
     }
 
     private void moveCenter(LatLng latLng) {
@@ -238,11 +234,23 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
                 break;
 
             case R.id.my_site:
-                isFirstLoc = true;
-                //开启定位
-                mLocationClient.start();
-                //图片点击事件，回到定位点
-                mLocationClient.requestLocation();
+                PermissionUtils.getInstance().checkPermission(getActivity(), new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.ACCESS_FINE_LOCATION}, new PermissionUtils.OnPermissionChangedListener() {
+                    @Override
+                    public void onGranted() {
+                        isFirstLoc = true;
+                        //开启定位
+                        mLocationClient.start();
+                        //图片点击事件，回到定位点
+                        mLocationClient.requestLocation();
+                    }
+
+                    @Override
+                    public void onDenied() {
+
+                    }
+                });
+
                 break;
             case R.id.refresh:
                 clearMarkers();

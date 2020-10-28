@@ -30,18 +30,20 @@ public class Contract {
         void checkTerminalAddr(String id,Map<String, Object> params);
         void checkTerminalName(String id,Map<String, Object> params);
         void deleteTerminal(String id);
-        void postImage(String id,String files,List<Integer> ids);
+        void postImage(int position,String files);
         void getImage(String type,String modelId);
+        void uploadImgs(String id,String files);
     }
 
     public interface IGetTerminalAddView extends BaseView {
         void showIntent(String id);
         void showError(String msg);
+        void showResult();
         void showCheckAddrIntent(JsonT jsonT);
         void showCheckNameIntent(JsonT jsonT);
         void showTerminalDetail(ConcentratorBean concentratorBean);
         void showDeleteIntent();
-        void showPostImage();
+        void showPostImage(int position,String id);
         void showImage(List<ImageBack> list);
     }
 
@@ -49,7 +51,7 @@ public class Contract {
         void postTerminal(Map<String, Object> params);
 
         void getLampEstimateForm(String id);
-
+        void uploadImgs(String id,String files);
         void getLightDeviceType();
 
         void getLightType();
@@ -58,8 +60,7 @@ public class Contract {
 
         void checkDeviceAddr(String id,Map<String, Object> params);
         void checkDeviceName(String id,Map<String, Object> params);
-
-        void postImage(String id,String files,List<Integer> ids);
+        void postImage(int position,String files);
         void getImage(String type,String modelId);
 
 
@@ -68,7 +69,7 @@ public class Contract {
     public interface IGetLampAddView extends BaseView {
         void showIntent(String id);
         void showError(String msg);
-
+        void showResult();
         void showLightDeviceType(List<DeviceType> list);
 
         void showLightType(List<DictBean> list);
@@ -77,7 +78,7 @@ public class Contract {
 
         void showCheckAddrIntent(JsonT jsonT);
         void showCheckNameIntent(JsonT jsonT);
-        void showPostImage();
+        void showPostImage(int position,String id);
         void showImage(List<ImageBack> list);
         void showLightDetail(LightDevice concentratorBean);
 

@@ -160,39 +160,33 @@ public class TerminalAddPresenter extends MyBasePresenterImpl<Contract.IGetTermi
     }
 
     @Override
-    public void postImage(String id,String files,List<Integer> ids) {
-        if (TextUtils.isEmpty(files)){
-            if (ids.size()==0){
-                view.showPostImage();
-            }else {
-                postImageIDs(id, new Gson().toJson(ids));
+    public void postImage(int position,String file) {
+
+        RxNetUtils.request(getApi(ApiService.class).uploadImg(file), new RequestObserver<JsonT<String>>(this) {
+            @Override
+            protected void onSuccess(JsonT<String> data) {
+                if (data.isSuccess()) {
+                    view.showPostImage(position,data.getData());
+                } else {
+
+                }
             }
-        }else {
-            RxNetUtils.request(getCApi(ApiService.class).uploadImgs(files), new RequestObserver<JsonT<List<Integer>>>(this) {
-                @Override
-                protected void onSuccess(JsonT<List<Integer>> data) {
-                    if (data.isSuccess()) {
-                        ids.addAll(data.getData());
-                        postImageIDs(id, new Gson().toJson(ids));
-                    } else {
 
-                    }
-                }
+            @Override
+            protected void onFail2(JsonT<String> userInfoJsonT) {
+                super.onFail2(userInfoJsonT);
+                view.showToast(userInfoJsonT.getMessage());
+            }
+        }, mDialog);
 
-                @Override
-                protected void onFail2(JsonT<List<Integer>> userInfoJsonT) {
-                    super.onFail2(userInfoJsonT);
-                    view.showToast(userInfoJsonT.getMessage());
-                }
-            }, mDialog);
-        }
     }
-    public void postImageIDs(String id,String files) {
+    @Override
+    public void uploadImgs(String id,String files) {
         RxNetUtils.request(getCApi(ApiService.class).uploadTerminalImgs(id,files), new RequestObserver<JsonT>(this) {
             @Override
             protected void onSuccess(JsonT data) {
                 if (data.isSuccess()) {
-                    view.showPostImage();
+                    view.showResult();
                 }else {
 
                 }

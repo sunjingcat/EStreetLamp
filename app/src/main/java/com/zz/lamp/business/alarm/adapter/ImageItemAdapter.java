@@ -1,5 +1,7 @@
 package com.zz.lamp.business.alarm.adapter;
 
+import android.Manifest;
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,6 +17,7 @@ import com.zz.lamp.utils.BASE64;
 import com.zz.lamp.utils.GlideUtils;
 import com.zz.lamp.utils.ImagePreview;
 import com.zz.lib.commonlib.utils.CacheUtility;
+import com.zz.lib.commonlib.utils.PermissionUtils;
 
 import java.util.List;
 
@@ -35,10 +38,9 @@ public class ImageItemAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
         holder.getView(R.id.image).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String str = item;
-                Bitmap s1 = GlideUtils.base64ToBitmap(str);
-                String s = BASE64.saveBitmap(s1);
-                ImagePreview.preview(getContext(), s);
+                        String str = item;
+                        ImagePreview.preview(getContext(), str);
+
             }
         });
     }
