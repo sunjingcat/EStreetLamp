@@ -19,6 +19,7 @@ public class CacheUtility {
     private static final String KEY_CITY = "key_city";
     private static final String KEY_PRE_CODE = "key_precode";
     private static final String KEY_SEARCH = "key_search";
+    public static final String KEY_FIRST = "key_first";
     public static final String KEY_PROGRAM = "key_program";
     public static final String KEY_PROGRAM_CODE = "key_program_code";
     public static void spSave(String key, String value) {

@@ -46,6 +46,16 @@
             android:src="@drawable/splash_image_bottom" />
 
 
-    </RelativeLayout>
 
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/tv_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_margin="15dp"
+        android:textSize="13dp"
+        android:text=""
+        android:visibility="gone"
+        android:textColor="@color/colorTextBlack99"/>
 </LinearLayout>

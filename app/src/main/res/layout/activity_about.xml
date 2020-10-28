@@ -69,4 +69,17 @@
         android:background="@drawable/border_radius_10_f6"
         android:text="检查版本更新"
         android:textColor="#9C5F23" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <TextView
+        android:id="@+id/tv_service"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_margin="15dp"
+        android:textSize="13dp"
+
+        android:textColor="@color/colorTextBlack99"/>
 </LinearLayout>

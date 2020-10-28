@@ -177,6 +177,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/CaptureTheme"/>
         <activity android:name=".business.mine.LogActivity" />
+        <activity android:name=".SeviceInfoActivity" />
     </application>
 
 </manifest>

@@ -15,6 +15,7 @@ import com.zz.lamp.App;
 import com.zz.lamp.HomeActivity;
 import com.zz.lamp.MainActivity;
 import com.zz.lamp.R;
+import com.zz.lamp.SeviceInfoActivity;
 import com.zz.lamp.base.MyBaseActivity;
 
 import com.zz.lamp.bean.IpAdress;
@@ -70,7 +71,7 @@ public class LoginActivity extends MyBaseActivity<Contract.IsetLoginPresenter> i
     protected void initToolBar() {
 
     }
-    @OnClick({R.id.login_password_show, R.id.login_btn})
+    @OnClick({R.id.login_password_show, R.id.login_btn, R.id.tv_info})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.login_password_show:
@@ -87,23 +88,30 @@ public class LoginActivity extends MyBaseActivity<Contract.IsetLoginPresenter> i
 
                 break;
             case R.id.login_btn:
-                String number = logNumber.getText().toString();
-                String password = logPassword.getText().toString();
-                String code = logCode.getText().toString();
-                if (TextUtils.isEmpty(number)){
-                    showToast("请填写用户名");
-                    return;
+                if (boutiqueAll.isChecked()) {
+                    String number = logNumber.getText().toString();
+                    String password = logPassword.getText().toString();
+                    String code = logCode.getText().toString();
+                    if (TextUtils.isEmpty(number)) {
+                        showToast("请填写用户名");
+                        return;
+                    }
+                    if (TextUtils.isEmpty(password)) {
+                        showToast("请填写密码");
+                        return;
+                    }
+                    if (TextUtils.isEmpty(code)) {
+                        showToast("请填授权码");
+                        return;
+                    }
+                    mPresenter.getAddress(code);
+                }else {
+                    showToast("请同意用户协议");
                 }
-                if (TextUtils.isEmpty(password)){
-                    showToast("请填写密码");
-                    return;
-                }
-                if (TextUtils.isEmpty(code)){
-                    showToast("请填授权码");
-                    return;
-                }
-                mPresenter.getAddress(code);
 
+                break;
+            case R.id.tv_info:
+                startActivity(new Intent(this, SeviceInfoActivity.class).putExtra("flag",1));
                 break;
         }
     }

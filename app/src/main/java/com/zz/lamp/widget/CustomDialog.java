@@ -5,7 +5,9 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -35,6 +37,7 @@ public class CustomDialog extends Dialog {
         private Context context;
         private String title;
         private String message;
+        private SpannableStringBuilder stringBuilder;
 
         private String iconType;
         private String positiveButtonText;
@@ -67,6 +70,10 @@ public class CustomDialog extends Dialog {
         }
         public Builder setMessage(String message) {
             this.message = message;
+            return this;
+        }
+        public Builder setMessage(SpannableStringBuilder message) {
+            this.stringBuilder = message;
             return this;
         }
 
@@ -218,7 +225,12 @@ public class CustomDialog extends Dialog {
 
             // set the confirm button
             final TextView msg = (TextView) layout.findViewById(R.id.lblDialogMessage);
-            msg.setText(message);
+            if (TextUtils.isEmpty(stringBuilder)) {
+                msg.setText(message);
+            }else {
+                msg.setText(stringBuilder);
+                msg.setMovementMethod(LinkMovementMethod.getInstance());
+            }
             if (!TextUtils.isEmpty(contentColor)) {
                 msg.setTextColor(Color.parseColor(contentColor));
             }
