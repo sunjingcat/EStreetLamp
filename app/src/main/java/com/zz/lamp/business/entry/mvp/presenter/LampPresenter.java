@@ -90,6 +90,7 @@ public class LampPresenter extends MyBasePresenterImpl<Contract.IGetLampView> im
             protected void onFail2(JsonT<List<ImageBack>> userInfoJsonT) {
                 super.onFail2(userInfoJsonT);
                 view.showToast(userInfoJsonT.getMessage());
+                view.showImage(null);
             }
         },mDialog);
     }
