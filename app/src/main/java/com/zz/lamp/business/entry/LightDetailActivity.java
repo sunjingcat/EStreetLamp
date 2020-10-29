@@ -2,11 +2,13 @@ package com.zz.lamp.business.entry;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,10 +29,13 @@ import com.zz.lamp.net.ApiService;
 import com.zz.lamp.net.JsonT;
 import com.zz.lamp.net.RequestObserver;
 import com.zz.lamp.net.RxNetUtils;
+import com.zz.lamp.utils.BASE64;
+import com.zz.lamp.utils.GlideUtils;
 import com.zz.lib.commonlib.utils.ToolBarUtils;
 import com.zz.lib.core.ui.mvp.BasePresenter;
 import com.zz.lib.core.utils.LoadingUtils;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,13 +84,10 @@ public class LightDetailActivity extends MyBaseActivity<Contract.IsetLampDetailP
         rvImagesAnnex.setLayoutManager(new GridLayoutManager(this, 3));
         imageItemAdapter = new ImageItemAdapter(R.layout.item_image, images);
         rvImagesAnnex.setAdapter(imageItemAdapter);
+        mPresenter.getLightDetail(lightId);
+        mPresenter.getImage("lightDevice",lightId);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mPresenter.getLightDetail(lightId);
-    }
 
     @Override
     protected void initToolBar() {
@@ -98,13 +100,23 @@ public class LightDetailActivity extends MyBaseActivity<Contract.IsetLampDetailP
         switch (view.getId()) {
             case R.id.toolbar_subtitle:
                 if (lightDevice == null) return;
-                startActivity(new Intent(this, EntryLampActivity.class).putExtra("terminalId", lightDevice.getTerminalId()).putExtra("device", lightDevice).putExtra("id",lightDevice.getId()));
+                startActivityForResult(new Intent(this, EntryLampActivity.class).putExtra("terminalId", lightDevice.getTerminalId()).putExtra("device", lightDevice).putExtra("id",lightDevice.getId()),1001);
                 break;
             case R.id.delete:
                 showDeleteDialog();
                 break;
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==1001){
+            mPresenter.getLightDetail(lightId);
+            mPresenter.getImage("lightDevice",lightDevice.getId());
+        }
+    }
+
     private CustomDialog customDialog;
     private void showDeleteDialog() {
         if (lightDevice == null) return;
@@ -142,15 +154,26 @@ public class LightDetailActivity extends MyBaseActivity<Contract.IsetLampDetailP
     @Override
     public void showImage(List<ImageBack> list) {
         if (list == null) return;
+
+        showLoading("");
         List<String> showList = new ArrayList<>();
-        for (ImageBack imageBack:list){
-            showList.add(imageBack.getBase64());
+        for (ImageBack imageBack : list) {
+            String bitmapName = "termial_"+imageBack.getId()+".jpg";
+            String path = getCacheDir() + "/zhongzhi/light/" + bitmapName;
+            File file = new File(path);
+            if (file.exists()) {
+                showList.add(path);
+            } else {
+                Bitmap s1 = GlideUtils.base64ToBitmap(imageBack.getBase64());
+                String s = BASE64.saveBitmap(this, imageBack.getId(), s1);
+                showList.add(s);
+            }
+
         }
         images.clear();
-
         images.addAll(showList);
-
         imageItemAdapter.notifyDataSetChanged();
+        dismissLoading();
     }
 
     @Override
@@ -180,7 +203,7 @@ public class LightDetailActivity extends MyBaseActivity<Contract.IsetLampDetailP
             mlist.add(new LightDetailBean("辅灯功率阈值(W)", lightDevice.getLightAuxiliaryPowerLimit() + ""));
         }
         adapter.notifyDataSetChanged();
-        mPresenter.getImage("lightDevice",lightDevice.getId());
+
     }
 
 }

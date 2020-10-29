@@ -167,8 +167,8 @@ public class LampListActivity extends MyBaseActivity<Contract.IsetLampPresenter>
 
         List<String> showList = new ArrayList<>();
         for (ImageBack imageBack : list) {
-            String bitmapName = "company_" + imageBack.getId() + ".png";
-            String path = getCacheDir() + "/zhongzhi/" + bitmapName;
+            String bitmapName = "termial_"+imageBack.getId()+".jpg";
+            String path = getCacheDir() + "/zhongzhi/light/" + bitmapName;
             File file = new File(path);
             if (file.exists()) {
                 showList.add(path);
@@ -182,7 +182,7 @@ public class LampListActivity extends MyBaseActivity<Contract.IsetLampPresenter>
         images.clear();
         images.addAll(showList);
 
-        adapter.notifyDataSetChanged();
+        imageItemAdapter.notifyDataSetChanged();
         dismissLoading();
     }
 
@@ -203,7 +203,7 @@ public class LampListActivity extends MyBaseActivity<Contract.IsetLampPresenter>
         terminalSyncTime.setText(concentratorBean.getRecordSyncTime() + "");
 //        terminalLat.setText(concentratorBean.getTerminalLat() + "," + concentratorBean.getTerminalLng());
         mPresenter.getImage("terminal", concentratorBean.getId());
-        showLoading("");
+
     }
 
 

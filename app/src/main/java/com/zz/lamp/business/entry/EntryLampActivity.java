@@ -292,6 +292,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
 
     @Override
     public void showImage(List<ImageBack> list) {
+        dismissLoading();
         if (list == null) return;
         showLoading("");
         for (ImageBack imageBack : list) {
@@ -600,7 +601,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
                 lat_tv.setText(lat + "," + lon);
             }
         }
-        if (requestCode == 1102 && resultCode == RESULT_OK) {
+        if (requestCode == 1101 && resultCode == RESULT_OK) {
             if (data == null) return;
             //获取选择器返回的数据
             ArrayList<String> selectImages = data.getStringArrayListExtra(
@@ -724,6 +725,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
         lat = device.getDeviceLat();
         lon = device.getDeviceLng();
         mPresenter.getImage("lightDevice",device.getId());
+        showLoading("");
     }
 
     @Override
