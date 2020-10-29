@@ -84,8 +84,8 @@ public class LightDetailActivity extends MyBaseActivity<Contract.IsetLampDetailP
         rvImagesAnnex.setLayoutManager(new GridLayoutManager(this, 3));
         imageItemAdapter = new ImageItemAdapter(R.layout.item_image, images);
         rvImagesAnnex.setAdapter(imageItemAdapter);
+
         mPresenter.getLightDetail(lightId);
-        mPresenter.getImage("lightDevice",lightId);
     }
 
 
@@ -153,6 +153,7 @@ public class LightDetailActivity extends MyBaseActivity<Contract.IsetLampDetailP
 
     @Override
     public void showImage(List<ImageBack> list) {
+        dismissLoading();
         if (list == null) return;
 
         showLoading("");
@@ -203,7 +204,8 @@ public class LightDetailActivity extends MyBaseActivity<Contract.IsetLampDetailP
             mlist.add(new LightDetailBean("辅灯功率阈值(W)", lightDevice.getLightAuxiliaryPowerLimit() + ""));
         }
         adapter.notifyDataSetChanged();
-
+        mPresenter.getImage("lightDevice",lightId);
+        showLoading("");
     }
 
 }

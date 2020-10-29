@@ -36,7 +36,7 @@ public class SeviceInfoActivity extends MyBaseActivity {
             toolbarTitle.setText("用户服务协议");
             webView.loadUrl("file:///android_asset/user_protocol.html");
         }else {
-            toolbarTitle.setText("隐私政策");
+            toolbarTitle.setText("智慧城市隐私政策");
             webView.loadUrl("file:///android_asset/privacy_policy.html");
         }
 
@@ -62,9 +62,10 @@ public class SeviceInfoActivity extends MyBaseActivity {
 
         //扩大比例的缩放
         webView.getSettings().setUseWideViewPort(true);
+        webView.clearCache(true);
 
         //设置是否出现缩放工具
-        webView.getSettings().setBuiltInZoomControls(true);
+        webView.getSettings().setBuiltInZoomControls(false);
     }
 
     @Override

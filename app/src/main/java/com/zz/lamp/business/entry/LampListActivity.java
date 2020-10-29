@@ -129,7 +129,9 @@ public class LampListActivity extends MyBaseActivity<Contract.IsetLampPresenter>
         rvImagesAnnex.setAdapter(imageItemAdapter);
         pageNum = 1;
         mPresenter.getTerminalDetail(terminalId);
+        mPresenter.getImage("terminal", terminalId);
         getData();
+
     }
 
     @Override
@@ -202,7 +204,7 @@ public class LampListActivity extends MyBaseActivity<Contract.IsetLampPresenter>
         terminalSync.setText(concentratorBean.getIsRecordSyncText() + "");
         terminalSyncTime.setText(concentratorBean.getRecordSyncTime() + "");
 //        terminalLat.setText(concentratorBean.getTerminalLat() + "," + concentratorBean.getTerminalLng());
-        mPresenter.getImage("terminal", concentratorBean.getId());
+
 
     }
 

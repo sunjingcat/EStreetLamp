@@ -115,6 +115,7 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
         if (!TextUtils.isEmpty(terminalId)) {
             delete.setVisibility(View.VISIBLE);
             mPresenter.getTerminalDetail(terminalId);
+
         } else {
             delete.setVisibility(View.GONE);
         }
@@ -423,7 +424,8 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
         lat = concentratorBean.getTerminalLat();
         lon = concentratorBean.getTerminalLng();
         tv_lat.setText(concentratorBean.getTerminalLat() + "," + concentratorBean.getTerminalLng());
-        mPresenter.getImage("terminal",concentratorBean.getId());
+        mPresenter.getImage("terminal",terminalId);
+        showLoading("");
     }
 
     private CustomDialog customDialog;
@@ -474,6 +476,7 @@ public class EntryJzqActivity extends MyBaseActivity<Contract.IsetTerminalAddPre
 
     @Override
     public void showImage(List<ImageBack> list) {
+        dismissLoading();
         if (list == null) return;
         showLoading("");
         for (ImageBack imageBack : list) {
