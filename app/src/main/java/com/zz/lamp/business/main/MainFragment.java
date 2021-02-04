@@ -1,7 +1,6 @@
 package com.zz.lamp.business.main;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -40,6 +39,8 @@ import com.baidu.mapapi.model.LatLng;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.FutureTarget;
 import com.google.android.material.tabs.TabLayout;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.zz.lamp.R;
 import com.zz.lamp.base.MyBaseFragment;
 
@@ -56,12 +57,18 @@ import com.zz.lamp.business.mine.MineActivity;
 import com.zz.lamp.utils.AMapUtils;
 import com.zz.lamp.utils.FileUtils;
 import com.zz.lamp.utils.GlideUtils;
+import com.zz.lamp.utils.JsonCompress;
 import com.zz.lamp.utils.LogUtils;
 import com.zz.lamp.utils.TabUtils;
+import com.zz.lamp.utils.TimeUtils;
 import com.zz.lib.commonlib.utils.CacheUtility;
 import com.zz.lib.commonlib.utils.PermissionUtils;
+import com.zz.lib.core.http.utils.GsonUtils;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -200,7 +207,6 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
         showLoading("");
 
 
-
     }
 
     private void moveCenter(LatLng latLng) {
@@ -293,20 +299,55 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
         }
         dismissLoading();
     }
-
+    List<MapListBean> array = new ArrayList<>();
     void getData(int deviceKind) {
+        LogUtils.v("0------请求开始", TimeUtils.getTime(new Date().getTime(), TimeUtils.DEFAULT_DATE_FORMAT));
         Map<String, Object> map = new HashMap<>();
         map.put("deviceKind", deviceKind);
         if (!TextUtils.isEmpty(searchValue)) {
             map.put("searchValue", searchValue);
         }
         mPresenter.getData(map);
-    }
 
+    }
+    public static String getStringFromAssert(Context context, String fileName) {
+        try {
+            InputStream in = context.getAssets().open(fileName);
+            int length = in.available();
+            byte[] buffer = new byte[length];
+            in.read(buffer);
+            return new String(buffer, 0, buffer.length, "UTF-8");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
 
     @Override
     public void showResult(List<MapListBean> list) {
+        LogUtils.v("1------解析结果", TimeUtils.getTime(new Date().getTime(), TimeUtils.DEFAULT_DATE_FORMAT));
         addMarkers(list);
+    }
+
+    @Override
+    public void showResult( String result) {
+        LogUtils.v("1------请求结果", TimeUtils.getTime(new Date().getTime(), TimeUtils.DEFAULT_DATE_FORMAT));
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    String s = JsonCompress.unzipString(result);
+                    LogUtils.v("------2");
+                    array = new Gson().fromJson(
+                            s,
+                            new TypeToken<List<MapListBean>>(){}.getType());
+                    LogUtils.v("------3");
+                    mHandler.sendEmptyMessage(2);
+                } catch (IOException e) {
+                    LogUtils.v("------解析错误", e.toString());
+                }
+            }
+        }).start();
     }
 
     @Override
@@ -344,7 +385,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
             }
         });
         getData(tabsType[0]);
-        if (listBean.getCenter()!=null) {
+        if (listBean.getCenter() != null) {
             moveCenter(new LatLng(listBean.getCenter().getLat(), listBean.getCenter().getLng()));
         }
     }
@@ -353,6 +394,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
     List<MapListBean> mapListList = new ArrayList<>();
 
     List<MyItem> myItems = new ArrayList<>();
+    Map<String, Bitmap> icons = new HashMap<>();
 
     void addMarkers(List<MapListBean> list) {
         if (list == null || list.size() == 0) {
@@ -366,20 +408,27 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
             @Override
             public void run() {
                 try {
-
+                    LogUtils.v("2------图片下载", TimeUtils.getTime(new Date().getTime(), TimeUtils.DEFAULT_DATE_FORMAT));
                     for (MapListBean mapListBean : list) {
                         if (mapListBean.getLat() == 0.0 || mapListBean.getLng() == 0.0) continue;
-                        FutureTarget<Bitmap> target = Glide.with(getActivity())
-                                .asBitmap()
-                                .load(CacheUtility.getURL() + mapListBean.getMarkerIconPath())
-                                .submit();
-                        Bitmap bitmap1 = target.get();
-                        if (bitmap1 == null) return;
+                        Bitmap bitmap1 = null;
+                        if (icons.containsKey(mapListBean.getMarkerIconPath())){
+                            bitmap1 = icons.get(mapListBean.getMarkerIconPath());
+                        }else {
+                            FutureTarget<Bitmap> target = Glide.with(getActivity())
+                                    .asBitmap()
+                                    .load(CacheUtility.getURL() + mapListBean.getMarkerIconPath())
+                                    .submit();
+                            bitmap1 = target.get();
+                            icons.put(mapListBean.getMarkerIconPath(),bitmap1);
+                        }
+                        if (bitmap1 == null) continue;
                         BitmapDescriptor bitmap = BitmapDescriptorFactory.fromBitmap(bitmap1);
                         LatLng point = new LatLng(mapListBean.getLat(), mapListBean.getLng());
                         myItems.add(new MyItem(mapListBean.getId(), mapListBean.getDeviceKind(), point, bitmap));
-                    }
 
+                    }
+                    LogUtils.v("3------下载完毕", TimeUtils.getTime(new Date().getTime(), TimeUtils.DEFAULT_DATE_FORMAT));
                     if (myItems.size() > 0) {
                         mHandler.sendEmptyMessage(1);
                     }
@@ -401,14 +450,18 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
             switch (msg.what) {
                 case 1:
                     try {
-
+                        LogUtils.v("4------开始画点", TimeUtils.getTime(new Date().getTime(), TimeUtils.DEFAULT_DATE_FORMAT));
                         mClusterManager.addItems(myItems);
                         AMapUtils.setMapZoom(mapListList, mBaiduMap);
+                        LogUtils.v("5------画点完毕", TimeUtils.getTime(new Date().getTime(), TimeUtils.DEFAULT_DATE_FORMAT));
                         dismissLoading();
                     } catch (Exception e) {
 
                     }
 
+                    break;
+                case 2:
+                    showResult(array);
                     break;
                 default:
                     break;

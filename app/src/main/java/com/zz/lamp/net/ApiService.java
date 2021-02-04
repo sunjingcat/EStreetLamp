@@ -201,6 +201,9 @@ public interface ApiService {
     @GET("/app/light/map/list")
     Observable<JsonT<List<MapListBean>>> getMapList(@QueryMap Map<String, Object> params);
 
+    @GET("/app/light/map/listZip")
+    Observable<JsonT<String>> getMapListZip(@QueryMap Map<String, Object> params);
+
     @GET("/app/light/map/mapConfig")
     Observable<JsonT<DeviceKind>> getDeviceKindList();
 

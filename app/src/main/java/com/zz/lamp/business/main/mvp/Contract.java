@@ -25,6 +25,7 @@ public class Contract {
 
     public interface IGetMapView extends BaseView {
         void showResult(List<MapListBean> listBeans);
+        void showResult(String s);
         void showDeviceKindList(DeviceKind listBeans);
         void showTerminalData(ConcentratorBean concentratorBean);
         void showLightDeviceData(LightDevice alarmBean);

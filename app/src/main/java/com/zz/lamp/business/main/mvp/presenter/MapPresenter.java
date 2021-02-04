@@ -91,9 +91,9 @@ public class MapPresenter extends MyBasePresenterImpl<Contract.IGetMapView> impl
 
     @Override
     public void getData(Map<String, Object> map) {
-        RxNetUtils.request(getCApi(ApiService.class).getMapList(map), new RequestObserver<JsonT<List<MapListBean>>>(this) {
+        RxNetUtils.request(getCApi(ApiService.class).getMapListZip(map), new RequestObserver<JsonT<String>>(this) {
             @Override
-            protected void onSuccess(JsonT<List<MapListBean>> data) {
+            protected void onSuccess(JsonT<String> data) {
                 if (data.isSuccess()) {
                     view.showResult(data.getData());
                 }else {
@@ -102,7 +102,7 @@ public class MapPresenter extends MyBasePresenterImpl<Contract.IGetMapView> impl
             }
 
             @Override
-            protected void onFail2(JsonT<List<MapListBean>> userInfoJsonT) {
+            protected void onFail2(JsonT<String> userInfoJsonT) {
                 super.onFail2(userInfoJsonT);
                 view.showToast(userInfoJsonT.getMessage());
                 view.showError();
