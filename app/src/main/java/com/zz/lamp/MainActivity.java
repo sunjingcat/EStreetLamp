@@ -119,31 +119,7 @@ public class MainActivity extends MyBaseActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEventSuccessComment(EventBusSimpleInfo event) {
 
-        String info = event.getStringData();
-        if ("putCid".equals(info)) {
-            putClientId();
-        }
-    }
-    public void putClientId() {
-        Map<String,Object> map = new HashMap<>();
-        map.put("cId", CacheUtility.spGetOut("cId",""));
-        RxNetUtils.request(getCApi(ApiService.class).putClientId(map), new RequestObserver<JsonT>(this) {
-            @Override
-            protected void onSuccess(JsonT login_data) {
-                if (login_data.isSuccess()) {
 
-                }else {
-
-                }
-            }
-            @Override
-            protected void onFail2(JsonT userInfoJsonT) {
-                super.onFail2(userInfoJsonT);
-            }
-        }, null);
-    }
 
 }

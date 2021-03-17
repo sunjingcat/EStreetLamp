@@ -37,6 +37,8 @@ public class IntentService extends GTIntentService {
         CacheUtility.spSave("cId",clientid);
         EventBusSimpleInfo eventBusSimpleInfo = new EventBusSimpleInfo();
         eventBusSimpleInfo.setStringData("putCid");
+        boolean registered = EventBus.getDefault().isRegistered(this);
+        Log.e(TAG, "onReceiveClientId -> " + "clientid = " + registered);
         EventBus.getDefault().post(eventBusSimpleInfo);
     }
 

@@ -41,6 +41,7 @@ import com.zz.lamp.utils.CustomViewPager;
 import com.zz.lamp.utils.ImageLoader;
 import com.zz.lamp.utils.SystemUtils;
 import com.zz.lamp.widget.DragPointView;
+import com.zz.lib.commonlib.utils.CacheUtility;
 import com.zz.lib.commonlib.utils.PermissionUtils;
 import com.zz.lib.core.http.utils.ToastUtils;
 
@@ -215,6 +216,7 @@ public class HomeActivity extends MyBaseActivity {
                 }, 200);
             }
         }
+        putClientId();
 
     }
 
@@ -323,6 +325,8 @@ public class HomeActivity extends MyBaseActivity {
             refreshTabBadge(2, 0);
         } else if ("refreshWork".equals(info)) {
             controlFragment.onRefresh();
+        }else if ("putCid".equals(info)) {
+            putClientId();
         }
     }
 
@@ -378,4 +382,27 @@ public class HomeActivity extends MyBaseActivity {
             }
         }, null);
     }
+    public void putClientId() {
+        Map<String,Object> map = new HashMap<>();
+        String cId = CacheUtility.spGetOut("cId", "");
+        if (TextUtils.isEmpty(cId)){
+            return;
+        }
+        map.put("cId", cId);
+        RxNetUtils.request(getCApi(ApiService.class).putClientId(map), new RequestObserver<JsonT>(this) {
+            @Override
+            protected void onSuccess(JsonT login_data) {
+                if (login_data.isSuccess()) {
+
+                }else {
+
+                }
+            }
+            @Override
+            protected void onFail2(JsonT userInfoJsonT) {
+                super.onFail2(userInfoJsonT);
+            }
+        }, null);
+    }
+
 }

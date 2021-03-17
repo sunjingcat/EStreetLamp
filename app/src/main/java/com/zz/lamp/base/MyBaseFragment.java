@@ -77,7 +77,9 @@ public abstract class MyBaseFragment<P extends  com.zz.lib.core.ui.mvp.BasePrese
     @Override
     public void onResume() {
         super.onResume();
-        EventBus.getDefault().register(this);
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
     }
 
     @Override

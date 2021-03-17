@@ -45,7 +45,9 @@ public abstract class MyBaseActivity<P extends com.zz.lib.core.ui.mvp.BasePresen
     @Override
     protected void onResume() {
         super.onResume();
-        EventBus.getDefault().register(this);
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
         CommonApplication.activity = this;
         App.context=this;
 //        App.context.runOnUiThread(new Runnable() {
