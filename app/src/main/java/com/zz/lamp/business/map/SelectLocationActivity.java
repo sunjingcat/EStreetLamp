@@ -230,6 +230,7 @@ public class SelectLocationActivity extends MyBaseActivity implements OnGetGeoCo
         mLocationClient.registerLocationListener(myListener);    //注册监听函数
         double lat = getIntent().getDoubleExtra("lat", 0.0);
         double lon = getIntent().getDoubleExtra("lon", 0.0);
+        locationInfo.setLocation(new LatLng(lat,lon));
         if (lat>0.0&&lon>0.0) {
             showLocation(lat, lon);
             moveCenter(new LatLng(lat,lon));
