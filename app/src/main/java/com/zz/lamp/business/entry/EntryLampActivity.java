@@ -721,7 +721,7 @@ public class EntryLampActivity extends MyBaseActivity<Contract.IsetLampAddPresen
             lightAuxiliaryPower.setText(device.getLightAuxiliaryPower() + "");
             lightAuxiliaryPowerLimit.setText(device.getLightAuxiliaryPowerLimit() + "");
         }
-        lat_tv.setText(device.getDeviceLat() + "," + device.getDeviceLng());
+        lat_tv.setText("");
         lat = device.getDeviceLat();
         lon = device.getDeviceLng();
         mPresenter.getImage("lightDevice",device.getId());
