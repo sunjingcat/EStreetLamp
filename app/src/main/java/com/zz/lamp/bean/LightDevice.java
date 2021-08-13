@@ -1,13 +1,15 @@
 package com.zz.lamp.bean;
 
+import android.text.TextUtils;
+
 import java.io.Serializable;
 
 public class LightDevice implements Serializable {
     private  String deviceName;//	string	路灯控制器别名
     private  String deviceAddr;//	string	路灯控制器地址
     private  String   deviceCode;//	string	路灯控制器编号
-    private  Double  deviceLat;//	string	纬度
-    private  Double  deviceLng	;//string	经度
+    private  String  deviceLat;//	string	纬度
+    private  String  deviceLng	;//string	经度
     private  Integer   deviceType;//	integer	路灯类型
     private  String   deviceTypeText;//	integer	路灯类型
     private  Integer   status;//	integer	开关灯状态
@@ -84,13 +86,13 @@ public class LightDevice implements Serializable {
     }
 
     public Double getDeviceLat() {
-        if (deviceLat==null)return 0.0;
-        return deviceLat;
+        if (TextUtils.isEmpty(deviceLat))return 0.0;
+        return Double.parseDouble(deviceLat);
     }
 
     public Double getDeviceLng() {
-        if (deviceLng==null)return 0.0;
-        return deviceLng;
+        if (TextUtils.isEmpty(deviceLng))return 0.0;
+        return Double.parseDouble(deviceLng);
     }
 
     public Integer getDeviceType() {
