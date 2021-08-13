@@ -185,6 +185,7 @@ public class VideoControlListFragment extends MyBaseFragment implements OnRefres
         if (!TextUtils.isEmpty(searchValue)){
             map.put("searchValue", searchValue);
         }
+        if (beLogin()) return;
         RxNetUtils.request(getCApi(ApiService.class).getCameraDevicelist(map), new RequestObserver<JsonT<List<CameraBean>>>(this) {
             @Override
             protected void onSuccess(JsonT<List<CameraBean>> data) {

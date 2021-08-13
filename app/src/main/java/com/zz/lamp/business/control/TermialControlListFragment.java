@@ -184,7 +184,7 @@ public class TermialControlListFragment extends MyBaseFragment implements OnRefr
         if (!TextUtils.isEmpty(searchValue)){
             map.put("searchValue", searchValue);
         }
-
+       if (beLogin()) return;
         RxNetUtils.request(getCApi(ApiService.class).getRealTimeCtrlTerminalList(map), new RequestObserver<JsonT<List<RealTimeCtrlTerminal>>>(this) {
             @Override
             protected void onSuccess(JsonT<List<RealTimeCtrlTerminal>> data) {

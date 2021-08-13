@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.zz.lamp.net.OutDateEvent;
 import com.zz.lamp.utils.woolglass.FragmentClass;
+import com.zz.lib.commonlib.utils.CacheUtility;
 import com.zz.lib.core.ui.BaseFragment;
 import com.zz.lib.core.utils.AnimeUtils;
 
@@ -73,6 +75,13 @@ public abstract class MyBaseFragment<P extends  com.zz.lib.core.ui.mvp.BasePrese
         }
     }
 
+   public boolean beLogin(){
+        if (TextUtils.isEmpty(CacheUtility.getToken())){
+            EventBus.getDefault().post(new OutDateEvent());
+            return true;
+        }
+        return false;
+    }
 
     @Override
     public void onResume() {

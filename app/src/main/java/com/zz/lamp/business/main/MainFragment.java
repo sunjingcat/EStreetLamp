@@ -131,6 +131,7 @@ public class MainFragment extends MyBaseFragment<Contract.IsetMapPresenter> impl
     @Override
     protected void initView(View view) {
         mBaiduMap = bmapView.getMap();
+        if (beLogin()) return;
         mPresenter.deviceKindList();
 //        mBaiduMap.showMapPoi(false);
         mClusterManager = new ClusterManager<MyItem>(getActivity(), mBaiduMap);

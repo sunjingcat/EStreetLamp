@@ -217,6 +217,7 @@ public class LeftFragment extends MyBaseFragment implements OnRefreshListener, O
         if (!TextUtils.isEmpty(searchValue)) {
             map.put("searchValue", searchValue);
         }
+        if (beLogin()) return;
         RxNetUtils.request(getCApi(ApiService.class).getAlarmList(map), new RequestObserver<JsonT<List<AlarmBean>>>(this) {
             @Override
             protected void onSuccess(JsonT<List<AlarmBean>> data) {

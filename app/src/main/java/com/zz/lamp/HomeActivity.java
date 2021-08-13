@@ -378,7 +378,7 @@ public class HomeActivity extends MyBaseActivity {
             @Override
             protected void onFail2(JsonT<Integer> jsonT) {
                 super.onFail2(jsonT);
-                showToast(jsonT.getMessage());
+//                showToast(jsonT.getMessage());
             }
         }, null);
     }

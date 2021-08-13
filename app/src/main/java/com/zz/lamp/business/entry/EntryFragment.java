@@ -200,6 +200,7 @@ public class EntryFragment  extends MyBaseFragment<Contract.IsetTerminalPresente
         if (!TextUtils.isEmpty(searchValue)){
             map.put("searchValue", searchValue);
         }
+        if (beLogin()) return;
         mPresenter.getTerminalList(map);
     }
 
